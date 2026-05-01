@@ -1,24 +1,20 @@
 """
-images.py  —  Obsidian → Hugo image processor
+images.py  -  Obsidian to Hugo image processor
 Handles Karim's note structure where images live in sibling folders
 next to each .md file, named like "[topic] images/"
 
 Obsidian structure:
     posts/
-      Day 1/
-        active recon images/      ← sibling image folder
-        passive recon images/     ← sibling image folder
-        Active Reconnaissance.md
-        Passive Reconnaissance.md
+      Day 0/
+        Introduction to information gathering images/
+        Introduction to information gathering.md
 
 Hugo output structure:
     static/
       images/
-        Active Reconnaissance/
-          screenshot.png
-          nmap-output.png
-        Passive Reconnaissance/
-          whois.png
+        Introduction to information gathering/
+          scope.png
+          recon mapping flow.png
 
 Usage (called automatically by BlogWatcher.ps1):
     python images.py <hugo_posts_dir> <static_images_base_dir>
@@ -28,6 +24,7 @@ import os
 import re
 import shutil
 import sys
+import tempfile
 
 # ---------------------------------------------------------------------------
 # Argument validation
@@ -40,8 +37,8 @@ posts_dir          = sys.argv[1]
 static_images_base = sys.argv[2]
 
 # Obsidian image embed patterns:
-#   ![[image.png]]   → standard Obsidian embed
-#   [[image.png]]    → wiki-link style
+#   ![[image.png]]   standard Obsidian embed
+#   [[image.png]]    wiki-link style
 IMAGE_PATTERN = re.compile(
     r'!?\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg|bmp|tiff|tif))\]\]',
     re.IGNORECASE
@@ -51,14 +48,6 @@ IMAGE_PATTERN = re.compile(
 # Helper: find an image file by searching sibling folders of the .md file
 # ---------------------------------------------------------------------------
 def find_image(image_filename, md_file_dir):
-    """
-    Search for an image in this priority order:
-      1. Directly in the same directory as the .md file
-      2. In any subfolder whose name contains 'images'
-         (e.g. "active recon images", "passive recon images")
-      3. In any subfolder (broader fallback)
-    Returns the full path if found, None otherwise.
-    """
     base_name = os.path.basename(image_filename)
 
     # 1. Same directory as the .md file
@@ -89,6 +78,30 @@ def find_image(image_filename, md_file_dir):
     return None
 
 # ---------------------------------------------------------------------------
+# Safe file write: write to temp file first, then replace original
+# Avoids "Bad file descriptor" when Obsidian still has file handle open
+# ---------------------------------------------------------------------------
+def safe_write(filepath, content):
+    try:
+        # Write to system temp dir (avoids issues with spaces in path)
+        fd, tmp_path = tempfile.mkstemp(suffix='.tmp')
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as tmp_file:
+                tmp_file.write(content)
+            # Move temp file to final destination
+            shutil.move(tmp_path, filepath)
+            return True
+        except Exception:
+            try:
+                os.unlink(tmp_path)
+            except Exception:
+                pass
+            raise
+    except Exception as e:
+        print(f"  WARN  Could not write back to {filepath}: {e}")
+        return False
+
+# ---------------------------------------------------------------------------
 # Walk all .md files recursively inside posts_dir
 # ---------------------------------------------------------------------------
 processed = 0
@@ -102,48 +115,64 @@ for root, dirs, files in os.walk(posts_dir):
         if not filename.endswith('.md'):
             continue
 
-        post_name = os.path.splitext(filename)[0]   # e.g. "Active Reconnaissance"
+        post_name = os.path.splitext(filename)[0]
         filepath  = os.path.join(root, filename)
 
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
+        # Safe read
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            print(f"  WARN  Could not read {filepath}: {e}")
+            warnings += 1
+            continue
 
         matches = IMAGE_PATTERN.findall(content)
         if not matches:
             continue
 
-        # Create a per-post image subfolder inside Hugo's static/images/
+        # Create a per-post image subfolder inside Hugo static/images/
         post_img_dir = os.path.join(static_images_base, post_name)
         os.makedirs(post_img_dir, exist_ok=True)
 
         rel_path = os.path.relpath(filepath, posts_dir)
         print(f"\n[{rel_path}]  ->  images/{post_name}/")
 
+        changed = False
         for image_name, _ext in matches:
             safe_name = os.path.basename(image_name)
             url_path  = f"/images/{post_name}/{safe_name.replace(' ', '%20')}"
             md_link   = f"![{safe_name}]({url_path})"
 
             # Replace both ![[x]] and [[x]] forms
-            content = content.replace(f"![[{image_name}]]", md_link)
-            content = content.replace(f"[[{image_name}]]",  md_link)
+            new_content = content.replace(f"![[{image_name}]]", md_link)
+            new_content = new_content.replace(f"[[{image_name}]]",  md_link)
+            if new_content != content:
+                content = new_content
+                changed = True
 
-            # Locate the image file near the .md file
+            # Copy image to Hugo static folder
             src = find_image(image_name, root)
             dst = os.path.join(post_img_dir, safe_name)
 
             if src:
-                shutil.copy2(src, dst)
-                rel_src = os.path.relpath(src, posts_dir)
-                print(f"  OK  {safe_name}  (from {rel_src})")
+                try:
+                    shutil.copy2(src, dst)
+                    rel_src = os.path.relpath(src, posts_dir)
+                    print(f"  OK  {safe_name}  (from {rel_src})")
+                except Exception as e:
+                    print(f"  WARN  Could not copy {safe_name}: {e}")
+                    warnings += 1
             else:
                 print(f"  WARN  Not found near {rel_path}: {safe_name}")
                 warnings += 1
 
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-
-        processed += 1
+        # Write back only if content changed, using safe temp-file method
+        if changed:
+            if safe_write(filepath, content):
+                processed += 1
+            else:
+                warnings += 1
 
 # ---------------------------------------------------------------------------
 print(f"\n----------------------------------------------")
