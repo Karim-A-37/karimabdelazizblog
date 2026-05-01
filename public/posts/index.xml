@@ -92,5 +92,183 @@ here are some advices:
 3- ==reconnaissance== is about gathering ==meaningful data==
 4- A structured and documented approach improves results and efficiency&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Passive Reconnaissance</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</guid>
+      <description>&lt;p&gt;as we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.
+1- first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)
+1- host tool &amp;ndash;&amp;gt; DNS lookup utility, we use to convert names into IPs and vice versa
+&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/host-tool.png&#34;&gt;
+#Hint we can may see two IPs , it may one for server and the other one for the firewall(proxy)
+2- the next we can do is trying to identifying any names or email addresses or social media links or some info that leads us to real persons names.
+3- the next thing to search about the &lt;strong&gt;==robots.txt==&lt;/strong&gt; fille or endpoint to gather information from it that may be useful because it shows what the search engine allowed to crawl or index and not allowed to crawl or index which is existed for every webpage on the internet, &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;to understand what this file is important for we should first understand how the search engines works.
+&lt;img alt=&#34;robots.txt&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/robotstxt.png&#34;&gt;
+4- the next thing to search about is the &lt;strong&gt;==sitemap.xml==&lt;/strong&gt; file, which helps the search engines discover, crawl and index content more efficiently especially for large, new and poorly linked sites, it makes the work easy for the search engines to crawl or indexing, it is very valuable source of information which has all links or pages in the website make the search in it worth the time, it is set of signposts to tell search engines which pages on your website are most important to index, for complex websites we may say &lt;strong&gt;==sitemap_index.xml==&lt;/strong&gt; which points to number of other xml files each cover an aspect of the site, it is updated every time the developer pushes something new to production, it may be important if we see that the update date isn&amp;rsquo;t changed for period of time which may mean that this branch or page is removed from the webpage but it still exists on the disk, if we have done test before one year and retest it again it may have the same vulnerabilities waiting for us to exploit it again
+&lt;img alt=&#34;sitemap.xml&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/sitemapxml.png&#34;&gt;
+5- there are two web extensions i have installed on my browser which are (&lt;strong&gt;==Built with==&lt;/strong&gt; - &lt;strong&gt;==wappalyzer==&lt;/strong&gt; ) the two tools are used to tell what web technology or content management system is running on specific website&lt;img alt=&#34;wappalyzer&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/wappalyzer.png&#34;&gt;
+built with
+&lt;img alt=&#34;builtwith&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/builtwith.png&#34;&gt;
+6- there is another tool to be used to perform web technology foot printing is called &lt;strong&gt;==whatweb==&lt;/strong&gt; it is next generation web scanner which Identifies technologies used by websites, which sends http request and follow what it takes it to get to the target displaying the technologies the request pass through to get to the target&lt;img alt=&#34;whatweb&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/whatweb.png&#34;&gt;
+7- another thing is to download the entire website source code locally on device to analyze it there are two tools for this (&lt;strong&gt;==WebHTTrack Website copier==&lt;/strong&gt; - &lt;strong&gt;==wget==&lt;/strong&gt;) but there is problem faces WebHTTrack Website copier tool which is being prevented mostly by firewalls so it isn&amp;rsquo;t very reliable for the complex websites , so the other tool is wget is very useful.
+&lt;img alt=&#34;wget&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/wget.png&#34;&gt;
+&lt;img alt=&#34;webhttrack&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/webhttrack.png&#34;&gt;
+I have made tool uses the wget options to get full image of the website as whole by making a mirror to the website , it is very usefull which make full mirror to the real website
+&lt;img alt=&#34;download-wget&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/download-wget.png&#34;&gt;
+1- &lt;img alt=&#34;downloader-1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/downloader-1.png&#34;&gt;
+2- &lt;img alt=&#34;downloader-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/downloader-2.png&#34;&gt;
+3- &lt;img alt=&#34;downloader-3&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/downloader-3.png&#34;&gt;
+the next thing is trying the &lt;strong&gt;==whois==&lt;/strong&gt; enumeration, the first to know is what the whois , whois  is query and response protocol that is used for querying databases that store an Internet resource&amp;rsquo;s registered users or assignees. These resources include domain names, IP address blocks and autonomous systems. So in other words it is the registered information in databases about specific domain name or IP address, we can use tool called &lt;strong&gt;==whois==&lt;/strong&gt; which we can install on Linux to get whois information also we can do the same on website called &lt;a href=&#34;https://who.is/&#34;&gt;who.is&lt;/a&gt; which is website do  the same as the tool which both using the lookup query to get information from the databases that holds those information:
+domain name is organized by ICANN and here is some info it shows:
+1- Domain Name
+2- Registry Domain ID
+3- Registrar URL
+4- Registry Expiry Date
+5- Name Server
+6- Registrant contact info &amp;ndash;&amp;gt; often privacy protected today
+&lt;img alt=&#34;whois-domain&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/whois-domain.png&#34;&gt;
+IP address is organized by ARIN(North America), RIPE NCC(Europe) and APNIC(Asia):
+1-Network Range
+2- Network Name
+3- Organization owns the IP block or range
+4- contact details (Email - phone number - address)
+&lt;img alt=&#34;whois-ip-1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/whois-ip-1.png&#34;&gt;
+&lt;img alt=&#34;whois-ip-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/whois-ip-2.png&#34;&gt;
+There is another website called &lt;strong&gt;==&lt;a href=&#34;https://sitereport.netcraft.com/&#34;&gt;netcraft&lt;/a&gt;==&lt;/strong&gt; which is used for discovering website footprinting, it gives lager set of information about any website like (TLS/SSL certefication - what web technologies are used - servers&amp;rsquo; names and so on &amp;hellip;.) to gather information about specific domain and its whois information and what technologies it is using and more and more information, it is very useful in the passive reconnaissance, so it is automatically obtaining the information we have gathered using different technologies manually, it separates into different sections :
+1- Background : which gives us background around the provided website like (site title - description - its rank popularity)
+&lt;img alt=&#34;netcraft-background&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-background.png&#34;&gt;
+2- Network : which gives us information about the the network of website in other words like whois information like (IP address - domain - name server - organization)
+&lt;img alt=&#34;netcraft-network&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-network.png&#34;&gt;
+3- SSL/TLS : which gives information about the detealis of the ssl/tls certification and test the site against the ssl/tls common vulnerabilities like &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;Heartbleed and &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;poodle and issued/expiration date and more and more informaiton that is useful
+&lt;img alt=&#34;netcraft-ssl-1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-1.png&#34;&gt; &lt;img alt=&#34;netcraft-ssl-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-2.png&#34;&gt;
+&lt;img alt=&#34;netcraft-ssl-3&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-3.png&#34;&gt;
+4- &lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;SSL Certificate Chain : which gives information about different levels of ssl certifications in the website
+&lt;img alt=&#34;ssl cert chain&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/ssl-cert-chain.png&#34;&gt;
+5- Sender Policy Framework : which gives information about who can send mail on its behalf , who is delegated to send mail instead of the website
+&lt;img alt=&#34;sender policy framework&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/sender-policy-framework.png&#34;&gt;
+6- &lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;DMARC : which gives information about  how mail purporting to originate from their domain should be authenticated, based on  SPF+DKIM by providing a method to set policy and to give reporting of failures
+&lt;img alt=&#34;netcraft-dkim&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-dkim.png&#34;&gt;
+7- Web Trackers : which gives information about the third parties resources loaded onto the webpage to track or monitor individual user behavior across the web, those collected data are used for advertising and analytics process, so this section gives info which of the third parties trackers are used, in the image we say that google trackers are used for analytics purpose
+&lt;img alt=&#34;netcraft-webtrackers&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-webtrackers.png&#34;&gt;
+8- Site Technology : which gives us detailed information about the technologies used on the website, like:
+1- HTTP Accelerator : proxy server that reduces web site access times
+&lt;img alt=&#34;netcraft-site tech-http accel&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-http-accel.png&#34;&gt;
+2- Server-Side : main technologies that Netcraft detects as running on the server such as PHP, in our case is SSL
+&lt;img alt=&#34;netcraft-site tech-server side&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-server-side.png&#34;&gt;
+3- Client-Side : main technologies that run on the browser (such as JavaScript and Adobe Flash) in our case is JS
+&lt;img alt=&#34;netcraft-site tech-client side&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-client-side.png&#34;&gt;
+4- Client-Side Scripting Frameworks : Frameworks or libraries allow for easier development of applications by providing an API or methodology to follow
+&lt;img alt=&#34;netcraft-site tech-client side script frameworks&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-client-side-script-frameworks.png&#34;&gt;
+5- Content Delivery Network(CDN) : is a large distributed system of servers deployed in multiple data centers, its goal is to serve content to end-users with high availability and high performance
+&lt;img alt=&#34;netcraft-site tech-cdn&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-cdn.png&#34;&gt;
+6- Content Management System(CMS) : s a computer program that allows publishing, editing and modifying content as well as maintenance from a central interface
+&lt;img alt=&#34;netcraft-site tech-cms&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-cms.png&#34;&gt;
+7- PHP Application : server-side scripting language designed for Web development to produce dynamic Web pages
+&lt;img alt=&#34;netcraft-side tech- php app&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-side-tech-php-app.png&#34;&gt;
+8- Character Encoding : consists of a code that pairs each character from a given repertoire with something else such as a bit pattern to facilitate the transmission of data through telecommunication networks or for data storage
+&lt;img alt=&#34;netcraft-site tech-encoding&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-encoding.png&#34;&gt;
+9- HTTP Compression : is a capability that can be built into web servers and web clients to make better use of available bandwidth, and provide greater transmission speeds between both
+&lt;img alt=&#34;netcraft-site tech-compression&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-compression.png&#34;&gt;
+10- Web Browser Targeting : enables software applications to make use of specific functions of the browser as well as optimizing the application for specific browser versions
+&lt;img alt=&#34;netcraft-site tech-browser targeting&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-browser-targeting.png&#34;&gt;
+11- other technologies like Doctype(Document type declaration), HTML5 and CSS
+&lt;img alt=&#34;netcraft-side tech-other techs&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/netcraft-side-tech-other-techs.png&#34;&gt;
+Now we will try DNS Reconnaissance, but before DNS recon i will firstly speak about What is the DNS, DNS(Domain Name System) is phonebook technology of the internet, the web browsers interacts through IP addresses but as humans we are not good at memorizing the numbers but we are good at memorizing the names so DNS translates the names into IP addresses, so it converts hostnames(facebook.com)  to its IP address (x.x.x.x), the DNS query must pass through different hardware, there are 4 DNS servers involved in loading webpage:
+1- DNS Recursor : it is server who receives queries from client machine via apps like web browsers and it does other requests to satisfy the client&amp;rsquo;s DNS query, the query can be applied in two modes recursive or iterative, it is like librarian who is asked to go find a particular book somewhere in a library.
+&lt;img alt=&#34;dns-recursor&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dns-recursor.png&#34;&gt;
+2- Root nameservers : it is the first step in resolving hostname to its IP address,  These servers can directly answer queries for records stored or cached within the root zone and are a network of hundreds of servers in many countries around the world, It can be thought of like an index in a library that points to different racks of books - typically it serves as a reference to other more specific locations, 13 DNS root nameservers.
+&lt;img alt=&#34;dns-tree&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dns-tree.png&#34;&gt;
+3- TLD nameserver : maintains information for all the domain names that share a common domain extension, such as .com, .net, or whatever comes after the last dot in a URL, Management of TLD nameservers is handled by the Internet Assigned Numbers Authority (IANA), TLD has two types (Generic top-level domains(.com) - Country code top-level domains(.uk)), There is actually a third category for infrastructure domains, but it is almost never used(.arpa), The top level domain server (&lt;a href=&#34;https://www.cloudflare.com/learning/dns/top-level-domain/&#34;&gt;TLD&lt;/a&gt;) can be thought of as a specific rack of books in a library
+&lt;img alt=&#34;TLD nameservers&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/tld-nameservers.png&#34;&gt;
+4- Authoritative nameserver : is usually the resolver’s last step in the journey for an IP address, contains information specific to the domain name it serves (e.g. google.com) and it can provide a recursive resolver with the IP address of that server found in the &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/&#34;&gt;DNS A record&lt;/a&gt;, or if the domain has a &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-records/dns-cname-record/&#34;&gt;CNAME record&lt;/a&gt; (alias) it will provide the recursive resolver with an alias domain, This final nameserver can be thought of as a dictionary on a rack of books, in which a specific name can be translated into its definition
+#Hint It’s worth mentioning that in instances where the query is for a subdomain such as foo.example.com or &lt;a href=&#34;https://blog.cloudflare.com/&#34;&gt;blog.cloudflare.com&lt;/a&gt;, an additional nameserver will be added to the sequence after the authoritative nameserver, which is responsible for storing the subdomain’s &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-records/dns-cname-record/&#34;&gt;CNAME record&lt;/a&gt;
+&lt;img alt=&#34;dns more tip&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dns-more-tip.png&#34;&gt;
+#steps in a DNS lookup:
+1- A user types ‘example.com’ into a web browser and the query travels into the Internet and is received by a DNS recursive resolver.
+2- The resolver then queries a DNS root nameserver (.).
+3- The root server then responds to the resolver with the address of a Top Level Domain (TLD) DNS server (such as .com or .net), which stores the information for its domains. When searching for example.com, our request is pointed toward the .com TLD.
+4- The resolver then makes a request to the .com TLD.
+5- The TLD server then responds with the IP address of the domain’s nameserver, example.com.
+6- Lastly, the recursive resolver sends a query to the domain’s nameserver.
+7- The IP address for example.com is then returned to the resolver from the nameserver.
+8- The DNS resolver then responds to the web browser with the IP address of the domain requested initially.
+9- The browser makes a HTTP request to the IP address.
+10- The server at that IP returns the webpage to be rendered in the browser.
+&lt;img alt=&#34;steps of dns&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/steps-of-dns.png&#34;&gt;
+#types #### of DNS queries:
+1- Recursive query : In a recursive query, a DNS client requires that a DNS server (typically a DNS recursive resolver) will respond to the client with either the requested resource record or an error message if the resolver can&amp;rsquo;t find the record.
+&lt;img alt=&#34;recursive dns query&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/recursive-dns-query.png&#34;&gt;
+2- Iterative query : in this situation the DNS client will allow a DNS server to return the best answer it can. If the queried DNS server does not have a match for the query name, it will return a referral to a DNS server authoritative for a lower level of the domain namespace. The DNS client will then make a query to the referral address. This process continues with additional DNS servers down the query chain until either an error or timeout occurs.
+&lt;img alt=&#34;iterative dns query&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/iterative-dns-query.png&#34;&gt;
+3- Non-recursive query : if he can&amp;rsquo;t find the IP it provides another server may have IP, so it may return IP if he knows it and if he doesn&amp;rsquo;t know IP it returns another server may have this IP, typically this will occur when a DNS resolver client queries a DNS server for a record that it has access to either because it&amp;rsquo;s authoritative for the record or the record exists inside of its cache. Typically, a DNS server will cache DNS records to prevent additional bandwidth consumption and load on upstream servers.
+#types of DNS records &amp;ndash;&amp;gt; aka zone files , are instructions that live inside authoritative DNS servers, provide information about domain name, consists of series of text files written by DNS syntax(string of characters used as commands) is used to tell the DNS server what to do, each record have TTL(Time To Live) value that indicates how DNS server will refresh the record:
+1- &lt;strong&gt;A record&lt;/strong&gt; &amp;ndash;&amp;gt; &amp;ldquo;A&amp;rdquo; stands for &amp;ldquo;address&amp;rdquo;, holds the IPv4 address of a domain
+2- &lt;strong&gt;AAAA record&lt;/strong&gt; &amp;ndash;&amp;gt; contains the IPv6 address for a domain
+3- &lt;strong&gt;CNAME record&lt;/strong&gt; &amp;ndash;&amp;gt; canonical name, points from an alias domain or subdomain (blog.example.com) to a &amp;ldquo;canonical&amp;rdquo; domain or real domain(example.com), Forwards one domain or subdomain to another domain, does NOT provide an IP address(IP is provided by A record)
+4- &lt;strong&gt;MX record&lt;/strong&gt; &amp;ndash;&amp;gt; mail exchange,  directs email to a mail server and indicates how email messages should be routed in accordance with SMTP.
+5- &lt;strong&gt;TXT record&lt;/strong&gt; &amp;ndash;&amp;gt; text, Lets an admin store text notes in the record. These records are often used for email security(email spam prevention and domain ownership verification)
+6- &lt;strong&gt;NS record&lt;/strong&gt; &amp;ndash;&amp;gt; nameserver, indicates which DNS server is authoritative for that domain, Stores the name server for a DNS entry, it says &amp;lsquo;Ask these servers if you want to know anything about this domain&amp;rsquo;
+7- &lt;strong&gt;SOA record&lt;/strong&gt; &amp;ndash;&amp;gt; start of authority, Stores admin important information about a domain, defines the main authoritative information about a domain’s DNS zone
+8- &lt;strong&gt;SRV record&lt;/strong&gt; &amp;ndash;&amp;gt; service, specifies a host and port for specific services (like VOIP), Specifies a port for specific services
+#Hint Most other DNS records only specify a server or an IP address, but SRV records include a port at that IP address as well
+9- &lt;strong&gt;PTR record&lt;/strong&gt; &amp;ndash;&amp;gt; pointer, provides the domain name associated with an IP address, PTR record (IP &amp;ndash;&amp;gt; domain) is exactly the opposite of A record (domain &amp;ndash;&amp;gt; IP), Provides a domain name in reverse-lookups.
+Now we will try DNS Reconnaissance, one of the most important phases in reconnaissance operation, because it revels information about DNS using DNS records which each record hold different information about domain, two examples of tools:
+1- dnsrecon &amp;ndash; &amp;gt; terminal based tool we can find it inside kali installed, simple python script that enables to gather DNS-oriented information on a given target
+1-![[ejpt/Day 1/passive recon images/dnsrecon-1.png|589]]
+2- &lt;img alt=&#34;dnnrecon-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dnnrecon-2.png&#34;&gt;
+2- &lt;a href=&#34;https://dnsdumpster.com/&#34;&gt;dns dumpster&lt;/a&gt; &amp;ndash;&amp;gt; it is website discovers hosts related to a domain
+1- &lt;img alt=&#34;dnsdumpster-1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-1.png&#34;&gt;
+2- &lt;img alt=&#34;dnsdumpster-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-2.png&#34;&gt;
+3- it provides an image flow to view the dns info in very good flow way
+&lt;img alt=&#34;dnsdumpster-3&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-3.png&#34;&gt;
+as we have seen that each tool gives information using different DNS record types which holds different information about the domain.
+Now we will start on passive reconnaissance on Web Application Firewall(WAF), before starting in reconnaissance operation we should know first what is WAF:
+WAF : helps protect web applications by filtering and monitoring HTTP traffic between an application and the Internet. It defends the application layer, protecting servers from common threats, operates through sets of rules called policies that filter out malicious traffic, a shield is placed between the web application and the Internet. While a proxy server protects a client machine’s identity by using an intermediary, a WAF is a type of reverse-proxy, protecting the server from exposure by having clients pass through the WAF before reaching the server, has two modes
+1- blocklist WAF &amp;ndash;&amp;gt; negative security model, protects against known threats.
+2- allowlist WAF &amp;ndash;&amp;gt; positive security model, only admits traffic that has been pre-approved.
+there are 3 ways to implement the WAF:
+1- network-based WAF :
+hardware-based, since they are installed locally they minimize latency but they are most expensive and needed maintenance and storage of physical equipment.
+2- host-based WAF :
+fully integrated into an application’s software, this solution is less expensive than a network-based WAF and offers more customizability, the drawback is the consumption of local server resources, implementation complexity, and maintenance costs.
+3- Cloud-based WAF :
+offer an affordable option that is very easy to implement, have a minimal upfront cost, as users pay monthly or annually for security as a service, Cloud-based WAFs can also offer a solution that is consistently updated to protect against the newest threats) without any additional work or cost on the user’s end. The drawback of a cloud-based WAF is that users hand over the responsibility to a third party, and WAF services may be black box for the users.
+&lt;img alt=&#34;WAF&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/waf.png&#34;&gt;
+now we will talk about WAF passive reconnaissance, to gather the public information about specific domain to see if it uses WAF or not and if it uses WAF which type WAF it uses, for doing this there are specific tools for doing this like (==wafw00f==):
+wafw00f :
+identify and fingerprint the WAF products, so it is uses to identify the WAF product that is implemented on specific service or domain, it sends a normal HTTP request and analyses the responses to identify the number of WAF solutions, If that is not
+successful,  it sends a number of (potentially malicious) HTTP requests and uses simple logic to deduce which WAF it is.  If that is also not successful, it analyses the responses previously returned and uses another simple algorithm to guess if a WAF or security solution is active, the logic may be like:
+simple logic may be:
+simple rule-based logic to detect a WAF by comparing how a website responds to normal and suspicious requests. It checks for known signatures like headers and cookies (signature matching), observes status code changes when sending malicious payloads (response behavior), and looks for specific messages in the response body (content analysis). It also detects unusual or added headers (header anomalies) and compares differences between normal and blocked responses (behavioral analysis). If no exact match is found, it uses basic heuristics to guess that a WAF is present based on consistent blocking patterns.
+&lt;img alt=&#34;wafw00f simple logic&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/wafw00f-simple-logic.png&#34;&gt;
+when testing the wafw00f like the following:
+1- &lt;img alt=&#34;wafw00f test 1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/wafw00f-test-1.png&#34;&gt;
+2- this one gives no WAF so it may be that the IP we can get using the host command tool it may be the IP of the server that hosting the website
+&lt;img alt=&#34;wafw00f test 2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/wafw00f-test-2.png&#34;&gt;
+Now we will going to subdomain passive reconnaissance, but firstly we will know how subdomains work:
+subdomain :
+is a way to create a distinct web address that is part of a larger domain. It allows you to divide your website into separate sections, each with its own unique web address, this is done by using DNS records, it acts as child for main domain, when you create a subdomain, you&amp;rsquo;re setting up a DNS record that operates independently from your main domain name, Subdomains offer flexibility to create unique pages for your website, like ==&lt;em&gt;shop.coolexample.com&lt;/em&gt;== for an online store with main website ==&lt;em&gt;coolexample.com&lt;/em&gt;==, Subdomains are great if you have a large website with multiple sections, have specific websites for different regions or languages, or want separate page hierarchies to organize your site, so each subdomain acts as unique website on its own, but it is related to the domain, subdomain has different address than the
+&lt;img alt=&#34;subdomain explain&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/subdomain-explain.png&#34;&gt;
+Set up any DNS record as a subdomain by putting something in the &lt;strong&gt;Name&lt;/strong&gt; section of the record. However, when organizing your site, the 2 most common DNS record types to use a subdomain on are A records and CNAMEs. The main difference between the two record types is what the record maps to.
+- &lt;strong&gt;A record subdomain&lt;/strong&gt;&lt;br&gt;
+- Maps to a specific IP address
+- Commonly used when pointing to a specific hosting account or server&lt;br&gt;
+&lt;strong&gt;Example:&lt;/strong&gt; Add an A record subdomain that points to the IP address &lt;em&gt;1.2.3.4&lt;/em&gt;
+- &lt;strong&gt;CNAME subdomain&lt;/strong&gt;&lt;br&gt;
+- Maps to another domain name&lt;br&gt;
+&lt;strong&gt;Example:&lt;/strong&gt; Add a CNAME record subdomain that points to the domain name &lt;em&gt;mycoolnewbusiness.com&lt;/em&gt;
+Secondly we will make passive reconnaissance using different tool:
+1- &lt;a href=&#34;https://github.com/aboul3la/Sublist3r.git&#34;&gt;sublist3r&lt;/a&gt; &amp;ndash;&amp;gt; designed to &lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;enumerate subdomains of websites using OSINT, gather subdomains for the domain they are targeting over the network.  Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu, and Ask. Sublist3r also  enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster, and ReverseDNS, it can be integrated with Subbrute using brute forcing(this is considered to be active reconnaissance)
+&lt;img alt=&#34;sublist3r test 1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/sublist3r-test-1.png&#34;&gt;
+2- &lt;a href=&#34;https://github.com/projectdiscovery/subfinder.git&#34;&gt;subfinder&lt;/a&gt; &amp;ndash;&amp;gt; subdomain discovery tool that discovers subdomains for websites by using passive online sources, It has a simple, modular architecture and is optimized for speed. &lt;code&gt;subfinder&lt;/code&gt; is built for doing one thing only - passive subdomain enumeration, and it does that very well.
+&lt;img alt=&#34;subfinder test 1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/subfinder-test-1.png&#34;&gt;
+3- &lt;a href=&#34;https://github.com/Findomain/Findomain.git&#34;&gt;findomain&lt;/a&gt; &amp;ndash;&amp;gt; subdomain enumerator
+&lt;img alt=&#34;findomain test 1&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/findomain-test-1.png&#34;&gt;
+Now we will use something called Google Dorking/Hacking as technique of search in google search engine as passive reconnaissance:
+Google Dorking/Hacking:
+Usage of the advanced search engines quires in the right or advanced way, and it is legal because we use indexed public information, it takes advantage of advanced google search algorithms to locate specific information, use different operators each one represent specific thing, any files Google&amp;rsquo;s crawlers can access it will be accessible by using suitable google Dorking operators, here are different operators and their usage:
+# Search Operators&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
