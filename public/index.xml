@@ -13,14 +13,58 @@
       <link>https://karimabdelazizblog.tech/about/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/about/</guid>
-      <description>&lt;div style=&#34;text-align:center;padding:2rem 0 1rem;&#34;&gt;
-  &lt;h1 style=&#34;font-size:2.2rem;margin-bottom:0.3rem;&#34;&gt;Karim Abdelaziz&lt;/h1&gt;
-  &lt;p style=&#34;font-size:1.1rem;color:#888;margin:0;&#34;&gt;Cybersecurity Student &amp;nbsp;|&amp;nbsp; Penetration Testing &amp;nbsp;|&amp;nbsp; Red Team Aspirant&lt;/p&gt;
-  &lt;p style=&#34;color:#666;margin-top:0.4rem;&#34;&gt;📍 Alexandria, Egypt &amp;nbsp;·&amp;nbsp; 📧 &lt;a href=&#34;mailto:karemabdelaziz082@gmail.com&#34;&gt;karemabdelaziz082@gmail.com&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;who-i-am&#34;&gt;Who I Am&lt;/h2&gt;
-&lt;p&gt;I&amp;rsquo;m a final-year &lt;strong&gt;B.Sc. Computer and Data Science (Cybersecurity Major)&lt;/strong&gt; student at Alexandria National University with a &lt;strong&gt;3.8 GPA&lt;/strong&gt;, graduating June 2026. My passion lies in offensive security — understanding how systems are broken so I can help defend them. I am actively pursuing the &lt;strong&gt;eJPT (Junior Penetration Tester)&lt;/strong&gt; certification and building hands-on skills through CTFs, labs, and real-world-simulated environments on HackTheBox, TryHackMe, and INE.&lt;/p&gt;</description>
+      <description>&lt;style&gt;
+/* ── Social icons ─────────────────────────────── */
+.socials { display:flex; flex-wrap:wrap; gap:1rem; margin:1.5rem 0; }
+.socials a {
+  display:inline-flex; align-items:center; gap:0.55rem;
+  padding:0.55rem 1.1rem; border-radius:8px;
+  border:1.5px solid var(--primary);
+  color:var(--primary); text-decoration:none;
+  font-size:0.88rem; font-weight:600;
+  transition:background 0.2s,color 0.2s;
+}
+.socials a:hover { background:var(--primary); color:var(--theme); }
+.socials svg { width:18px; height:18px; fill:currentColor; flex-shrink:0; }
+
+/* ── Timeline ─────────────────────────────────── */
+.timeline { position:relative; padding-left:1.6rem; margin:1.5rem 0; }
+.timeline::before {
+  content:&#39;&#39;; position:absolute; left:0; top:6px;
+  width:2px; bottom:0; background:var(--primary); opacity:0.25;
+}
+.tl-item { position:relative; margin-bottom:2rem; }
+.tl-item::before {
+  content:&#39;&#39;; position:absolute; left:-1.6rem; top:5px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--primary); border:2px solid var(--theme);
+}
+.tl-date {
+  font-size:0.78rem; font-weight:600; letter-spacing:0.04em;
+  opacity:0.55; margin-bottom:0.25rem; text-transform:uppercase;
+}
+.tl-title { font-size:1rem; font-weight:700; margin:0 0 0.1rem; }
+.tl-org { font-size:0.88rem; opacity:0.65; margin-bottom:0.5rem; }
+.tl-item ul { margin:0; padding-left:1.2rem; }
+.tl-item li { font-size:0.9rem; margin-bottom:0.2rem; opacity:0.85; }
+
+/* ── Skills table ─────────────────────────────── */
+.skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0; }
+@media(max-width:600px){ .skills-grid { grid-template-columns:1fr; } }
+.skill-card {
+  border:1px solid var(--border); border-radius:10px;
+  padding:1rem 1.2rem;
+}
+.skill-card h4 { margin:0 0 0.5rem; font-size:0.88rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.05em; }
+.skill-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+.skill-tag {
+  font-size:0.78rem; padding:0.2rem 0.55rem; border-radius:20px;
+  border:1px solid var(--primary); opacity:0.85;
+}
+&lt;/style&gt;
+&lt;div style=&#34;text-align:center;padding:1.5rem 0 0.5rem&#34;&gt;
+  &lt;h1 style=&#34;font-size:2rem;margin-bottom:0.2rem&#34;&gt;Karim Abdelaziz&lt;/h1&gt;
+  &lt;p style=&#34;opacity:0.6;margin:0&#34;&gt;Cybersecurity Student &amp;nbsp;·&amp;nbsp; Penetration Testing &amp;nbsp;·&amp;nbsp; Red Team Aspirant&lt;/p&gt;</description>
     </item>
     <item>
       <title>Introduction to information gathering</title>
