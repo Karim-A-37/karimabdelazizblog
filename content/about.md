@@ -221,11 +221,24 @@ GPA **3.8 / 4.0** · Courses: Network Security · InfoSec Management · Blockcha
 
 ## Certifications
 
-| Status | Certification |
-|---|---|
-| ✅ Earned | CCNA: Introduction to Networks — Cisco / NTI *(Jan 2026, Credly Verified)* |
-| ✅ Earned | Quantum Computing Certificate — Alamein International University *(Sep 2025)* |
-| 🔄 In Progress | eJPT — Junior Penetration Tester — INE Security *(2026)* |
+<div style="display:flex;flex-direction:column;gap:0.75rem;margin:1rem 0">
+
+  <div style="border-left:4px solid #22c55e;padding:0.6rem 1rem;border-radius:0 8px 8px 0;background:var(--entry)">
+    <strong>CCNA: Introduction to Networks</strong> — Cisco / NTI
+    <div style="font-size:0.85rem;opacity:0.65;margin-top:0.15rem">Jan 2026 · Credly Verified</div>
+  </div>
+
+  <div style="border-left:4px solid #22c55e;padding:0.6rem 1rem;border-radius:0 8px 8px 0;background:var(--entry)">
+    <strong>Quantum Computing Certificate</strong> — Alamein International University
+    <div style="font-size:0.85rem;opacity:0.65;margin-top:0.15rem">Sep 2025</div>
+  </div>
+
+  <div style="border-left:4px solid #3b82f6;padding:0.6rem 1rem;border-radius:0 8px 8px 0;background:var(--entry)">
+    <strong>eJPT — Junior Penetration Tester</strong> — INE Security
+    <div style="font-size:0.85rem;opacity:0.65;margin-top:0.15rem">2026 · In Progress</div>
+  </div>
+
+</div>
 
 ---
 
