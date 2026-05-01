@@ -13,6 +13,7 @@ Information Gathering (Reconnaissance)
 	here are the differences between 
 		1- In Scope --> assets i allowed to (collect info from - scan - enumerate)
 		2- Out Scope --> assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)
+			
 ![scope.png](/images/Introduction to information gathering/scope.png)
 	reconnaissance is about collecting useful information not all information with well defined scope i keep reconnaissance focused and efficient and relevant to later stages.
 	now i will discuss the difference between passive and active reconnaissance in some of details:
