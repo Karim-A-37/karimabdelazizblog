@@ -100,6 +100,11 @@ Codeforces
 LeetCode
 </a>
 
+<a href="https://hackerone.com/2f4ces" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M0 24V0h7.2v7.2h9.6V0H24v24h-7.2v-9.6H7.2V24z"/></svg>
+HackerOne
+</a>
+
 </div>
 
 ---
