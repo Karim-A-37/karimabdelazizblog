@@ -7,22 +7,5 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;p&gt;Information Gathering (Reconnaissance)
-Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
-1- passive information gathering &amp;ndash;&amp;gt; collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)
-2- active information gathering &amp;ndash;&amp;gt; collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information )
-Target scoping (In-Scope - Out-Scope) &amp;ndash;&amp;gt; is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways
-1- Domain based target (may include primary domain  or subdomain  &amp;ndash;&amp;gt; example.com or admin.example.com)
-2- IP based target (common in internal or lab environments &amp;ndash;&amp;gt; single IP (192.168.1.1) or network range (192.168.1.0/24))
-3- Application based target (focus on app only not the entire server &amp;ndash;&amp;gt; web app or login portal or specific API endpoint)
-here are the differences between
-1- In Scope &amp;ndash;&amp;gt; assets i allowed to (collect info from - scan - enumerate)
-2- Out Scope &amp;ndash;&amp;gt; assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>
