@@ -20,15 +20,31 @@ paginate = 6
   # ── Social links (shown as icons on your homepage) ──────────
   [[params.socialIcons]]
     name = "github"
-    url  = "https://github.com/YOUR-GITHUB-USERNAME"
+    url  = "https://github.com/Karim-A-37"
 
   [[params.socialIcons]]
     name = "linkedin"
-    url  = "https://linkedin.com/in/YOUR-LINKEDIN-USERNAME"
+    url  = "https://linkedin.com/in/karim-abdelaziz-359b63360"
 
   [[params.socialIcons]]
     name = "hackthebox"
-    url  = "https://app.hackthebox.com/profile/YOUR-HTB-ID"
+    url  = "https://profile.hackthebox.com/profile/019daf59-087e-71ba-9ae1-58ab43a8a4c8"
+
+  [[params.socialIcons]]
+    name = "tryhackme"
+    url  = "https://tryhackme.com/p/JaGuar"
+
+  [[params.socialIcons]]
+    name = "hackerone"
+    url  = "https://hackerone.com/2f4ces"
+
+  [[params.socialIcons]]
+    name = "codeforces"
+    url  = "https://codeforces.com/profile/2_f4ces"
+
+  [[params.socialIcons]]
+    name = "leetcode"
+    url  = "https://leetcode.com/u/Karim_A_1117/"
 
 [markup]
   [markup.goldmark]
