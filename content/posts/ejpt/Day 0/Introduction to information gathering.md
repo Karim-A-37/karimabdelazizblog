@@ -13,8 +13,7 @@ Information Gathering (Reconnaissance)
 	here are the differences between 
 		1- In Scope --> assets i allowed to (collect info from - scan - enumerate)
 		2- Out Scope --> assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)
-			![[ejpt/Day 0/Introduction to information gathering images/scope.png]]
-![scope.png](/images/Introduction to information gathering/scope.png)
+![[ejpt/Day 0/Introduction to information gathering images/scope.png]]
 	reconnaissance is about collecting useful information not all information with well defined scope i keep reconnaissance focused and efficient and relevant to later stages.
 	now i will discuss the difference between passive and active reconnaissance in some of details:
 		1- Passive Reconnaissance --> collect information that is public available without any active engaging with the target, without direct interaction with the target, usually performed first and lower risk of detection, some of examples of passive recon data :
@@ -36,7 +35,7 @@ Information Gathering (Reconnaissance)
 		4- Technologies and services ( used web technologies )
 		5- Open ports
 		6- Publicly exposed information
-	![[ejpt/Day 0/Introduction to information gathering images/recon mapping flow.png]]![recon mapping flow.png](/images/Introduction to information gathering/recon%20mapping%20flow.png) 
+	![[ejpt/Day 0/Introduction to information gathering images/recon mapping flow.png]] 
 		1- start by defining the target scope (In-scop and Out-scope)
 		2- starting the passive reconnaissance (domains - subdomains - DNS records - [^1]WHOIS data - [^2]website footprinting - OSINT techniques )
 		3- after the passive recon we start the active reconnaissance (host discovery -  port scanning - basic service identification - DNS zone transfer testing ) 
@@ -71,9 +70,9 @@ Information Gathering (Reconnaissance)
 		3- ==reconnaissance== is about gathering ==meaningful data==
 		4- A structured and documented approach improves results and efficiency
 
+
 #Hint always avoid to gather all info about the target try to get only useful info about in scope 
 only (not quantity but useful)
-
 
 ---
 [^1]: WHOIS is a request and response protocol that follows the [RFC 3912](https://www.ietf.org/rfc/rfc3912.txt) specification. A WHOIS server listens on TCP port 43 for incoming requests. The domain registrar is responsible for maintaining the WHOIS records for the domain names it is leasing. The WHOIS server replies with various information related to the domain requested. Of particular interest, we can learn:
