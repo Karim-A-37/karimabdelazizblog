@@ -2,7 +2,7 @@
 
 ---
 
-helloInformation Gathering (Reconnaissance)
+Information Gathering (Reconnaissance)
 	 Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
 		 1- passive information gathering --> collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)
 		 2- active information gathering --> collecting information that isn't public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information )
@@ -13,7 +13,7 @@ helloInformation Gathering (Reconnaissance)
 	here are the differences between 
 		1- In Scope --> assets i allowed to (collect info from - scan - enumerate)
 		2- Out Scope --> assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)
-		![[posts/ejpt/Day 0/Introduction-to-information-gathering-images/scope.png]]
+		![scope.png](/images/Introduction to information gathering/scope.png)
 ![scope.png](/images/Introduction to information gathering/scope.png)
 	reconnaissance is about collecting useful information not all information with well defined scope i keep reconnaissance focused and efficient and relevant to later stages.
 	now i will discuss the difference between passive and active reconnaissance in some of details:
@@ -36,7 +36,7 @@ helloInformation Gathering (Reconnaissance)
 		4- Technologies and services ( used web technologies )
 		5- Open ports
 		6- Publicly exposed information
-		![recon mapping flow.png](/images/Introduction to information gathering/recon%20mapping%20flow.png)
+		![[posts/ejpt/Day 0/Introduction-to-information-gathering-images/recon mapping flow.png]]
 	Inrotduction 
 		1- start by defining the target scope (In-scop and Out-scope)
 		2- starting the passive reconnaissance (domains - subdomains - DNS records - [^1]WHOIS data - [^2]website footprinting - OSINT techniques )
