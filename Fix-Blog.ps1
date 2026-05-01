@@ -1,17 +1,18 @@
 # ============================================================
 #  Fix-Blog.ps1 — Run this ONCE to clean up all image issues
 #
-#  What it does:
+#  What it does (in order):
 #    1.  Stops the watcher task
 #    2.  Removes garbage files from Hugo site
-#    3.  Fixes static/images/ folder names (spaces → hyphens)
-#    4.  Fixes image links inside Hugo content/ .md files
-#    5.  Fixes Obsidian vault image folder names (spaces → hyphens)
-#    6.  Re-runs images.py to reprocess everything
-#    7.  Syncs Obsidian posts → Hugo content/posts via robocopy
-#    8.  Rebuilds Hugo site
-#    9.  Commits and pushes to GitHub
-#    10. Restarts the watcher task
+#    3.  Fixes static/images/ folder + file names  (spaces → hyphens)
+#    4.  Fixes image links inside Hugo content/posts .md files
+#    5.  Fixes Obsidian vault image folder names  (spaces → hyphens)
+#    6.  Syncs Obsidian posts → Hugo content/posts via robocopy
+#    7.  Runs images.py  (Job 1: Obsidian vault  |  Job 2: rescue content/)
+#    8.  Removes image folders that were rescued from content/ to static/
+#    9.  Rebuilds Hugo site
+#    10. Commits and pushes to GitHub
+#    11. Restarts the watcher task
 # ============================================================
 
 $HugoSitePath      = "C:\Users\DELL\karimabdelazizblog"
@@ -25,8 +26,8 @@ $ImagesScript      = "$HugoSitePath\images.py"
 function OK   { param([string]$msg) Write-Host "  OK   $msg" -ForegroundColor Green  }
 function STEP { param([string]$msg) Write-Host "`n>>> $msg" -ForegroundColor Cyan    }
 function WARN { param([string]$msg) Write-Host "  WARN $msg" -ForegroundColor Yellow }
-function INFO { param([string]$msg) Write-Host "  $msg"     -ForegroundColor White  }
-function ERR  { param([string]$msg) Write-Host "  ERR  $msg" -ForegroundColor Red   }
+function INFO { param([string]$msg) Write-Host "  $msg"      -ForegroundColor White  }
+function ERR  { param([string]$msg) Write-Host "  ERR  $msg" -ForegroundColor Red    }
 
 Write-Host "`n=============================================" -ForegroundColor Cyan
 Write-Host "  Fix-Blog.ps1 - Full Cleanup and Repair"     -ForegroundColor Cyan
@@ -50,33 +51,23 @@ foreach ($pattern in $garbage) {
 }
 OK "Garbage cleanup done."
 
-# ── Step 3: Fix static/images/ folder names (spaces → hyphens, merge dupes) ──
-STEP "Step 3: Fixing image folder names in static/images/..."
+# ── Step 3: Fix static/images/ folder + file names ───────────────────────────
+STEP "Step 3: Fixing names in static/images/ (spaces -> hyphens)..."
 
-function Rename-FoldersRecursive {
-    param([string]$BasePath)
-    if (-not (Test-Path $BasePath)) { return }
-
-    # Process deepest folders first to avoid path-not-found after rename
-    $folders = Get-ChildItem -Path $BasePath -Directory -Recurse -ErrorAction SilentlyContinue |
+if (Test-Path $StaticImagesPath) {
+    # Rename folders deepest-first to avoid broken paths after parent rename
+    $folders = Get-ChildItem -Path $StaticImagesPath -Directory -Recurse -ErrorAction SilentlyContinue |
                Sort-Object { $_.FullName.Length } -Descending
 
     foreach ($folder in $folders) {
         $oldName = $folder.Name
         $newName = $oldName -replace '\s+', '-'
-        if ($oldName -eq $newName) {
-            INFO "Already clean: $oldName"
-            continue
-        }
-
+        if ($oldName -eq $newName) { continue }
         $oldPath = $folder.FullName
-        # Re-check folder still exists (parent may have been renamed already)
         if (-not (Test-Path $oldPath)) { continue }
-
         $newPath = Join-Path $folder.Parent.FullName $newName
-
         if (Test-Path $newPath) {
-            INFO "Merging '$oldName' into existing '$newName'..."
+            # Merge into existing
             Get-ChildItem -Path $oldPath | ForEach-Object {
                 $dest = Join-Path $newPath $_.Name
                 if (-not (Test-Path $dest)) {
@@ -84,154 +75,159 @@ function Rename-FoldersRecursive {
                 }
             }
             Remove-Item $oldPath -Recurse -Force -ErrorAction SilentlyContinue
-            OK "Merged and removed: $oldName"
+            OK "Merged: $oldName -> $newName"
         } else {
             Rename-Item -Path $oldPath -NewName $newName -Force -ErrorAction SilentlyContinue
-            OK "Renamed: $oldName -> $newName"
+            OK "Renamed folder: $oldName -> $newName"
         }
     }
-}
 
-Rename-FoldersRecursive -BasePath $StaticImagesPath
-
-# Also rename image filenames that have spaces
-if (Test-Path $StaticImagesPath) {
-    $imageFiles = Get-ChildItem -Path $StaticImagesPath -Recurse -File -ErrorAction SilentlyContinue
-    foreach ($img in $imageFiles) {
-        $oldName = $img.Name
-        $newName = $oldName -replace '\s+', '-'
-        if ($oldName -ne $newName) {
-            $newPath = Join-Path $img.DirectoryName $newName
+    # Rename image files with spaces
+    Get-ChildItem -Path $StaticImagesPath -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match '\s' } |
+        ForEach-Object {
+            $newName = $_.Name -replace '\s+', '-'
+            $newPath = Join-Path $_.DirectoryName $newName
             if (-not (Test-Path $newPath)) {
-                Rename-Item $img.FullName $newName -Force -ErrorAction SilentlyContinue
-                OK "Renamed file: $oldName -> $newName"
+                Rename-Item $_.FullName $newName -Force -ErrorAction SilentlyContinue
+                OK "Renamed file: $($_.Name) -> $newName"
             }
         }
-    }
 }
-
-OK "Static images cleanup done."
+OK "static/images/ cleanup done."
 
 # ── Step 4: Fix image links inside Hugo content/ .md files ───────────────────
 STEP "Step 4: Fixing image links in Hugo content/posts/ .md files..."
 
-$mdFiles   = Get-ChildItem -Path $HugoPostsPath -Filter "*.md" -Recurse -ErrorAction SilentlyContinue
+$mdFiles    = Get-ChildItem -Path $HugoPostsPath -Filter "*.md" -Recurse -ErrorAction SilentlyContinue
 $fixedFiles = 0
 
 foreach ($mdFile in $mdFiles) {
     $content  = Get-Content $mdFile.FullName -Raw -Encoding UTF8
     $original = $content
 
-    # Fix: replace spaces in /images/... folder/file names with hyphens
+    # Fix spaces inside /images/... URLs (folder names and filenames)
     $content = [regex]::Replace(
         $content,
         '!\[([^\]]*)\]\((/images/[^)]+)\)',
         {
             param($m)
-            $alt = $m.Groups[1].Value
-            $url = $m.Groups[2].Value
-
-            # Slugify each segment of the path (preserve extension on last segment)
-            $segments = $url -split '/'
-            $fixed = $segments | ForEach-Object {
+            $alt      = $m.Groups[1].Value
+            $urlParts = $m.Groups[2].Value -split '/'
+            $fixed    = $urlParts | ForEach-Object {
                 $seg = $_
                 if ($seg -eq '' -or $seg -eq 'images') { return $seg }
-                # If it has an extension, handle name and extension separately
                 if ($seg -match '^(.+)(\.[^.]+)$') {
-                    $name = $Matches[1] -replace '\s+', '-'
-                    $ext  = $Matches[2].ToLower()
-                    return "$name$ext"
+                    return ($Matches[1] -replace '\s+', '-') + $Matches[2].ToLower()
                 }
                 return ($seg -replace '\s+', '-')
             }
-            $fixedUrl = $fixed -join '/'
-            return "![$alt]($fixedUrl)"
+            return "![$alt]($($fixed -join '/'))"
         }
     )
 
-    # Remove leftover Obsidian wiki-link image embeds that were never converted
+    # Remove leftover Obsidian wiki-link embeds
     $content = $content -replace '!\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg|bmp))\]\]', ''
-    $content = $content -replace '\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg|bmp))\]\]', ''
+    $content = $content -replace  '\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg|bmp))\]\]', ''
 
     if ($content -ne $original) {
         $content | Set-Content $mdFile.FullName -Encoding UTF8 -NoNewline
         OK "Fixed links in: $($mdFile.Name)"
         $fixedFiles++
     } else {
-        INFO "No changes needed: $($mdFile.Name)"
+        INFO "No changes: $($mdFile.Name)"
     }
 }
 OK "Fixed $fixedFiles file(s)."
 
-# ── Step 5: Fix Obsidian vault image folder names (spaces → hyphens) ─────────
-STEP "Step 5: Fixing image folder names in Obsidian vault..."
+# ── Step 5: Fix Obsidian vault image folder names ─────────────────────────────
+STEP "Step 5: Fixing image folder names in Obsidian vault (spaces -> hyphens)..."
 
-$obsidianFolders = Get-ChildItem -Path $ObsidianPostsPath -Directory -Recurse -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -match '\s' } |
-    Sort-Object { $_.FullName.Length } -Descending
-
-foreach ($folder in $obsidianFolders) {
-    $oldName = $folder.Name
-    $newName = $oldName -replace '\s+', '-'
-    if ($oldName -eq $newName) { continue }
-
-    $oldPath = $folder.FullName
-    if (-not (Test-Path $oldPath)) { continue }
-
-    $newPath = Join-Path $folder.Parent.FullName $newName
-    if (-not (Test-Path $newPath)) {
-        Rename-Item $oldPath $newName -Force -ErrorAction SilentlyContinue
-        OK "Renamed Obsidian folder: $oldName -> $newName"
-    } else {
-        INFO "Already exists: $newName"
-    }
+if (Test-Path $ObsidianPostsPath) {
+    Get-ChildItem -Path $ObsidianPostsPath -Directory -Recurse -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match '\s' } |
+        Sort-Object { $_.FullName.Length } -Descending |
+        ForEach-Object {
+            $newName = $_.Name -replace '\s+', '-'
+            $newPath = Join-Path $_.Parent.FullName $newName
+            if (-not (Test-Path $newPath)) {
+                Rename-Item $_.FullName $newName -Force -ErrorAction SilentlyContinue
+                OK "Renamed: $($_.Name) -> $newName"
+            }
+        }
+    OK "Obsidian vault folders fixed."
+} else {
+    WARN "Obsidian posts path not found: $ObsidianPostsPath"
+    INFO "Only Hugo content rescue will run."
 }
-OK "Obsidian folders fixed."
 
 # ── Step 6: Sync Obsidian posts → Hugo content/posts ─────────────────────────
 STEP "Step 6: Syncing Obsidian posts to Hugo content/posts..."
-$null = New-Item -Path $HugoPostsPath -ItemType Directory -Force
-
-$roboOut = robocopy `
-    $ObsidianPostsPath `
-    $HugoPostsPath `
-    /MIR /Z /W:2 /R:2 /NFL /NDL /NJH /NJS /E `
-    /XF "*.png" "*.jpg" "*.jpeg" "*.gif" "*.webp" "*.svg" "*.bmp" 2>&1
-
-if ($LASTEXITCODE -ge 8) {
-    WARN "Robocopy reported issues (exit $LASTEXITCODE). Check above output."
+New-Item -Path $HugoPostsPath -ItemType Directory -Force | Out-Null
+if (Test-Path $ObsidianPostsPath) {
+    robocopy $ObsidianPostsPath $HugoPostsPath /MIR /Z /W:2 /R:2 /NFL /NDL /NJH /NJS /E /XF "*.png" "*.jpg" "*.jpeg" "*.gif" "*.webp" "*.svg" "*.bmp" | Out-Null
+    if ($LASTEXITCODE -ge 8) {
+        WARN "Robocopy issues (exit $LASTEXITCODE). Some files may not have synced."
+    } else {
+        OK "Posts synced."
+    }
 } else {
-    OK "Posts synced."
+    WARN "Obsidian posts path missing - skipping sync. Hugo content/posts used as-is."
 }
 
-# ── Step 7: Run images.py to reprocess everything ────────────────────────────
-STEP "Step 7: Re-running images.py..."
+# ── Step 7: Run images.py (Job1: Obsidian  |  Job2: rescue content/) ─────────
+STEP "Step 7: Running images.py..."
 
-# Detect Python
 $PythonCmd = $null
 foreach ($cmd in @("python", "py", "python3")) {
-    if (Get-Command $cmd -ErrorAction SilentlyContinue) {
-        $PythonCmd = $cmd
-        break
-    }
+    if (Get-Command $cmd -ErrorAction SilentlyContinue) { $PythonCmd = $cmd; break }
 }
 
 if ($null -eq $PythonCmd) {
-    ERR "Python not found in PATH. Install Python 3 and add it to PATH."
+    ERR "Python not found in PATH. Install Python 3 from python.org and add to PATH."
 } elseif (-not (Test-Path $ImagesScript)) {
     ERR "images.py not found at: $ImagesScript"
 } else {
-    $pythonResult = & $PythonCmd $ImagesScript $ObsidianPostsPath $StaticImagesPath 2>&1
-    $pythonResult | ForEach-Object { INFO $_ }
+    & $PythonCmd $ImagesScript $ObsidianPostsPath $StaticImagesPath $HugoPostsPath | ForEach-Object { INFO $_ }
     if ($LASTEXITCODE -eq 0) {
         OK "images.py completed successfully."
     } else {
-        WARN "images.py had warnings — check output above."
+        WARN "images.py had warnings - check output above."
     }
 }
 
-# ── Step 8: Hugo build ────────────────────────────────────────────────────────
-STEP "Step 8: Building Hugo site..."
+# ── Step 8: Remove image folders rescued from content/ ───────────────────────
+STEP "Step 8: Cleaning up image folders from Hugo content/posts/..."
+
+$imageFolders = Get-ChildItem -Path $HugoPostsPath -Directory -Recurse -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -match 'images' }
+
+$removed = 0
+foreach ($folder in $imageFolders) {
+    # Only remove if all its files are already in static/images
+    $imgFiles = Get-ChildItem -Path $folder.FullName -File -Recurse -ErrorAction SilentlyContinue |
+        Where-Object { $_.Extension -match '\.(png|jpg|jpeg|gif|webp|svg|bmp)$' }
+
+    $allCopied = $true
+    foreach ($img in $imgFiles) {
+        # Check if a file with matching slug name exists anywhere in static/images
+        $slugName = ($img.BaseName -replace '\s+', '-').ToLower() + $img.Extension.ToLower()
+        $found    = Get-ChildItem -Path $StaticImagesPath -Filter $slugName -Recurse -ErrorAction SilentlyContinue
+        if (-not $found) { $allCopied = $false; break }
+    }
+
+    if ($allCopied -and $imgFiles.Count -gt 0) {
+        Remove-Item $folder.FullName -Recurse -Force -ErrorAction SilentlyContinue
+        OK "Removed from content/: $($folder.Name)"
+        $removed++
+    } else {
+        INFO "Keeping (not yet in static/): $($folder.Name)"
+    }
+}
+OK "Removed $removed image folder(s) from content/."
+
+# ── Step 9: Hugo build ────────────────────────────────────────────────────────
+STEP "Step 9: Building Hugo site..."
 Push-Location $HugoSitePath
 $hugoOut = hugo 2>&1
 $hugoOut | ForEach-Object { INFO $_ }
@@ -241,55 +237,47 @@ if ($LASTEXITCODE -eq 0) {
     WARN "Hugo build had issues. Check output above."
 }
 
-# ── Step 9: Git commit and push ───────────────────────────────────────────────
-STEP "Step 9: Committing and pushing to GitHub..."
+# ── Step 10: Git commit and push ──────────────────────────────────────────────
+STEP "Step 10: Committing and pushing to GitHub..."
 git add . 2>&1 | Out-Null
 $dirty = git status --porcelain 2>&1
 if ($dirty) {
-    $msg = "Fix: cleanup image folders and links $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+    $msg = "Fix: images + cleanup $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git commit -m $msg 2>&1 | Out-Null
     git push origin main 2>&1 | ForEach-Object { INFO "git: $_" }
     if ($LASTEXITCODE -eq 0) {
-        OK "Pushed to GitHub. Cloudflare will deploy in ~30s."
+        OK "Pushed to GitHub. Cloudflare deploys in ~30s."
     } else {
-        WARN "Git push failed. Try manually: git push origin main"
+        WARN "Git push failed. Try: git push origin main"
     }
 } else {
     OK "Nothing new to commit."
 }
 Pop-Location
 
-# ── Step 10: Restart watcher ──────────────────────────────────────────────────
-STEP "Step 10: Restarting the watcher..."
+# ── Step 11: Restart watcher ──────────────────────────────────────────────────
+STEP "Step 11: Restarting the watcher..."
 Start-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 $state = (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue).State
-if ($state) {
-    OK "Watcher status: $state"
-} else {
-    WARN "Could not find task '$TaskName'. Run Setup-BlogWatcher.ps1 to register it."
-}
+if ($state) { OK "Watcher status: $state" }
+else        { WARN "Task not found. Run Setup-BlogWatcher.ps1 to register it." }
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 Write-Host "`n=============================================" -ForegroundColor Green
 Write-Host "  ALL DONE!" -ForegroundColor Green
 Write-Host "=============================================" -ForegroundColor Green
 Write-Host ""
-Write-Host "  Cloudflare will redeploy in ~30 seconds." -ForegroundColor White
-Write-Host "  Check your blog at:" -ForegroundColor White
-Write-Host "  https://karimabdelazizblog.pages.dev" -ForegroundColor Yellow
-Write-Host "  https://karimabdelazizblog.tech" -ForegroundColor Yellow
+Write-Host "  Blog: https://karimabdelazizblog.pages.dev" -ForegroundColor Yellow
+Write-Host "  Blog: https://karimabdelazizblog.tech"      -ForegroundColor Yellow
 Write-Host ""
-Write-Host "  HOW TO STRUCTURE YOUR OBSIDIAN POSTS:" -ForegroundColor Cyan
+Write-Host "  CORRECT OBSIDIAN STRUCTURE:" -ForegroundColor Cyan
+Write-Host "  posts/"                       -ForegroundColor White
+Write-Host "    ejpt/"                      -ForegroundColor White
+Write-Host "    Day-0/"                     -ForegroundColor White
+Write-Host "      My-Note.md"              -ForegroundColor White
+Write-Host "      My-Note-images/"         -ForegroundColor White
+Write-Host "        scope.png"             -ForegroundColor White
 Write-Host ""
-Write-Host "  posts/" -ForegroundColor White
-Write-Host "    ejpt/" -ForegroundColor White
-Write-Host "      Day-0/" -ForegroundColor White
-Write-Host "        My-Note.md" -ForegroundColor White
-Write-Host "        My-Note-images/" -ForegroundColor White
-Write-Host "          scope.png" -ForegroundColor White
-Write-Host "          diagram.png" -ForegroundColor White
-Write-Host ""
-Write-Host "  Rule: use hyphens in folder names (no spaces)." -ForegroundColor Yellow
-Write-Host "  Images auto-publish at /images/ejpt/day-0/my-note/" -ForegroundColor Yellow
+Write-Host "  Rule: use hyphens in ALL folder names, no spaces." -ForegroundColor Yellow
 Write-Host ""

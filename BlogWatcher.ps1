@@ -97,7 +97,7 @@ function Invoke-BlogDeploy {
         if ($null -eq $PythonCmd) {
             throw "Python not found. Install Python and add it to PATH."
         }
-        & $PythonCmd $ImagesScript $ObsidianPostsPath $StaticImagesPath
+        & $PythonCmd $ImagesScript $ObsidianPostsPath $StaticImagesPath $HugoPostsPath
         if ($LASTEXITCODE -ne 0) {
             throw "images.py exited with code $LASTEXITCODE"
         }
