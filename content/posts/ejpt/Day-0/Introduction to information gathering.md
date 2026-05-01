@@ -1,7 +1,12 @@
----
+﻿---
 title: "Introduction to information gathering"
+date: 2026-05-01
+slug: "introduction-to-information-gathering"
+draft: false
+tags:
+  - ejpt
+  - recon
 ---
-
 Information Gathering (Reconnaissance)
 	 Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
 		 1- passive information gathering --> collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)

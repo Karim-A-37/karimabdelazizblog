@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Karim&#39;s Blog</title>
-    <link>https://karimabdelazizblog.tech/</link>
-    <description>Recent content on Karim&#39;s Blog</description>
+    <title>Recon on Karim&#39;s Blog</title>
+    <link>https://karimabdelazizblog.tech/tags/recon/</link>
+    <description>Recent content in Recon on Karim&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://karimabdelazizblog.tech/tags/recon/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to information gathering</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
