@@ -1,156 +1,86 @@
 ---
 
 ---
----
 
-title: "Introduction to Information Gathering" date: 2026-05-01 draft: false tags:
-
-- ejpt
-- recon
-- reconnaissance
-- passive-recon
-- active-recon
-- pentesting
-
----
-
-## Information Gathering (Reconnaissance)
-
-Reconnaissance is the first phase in a penetration testing operation. The goal is to collect or gather information that is publicly available (**passive reconnaissance**) or not publicly available (**active reconnaissance**) about an organization, individual, system, or website — essentially anything about our target.
-
-### Types of Information Gathering
-
-- **Passive information gathering** → collect information that is publicly available without any active engagement with the target (IP and DNS information, domain names, web technologies, subdomains, etc.)
-- **Active information gathering** → collecting information that isn't publicly available, requires direct engagement with the target (needs authorization) — port scanning, internal network infrastructure info, enumeration of gathered information.
-
----
-
-## Target Scoping (In-Scope vs Out-Scope)
-
-Target scoping is the process of defining what systems, apps, and networks are allowed to be tested. It is the **rules of engagement** — what am I allowed to collect information about?
-
-During reconnaissance, the target is defined via one of these ways:
-
-1. **Domain based target** — may include primary domain or subdomain (e.g. `example.com` or `admin.example.com`)
-2. **IP based target** — common in internal or lab environments, single IP (`192.168.1.1`) or network range (`192.168.1.0/24`)
-3. **Application based target** — focus on app only, not the entire server (web app, login portal, or specific API endpoint)
-
-### In-Scope vs Out-Scope
-
-||Definition|
-|---|---|
-|**In-Scope**|Assets I am allowed to collect info from, scan, and enumerate|
-|**Out-Scope**|Assets I am NOT allowed to test — third party services, external domains not listed in scope, systems owned by other organizations|
-
+Information Gathering (Reconnaissance)
+	 Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
+		 1- passive information gathering --> collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)
+		 2- active information gathering --> collecting information that isn't public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information )
+	Target scoping (In-Scope - Out-Scope) --> is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways 
+		1- Domain based target (may include primary domain  or subdomain  --> example.com or admin.example.com) 
+		2- IP based target (common in internal or lab environments --> single IP (192.168.1.1) or network range (192.168.1.0/24))
+		3- Application based target (focus on app only not the entire server --> web app or login portal or specific API endpoint)
+	here are the differences between 
+		1- In Scope --> assets i allowed to (collect info from - scan - enumerate)
+		2- Out Scope --> assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)
+			![[posts/ejpt/Day 0/Introduction to information gathering images/scope.png]]
 ![scope.png](/images/Introduction to information gathering/scope.png)
+	reconnaissance is about collecting useful information not all information with well defined scope i keep reconnaissance focused and efficient and relevant to later stages.
+	now i will discuss the difference between passive and active reconnaissance in some of details:
+		1- Passive Reconnaissance --> collect information that is public available without any active engaging with the target, without direct interaction with the target, usually performed first and lower risk of detection, some of examples of passive recon data :
+			1- DNS Records
+			2- Domain registration information
+			3- Public website content
+			4- Search engines results(Google Dorking-->techniques to gather info using special words in searching process to get information that is not common to get)
+			5- Public available email addresses
+		2- Active Reconnaissance --> collecting information that isn't public available with active engaging with the target, sends traffic to target, increase visibility, performed after passive recon,  some of examples of active recon data:
+			1- live hosts
+			2- open ports (using N-map)
+			3- running services
+			4- network responses
+		#Hint  Always perform passive reconnaissance before active reconnaissance.
+	During info gathering we are trying ==to build map of target==, examples of those  information : 
+		1- Domains and Subdomains
+		2- IP addresses
+		3- Hosting Infrastructure
+		4- Technologies and services ( used web technologies )
+		5- Open ports
+		6- Publicly exposed information
+	![recon mapping flow.png](/images/Introduction to information gathering/recon%20mapping%20flow.png) 
+		1- start by defining the target scope (In-scop and Out-scope)
+		2- starting the passive reconnaissance (domains - subdomains - DNS records - [^1]WHOIS data - [^2]website footprinting - OSINT techniques )
+		3- after the passive recon we start the active reconnaissance (host discovery -  port scanning - basic service identification - DNS zone transfer testing ) 
+		4- optimize the findings
+		5- start the enumeration and exploitation
+	we can simple define recon strategy as following:
+		1- Define the target
+			1- define IP addresses, domains , network ranges
+			2- define In-scope and Out-scope
+		2- Perform Passive reconnaissance
+			1- gather public info
+			2- define potential attack surfaces (what is capable to be attacked)
+			3- build initial understanding of target
+		3- Perform Active reconnaissance
+			1- define live hosts
+			2- define open ports
+			3- detect exposed services
+		4- Document and Organize the findings
+			1- record domains, IPs, ports
+			2- prepare information for enumeration
+			3- avoid repeating work later
+	there are some mistakes we should avoid
+		1- starting scanning without defining scope
+		2- skipping passive recon
+		3- scanning everything instead of relevant to target
+		4- not documenting results
+		5- trusting tools output without verification
+	by avoiding those mistakes the accuracy will increased.
+	here are some advices:
+		1- Target scoping defines what you are allowed to test
+		2- passive recon comes before active recon
+		3- ==reconnaissance== is about gathering ==meaningful data==
+		4- A structured and documented approach improves results and efficiency
 
-> Reconnaissance is about collecting **useful** information, not all information. A well-defined scope keeps reconnaissance focused, efficient, and relevant to later stages.
+#Hint always avoid to gather all info about the target try to get only useful info about in scope 
+only (not quantity but useful)
 
----
-
-## Passive vs Active Reconnaissance (In Detail)
-
-### 1. Passive Reconnaissance
-
-Collect information that is publicly available **without any direct interaction** with the target.
-
-- Usually performed **first**
-- **Lower risk** of detection
-- Examples of passive recon data:
-    1. DNS Records
-    2. Domain registration information
-    3. Public website content
-    4. Search engine results (Google Dorking — using special search operators to find non-obvious information)
-    5. Publicly available email addresses
-
-### 2. Active Reconnaissance
-
-Collecting information by **directly engaging** with the target — sends traffic to target, increases visibility.
-
-- Performed **after** passive recon
-- Examples of active recon data:
-    1. Live hosts
-    2. Open ports (using Nmap)
-    3. Running services
-    4. Network responses
-
-> **Hint:** Always perform passive reconnaissance before active reconnaissance.
-
----
-
-## Building a Map of the Target
-
-During information gathering we are trying to **build a map of the target**. Examples of the information we collect:
-
-1. Domains and Subdomains
-2. IP addresses
-3. Hosting Infrastructure
-4. Technologies and services (used web technologies)
-5. Open ports
-6. Publicly exposed information
-
-![recon mapping flow.png](/images/Introduction to information gathering/recon%20mapping%20flow.png)
-
-### Recon Flow
-
-1. Define the target scope (In-Scope and Out-Scope)
-2. Start **passive reconnaissance** — domains, subdomains, DNS records, WHOIS data[^1], website footprinting[^2], OSINT techniques
-3. Start **active reconnaissance** — host discovery, port scanning, basic service identification, DNS zone transfer testing
-4. Organize and optimize the findings
-5. Begin enumeration and exploitation
-
----
-
-## Recon Strategy (Simple Definition)
-
-**Step 1 — Define the Target**
-
-- Define IP addresses, domains, network ranges
-- Define In-Scope and Out-Scope
-
-**Step 2 — Passive Reconnaissance**
-
-- Gather public info
-- Define potential attack surfaces (what is capable of being attacked)
-- Build initial understanding of the target
-
-**Step 3 — Active Reconnaissance**
-
-- Identify live hosts
-- Identify open ports
-- Detect exposed services
-
-**Step 4 — Document and Organize Findings**
-
-- Record domains, IPs, ports
-- Prepare information for enumeration
-- Avoid repeating work later
 
 ---
+[^1]: WHOIS is a request and response protocol that follows the [RFC 3912](https://www.ietf.org/rfc/rfc3912.txt) specification. A WHOIS server listens on TCP port 43 for incoming requests. The domain registrar is responsible for maintaining the WHOIS records for the domain names it is leasing. The WHOIS server replies with various information related to the domain requested. Of particular interest, we can learn:
+	
+	- Registrar: Via which registrar was the domain name registered?
+	- Contact info of registrant: Name, organization, address, phone, among other things. (unless made hidden via a privacy service)
+	- Creation, update, and expiration dates: When was the domain name first registered? When was it last updated? And when does it need to be renewed?
+	- Name Server: Which server to ask to resolve the domain name?
 
-## Common Mistakes to Avoid
-
-1. Starting scanning without defining scope
-2. Skipping passive recon
-3. Scanning everything instead of only what is relevant to the target
-4. Not documenting results
-5. Trusting tools output without verification
-
-> Avoiding these mistakes increases accuracy and efficiency.
-
----
-
-## Key Takeaways
-
-1. Target scoping defines what you are allowed to test
-2. Passive recon comes before active recon
-3. **Reconnaissance** is about gathering **meaningful data**
-4. A structured and documented approach improves results and efficiency
-
-> **Hint:** Always avoid gathering all info about the target — try to get only **useful** info about in-scope targets. Quality over quantity.
-
----
-
-[^1]: **WHOIS** is a request and response protocol (RFC 3912). A WHOIS server listens on TCP port 43 for incoming requests. The domain registrar maintains the WHOIS records. Key info returned includes: Registrar, Contact info of registrant, Creation/update/expiration dates, and Name Servers.
-
-[^2]: **Footprinting** is the art of gathering essential information from target organizations about their networks and systems for potential vulnerabilities. Can be passive or active footprinting.
+[^2]: Footprinting is the art of gathering essential information from target organizations about their networks and systems for potential vulnerabilities, can be passive Footprinting or active Footprinting
