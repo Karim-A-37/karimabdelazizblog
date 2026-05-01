@@ -107,16 +107,30 @@ if (-not (Test-Path ".gitignore")) {
     OK ".gitignore created."
 }
 
-# Initial commit + push
+# Rename branch to main if it is still called master
+$currentBranch = git rev-parse --abbrev-ref HEAD 2>&1
+if ($currentBranch -eq "master") {
+    git branch -m master main
+    OK "Branch renamed from master to main."
+}
+
+# Build, stage, commit, and push
 hugo 2>&1 | Out-Null
 git add .
 $dirty = git status --porcelain
 if ($dirty) {
     git commit -m "Initial blog setup"
-    git push -u origin $GitBranch
-    OK "Initial push to GitHub complete."
+    OK "Commit created."
 } else {
-    OK "Nothing to commit - repo already up to date."
+    OK "Nothing new to commit."
+}
+
+git push -u origin main 2>&1
+if ($LASTEXITCODE -eq 0) {
+    OK "Pushed to GitHub successfully."
+} else {
+    Warn "Push failed. Make sure the GitHub repo exists and your SSH key is added to GitHub."
+    Warn "You can push manually later with: git push -u origin main"
 }
 
 Pop-Location
@@ -124,6 +138,7 @@ Pop-Location
 # ── Step 6: Register Task Scheduler ───────────────────────
 Step 6 "Registering auto-start task in Windows Task Scheduler..."
 
+# Remove old task if it exists
 if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
     Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
     Warn "Old task removed."
@@ -132,37 +147,46 @@ if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
 $psExe  = "powershell.exe"
 $psArgs = "-WindowStyle Hidden -ExecutionPolicy Bypass -NonInteractive -File `"$WatcherScript`""
 
-$action   = New-ScheduledTaskAction -Execute $psExe -Argument $psArgs
-$trigger  = New-ScheduledTaskTrigger -AtLogOn
-$settings = New-ScheduledTaskSettingsSet `
+$action    = New-ScheduledTaskAction -Execute $psExe -Argument $psArgs
+$trigger   = New-ScheduledTaskTrigger -AtLogOn
+
+$settings  = New-ScheduledTaskSettingsSet `
     -ExecutionTimeLimit ([TimeSpan]::Zero) `
     -RestartCount 3 `
     -RestartInterval (New-TimeSpan -Minutes 1) `
-    -MultipleInstances IgnoreNew `
-    -StartWhenAvailable $true
+    -MultipleInstances IgnoreNew
 
 $principal = New-ScheduledTaskPrincipal `
     -UserId ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name) `
     -LogonType Interactive `
     -RunLevel Highest
 
-Register-ScheduledTask `
+$registered = Register-ScheduledTask `
     -TaskName  $TaskName `
     -Action    $action `
     -Trigger   $trigger `
     -Settings  $settings `
     -Principal $principal `
-    -Force | Out-Null
+    -Force
 
-OK "Task '$TaskName' registered in Task Scheduler."
+if ($registered) {
+    OK "Task '$TaskName' registered in Task Scheduler."
+} else {
+    Fail "Failed to register the scheduled task."
+}
 
 # ── Step 7: Start watcher now ─────────────────────────────
 Step 7 "Starting the watcher right now..."
-Start-ScheduledTask -TaskName $TaskName
-Start-Sleep -Seconds 2
 
-$taskInfo = Get-ScheduledTask -TaskName $TaskName
-OK "Watcher status: $($taskInfo.State)"
+Start-ScheduledTask -TaskName $TaskName
+Start-Sleep -Seconds 3
+
+$taskInfo = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
+if ($taskInfo) {
+    OK "Watcher status: $($taskInfo.State)"
+} else {
+    Warn "Could not verify task status. Check Task Scheduler manually."
+}
 
 # ── Done ──────────────────────────────────────────────────
 Write-Host "`n=============================================" -ForegroundColor Green
@@ -171,7 +195,7 @@ Write-Host "=============================================" -ForegroundColor Gree
 Write-Host ""
 Write-Host "  What happens now:" -ForegroundColor White
 Write-Host "  - The watcher runs silently in the background" -ForegroundColor White
-Write-Host "  - Every time you save a .md file in Obsidian, it auto-deploys" -ForegroundColor White
+Write-Host "  - Every time you save a .md file in Obsidian it auto-deploys" -ForegroundColor White
 Write-Host "  - It restarts automatically after every reboot/login" -ForegroundColor White
 Write-Host ""
 Write-Host "  Log file:" -ForegroundColor White
