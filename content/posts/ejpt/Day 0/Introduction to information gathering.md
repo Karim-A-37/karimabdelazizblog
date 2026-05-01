@@ -36,7 +36,7 @@ Information Gathering (Reconnaissance)
 		4- Technologies and services ( used web technologies )
 		5- Open ports
 		6- Publicly exposed information
-	![recon mapping flow.png](/images/Introduction to information gathering/recon%20mapping%20flow.png) 
+	![recon mapping flow.png] 
 		1- start by defining the target scope (In-scop and Out-scope)
 		2- starting the passive reconnaissance (domains - subdomains - DNS records - [^1]WHOIS data - [^2]website footprinting - OSINT techniques )
 		3- after the passive recon we start the active reconnaissance (host discovery -  port scanning - basic service identification - DNS zone transfer testing ) 
