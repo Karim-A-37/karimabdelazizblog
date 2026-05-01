@@ -31,6 +31,9 @@ paginate = 6
     url  = "https://app.hackthebox.com/profile/YOUR-HTB-ID"
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.highlight]
     style              = "monokai"
     lineNos            = true

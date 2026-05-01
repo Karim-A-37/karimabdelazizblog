@@ -140,6 +140,90 @@ foreach ($mdFile in $mdFiles) {
 }
 OK "Fixed $fixedFiles file(s)."
 
+# ── Step 4b: Ensure frontmatter + fix relative image links in Hugo content ───
+STEP "Step 4b: Injecting missing frontmatter and fixing relative image links..."
+
+$mdFiles2   = Get-ChildItem -Path $HugoPostsPath -Filter "*.md" -Recurse -ErrorAction SilentlyContinue
+$fmFixed    = 0
+
+foreach ($mdFile in $mdFiles2) {
+    $content  = Get-Content $mdFile.FullName -Raw -Encoding UTF8
+    $original = $content
+
+    # Derive slug and title from filename
+    $postName = [System.IO.Path]::GetFileNameWithoutExtension($mdFile.Name)
+    $slug     = ($postName -replace '\s+', '-').ToLower() -replace '[^a-z0-9\-]', '' -replace '-{2,}', '-'
+    $title    = $postName
+    $today    = Get-Date -Format "yyyy-MM-dd"
+
+    # Determine image URL prefix from relative subfolder path inside content/posts
+    $relDir   = [System.IO.Path]::GetDirectoryName(
+                    (Resolve-Path $mdFile.FullName).Path.Substring(
+                        (Resolve-Path $HugoPostsPath).Path.Length + 1))
+    $slugParts = ($relDir -split '\\|/' | Where-Object { $_ -ne '' } |
+                  ForEach-Object { ($_ -replace '\s+','-').ToLower() -replace '[^a-z0-9\-]','' })
+    $imgPrefix = (($slugParts + $slug) -join '/')
+
+    # Fix relative image links: ![alt](scope.png) or ![alt](images/scope.png)
+    $content = [regex]::Replace(
+        $content,
+        '!\[([^\]]*)\]\((?!http|/)([^)]+\.(png|jpg|jpeg|gif|webp|svg|bmp))\)',
+        {
+            param($m)
+            $alt  = $m.Groups[1].Value
+            $file = [System.IO.Path]::GetFileName($m.Groups[2].Value)
+            $nm   = ([System.IO.Path]::GetFileNameWithoutExtension($file) -replace '\s+', '-').ToLower()
+            $ext  = [System.IO.Path]::GetExtension($file).ToLower()
+            return "![$alt](/images/$using:imgPrefix/$nm$ext)"
+        }
+    )
+
+    # Inject missing frontmatter fields (slug, date, draft)
+    $fmMatch = [regex]::Match($content, '(?s)^---\s*\n(.*?)\n---\s*\n')
+    if ($fmMatch.Success) {
+        $fmBody  = $fmMatch.Groups[1].Value.Trim()
+        $changed = $false
+
+        if ($fmBody -eq '') {
+            # Empty frontmatter — rewrite completely
+            $newFm   = "---`ntitle: `"$title`"`ndate: $today`nslug: `"$slug`"`ndraft: false`n---`n`n"
+            $content = $newFm + $content.Substring($fmMatch.Index + $fmMatch.Length).TrimStart()
+            $changed = $true
+        } else {
+            if ($fmBody -notmatch 'slug\s*:') {
+                $fmBody += "`nslug: `"$slug`""
+                $changed = $true
+            }
+            if ($fmBody -notmatch 'date\s*:') {
+                $fmBody += "`ndate: $today"
+                $changed = $true
+            }
+            if ($fmBody -notmatch 'draft\s*:') {
+                $fmBody += "`ndraft: false"
+                $changed = $true
+            }
+            if ($changed) {
+                $newFm   = "---`n$($fmBody.Trim())`n---`n`n"
+                $content = $newFm + $content.Substring($fmMatch.Index + $fmMatch.Length).TrimStart()
+            }
+        }
+    } else {
+        # No frontmatter at all — prepend it
+        $newFm   = "---`ntitle: `"$title`"`ndate: $today`nslug: `"$slug`"`ndraft: false`n---`n`n"
+        $content = $newFm + $content.TrimStart()
+    }
+
+    if ($content -ne $original) {
+        [System.IO.File]::WriteAllText($mdFile.FullName, $content, [System.Text.Encoding]::UTF8)
+        OK "Frontmatter/links fixed: $($mdFile.Name)"
+        $fmFixed++
+    } else {
+        INFO "No frontmatter changes: $($mdFile.Name)"
+    }
+}
+OK "Frontmatter fixed in $fmFixed file(s)."
+
+
 # ── Step 5: Fix Obsidian vault image folder names ─────────────────────────────
 STEP "Step 5: Fixing image folder names in Obsidian vault (spaces -> hyphens)..."
 

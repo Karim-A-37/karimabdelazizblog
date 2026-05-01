@@ -13,7 +13,18 @@
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;p&gt;Information Gathering (Reconnaissance)
+      <description>&lt;p&gt;﻿&amp;mdash;
+title: &amp;ldquo;Introduction to information gathering&amp;rdquo;
+date: 2026-05-01
+slug: &amp;ldquo;introduction-to-information-gathering&amp;rdquo;
+draft: false
+tags:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ejpt&lt;/li&gt;
+&lt;li&gt;recon&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Information Gathering (Reconnaissance)
 Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
 1- passive information gathering &amp;ndash;&amp;gt; collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)
 2- active information gathering &amp;ndash;&amp;gt; collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information )

@@ -9,11 +9,36 @@
     <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About Me</title>
+      <link>https://karimabdelazizblog.tech/about/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/about/</guid>
+      <description>&lt;div style=&#34;text-align:center;padding:2rem 0 1rem;&#34;&gt;
+  &lt;h1 style=&#34;font-size:2.2rem;margin-bottom:0.3rem;&#34;&gt;Karim Abdelaziz&lt;/h1&gt;
+  &lt;p style=&#34;font-size:1.1rem;color:#888;margin:0;&#34;&gt;Cybersecurity Student &amp;nbsp;|&amp;nbsp; Penetration Testing &amp;nbsp;|&amp;nbsp; Red Team Aspirant&lt;/p&gt;
+  &lt;p style=&#34;color:#666;margin-top:0.4rem;&#34;&gt;📍 Alexandria, Egypt &amp;nbsp;·&amp;nbsp; 📧 &lt;a href=&#34;mailto:karemabdelaziz082@gmail.com&#34;&gt;karemabdelaziz082@gmail.com&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;who-i-am&#34;&gt;Who I Am&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;m a final-year &lt;strong&gt;B.Sc. Computer and Data Science (Cybersecurity Major)&lt;/strong&gt; student at Alexandria National University with a &lt;strong&gt;3.8 GPA&lt;/strong&gt;, graduating June 2026. My passion lies in offensive security — understanding how systems are broken so I can help defend them. I am actively pursuing the &lt;strong&gt;eJPT (Junior Penetration Tester)&lt;/strong&gt; certification and building hands-on skills through CTFs, labs, and real-world-simulated environments on HackTheBox, TryHackMe, and INE.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Introduction to information gathering</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;p&gt;Information Gathering (Reconnaissance)
+      <description>&lt;p&gt;﻿&amp;mdash;
+title: &amp;ldquo;Introduction to information gathering&amp;rdquo;
+date: 2026-05-01
+slug: &amp;ldquo;introduction-to-information-gathering&amp;rdquo;
+draft: false
+tags:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ejpt&lt;/li&gt;
+&lt;li&gt;recon&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Information Gathering (Reconnaissance)
 Reconnaissance is the first phase in penetration testing operation and  is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)
 1- passive information gathering &amp;ndash;&amp;gt; collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)
 2- active information gathering &amp;ndash;&amp;gt; collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information )
