@@ -1,0 +1,18 @@
+.toc {
+  font-size: 0.95rem;
+  min-width: 220px;
+}
+
+.toc ul li {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.5;
+  padding: 2px 0;
+}
+
+.toc a.active {
+  color: #ffffff;
+  font-weight: bold;
+  border-left: 2px solid #ffffff;
+  padding-left: 4px;
+}
