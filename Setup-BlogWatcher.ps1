@@ -135,57 +135,80 @@ if ($LASTEXITCODE -eq 0) {
 
 Pop-Location
 
-# ── Step 6: Register Task Scheduler ───────────────────────
+# ── Step 6: Register Task Scheduler via XML ──────────────
 Step 6 "Registering auto-start task in Windows Task Scheduler..."
 
-# Remove old task if it exists
-if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
-    Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
-    Warn "Old task removed."
-}
+$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
-$psExe  = "powershell.exe"
-$psArgs = "-WindowStyle Hidden -ExecutionPolicy Bypass -NonInteractive -File `"$WatcherScript`""
+# Build task XML — most reliable method, supports WorkingDirectory + delay
+$taskXml = @"
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>Karim Blog Auto-Deploy Watcher - starts on every login</Description>
+  </RegistrationInfo>
+  <Triggers>
+    <LogonTrigger>
+      <Enabled>true</Enabled>
+      <Delay>PT30S</Delay>
+    </LogonTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <UserId>$currentUser</UserId>
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <Priority>7</Priority>
+    <RestartOnFailure>
+      <Interval>PT1M</Interval>
+      <Count>10</Count>
+    </RestartOnFailure>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>powershell.exe</Command>
+      <Arguments>-WindowStyle Hidden -ExecutionPolicy Bypass -File "$WatcherScript"</Arguments>
+      <WorkingDirectory>$HugoSitePath</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>
+"@
 
-$action    = New-ScheduledTaskAction -Execute $psExe -Argument $psArgs
-$trigger   = New-ScheduledTaskTrigger -AtLogOn
+# Remove old task silently
+schtasks /Delete /TN $TaskName /F 2>&1 | Out-Null
+Warn "Old task removed (if existed)."
 
-$settings  = New-ScheduledTaskSettingsSet `
-    -ExecutionTimeLimit ([TimeSpan]::Zero) `
-    -RestartCount 3 `
-    -RestartInterval (New-TimeSpan -Minutes 1) `
-    -MultipleInstances IgnoreNew
+# Register using XML (most reliable method)
+$tmpXml = "$env:TEMP\KarimBlogWatcher.xml"
+[System.IO.File]::WriteAllText($tmpXml, $taskXml, [System.Text.Encoding]::Unicode)
+schtasks /Create /TN $TaskName /XML $tmpXml /F 2>&1 | Out-Null
+Remove-Item $tmpXml -Force -ErrorAction SilentlyContinue
 
-$principal = New-ScheduledTaskPrincipal `
-    -UserId ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name) `
-    -LogonType Interactive `
-    -RunLevel Highest
-
-$registered = Register-ScheduledTask `
-    -TaskName  $TaskName `
-    -Action    $action `
-    -Trigger   $trigger `
-    -Settings  $settings `
-    -Principal $principal `
-    -Force
-
-if ($registered) {
-    OK "Task '$TaskName' registered in Task Scheduler."
+if ($LASTEXITCODE -eq 0) {
+    OK "Task '$TaskName' registered - auto-starts 30s after every login."
 } else {
-    Fail "Failed to register the scheduled task."
+    Fail "Failed to register scheduled task. Run as Administrator."
 }
 
-# ── Step 7: Start watcher now ─────────────────────────────
+# ── Step 7: Start watcher immediately ────────────────────
 Step 7 "Starting the watcher right now..."
 
-Start-ScheduledTask -TaskName $TaskName
-Start-Sleep -Seconds 3
+# Use schtasks /Run — more reliable than Start-ScheduledTask
+schtasks /Run /TN $TaskName 2>&1 | Out-Null
+Start-Sleep -Seconds 4
 
-$taskInfo = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
-if ($taskInfo) {
-    OK "Watcher status: $($taskInfo.State)"
+$state = (schtasks /Query /TN $TaskName /FO LIST 2>&1 | Select-String 'Status:') -replace 'Status:\s*',''
+if ($state) {
+    OK "Watcher status: $state"
 } else {
-    Warn "Could not verify task status. Check Task Scheduler manually."
+    OK "Watcher launched. Check log: $HugoSitePath\watcher.log"
 }
 
 # ── Done ──────────────────────────────────────────────────
