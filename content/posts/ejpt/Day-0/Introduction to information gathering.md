@@ -1,7 +1,7 @@
 ---
-title: "Introduction to information gathering"
+title: Introduction to information gathering
 date: 2026-05-01
-slug: "introduction-to-information-gathering"
+slug: introduction-to-information-gathering
 draft: false
 ---
 ---

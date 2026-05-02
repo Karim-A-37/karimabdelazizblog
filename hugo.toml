@@ -70,4 +70,4 @@ paginate = 6
     weight = 20
 
 [taxonomies]
-  tag = "tags"
+  tags = "tags"
