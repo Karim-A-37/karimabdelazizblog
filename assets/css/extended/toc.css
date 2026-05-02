@@ -1,74 +1,82 @@
 /* ================================================================
-   TOC — Professional collapsible sidebar
+   TOC — Polished sidebar  (h2 + h3 only, bigger text, clean active)
    ================================================================ */
 
-/* ── Active heading in post content ─────────────────────────── */
+/* ── Active heading highlight in post content ─────────────────── */
 .post-content h1.heading-active,
 .post-content h2.heading-active,
-.post-content h3.heading-active,
-.post-content h4.heading-active {
+.post-content h3.heading-active {
   color: #22c55e !important;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 /* ── Outer wrapper ───────────────────────────────────────────── */
 .toc {
+  font-family: inherit;
   margin-bottom: 1.5rem;
-  font-size: 0.88rem;
 }
 
-/* ── Main details toggle ─────────────────────────────────────── */
+/* ── Main collapsible details ────────────────────────────────── */
 .toc > details {
   border: 1px solid var(--border) !important;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
   overflow: hidden !important;
   background: var(--entry) !important;
 }
 
-/* Summary = clickable header bar */
+/* ── Header bar (summary) ────────────────────────────────────── */
 .toc > details > summary {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0.75rem 1rem !important;
+  gap: 0.5rem !important;
+  padding: 0.8rem 1.1rem !important;
   cursor: pointer !important;
   list-style: none !important;
   user-select: none;
-  font-size: 0.72rem !important;
+  font-size: 0.7rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  opacity: 0.6;
+  color: var(--secondary) !important;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, opacity 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .toc > details > summary::-webkit-details-marker { display: none !important; }
 .toc > details > summary::marker              { display: none !important; }
 
-/* Chevron arrow via ::after */
-.toc > details > summary::after {
-  content: "›";
-  font-size: 1.1rem;
-  line-height: 1;
-  transition: transform 0.2s ease;
-  opacity: 0.7;
+/* Hamburger icon via ::before */
+.toc > details > summary::before {
+  content: "\2630";
+  font-size: 0.85rem;
+  opacity: 0.6;
 }
 
-/* Expanded state */
+/* Chevron via ::after — rotates when open */
+.toc > details > summary::after {
+  content: "\203A";
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-left: auto;
+  transition: transform 0.22s ease;
+  opacity: 0.5;
+}
+
 .toc > details[open] > summary {
-  opacity: 1;
+  color: var(--primary) !important;
   border-bottom-color: var(--border);
 }
 .toc > details[open] > summary::after {
   transform: rotate(90deg);
+  opacity: 0.8;
 }
 
-/* ── Nav + lists ─────────────────────────────────────────────── */
+/* ── Nav container ───────────────────────────────────────────── */
 #TableOfContents {
-  padding: 0.4rem 0 0.5rem !important;
+  padding: 0.5rem 0 0.6rem !important;
 }
 
+/* ── Lists ───────────────────────────────────────────────────── */
 #TableOfContents ul {
   list-style: none !important;
   padding: 0 !important;
@@ -78,61 +86,59 @@
 #TableOfContents li {
   margin: 0 !important;
   padding: 0 !important;
-  position: relative;
 }
 
 #TableOfContents li::marker,
-#TableOfContents li::before { content: none !important; display: none !important; }
+#TableOfContents li::before {
+  content: none !important;
+  display: none !important;
+}
 
 /* ── All links ───────────────────────────────────────────────── */
 #TableOfContents a {
   display: block !important;
-  padding: 0.38rem 1rem !important;
+  padding: 0.42rem 1.1rem !important;
+  font-size: 0.93rem !important;       /* larger — was 0.87 */
+  line-height: 1.45 !important;
   color: var(--secondary) !important;
   text-decoration: none !important;
   border-left: 3px solid transparent !important;
-  transition: color 0.15s, background 0.15s, border-color 0.15s;
-  line-height: 1.4 !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: color 0.14s, background 0.14s, border-color 0.14s;
 }
 
 #TableOfContents a:hover {
   color: var(--primary) !important;
-  background: rgba(128,128,128,0.06) !important;
+  background: rgba(128, 128, 128, 0.07) !important;
 }
 
-/* Sub-level indents */
-#TableOfContents ul ul      a { padding-left: 1.9rem !important; font-size: 0.83rem !important; }
-#TableOfContents ul ul ul   a { padding-left: 2.7rem !important; font-size: 0.81rem !important; }
+/* h3 sub-items — slightly smaller + indented */
+#TableOfContents ul ul a {
+  padding-left: 2rem !important;
+  font-size: 0.86rem !important;
+  color: color-mix(in srgb, var(--secondary) 85%, transparent) !important;
+}
 
 /* ── Active link (scroll-spy) ────────────────────────────────── */
 #TableOfContents a.toc-active {
   color: #22c55e !important;
   border-left-color: #22c55e !important;
-  background: rgba(34,197,94,0.08) !important;
+  background: rgba(34, 197, 94, 0.09) !important;
   font-weight: 600 !important;
 }
 
-/* ── Nested collapsible details (built by JS) ────────────────── */
+/* ── Collapsible sub-sections (created by JS) ────────────────── */
 #TableOfContents details {
   display: block;
 }
-
 #TableOfContents details > summary {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
   list-style: none !important;
   cursor: pointer !important;
-  padding: 0.38rem 1rem 0.38rem 0 !important;
-  color: var(--secondary) !important;
-  border-left: 3px solid transparent !important;
+  padding: 0.42rem 0 !important;
   user-select: none;
-  transition: color 0.15s, background 0.15s;
+  transition: color 0.14s;
 }
-
 #TableOfContents details > summary::-webkit-details-marker { display: none !important; }
 #TableOfContents details > summary::marker { display: none !important; }
 
@@ -142,18 +148,17 @@
   background: none !important;
   flex: 1;
 }
-
 #TableOfContents details > summary::after {
-  content: "›";
-  font-size: 0.95rem;
-  margin-right: 0.6rem;
+  content: "\203A";
+  font-size: 1rem;
+  margin-right: 0.8rem;
   transition: transform 0.18s ease;
-  opacity: 0.5;
+  opacity: 0.4;
   flex-shrink: 0;
 }
-
 #TableOfContents details[open] > summary::after {
   transform: rotate(90deg);
+  opacity: 0.7;
 }
 
 /* ================================================================
@@ -163,8 +168,8 @@
   .toc {
     position: fixed !important;
     top: 68px;
-    right: max(1rem, calc((100vw - 800px) / 2 - 255px));
-    width: 230px;
+    right: max(1.2rem, calc((100vw - 800px) / 2 - 270px));
+    width: 248px;                        /* slightly wider — less wrapping */
     max-height: calc(100vh - 84px);
     overflow-y: auto;
     scrollbar-width: thin;
@@ -175,8 +180,11 @@
 
   .toc::-webkit-scrollbar       { width: 3px; }
   .toc::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+}
 
-  #TableOfContents a {
-    white-space: normal;
+/* ── Very wide screens: push further right ───────────────────── */
+@media (min-width: 1600px) {
+  .toc {
+    right: calc((100vw - 800px) / 2 - 280px);
   }
 }

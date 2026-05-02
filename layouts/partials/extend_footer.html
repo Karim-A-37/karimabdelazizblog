@@ -1,41 +1,37 @@
-{{- /* TOC: collapsible sub-sections + scroll-spy */ -}}
+{{- /* TOC scroll-spy: highlights active h2/h3 in both sidebar and content */ -}}
 <script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  /* ── 1. Make nested <ul> collapsible ───────────────────────── */
-  var nestedLists = Array.from(toc.querySelectorAll('ul ul'));
-  nestedLists.forEach(function (ul) {
+  // Keep details always open on wide screens
+  var mainDetails = document.querySelector('.toc > details');
+  if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
+
+  /* ── 1. Wrap nested <ul> in collapsible <details> ──────────── */
+  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
     var parentLi = ul.parentElement;
     if (!parentLi || parentLi.tagName !== 'LI') return;
-
-    // The direct link of the parent li (before the nested ul)
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
 
-    // Wrap in a details/summary so sub-items start collapsed
     var det = document.createElement('details');
     var sum = document.createElement('summary');
-
-    // Clone the link into the summary so it stays clickable
-    var linkClone = directLink.cloneNode(true);
-    sum.appendChild(linkClone);
+    sum.appendChild(directLink.cloneNode(true));
     det.appendChild(sum);
-    det.appendChild(ul);          // move nested list inside details
-
-    // Replace original link + nested list with the details element
+    det.appendChild(ul);
     directLink.replaceWith(det);
   });
 
-  /* ── 2. Scroll-spy ─────────────────────────────────────────── */
-  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
+  /* ── 2. Scroll-spy (h2 and h3 only) ───────────────────────── */
+  // Only watch h2 and h3 — matches hugo.toml startLevel=2 endLevel=3
+  var headings = Array.from(
+    document.querySelectorAll('h2[id], h3[id]')
+  );
   if (!headings.length) return;
 
-  // Collect all TOC links (including those cloned into summaries)
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-
-  var cur = { link: null, heading: null };
+  var cur   = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
@@ -48,23 +44,22 @@
 
     heading.classList.add('heading-active');
 
+    // Find matching TOC link
     for (var i = 0; i < links.length; i++) {
-      var href = links[i].getAttribute('href') || '';
-      if (decodeURIComponent(href.replace(/^#/, '')) === heading.id) {
-        cur.link = links[i];
-        break;
-      }
+      var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
+      if (frag === heading.id) { cur.link = links[i]; break; }
     }
+
     if (cur.link) {
       cur.link.classList.add('toc-active');
 
-      // Auto-open parent details of active link
-      var parent = cur.link.closest('details');
-      if (parent) parent.open = true;
+      // Auto-open parent <details> so the active item is visible
+      var parentDet = cur.link.closest('#TableOfContents details');
+      if (parentDet) parentDet.open = true;
 
       // Scroll TOC panel to keep active link visible
       var panel = document.querySelector('.toc');
-      if (panel) {
+      if (panel && window.innerWidth >= 1280) {
         var top = cur.link.offsetTop - panel.clientHeight / 2;
         panel.scrollTop = Math.max(0, top);
       }
@@ -74,7 +69,7 @@
   var lastHeading;
 
   function onScroll() {
-    var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
+    var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
     for (var i = 0; i < headings.length; i++) {
       if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
@@ -88,6 +83,6 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  onScroll(); // run once on load
 })();
 </script>

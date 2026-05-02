@@ -10,7 +10,7 @@
 <meta name="description" content="Notes, writeups and projects">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/tags/recon/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.7a9394b934bb50238e02ce85762dc2b03e5f9e590bcfe123f91dd273d37d4d8e.css" integrity="sha256-epOUuTS7UCOOAs6Fdi3CsD5fnlkLz&#43;Ej&#43;R3Sc9N9TY4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6be95ee8d5ac4126c8744ba0e7a488b59fdfb34f98c6df9036d1e60c4dd9dce5.css" integrity="sha256-a&#43;le6NWsQSbIdEug56SItZ/fs0&#43;Yxt&#43;QNtHmDE3Z3OU=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -150,38 +150,34 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
+  
+  var mainDetails = document.querySelector('.toc > details');
+  if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
+
    
-  var nestedLists = Array.from(toc.querySelectorAll('ul ul'));
-  nestedLists.forEach(function (ul) {
+  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
     var parentLi = ul.parentElement;
     if (!parentLi || parentLi.tagName !== 'LI') return;
-
-    
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
 
-    
     var det = document.createElement('details');
     var sum = document.createElement('summary');
-
-    
-    var linkClone = directLink.cloneNode(true);
-    sum.appendChild(linkClone);
+    sum.appendChild(directLink.cloneNode(true));
     det.appendChild(sum);
-    det.appendChild(ul);          
-
-    
+    det.appendChild(ul);
     directLink.replaceWith(det);
   });
 
    
-  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
+  
+  var headings = Array.from(
+    document.querySelectorAll('h2[id], h3[id]')
+  );
   if (!headings.length) return;
 
-  
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-
-  var cur = { link: null, heading: null };
+  var cur   = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
@@ -194,23 +190,22 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
 
     heading.classList.add('heading-active');
 
+    
     for (var i = 0; i < links.length; i++) {
-      var href = links[i].getAttribute('href') || '';
-      if (decodeURIComponent(href.replace(/^#/, '')) === heading.id) {
-        cur.link = links[i];
-        break;
-      }
+      var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
+      if (frag === heading.id) { cur.link = links[i]; break; }
     }
+
     if (cur.link) {
       cur.link.classList.add('toc-active');
 
       
-      var parent = cur.link.closest('details');
-      if (parent) parent.open = true;
+      var parentDet = cur.link.closest('#TableOfContents details');
+      if (parentDet) parentDet.open = true;
 
       
       var panel = document.querySelector('.toc');
-      if (panel) {
+      if (panel && window.innerWidth >= 1280) {
         var top = cur.link.offsetTop - panel.clientHeight / 2;
         panel.scrollTop = Math.max(0, top);
       }
@@ -220,7 +215,7 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
   var lastHeading;
 
   function onScroll() {
-    var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
+    var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
     for (var i = 0; i < headings.length; i++) {
       if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
@@ -234,7 +229,7 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  onScroll(); 
 })();
 </script>
 

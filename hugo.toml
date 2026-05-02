@@ -58,6 +58,10 @@ paginate = 6
     lineNumbersInTable = false
     noClasses          = true
     guessSyntax        = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel   = 3
+    ordered    = false
 
 [menu]
   [[menu.main]]
