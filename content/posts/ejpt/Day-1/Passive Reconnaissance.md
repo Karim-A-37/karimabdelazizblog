@@ -370,8 +370,6 @@ Usage of the advanced search engines quires in the right or advanced way, and it
 ![subdomains+intiltle dorking](/images/ejpt/day-1/passive-reconnaissance/subdomainsintiltle-dorking.png)
 
 **5. cache / [Wayback Machine](https://web.archive.org/)** → to find an older version to website, displays Google's saved version of a webpage, allowing users to view content that has been updated, deleted, or is otherwise inaccessible now by the live image that is running now (historical view of what website look like) so it may have unchanged email addresses and other information
-![Pasted image 20260429121012](/images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429121012.png)
-![Pasted image 20260429123335](/images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429123335.png)
 
 **6. `inurl:auth_user_file.txt`** → Searches for specific text within URLs, auth_user_file.txt to find exposed password files we can change file.txt to any other type of file
 ![inurl auth user file txt](/images/ejpt/day-1/passive-reconnaissance/inurl-auth-user-file-txt.png)
