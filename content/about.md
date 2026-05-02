@@ -2,6 +2,7 @@
 title: "About Me"
 date: 2026-05-01
 layout: "page"
+ShowToc: false
 ---
 
 <style>

@@ -11,7 +11,7 @@
 <meta name="description" content="Notes, writeups and projects">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.975002b0003160bd664ac8bd515b06daad2f4b1f349b510c40188bd13a9c6cc2.css" integrity="sha256-l1ACsAAxYL1mSsi9UVsG2q0vSx80m1EMQBiL0TqcbMI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.49536ef132e078e4d195d58b7e11e9e2df9083f571d0eada21ba4444bae2e77b.css" integrity="sha256-SVNu8TLgeOTRldWLfhHp4t&#43;Qg/Vx0OraIbpERLri53s=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -242,47 +242,55 @@ Example: Add a CNAME record subdomain that points to the domain name mycoolne
   if (!headings.length) return;
 
   var links = Array.from(toc.querySelectorAll('a'));
-  var current = null;
+  var currentLink    = null;
+  var currentHeading = null;
 
-  function setActive(link) {
-    if (current === link) return;
-    if (current) current.classList.remove('toc-active');
-    current = link;
-    if (current) {
-      current.classList.add('toc-active');
-      
-      var tocEl = document.querySelector('.toc');
-      if (tocEl) {
-        var linkTop = current.offsetTop;
-        var tocHeight = tocEl.clientHeight;
-        if (linkTop < tocEl.scrollTop || linkTop > tocEl.scrollTop + tocHeight - 40) {
-          tocEl.scrollTop = linkTop - tocHeight / 2;
+  function setActive(heading, link) {
+    
+    if (currentLink)    currentLink.classList.remove('toc-active');
+    if (currentHeading) currentHeading.classList.remove('heading-active');
+
+    currentLink    = link    || null;
+    currentHeading = heading || null;
+
+    
+    if (currentLink)    currentLink.classList.add('toc-active');
+    if (currentHeading) currentHeading.classList.add('heading-active');
+
+    
+    if (currentLink) {
+      var tocPanel = document.querySelector('.toc');
+      if (tocPanel) {
+        var linkTop = currentLink.offsetTop;
+        var panelH  = tocPanel.clientHeight;
+        if (linkTop < tocPanel.scrollTop || linkTop > tocPanel.scrollTop + panelH - 40) {
+          tocPanel.scrollTop = linkTop - panelH / 2;
         }
       }
     }
   }
 
   function onScroll() {
-    var scrollY = window.scrollY + 110;
-    var active = null;
+    var scrollY       = window.scrollY + 120;
+    var activeHeading = null;
+
     for (var i = 0; i < headings.length; i++) {
       if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
-        active = headings[i];
+        activeHeading = headings[i];
       }
     }
-    if (active) {
-      var id = active.id;
-      var link = links.find(function (a) {
-        return a.getAttribute('href') === '#' + id;
-      });
-      setActive(link || null);
+
+    if (activeHeading) {
+      var id   = activeHeading.id;
+      var link = links.find(function (a) { return a.getAttribute('href') === '#' + id; });
+      if (activeHeading !== currentHeading) setActive(activeHeading, link || null);
     } else {
-      setActive(null);
+      setActive(null, null);
     }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

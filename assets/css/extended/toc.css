@@ -2,6 +2,16 @@
    TOC - Clean sidebar style (matches reference design)
    ================================================================ */
 
+/* ── Active heading highlight in post content ─────────────────── */
+.post-content h1.heading-active,
+.post-content h2.heading-active,
+.post-content h3.heading-active,
+.post-content h4.heading-active {
+  color: #22c55e;
+  transition: color 0.2s;
+}
+
+
 /* Hide the default PaperMod details/summary toggle behavior */
 .toc { margin-bottom: 1.5rem; }
 .toc details { all: unset; display: block; }
