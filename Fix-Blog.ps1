@@ -280,9 +280,28 @@ if ($null -eq $PythonCmd) {
     }
 }
 
-# ── Step 8: Remove image folders rescued from content/ ───────────────────────
-STEP "Step 8: Cleaning up image folders from Hugo content/posts/..."
+# -- Step 7b: Validate and fix broken image paths ---------------------------
+STEP "Step 7b: Running image-checker.py..."
+$ImageCheckerScript = "$HugoSitePath\image-checker.py"
+if (Test-Path $ImageCheckerScript) {
+    & $PythonCmd $ImageCheckerScript | ForEach-Object { INFO $_ }
+    OK "Image paths checked."
+} else {
+    WARN "image-checker.py not found - skipping."
+}
 
+# -- Step 7c: Fix broken/duplicate frontmatter ------------------------------
+STEP "Step 7c: Running fix-frontmatter.py..."
+$FrontmatterScript = "$HugoSitePath\fix-frontmatter.py"
+if (Test-Path $FrontmatterScript) {
+    & $PythonCmd $FrontmatterScript | ForEach-Object { INFO $_ }
+    OK "Frontmatter checked."
+} else {
+    WARN "fix-frontmatter.py not found - skipping."
+}
+
+# -- Step 8: Remove image folders rescued from content/ --------------------
+STEP "Step 8: Cleaning up image folders from Hugo content/posts/..."
 $imageFolders = Get-ChildItem -Path $HugoPostsPath -Directory -Recurse -ErrorAction SilentlyContinue |
     Where-Object { $_.Name -match 'images' }
 

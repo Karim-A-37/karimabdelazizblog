@@ -33,10 +33,12 @@ $CooldownSeconds    = 30
 # DO NOT EDIT BELOW THIS LINE
 # =====================================================================
 
-$HugoPostsPath    = "$HugoSitePath\content\posts"
-$StaticImagesPath = "$HugoSitePath\static\images"
-$ImagesScript     = "$HugoSitePath\images.py"
-$LogFile          = "$HugoSitePath\watcher.log"
+$HugoPostsPath      = "$HugoSitePath\content\posts"
+$StaticImagesPath   = "$HugoSitePath\static\images"
+$ImagesScript       = "$HugoSitePath\images.py"
+$ImageCheckerScript = "$HugoSitePath\image-checker.py"
+$FrontmatterScript  = "$HugoSitePath\fix-frontmatter.py"
+$LogFile            = "$HugoSitePath\watcher.log"
 
 $global:LastDeploy  = [DateTime]::MinValue
 $global:IsDeploying = $false
@@ -103,7 +105,23 @@ function Invoke-BlogDeploy {
         }
         Write-Log "Images processed." "OK"
 
-        # ── Step 3: Hugo build ───────────────────────────────────────
+        # -- Step 2b: Fix broken image paths ---------------------------------
+        Write-Log "Checking image paths..." "STEP"
+        & $PythonCmd $ImageCheckerScript 2>&1 | ForEach-Object {
+            if ($_ -notmatch 'image links OK|run started|run done') {
+                Write-Log "  image-checker: $_"
+            }
+        }
+        Write-Log "Image paths checked." "OK"
+
+        # -- Step 2c: Fix frontmatter ----------------------------------------
+        Write-Log "Checking frontmatter..." "STEP"
+        & $PythonCmd $FrontmatterScript 2>&1 | ForEach-Object {
+            if ($_ -match 'FIXED') { Write-Log "  frontmatter: $_" }
+        }
+        Write-Log "Frontmatter checked." "OK"
+
+        # -- Step 3: Hugo build -----------------------------------------------───────
         Write-Log "Building Hugo site..." "STEP"
         Push-Location $HugoSitePath
         $hugoOut = hugo 2>&1
