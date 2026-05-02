@@ -39,7 +39,7 @@ Target scoping is the process of defining what systems, apps and networks are al
 - **In Scope** → assets i allowed to (collect info from - scan - enumerate)
 - **Out Scope** → assets i am not allowed to test or interact with (third party services - external domains not listed in scope - systems owned by other organization)
 
-![scope](posts\ejpt\Day-0\Introduction-to-information-gathering-images)
+![scope](/images/ejpt/day-0/introduction-to-information-gathering/scope.png)
 
 > Reconnaissance is about collecting useful information not all information with well defined scope i keep reconnaissance focused and efficient and relevant to later stages.
 
@@ -85,7 +85,7 @@ During info gathering we are trying ==to build map of target==, examples of thos
 - Open ports
 - Publicly exposed information
 
-![recon mapping flow](https://claude.ai/images/ejpt/day-0/introduction-to-information-gathering/recon.png)
+![recon157](/images/ejpt/day-0/introduction-to-information-gathering/recon.png)
 
 ---
 
