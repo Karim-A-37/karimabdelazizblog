@@ -416,8 +416,8 @@ This is the next step after email reconnaissance which is checking leaked passwo
 
 **2. Breach check:**
 
-1. ![have i been pawned-2](https://claude.ai/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-2.png)
-2. ![have i been pawned-3](https://claude.ai/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-3.png)
+1. ![have i been pawned-2](/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-2.png)
+2. ![have i been pawned-3|172](https://claude.ai/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-3.png)
 3. ![have i been pawned-4](https://claude.ai/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-4.png)
 
 ---
