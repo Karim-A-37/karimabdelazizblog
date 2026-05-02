@@ -71,14 +71,7 @@
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;hr&gt;
-&lt;p&gt;title: &amp;ldquo;Introduction to information gathering&amp;rdquo; date: 2026-05-01 slug: &amp;ldquo;introduction-to-information-gathering&amp;rdquo; draft: false tags:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ejpt&lt;/li&gt;
-&lt;li&gt;recon&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
 &lt;p&gt;Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)&lt;/p&gt;
 &lt;h2 id=&#34;types-of-reconnaissance&#34;&gt;Types of Reconnaissance&lt;/h2&gt;
 &lt;ol&gt;
@@ -94,21 +87,14 @@
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</guid>
-      <description>&lt;hr&gt;
-&lt;p&gt;title: &amp;ldquo;Passive Reconnaissance&amp;rdquo;
-date: 2026-05-01
-slug: &amp;ldquo;passive-reconnaissance&amp;rdquo;
-draft: false
-tags:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ejpt&lt;/li&gt;
-&lt;li&gt;recon&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;passive-reconnaissance&#34;&gt;Passive Reconnaissance&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;passive-reconnaissance&#34;&gt;Passive Reconnaissance&lt;/h1&gt;
 &lt;p&gt;As we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.&lt;/p&gt;
 &lt;h2 id=&#34;1-host-tool--ip-lookup&#34;&gt;1. Host Tool — IP Lookup&lt;/h2&gt;
-&lt;p&gt;The first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)&lt;/p&gt;</description>
+&lt;p&gt;The first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;host tool&lt;/strong&gt; → DNS lookup utility, we use to convert names into IPs and vice versa&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
