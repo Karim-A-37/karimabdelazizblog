@@ -1,173 +1,158 @@
 """
-fix-frontmatter.py
-==================
-Fixes duplicated/broken YAML frontmatter in Hugo .md posts.
+fix-frontmatter.py  (v2 - safe)
+================================
+Only fixes files that have the EXACT broken pattern:
+  ---
+  FM block 1 (good YAML)
+  ---
+  ---
+  FM block 2 (broken run-on or duplicate YAML)
+  ---
+  body content...
 
-The problem: some files have two --- blocks like:
-  ---
-  title: "..."
-  date: ...
-  slug: "..."
-  draft: false
-  ---
-  ---
-  title: "..." date: ... slug: "..." draft: false tags:
-  - ejpt
-  - recon
-  ---
-
-This script merges them into one clean frontmatter block.
+Never touches files that have a single clean frontmatter block.
 """
 
-import os, re, sys
+import os, re
 
 CONTENT_POSTS = r"C:\Users\DELL\karimabdelazizblog\content\posts"
 
-def parse_inline_yaml_line(line):
-    """Parse a run-on YAML line like: title: "foo" date: bar tags:"""
-    fields = {}
-    # Extract key: value pairs (value ends at next key or end)
-    pattern = re.compile(r'(\w+):\s*("(?:[^"\\]|\\.)*"|[^:]+?)(?=\s+\w+:|$)')
-    for m in pattern.finditer(line):
-        key = m.group(1).strip()
-        val = m.group(2).strip().strip('"')
-        if val:
-            fields[key] = val
-    return fields
+# Matches ONLY the specific broken pattern: two back-to-back --- blocks
+# Group 1 = first FM content (clean YAML)
+# Group 2 = second FM content (broken/duplicate)
+# Group 3 = actual post body
+BROKEN_PATTERN = re.compile(
+    r'\A---[ \t]*\r?\n'      # opening ---
+    r'(.*?)\r?\n'            # FM1 (non-greedy)
+    r'---[ \t]*\r?\n'        # closing ---
+    r'[ \t]*\r?\n?'          # optional blank line
+    r'---[ \t]*\r?\n'        # SECOND opening ---  <-- the telltale sign
+    r'(.*?)\r?\n'            # FM2 content
+    r'---[ \t]*\r?\n'        # SECOND closing ---
+    r'(.*)',                  # rest of the body
+    re.DOTALL
+)
 
-def fix_file(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # Split on --- markers
-    parts = re.split(r'^---\s*$', content, flags=re.MULTILINE)
-    # parts[0] = before first ---, parts[1] = first FM, parts[2] = body or second FM, etc.
-
-    if len(parts) < 3:
-        return False  # Normal single-block file, skip
-
-    first_fm_raw  = parts[1].strip()
-    rest          = parts[2:]  # everything after first closing ---
-
-    # Check if there's a second frontmatter block at the start of rest
-    # (i.e., rest starts with a --- block immediately)
-    second_fm_raw = None
-    body_parts    = rest
-
-    if len(rest) >= 2 and rest[0].strip() == '':
-        # Possibly: empty gap then second FM then ---
-        # Actually re.split gives us: ['', ' second_fm ', ' body ']
-        # if the content is: \n---\n second_fm \n---\n body
-        pass
-
-    # Detect duplicate FM: if rest[0] has inline YAML (everything on one line)
-    # or if there's another FM-like block
-    joined_rest = '---'.join(rest)
-
-    # Pattern: second --- block exists right after body starts
-    double_fm = re.match(r'^\s*\n?---\s*\n(.*?)\n---\s*\n(.*)', joined_rest, re.DOTALL)
-    if not double_fm:
-        # Maybe the rest itself starts with a broken FM (no leading ---)
-        # Check if rest[0] looks like run-on yaml
-        rest0 = rest[0].strip() if rest else ''
-        if not rest0.startswith('\n') and re.search(r'\w+:\s*\S', rest0):
-            second_fm_raw = rest0
-            body_parts = rest[1:]
-        else:
-            return False  # No duplicate found
-    else:
-        second_fm_raw = double_fm.group(1)
-        actual_body   = double_fm.group(2)
-        body_parts    = [actual_body]
-
-    # Parse first FM as proper YAML
-    fm = {}
-    for line in first_fm_raw.splitlines():
-        line = line.strip()
+def parse_clean_yaml(text):
+    """Parse simple key: value YAML, returns dict. Handles list items."""
+    result = {}
+    current_key = None
+    for line in text.splitlines():
+        line = line.rstrip()
         if not line:
             continue
-        if line.startswith('-'):
-            # List item for previous key
-            if last_key:
-                fm.setdefault(last_key, [])
-                if isinstance(fm[last_key], str):
-                    fm[last_key] = [fm[last_key]]
-                fm[last_key].append(line[1:].strip())
+        # List item
+        if re.match(r'^\s*-\s+', line):
+            item = re.sub(r'^\s*-\s+', '', line).strip().strip('"\'')
+            if current_key:
+                result.setdefault(current_key, [])
+                if isinstance(result[current_key], str):
+                    result[current_key] = [result[current_key]]
+                result[current_key].append(item)
             continue
+        # Key: value
         m = re.match(r'^(\w+):\s*(.*)', line)
         if m:
-            last_key = m.group(1)
-            val = m.group(2).strip().strip('"')
-            fm[last_key] = val if val else None
-        else:
-            last_key = None
+            current_key = m.group(1)
+            val = m.group(2).strip().strip('"\'')
+            result[current_key] = val if val else None
+    return result
 
-    last_key = None
+def extract_tags(text):
+    """Pull tags from a broken second FM block (may be run-on or multiline)."""
+    tags = []
+    # Multiline: find tags: key then collect - items
+    lines = text.splitlines()
+    in_tags = False
+    for line in lines:
+        line = line.strip()
+        if re.match(r'^tags\s*:', line):
+            in_tags = True
+            # tags: value on same line?
+            after = re.sub(r'^tags\s*:\s*', '', line)
+            if after:
+                tags.append(after.strip().strip('"\''))
+            continue
+        if in_tags:
+            if re.match(r'^-\s+', line):
+                tags.append(line[1:].strip().strip('"\''))
+            elif re.match(r'^\w+\s*:', line):
+                in_tags = False  # another key started
+    return tags
 
-    # Parse second FM (may be run-on or multi-line)
-    if second_fm_raw:
-        # Try multi-line first
-        current_key = None
-        for line in second_fm_raw.splitlines():
-            line2 = line.strip()
-            if not line2:
-                continue
-            if line2.startswith('-'):
-                if current_key:
-                    fm.setdefault(current_key, [])
-                    if isinstance(fm[current_key], str):
-                        fm[current_key] = [fm[current_key]]
-                    fm[current_key].append(line2[1:].strip())
-                continue
-            m = re.match(r'^(\w+):\s*(.*)', line2)
-            if m:
-                current_key = m.group(1)
-                val = m.group(2).strip().strip('"')
-                if val:
-                    fm[current_key] = val
-                # else keep existing or set None; don't overwrite if already set
-
-    # Build clean frontmatter
+def build_frontmatter(fm, tags):
     lines = ['---']
     for key in ['title', 'date', 'slug', 'draft']:
-        if key in fm and fm[key] is not None:
-            val = fm[key]
+        val = fm.get(key)
+        if val is not None:
+            # Quote strings with spaces
             if isinstance(val, str) and ' ' in val and not val.startswith('"'):
                 val = '"%s"' % val
             lines.append('%s: %s' % (key, val))
-
-    # Tags
-    tags = fm.get('tags', fm.get('tag', []))
-    if isinstance(tags, str) and tags:
-        tags = [tags]
-    if isinstance(tags, list) and tags:
+    if tags:
         lines.append('tags:')
         for t in tags:
             lines.append('  - %s' % t)
-
     lines.append('---')
-    clean_fm = '\n'.join(lines)
+    return '\n'.join(lines)
 
-    # Reconstruct body
-    body = ''.join(body_parts).lstrip('\n')
+def fix_file(path):
+    try:
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            content = f.read()
+    except Exception as e:
+        print('ERROR reading %s: %s' % (os.path.basename(path), e))
+        return False
 
-    new_content = clean_fm + '\n\n' + body
+    m = BROKEN_PATTERN.match(content)
+    if not m:
+        return False  # File is clean — do not touch it
+
+    fm1_raw = m.group(1)
+    fm2_raw = m.group(2)
+    body    = m.group(3).lstrip('\r\n')
+
+    fm   = parse_clean_yaml(fm1_raw)
+    tags = fm.pop('tags', None)  # tags from FM1 if any
+
+    # Prefer tags from FM2 (usually where they ended up)
+    fm2_tags = extract_tags(fm2_raw)
+    if fm2_tags:
+        tags = fm2_tags
+    elif tags and isinstance(tags, list):
+        pass  # keep FM1 tags
+
+    if isinstance(tags, str):
+        tags = [tags] if tags else []
+    if not tags:
+        tags = []
+
+    clean_fm      = build_frontmatter(fm, tags)
+    new_content   = clean_fm + '\n\n' + body
 
     if new_content != content:
-        with open(path, 'w', encoding='utf-8') as f:
-            f.write(new_content)
-        print('FIXED  ' + os.path.basename(path))
+        try:
+            with open(path, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(new_content)
+        except Exception as e:
+            print('ERROR writing %s: %s' % (os.path.basename(path), e))
+            return False
+        print('FIXED  %s' % os.path.basename(path))
         return True
 
     return False
 
-# ── Main ──────────────────────────────────────────────────────
-fixed = 0
-for root, dirs, files in os.walk(CONTENT_POSTS):
-    dirs[:] = sorted(d for d in dirs if not d.startswith('.'))
-    for fname in files:
-        if fname.lower().endswith('.md'):
-            if fix_file(os.path.join(root, fname)):
-                fixed += 1
+# ── Main ────────────────────────────────────────────────────────
+if __name__ == '__main__':
+    fixed = 0
+    for root, dirs, files in os.walk(CONTENT_POSTS):
+        dirs[:] = sorted(d for d in dirs if not d.startswith('.'))
+        for fname in sorted(files):
+            if fname.lower().endswith('.md'):
+                if fix_file(os.path.join(root, fname)):
+                    fixed += 1
 
-print('Done. Fixed %d file(s).' % fixed)
+    if fixed:
+        print('Done. Fixed %d file(s).' % fixed)
+    else:
+        print('All frontmatter OK — no changes made.')
