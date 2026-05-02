@@ -37,17 +37,24 @@
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</guid>
       <description>&lt;hr&gt;
-&lt;p&gt;title: &amp;ldquo;Passive Reconnaissance&amp;rdquo; date: 2026-05-01 slug: &amp;ldquo;passive-reconnaissance&amp;rdquo; draft: false tags:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ejpt&lt;/li&gt;
-&lt;li&gt;recon&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;passive-reconnaissance&#34;&gt;Passive Reconnaissance&lt;/h1&gt;
-&lt;p&gt;As we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;1-host-tool--ip-lookup&#34;&gt;1. Host Tool — IP Lookup&lt;/h2&gt;
-&lt;p&gt;The first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)&lt;/p&gt;</description>
+&lt;h2 id=&#34;recon&#34;&gt;title: &amp;ldquo;Passive Reconnaissance&amp;rdquo;
+date: 2026-05-01
+slug: &amp;ldquo;passive-reconnaissance&amp;rdquo;
+draft: false
+tags:
+ejpt
+recon&lt;/h2&gt;
+&lt;h2 id=&#34;as-we-know-passive-recon-is-collecting-information-without-direct-interacting-with-target-in-passive-we-are-trying-to-know-the-target-very-well-and-our-boundaries-and-the-meaningful-data-that-will-other-steps-of-penetration-testing-efficiently&#34;&gt;Passive Reconnaissance
+As we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Host Tool — IP Lookup
+The first thing we can do is trying to get the IP address of website using tool called (==host==)
+host tool → DNS lookup utility, we use to convert names into IPs and vice versa
+&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/host-tool.png&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip] Hint
+We can may see two IPs, it may one for server and the other one for the firewall (proxy)&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
