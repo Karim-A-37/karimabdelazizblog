@@ -10,7 +10,7 @@
 <meta name="description" content="Notes, writeups and projects">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/tags/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.94076867ad3e4fae2ce822ef949fe526ea4a88c86faf317693df5ba4db6bd218.css" integrity="sha256-lAdoZ60&#43;T64s6CLvlJ/lJupKiMhvrzF2k99bpNtr0hg=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7a9394b934bb50238e02ce85762dc2b03e5f9e590bcfe123f91dd273d37d4d8e.css" integrity="sha256-epOUuTS7UCOOAs6Fdi3CsD5fnlkLz&#43;Ej&#43;R3Sc9N9TY4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -117,52 +117,82 @@
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
-  var details = document.querySelector('.toc details');
-  if (details) details.open = true;
+   
+  var nestedLists = Array.from(toc.querySelectorAll('ul ul'));
+  nestedLists.forEach(function (ul) {
+    var parentLi = ul.parentElement;
+    if (!parentLi || parentLi.tagName !== 'LI') return;
 
-  
+    
+    var directLink = parentLi.querySelector(':scope > a');
+    if (!directLink) return;
+
+    
+    var det = document.createElement('details');
+    var sum = document.createElement('summary');
+
+    
+    var linkClone = directLink.cloneNode(true);
+    sum.appendChild(linkClone);
+    det.appendChild(sum);
+    det.appendChild(ul);          
+
+    
+    directLink.replaceWith(det);
+  });
+
+   
   var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
   if (!headings.length) return;
 
+  
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+
   var cur = { link: null, heading: null };
 
   function activate(heading) {
-    if (cur.link)    { cur.link.classList.remove('toc-active'); }
-    if (cur.heading) { cur.heading.classList.remove('heading-active'); }
+    if (cur.link)    cur.link.classList.remove('toc-active');
+    if (cur.heading) cur.heading.classList.remove('heading-active');
 
     cur.heading = heading || null;
     cur.link    = null;
 
-    if (heading) {
-      heading.classList.add('heading-active');
-      
-      for (var i = 0; i < links.length; i++) {
-        var href = links[i].getAttribute('href') || '';
-        var frag = decodeURIComponent(href.replace(/^#/, ''));
-        if (frag === heading.id) { cur.link = links[i]; break; }
+    if (!heading) return;
+
+    heading.classList.add('heading-active');
+
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      if (decodeURIComponent(href.replace(/^#/, '')) === heading.id) {
+        cur.link = links[i];
+        break;
       }
-      if (cur.link) {
-        cur.link.classList.add('toc-active');
-        
-        var panel = document.querySelector('.toc');
-        if (panel && window.innerWidth >= 1280) {
-          var top = cur.link.offsetTop - panel.clientHeight / 2;
-          panel.scrollTop = Math.max(0, top);
-        }
+    }
+    if (cur.link) {
+      cur.link.classList.add('toc-active');
+
+      
+      var parent = cur.link.closest('details');
+      if (parent) parent.open = true;
+
+      
+      var panel = document.querySelector('.toc');
+      if (panel) {
+        var top = cur.link.offsetTop - panel.clientHeight / 2;
+        panel.scrollTop = Math.max(0, top);
       }
     }
   }
 
-  var lastHeading = undefined; 
+  var lastHeading;
 
   function onScroll() {
     var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
     var found = null;
     for (var i = 0; i < headings.length; i++) {
-      var top = headings[i].getBoundingClientRect().top + window.scrollY;
-      if (top <= threshold) found = headings[i];
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
+        found = headings[i];
+      }
     }
     if (found !== lastHeading) {
       lastHeading = found;
@@ -171,7 +201,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

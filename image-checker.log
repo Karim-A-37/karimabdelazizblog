@@ -1,0 +1,8 @@
+﻿[2026-05-02 05:54:48] INFO  image-checker-daemon started. Checking every 30 seconds.
+[2026-05-02 05:54:49] --- image-checker run started ---
+[2026-05-02 05:54:49] MISSING (no match found): /images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429121012.png  in  Passive Reconnaissance.md
+[2026-05-02 05:54:49] MISSING (no match found): /images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429123335.png  in  Passive Reconnaissance.md
+[2026-05-02 05:54:49] All image links OK.
+[2026-05-02 05:54:49] --- image-checker run done ---
+[2026-05-02 05:54:49]   [2026-05-02 05:54:49] MISSING (no match found): /images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429121012.png  in  Passive Reconnaissance.md
+[2026-05-02 05:54:49]   [2026-05-02 05:54:49] MISSING (no match found): /images/ejpt/day-1/passive-reconnaissance/pasted-image-20260429123335.png  in  Passive Reconnaissance.md

@@ -1,55 +1,85 @@
-{{- /* Scroll-spy: highlights active TOC link AND active heading in post content */ -}}
+{{- /* TOC: collapsible sub-sections + scroll-spy */ -}}
 <script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  // Always keep details open
-  var details = document.querySelector('.toc details');
-  if (details) details.open = true;
+  /* ── 1. Make nested <ul> collapsible ───────────────────────── */
+  var nestedLists = Array.from(toc.querySelectorAll('ul ul'));
+  nestedLists.forEach(function (ul) {
+    var parentLi = ul.parentElement;
+    if (!parentLi || parentLi.tagName !== 'LI') return;
 
-  // All headings that have an id — works regardless of parent container
+    // The direct link of the parent li (before the nested ul)
+    var directLink = parentLi.querySelector(':scope > a');
+    if (!directLink) return;
+
+    // Wrap in a details/summary so sub-items start collapsed
+    var det = document.createElement('details');
+    var sum = document.createElement('summary');
+
+    // Clone the link into the summary so it stays clickable
+    var linkClone = directLink.cloneNode(true);
+    sum.appendChild(linkClone);
+    det.appendChild(sum);
+    det.appendChild(ul);          // move nested list inside details
+
+    // Replace original link + nested list with the details element
+    directLink.replaceWith(det);
+  });
+
+  /* ── 2. Scroll-spy ─────────────────────────────────────────── */
   var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
   if (!headings.length) return;
 
+  // Collect all TOC links (including those cloned into summaries)
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+
   var cur = { link: null, heading: null };
 
   function activate(heading) {
-    if (cur.link)    { cur.link.classList.remove('toc-active'); }
-    if (cur.heading) { cur.heading.classList.remove('heading-active'); }
+    if (cur.link)    cur.link.classList.remove('toc-active');
+    if (cur.heading) cur.heading.classList.remove('heading-active');
 
     cur.heading = heading || null;
     cur.link    = null;
 
-    if (heading) {
-      heading.classList.add('heading-active');
-      // Match TOC link by decoding the href fragment
-      for (var i = 0; i < links.length; i++) {
-        var href = links[i].getAttribute('href') || '';
-        var frag = decodeURIComponent(href.replace(/^#/, ''));
-        if (frag === heading.id) { cur.link = links[i]; break; }
+    if (!heading) return;
+
+    heading.classList.add('heading-active');
+
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      if (decodeURIComponent(href.replace(/^#/, '')) === heading.id) {
+        cur.link = links[i];
+        break;
       }
-      if (cur.link) {
-        cur.link.classList.add('toc-active');
-        // Keep TOC panel scrolled so active link stays visible
-        var panel = document.querySelector('.toc');
-        if (panel && window.innerWidth >= 1280) {
-          var top = cur.link.offsetTop - panel.clientHeight / 2;
-          panel.scrollTop = Math.max(0, top);
-        }
+    }
+    if (cur.link) {
+      cur.link.classList.add('toc-active');
+
+      // Auto-open parent details of active link
+      var parent = cur.link.closest('details');
+      if (parent) parent.open = true;
+
+      // Scroll TOC panel to keep active link visible
+      var panel = document.querySelector('.toc');
+      if (panel) {
+        var top = cur.link.offsetTop - panel.clientHeight / 2;
+        panel.scrollTop = Math.max(0, top);
       }
     }
   }
 
-  var lastHeading = undefined; // undefined = not initialised yet
+  var lastHeading;
 
   function onScroll() {
     var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
     var found = null;
     for (var i = 0; i < headings.length; i++) {
-      var top = headings[i].getBoundingClientRect().top + window.scrollY;
-      if (top <= threshold) found = headings[i];
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
+        found = headings[i];
+      }
     }
     if (found !== lastHeading) {
       lastHeading = found;
@@ -58,6 +88,6 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // run once immediately on page load
+  onScroll();
 })();
 </script>

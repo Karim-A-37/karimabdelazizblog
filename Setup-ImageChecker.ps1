@@ -1,8 +1,9 @@
 # Setup-ImageChecker.ps1
-# Run as Administrator — registers image-checker.py as a scheduled task every 15 min
+# Run as Administrator — registers image-checker-daemon.ps1 as a scheduled task
+# Daemon checks image paths every 30 seconds automatically
 
 $HugoSite   = "C:\Users\DELL\karimabdelazizblog"
-$Script     = "$HugoSite\image-checker.py"
+$Daemon     = "$HugoSite\image-checker-daemon.ps1"
 $TaskName   = "KarimImageChecker"
 $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
@@ -10,17 +11,9 @@ $taskXml = @"
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
-    <Description>Karim Blog - checks and fixes broken image paths every 15 min</Description>
+    <Description>Karim Blog - checks and fixes broken image paths every 30 seconds</Description>
   </RegistrationInfo>
   <Triggers>
-    <TimeTrigger>
-      <Repetition>
-        <Interval>PT15M</Interval>
-        <StopAtDurationEnd>false</StopAtDurationEnd>
-      </Repetition>
-      <StartBoundary>2026-01-01T00:00:00</StartBoundary>
-      <Enabled>true</Enabled>
-    </TimeTrigger>
     <LogonTrigger>
       <Enabled>true</Enabled>
       <Delay>PT1M</Delay>
@@ -37,12 +30,12 @@ $taskXml = @"
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
     <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
-    <ExecutionTimeLimit>PT5M</ExecutionTimeLimit>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
   </Settings>
   <Actions Context="Author">
     <Exec>
-      <Command>python</Command>
-      <Arguments>"$Script"</Arguments>
+      <Command>powershell.exe</Command>
+      <Arguments>-WindowStyle Hidden -ExecutionPolicy Bypass -File "$Daemon"</Arguments>
       <WorkingDirectory>$HugoSite</WorkingDirectory>
     </Exec>
   </Actions>
@@ -57,9 +50,12 @@ schtasks /Create /TN $TaskName /XML $tmp /F
 Remove-Item $tmp -Force -ErrorAction SilentlyContinue
 
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "OK  Task '$TaskName' registered - runs every 15 minutes." -ForegroundColor Green
+    Write-Host "OK  Task '$TaskName' registered - runs every 30 seconds on logon." -ForegroundColor Green
     schtasks /Run /TN $TaskName
-    Write-Host "OK  First run triggered. Log: $HugoSite\image-checker.log" -ForegroundColor Green
+    Start-Sleep -Seconds 3
+    $state = (schtasks /Query /TN $TaskName /FO LIST 2>&1 | Select-String 'Status:') -replace 'Status:\s*',''
+    Write-Host "OK  Daemon status: $state" -ForegroundColor Green
+    Write-Host "    Log: $HugoSite\image-checker.log" -ForegroundColor Yellow
 } else {
     Write-Host "FAIL  Could not register task. Run as Administrator." -ForegroundColor Red
 }

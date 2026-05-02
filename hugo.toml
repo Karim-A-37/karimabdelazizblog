@@ -13,7 +13,7 @@ paginate = 6
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowToc = true
-  TocOpen = true
+  TocOpen = false
 
   [params.homeInfoParams]
     Title = "Hey, I'm Karim Abdelaziz"
