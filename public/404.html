@@ -10,7 +10,7 @@
 <meta name="description" content="Notes, writeups and projects">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/404.html">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.49536ef132e078e4d195d58b7e11e9e2df9083f571d0eada21ba4444bae2e77b.css" integrity="sha256-SVNu8TLgeOTRldWLfhHp4t&#43;Qg/Vx0OraIbpERLri53s=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.94076867ad3e4fae2ce822ef949fe526ea4a88c86faf317693df5ba4db6bd218.css" integrity="sha256-lAdoZ60&#43;T64s6CLvlJ/lJupKiMhvrzF2k99bpNtr0hg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -108,68 +108,64 @@
     </svg>
 </a><script>
 (function () {
-  var toc = document.querySelector('#TableOfContents');
+  var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
   
   var details = document.querySelector('.toc details');
-  if (details && window.innerWidth >= 1280) details.open = true;
+  if (details) details.open = true;
 
-  var headings = Array.from(
-    document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4')
-  );
+  
+  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
   if (!headings.length) return;
 
-  var links = Array.from(toc.querySelectorAll('a'));
-  var currentLink    = null;
-  var currentHeading = null;
+  var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  var cur = { link: null, heading: null };
 
-  function setActive(heading, link) {
-    
-    if (currentLink)    currentLink.classList.remove('toc-active');
-    if (currentHeading) currentHeading.classList.remove('heading-active');
+  function activate(heading) {
+    if (cur.link)    { cur.link.classList.remove('toc-active'); }
+    if (cur.heading) { cur.heading.classList.remove('heading-active'); }
 
-    currentLink    = link    || null;
-    currentHeading = heading || null;
+    cur.heading = heading || null;
+    cur.link    = null;
 
-    
-    if (currentLink)    currentLink.classList.add('toc-active');
-    if (currentHeading) currentHeading.classList.add('heading-active');
-
-    
-    if (currentLink) {
-      var tocPanel = document.querySelector('.toc');
-      if (tocPanel) {
-        var linkTop = currentLink.offsetTop;
-        var panelH  = tocPanel.clientHeight;
-        if (linkTop < tocPanel.scrollTop || linkTop > tocPanel.scrollTop + panelH - 40) {
-          tocPanel.scrollTop = linkTop - panelH / 2;
+    if (heading) {
+      heading.classList.add('heading-active');
+      
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href') || '';
+        var frag = decodeURIComponent(href.replace(/^#/, ''));
+        if (frag === heading.id) { cur.link = links[i]; break; }
+      }
+      if (cur.link) {
+        cur.link.classList.add('toc-active');
+        
+        var panel = document.querySelector('.toc');
+        if (panel && window.innerWidth >= 1280) {
+          var top = cur.link.offsetTop - panel.clientHeight / 2;
+          panel.scrollTop = Math.max(0, top);
         }
       }
     }
   }
 
+  var lastHeading = undefined; 
+
   function onScroll() {
-    var scrollY       = window.scrollY + 120;
-    var activeHeading = null;
-
+    var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
+    var found = null;
     for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
-        activeHeading = headings[i];
-      }
+      var top = headings[i].getBoundingClientRect().top + window.scrollY;
+      if (top <= threshold) found = headings[i];
     }
-
-    if (activeHeading) {
-      var id   = activeHeading.id;
-      var link = links.find(function (a) { return a.getAttribute('href') === '#' + id; });
-      if (activeHeading !== currentHeading) setActive(activeHeading, link || null);
-    } else {
-      setActive(null, null);
+    if (found !== lastHeading) {
+      lastHeading = found;
+      activate(found);
     }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  onScroll(); 
 })();
 </script>
 

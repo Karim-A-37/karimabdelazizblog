@@ -1,67 +1,63 @@
 {{- /* Scroll-spy: highlights active TOC link AND active heading in post content */ -}}
 <script>
 (function () {
-  var toc = document.querySelector('#TableOfContents');
+  var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  // Force details open on wide screens
+  // Always keep details open
   var details = document.querySelector('.toc details');
-  if (details && window.innerWidth >= 1280) details.open = true;
+  if (details) details.open = true;
 
-  var headings = Array.from(
-    document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4')
-  );
+  // All headings that have an id — works regardless of parent container
+  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'));
   if (!headings.length) return;
 
-  var links = Array.from(toc.querySelectorAll('a'));
-  var currentLink    = null;
-  var currentHeading = null;
+  var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  var cur = { link: null, heading: null };
 
-  function setActive(heading, link) {
-    // Remove from previous
-    if (currentLink)    currentLink.classList.remove('toc-active');
-    if (currentHeading) currentHeading.classList.remove('heading-active');
+  function activate(heading) {
+    if (cur.link)    { cur.link.classList.remove('toc-active'); }
+    if (cur.heading) { cur.heading.classList.remove('heading-active'); }
 
-    currentLink    = link    || null;
-    currentHeading = heading || null;
+    cur.heading = heading || null;
+    cur.link    = null;
 
-    // Apply to new
-    if (currentLink)    currentLink.classList.add('toc-active');
-    if (currentHeading) currentHeading.classList.add('heading-active');
-
-    // Keep TOC panel scrolled to active link
-    if (currentLink) {
-      var tocPanel = document.querySelector('.toc');
-      if (tocPanel) {
-        var linkTop = currentLink.offsetTop;
-        var panelH  = tocPanel.clientHeight;
-        if (linkTop < tocPanel.scrollTop || linkTop > tocPanel.scrollTop + panelH - 40) {
-          tocPanel.scrollTop = linkTop - panelH / 2;
+    if (heading) {
+      heading.classList.add('heading-active');
+      // Match TOC link by decoding the href fragment
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href') || '';
+        var frag = decodeURIComponent(href.replace(/^#/, ''));
+        if (frag === heading.id) { cur.link = links[i]; break; }
+      }
+      if (cur.link) {
+        cur.link.classList.add('toc-active');
+        // Keep TOC panel scrolled so active link stays visible
+        var panel = document.querySelector('.toc');
+        if (panel && window.innerWidth >= 1280) {
+          var top = cur.link.offsetTop - panel.clientHeight / 2;
+          panel.scrollTop = Math.max(0, top);
         }
       }
     }
   }
 
+  var lastHeading = undefined; // undefined = not initialised yet
+
   function onScroll() {
-    var scrollY       = window.scrollY + 120;
-    var activeHeading = null;
-
+    var threshold = window.scrollY + Math.min(130, window.innerHeight * 0.28);
+    var found = null;
     for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
-        activeHeading = headings[i];
-      }
+      var top = headings[i].getBoundingClientRect().top + window.scrollY;
+      if (top <= threshold) found = headings[i];
     }
-
-    if (activeHeading) {
-      var id   = activeHeading.id;
-      var link = links.find(function (a) { return a.getAttribute('href') === '#' + id; });
-      if (activeHeading !== currentHeading) setActive(activeHeading, link || null);
-    } else {
-      setActive(null, null);
+    if (found !== lastHeading) {
+      lastHeading = found;
+      activate(found);
     }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  onScroll(); // run once immediately on page load
 })();
 </script>
