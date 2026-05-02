@@ -13,7 +13,7 @@
   Cybersecurity Student &nbsp;·&nbsp; Penetration Testing &nbsp;·&nbsp; Red Team Aspirant">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/about/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.34d91883bcea6e759c2d3a842c5975efd544bfec7ea2927692a4497df4c731c0.css" integrity="sha256-NNkYg7zqbnWcLTqELFl179VEv&#43;x&#43;opJ2kqRJffTHMcA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f866e52a159a27188f2300ac60c3de0a717856e659259b2029b165460d3545ed.css" integrity="sha256-&#43;GblKhWaJxiPIwCsYMPeCnF4VuZZJZsgKbFlRg01Re0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -152,7 +152,48 @@
     <div class="post-meta"><span title='2026-05-01 00:00:00 +0000 UTC'>May 1, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span>
 
 </div>
-  </header> 
+  </header> <details class="toc"  open>
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#" aria-label="Karim Abdelaziz">Karim Abdelaziz</a><ul>
+                    
+            <li>
+                <a href="#find-me-online" aria-label="Find Me Online">Find Me Online</a></li>
+            <li>
+                <a href="#education" aria-label="Education">Education</a></li>
+            <li>
+                <a href="#experience" aria-label="Experience">Experience</a></li>
+            <li>
+                <a href="#projects" aria-label="Projects">Projects</a></li>
+            <li>
+                <a href="#technical-skills" aria-label="Technical Skills">Technical Skills</a><ul>
+                    <ul>
+                    
+            <li>
+                <a href="#" aria-label="Offensive Security">Offensive Security</a></li>
+            <li>
+                <a href="#" aria-label="Defensive Security">Defensive Security</a></li>
+            <li>
+                <a href="#" aria-label="OS & Networking">OS & Networking</a></li>
+            <li>
+                <a href="#" aria-label="Programming">Programming</a></li></ul>
+                </ul>
+            </li>
+            <li>
+                <a href="#certifications" aria-label="Certifications">Certifications</a></li>
+            <li>
+                <a href="#-curriculum-vitae" aria-label="📄 Curriculum Vitae">📄 Curriculum Vitae</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
   <div class="post-content md-content"><style>
 /* ── Social icons ─────────────────────────────── */
 .socials { display:flex; flex-wrap:wrap; gap:1rem; margin:1.5rem 0; }
@@ -392,7 +433,65 @@ GPA <strong>3.8 / 4.0</strong> · Courses: Network Security · InfoSec Managemen
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a>
+</a><script>
+(function () {
+  var toc = document.querySelector('#TableOfContents');
+  if (!toc) return;
+
+  
+  var details = document.querySelector('.toc details');
+  if (details && window.innerWidth >= 1280) details.open = true;
+
+  var headings = Array.from(
+    document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4')
+  );
+  if (!headings.length) return;
+
+  var links = Array.from(toc.querySelectorAll('a'));
+  var current = null;
+
+  function setActive(link) {
+    if (current === link) return;
+    if (current) current.classList.remove('toc-active');
+    current = link;
+    if (current) {
+      current.classList.add('toc-active');
+      
+      var tocEl = document.querySelector('.toc');
+      if (tocEl) {
+        var linkTop = current.offsetTop;
+        var tocHeight = tocEl.clientHeight;
+        if (linkTop < tocEl.scrollTop || linkTop > tocEl.scrollTop + tocHeight - 40) {
+          tocEl.scrollTop = linkTop - tocHeight / 2;
+        }
+      }
+    }
+  }
+
+  function onScroll() {
+    var scrollY = window.scrollY + 110;
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
+        active = headings[i];
+      }
+    }
+    if (active) {
+      var id = active.id;
+      var link = links.find(function (a) {
+        return a.getAttribute('href') === '#' + id;
+      });
+      setActive(link || null);
+    } else {
+      setActive(null);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); 
+})();
+</script>
+
 
 <script>
     let menu = document.getElementById('menu');

@@ -12,6 +12,8 @@ paginate = 6
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = true
 
   [params.homeInfoParams]
     Title = "Hey, I'm Karim Abdelaziz"

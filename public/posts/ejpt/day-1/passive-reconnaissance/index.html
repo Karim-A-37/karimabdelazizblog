@@ -181,7 +181,7 @@ Usage of the advanced search engines quires in the right or advanced way, and it
 # Search Operators">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.34d91883bcea6e759c2d3a842c5975efd544bfec7ea2927692a4497df4c731c0.css" integrity="sha256-NNkYg7zqbnWcLTqELFl179VEv&#43;x&#43;opJ2kqRJffTHMcA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f866e52a159a27188f2300ac60c3de0a717856e659259b2029b165460d3545ed.css" integrity="sha256-&#43;GblKhWaJxiPIwCsYMPeCnF4VuZZJZsgKbFlRg01Re0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -341,6 +341,7 @@ Example: Add a CNAME record subdomain that points to the domain name mycoolne
 
 </div>
   </header> 
+
   <div class="post-content md-content"><p>as we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.
 1- first thing we can do is trying to get the IP address of website using tool called (<strong>==host==</strong>)
 1- host tool &ndash;&gt; DNS lookup utility, we use to convert names into IPs and vice versa
@@ -886,7 +887,65 @@ DMARC: If you get mail that doesn&rsquo;t match the above, here&rsquo;s what I w
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a>
+</a><script>
+(function () {
+  var toc = document.querySelector('#TableOfContents');
+  if (!toc) return;
+
+  
+  var details = document.querySelector('.toc details');
+  if (details && window.innerWidth >= 1280) details.open = true;
+
+  var headings = Array.from(
+    document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4')
+  );
+  if (!headings.length) return;
+
+  var links = Array.from(toc.querySelectorAll('a'));
+  var current = null;
+
+  function setActive(link) {
+    if (current === link) return;
+    if (current) current.classList.remove('toc-active');
+    current = link;
+    if (current) {
+      current.classList.add('toc-active');
+      
+      var tocEl = document.querySelector('.toc');
+      if (tocEl) {
+        var linkTop = current.offsetTop;
+        var tocHeight = tocEl.clientHeight;
+        if (linkTop < tocEl.scrollTop || linkTop > tocEl.scrollTop + tocHeight - 40) {
+          tocEl.scrollTop = linkTop - tocHeight / 2;
+        }
+      }
+    }
+  }
+
+  function onScroll() {
+    var scrollY = window.scrollY + 110;
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
+        active = headings[i];
+      }
+    }
+    if (active) {
+      var id = active.id;
+      var link = links.find(function (a) {
+        return a.getAttribute('href') === '#' + id;
+      });
+      setActive(link || null);
+    } else {
+      setActive(null);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); 
+})();
+</script>
+
 
 <script>
     let menu = document.getElementById('menu');

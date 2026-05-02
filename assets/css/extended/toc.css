@@ -1,0 +1,99 @@
+/* ================================================================
+   Right-side sticky Table of Contents + scroll-spy highlight
+   ================================================================ */
+
+/* -- Inline TOC (mobile / narrow screens) ----------------------- */
+.toc {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.toc details summary {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.2rem 0;
+  list-style: none;
+}
+
+.toc details summary::-webkit-details-marker { display: none; }
+
+#TableOfContents a {
+  color: var(--secondary);
+  text-decoration: none;
+  display: block;
+  padding: 0.15rem 0;
+  border-left: 2px solid transparent;
+  padding-left: 0.5rem;
+  transition: color 0.15s, border-color 0.15s;
+  line-height: 1.4;
+}
+
+#TableOfContents a:hover {
+  color: var(--primary);
+}
+
+/* Active section link (set by scroll-spy JS) */
+#TableOfContents a.toc-active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  font-weight: 600;
+}
+
+#TableOfContents ul {
+  list-style: none;
+  padding-left: 0.75rem;
+  margin: 0.3rem 0;
+}
+
+#TableOfContents > ul { padding-left: 0; }
+
+/* ================================================================
+   On wide screens: lift TOC out of flow, stick it to the right
+   ================================================================ */
+@media (min-width: 1280px) {
+
+  /* Give the post extra right padding so content doesn't hide under TOC */
+  .post-single .post-content {
+    padding-right: 0;
+  }
+
+  /* Position the TOC as a fixed right sidebar */
+  .toc {
+    position: fixed;
+    top: 72px;
+    right: clamp(1rem, calc((100vw - 780px) / 2 - 240px), 2.5rem);
+    width: 220px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--theme);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 0;
+    z-index: 10;
+
+    /* Thin scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .toc::-webkit-scrollbar        { width: 4px; }
+  .toc::-webkit-scrollbar-track  { background: transparent; }
+  .toc::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 4px; }
+
+  /* Keep details always open on wide screens */
+  .toc details { display: contents; }
+  .toc details summary { display: block; margin-bottom: 0.5rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.55; cursor: default; }
+}
+
+/* Screens wide enough to show TOC without overlap */
+@media (min-width: 1500px) {
+  .toc {
+    right: calc((100vw - 780px) / 2 - 250px);
+  }
+}

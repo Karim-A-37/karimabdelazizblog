@@ -1,0 +1,59 @@
+{{- /* Scroll-spy: highlights the active heading in the right-side TOC */ -}}
+<script>
+(function () {
+  var toc = document.querySelector('#TableOfContents');
+  if (!toc) return;
+
+  // Force details open on wide screens
+  var details = document.querySelector('.toc details');
+  if (details && window.innerWidth >= 1280) details.open = true;
+
+  var headings = Array.from(
+    document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4')
+  );
+  if (!headings.length) return;
+
+  var links = Array.from(toc.querySelectorAll('a'));
+  var current = null;
+
+  function setActive(link) {
+    if (current === link) return;
+    if (current) current.classList.remove('toc-active');
+    current = link;
+    if (current) {
+      current.classList.add('toc-active');
+      // Scroll TOC so active link stays visible
+      var tocEl = document.querySelector('.toc');
+      if (tocEl) {
+        var linkTop = current.offsetTop;
+        var tocHeight = tocEl.clientHeight;
+        if (linkTop < tocEl.scrollTop || linkTop > tocEl.scrollTop + tocHeight - 40) {
+          tocEl.scrollTop = linkTop - tocHeight / 2;
+        }
+      }
+    }
+  }
+
+  function onScroll() {
+    var scrollY = window.scrollY + 110;
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
+        active = headings[i];
+      }
+    }
+    if (active) {
+      var id = active.id;
+      var link = links.find(function (a) {
+        return a.getAttribute('href') === '#' + id;
+      });
+      setActive(link || null);
+    } else {
+      setActive(null);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // run once on load
+})();
+</script>
