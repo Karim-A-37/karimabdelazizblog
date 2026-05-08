@@ -90,21 +90,21 @@ It has also other records:
 
 | Record | Description |
 
-|--------|-------------|
+| --- | --- |
 
-| **A** | Maps hostname to IPv4 |
+| A | Maps hostname to IPv4 |
 
-| **AAAA** | Maps hostname to IPv6 |
+| AAAA | Maps hostname to IPv6 |
 
-| **MX** | Specifies an SMTP email server for a domain |
+| MX | Specifies an SMTP email server for a domain |
 
-| **CNAME** | Redirects hostnames from an alias (subdomain) to another domain |
+| CNAME | Redirects hostnames from an alias (subdomain) to another domain |
 
-| **NS** | Indicates that a DNS server is attached to a specific authoritative name server, and ask that server for anything need for that domain |
+| NS | Indicates that a DNS server is attached to a specific authoritative name server, and ask that server for anything need for that domain |
 
-| **PTR** | Specify a reverse DNS lookup, from IP to domain opposite of A record |
+| PTR | Specify a reverse DNS lookup, from IP to domain opposite of A record |
 
-| **TXT** | Indicate the sender policy framework record for email authentication |
+| TXT | Indicate the sender policy framework record for email authentication |
 
   
 
@@ -398,15 +398,15 @@ A port is a point on a computer where information exchange between multiple prog
 
 | Port | Protocol | Service |
 
-|------|----------|---------|
+| --- | --- | --- |
 
-| **20 (UDP)** | FTP | File Transfer Protocol used for transferring data |
+| 20 (UDP) | FTP | File Transfer Protocol used for transferring data |
 
-| **22 (TCP)** | SSH | Secure Shell protocol used for FTP, port forwarding, and secure logins |
+| 22 (TCP) | SSH | Secure Shell protocol used for FTP, port forwarding, and secure logins |
 
-| **53 (UDP)** | DNS | The DNS which translates internet domain names into machine-readable IP addresses |
+| 53 (UDP) | DNS | The DNS which translates internet domain names into machine-readable IP addresses |
 
-| **80 (TCP)** | HTTP | The World Wide Web HTTP |
+| 80 (TCP) | HTTP | The World Wide Web HTTP |
 
   
 
