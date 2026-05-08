@@ -563,3 +563,4 @@ Then we will apply port scanning on this port, we will use default nmap scan, we
 - **Grepable**
 
   ![nmap-port-scan-22-G](/images/ejpt/day-1/active-reconnaissance/nmap-port-scan-22-g.png)
+ This is the end of activ
