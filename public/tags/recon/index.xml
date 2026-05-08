@@ -9,22 +9,6 @@
     <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/tags/recon/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Introduction to information gathering</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
-&lt;p&gt;Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)&lt;/p&gt;
-&lt;h2 id=&#34;types-of-reconnaissance&#34;&gt;Types of Reconnaissance&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Passive information gathering&lt;/strong&gt; → collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Active information gathering&lt;/strong&gt; → collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;target-scoping-in-scope---out-scope&#34;&gt;Target Scoping (In-Scope - Out-Scope)&lt;/h2&gt;
-&lt;p&gt;Target scoping is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways:&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>Passive Reconnaissance</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
@@ -36,7 +20,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;host tool&lt;/strong&gt; → DNS lookup utility, we use to convert names into IPs and vice versa&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/active-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

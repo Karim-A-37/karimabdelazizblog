@@ -18,7 +18,7 @@ The first thing we can do is trying to get the IP address of website using tool 
 
 - **host tool** → DNS lookup utility, we use to convert names into IPs and vice versa
 
-![host tool](/images/ejpt/day-1/passive-reconnaissance/host-tool.png)
+![host tool](/images/ejpt/day-1/active-reconnaissance/host-tool.png)
 
 > [!tip] Hint
 > We can may see two IPs, it may one for server and the other one for the firewall (proxy)
@@ -31,44 +31,44 @@ The next we can do is trying to identifying any names or email addresses or soci
 
 The next thing to search about the **==robots.txt==** file or endpoint to gather information from it that may be useful because it shows what the search engine allowed to crawl or index and not allowed to crawl or index which is existed for every webpage on the internet, [^1]to understand what this file is important for we should first understand how the search engines works.
 
-![robots.txt](/images/ejpt/day-1/passive-reconnaissance/robotstxt.png)
+![robots.txt](/images/ejpt/day-1/active-reconnaissance/robotstxt.png)
 
 ## 4. sitemap.xml
 
 The next thing to search about is the **==sitemap.xml==** file, which helps the search engines discover, crawl and index content more efficiently especially for large, new and poorly linked sites, it makes the work easy for the search engines to crawl or indexing, it is very valuable source of information which has all links or pages in the website make the search in it worth the time, it is set of signposts to tell search engines which pages on your website are most important to index, for complex websites we may say **==sitemap_index.xml==** which points to number of other xml files each cover an aspect of the site, it is updated every time the developer pushes something new to production, it may be important if we see that the update date isn't changed for period of time which may mean that this branch or page is removed from the webpage but it still exists on the disk, if we have done test before one year and retest it again it may have the same vulnerabilities waiting for us to exploit it again.
 
-![sitemap.xml](/images/ejpt/day-1/passive-reconnaissance/sitemapxml.png)
+![sitemap.xml](/images/ejpt/day-1/active-reconnaissance/sitemapxml.png)
 
 ## 5. Browser Extensions — BuiltWith & Wappalyzer
 
 There are two web extensions i have installed on my browser which are (**==Built with==** - **==wappalyzer==**) the two tools are used to tell what web technology or content management system is running on specific website.
 
 **Wappalyzer:**
-![wappalyzer](/images/ejpt/day-1/passive-reconnaissance/wappalyzer.png)
+![wappalyzer](/images/ejpt/day-1/active-reconnaissance/wappalyzer.png)
 
 **Built with:**
-![builtwith](/images/ejpt/day-1/passive-reconnaissance/builtwith.png)
+![builtwith](/images/ejpt/day-1/active-reconnaissance/builtwith.png)
 
 ## 6. whatweb
 
 There is another tool to be used to perform web technology foot printing is called **==whatweb==** it is next generation web scanner which Identifies technologies used by websites, which sends http request and follow what it takes it to get to the target displaying the technologies the request pass through to get to the target.
 
-![whatweb](/images/ejpt/day-1/passive-reconnaissance/whatweb.png)
+![whatweb](/images/ejpt/day-1/active-reconnaissance/whatweb.png)
 
 ## 7. Downloading Website Source Code — WebHTTrack & wget
 
 Another thing is to download the entire website source code locally on device to analyze it there are two tools for this (**==WebHTTrack Website copier==** - **==wget==**) but there is problem faces WebHTTrack Website copier tool which is being prevented mostly by firewalls so it isn't very reliable for the complex websites, so the other tool is wget is very useful.
 
-![wget](/images/ejpt/day-1/passive-reconnaissance/wget.png)
-![webhttrack](/images/ejpt/day-1/passive-reconnaissance/webhttrack.png)
+![wget](/images/ejpt/day-1/active-reconnaissance/wget.png)
+![webhttrack](/images/ejpt/day-1/active-reconnaissance/webhttrack.png)
 
 I have made tool uses the wget options to get full image of the website as whole by making a mirror to the website, it is very usefull which make full mirror to the real website.
 
-![download-wget](/images/ejpt/day-1/passive-reconnaissance/download-wget.png)
+![download-wget](/images/ejpt/day-1/active-reconnaissance/download-wget.png)
 
-1. ![downloader-1](/images/ejpt/day-1/passive-reconnaissance/downloader-1.png)
-2. ![downloader-2](/images/ejpt/day-1/passive-reconnaissance/downloader-2.png)
-3. ![downloader-3](/images/ejpt/day-1/passive-reconnaissance/downloader-3.png)
+1. ![downloader-1](/images/ejpt/day-1/active-reconnaissance/downloader-1.png)
+2. ![downloader-2](/images/ejpt/day-1/active-reconnaissance/downloader-2.png)
+3. ![downloader-3](/images/ejpt/day-1/active-reconnaissance/downloader-3.png)
 
 ## 8. WHOIS Enumeration
 
@@ -85,7 +85,7 @@ Domain name is organized by ICANN and here is some info it shows:
 5. Name Server
 6. Registrant contact info → often privacy protected today
 
-![whois-domain](/images/ejpt/day-1/passive-reconnaissance/whois-domain.png)
+![whois-domain](/images/ejpt/day-1/active-reconnaissance/whois-domain.png)
 
 ### By IP Address
 
@@ -96,8 +96,8 @@ IP address is organized by ARIN (North America), RIPE NCC (Europe) and APNIC (As
 3. Organization owns the IP block or range
 4. Contact details (Email - phone number - address)
 
-![whois-ip-1](/images/ejpt/day-1/passive-reconnaissance/whois-ip-1.png)
-![whois-ip-2](/images/ejpt/day-1/passive-reconnaissance/whois-ip-2.png)
+![whois-ip-1](/images/ejpt/day-1/active-reconnaissance/whois-ip-1.png)
+![whois-ip-2](/images/ejpt/day-1/active-reconnaissance/whois-ip-2.png)
 
 ## 9. Netcraft
 
@@ -107,82 +107,82 @@ There is another website called **==[netcraft](https://sitereport.netcraft.com/)
 
 Which gives us background around the provided website like (site title - description - its rank popularity).
 
-![netcraft-background](/images/ejpt/day-1/passive-reconnaissance/netcraft-background.png)
+![netcraft-background](/images/ejpt/day-1/active-reconnaissance/netcraft-background.png)
 
 ### 9.2 Network
 
 Which gives us information about the the network of website in other words like whois information like (IP address - domain - name server - organization).
 
-![netcraft-network](/images/ejpt/day-1/passive-reconnaissance/netcraft-network.png)
+![netcraft-network](/images/ejpt/day-1/active-reconnaissance/netcraft-network.png)
 
 ### 9.3 SSL/TLS
 
 Which gives information about the detealis of the ssl/tls certification and test the site against the ssl/tls common vulnerabilities like [^3]Heartbleed and [^2]poodle and issued/expiration date and more and more informaiton that is useful.
 
-![netcraft-ssl-1](/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-1.png)
-![netcraft-ssl-2](/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-2.png)
-![netcraft-ssl-3](/images/ejpt/day-1/passive-reconnaissance/netcraft-ssl-3.png)
+![netcraft-ssl-1](/images/ejpt/day-1/active-reconnaissance/netcraft-ssl-1.png)
+![netcraft-ssl-2](/images/ejpt/day-1/active-reconnaissance/netcraft-ssl-2.png)
+![netcraft-ssl-3](/images/ejpt/day-1/active-reconnaissance/netcraft-ssl-3.png)
 
 ### 9.4 SSL Certificate Chain [^4]
 
 Which gives information about different levels of ssl certifications in the website.
 
-![ssl cert chain](/images/ejpt/day-1/passive-reconnaissance/ssl-cert-chain.png)
+![ssl cert chain](/images/ejpt/day-1/active-reconnaissance/ssl-cert-chain.png)
 
 ### 9.5 Sender Policy Framework
 
 Which gives information about who can send mail on its behalf, who is delegated to send mail instead of the website.
 
-![sender policy framework](/images/ejpt/day-1/passive-reconnaissance/sender-policy-framework.png)
+![sender policy framework](/images/ejpt/day-1/active-reconnaissance/sender-policy-framework.png)
 
 ### 9.6 DMARC [^5]
 
 Which gives information about how mail purporting to originate from their domain should be authenticated, based on SPF+DKIM by providing a method to set policy and to give reporting of failures.
 
-![netcraft-dkim](/images/ejpt/day-1/passive-reconnaissance/netcraft-dkim.png)
+![netcraft-dkim](/images/ejpt/day-1/active-reconnaissance/netcraft-dkim.png)
 
 ### 9.7 Web Trackers
 
 Which gives information about the third parties resources loaded onto the webpage to track or monitor individual user behavior across the web, those collected data are used for advertising and analytics process, so this section gives info which of the third parties trackers are used, in the image we say that google trackers are used for analytics purpose.
 
-![netcraft-webtrackers](/images/ejpt/day-1/passive-reconnaissance/netcraft-webtrackers.png)
+![netcraft-webtrackers](/images/ejpt/day-1/active-reconnaissance/netcraft-webtrackers.png)
 
 ### 9.8 Site Technology
 
 Which gives us detailed information about the technologies used on the website, like:
 
 **1. HTTP Accelerator** — proxy server that reduces web site access times
-![netcraft-site tech-http accel](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-http-accel.png)
+![netcraft-site tech-http accel](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-http-accel.png)
 
 **2. Server-Side** — main technologies that Netcraft detects as running on the server such as PHP, in our case is SSL
-![netcraft-site tech-server side](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-server-side.png)
+![netcraft-site tech-server side](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-server-side.png)
 
 **3. Client-Side** — main technologies that run on the browser (such as JavaScript and Adobe Flash) in our case is JS
-![netcraft-site tech-client side](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-client-side.png)
+![netcraft-site tech-client side](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-client-side.png)
 
 **4. Client-Side Scripting Frameworks** — Frameworks or libraries allow for easier development of applications by providing an API or methodology to follow
-![netcraft-site tech-client side script frameworks](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-client-side-script-frameworks.png)
+![netcraft-site tech-client side script frameworks](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-client-side-script-frameworks.png)
 
 **5. Content Delivery Network (CDN)** — is a large distributed system of servers deployed in multiple data centers, its goal is to serve content to end-users with high availability and high performance
-![netcraft-site tech-cdn](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-cdn.png)
+![netcraft-site tech-cdn](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-cdn.png)
 
 **6. Content Management System (CMS)** — s a computer program that allows publishing, editing and modifying content as well as maintenance from a central interface
-![netcraft-site tech-cms](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-cms.png)
+![netcraft-site tech-cms](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-cms.png)
 
 **7. PHP Application** — server-side scripting language designed for Web development to produce dynamic Web pages
-![netcraft-side tech- php app](/images/ejpt/day-1/passive-reconnaissance/netcraft-side-tech-php-app.png)
+![netcraft-side tech- php app](/images/ejpt/day-1/active-reconnaissance/netcraft-side-tech-php-app.png)
 
 **8. Character Encoding** — consists of a code that pairs each character from a given repertoire with something else such as a bit pattern to facilitate the transmission of data through telecommunication networks or for data storage
-![netcraft-site tech-encoding](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-encoding.png)
+![netcraft-site tech-encoding](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-encoding.png)
 
 **9. HTTP Compression** — is a capability that can be built into web servers and web clients to make better use of available bandwidth, and provide greater transmission speeds between both
-![netcraft-site tech-compression](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-compression.png)
+![netcraft-site tech-compression](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-compression.png)
 
 **10. Web Browser Targeting** — enables software applications to make use of specific functions of the browser as well as optimizing the application for specific browser versions
-![netcraft-site tech-browser targeting](/images/ejpt/day-1/passive-reconnaissance/netcraft-site-tech-browser-targeting.png)
+![netcraft-site tech-browser targeting](/images/ejpt/day-1/active-reconnaissance/netcraft-site-tech-browser-targeting.png)
 
 **11. Other technologies** like Doctype (Document type declaration), HTML5 and CSS
-![netcraft-side tech-other techs](/images/ejpt/day-1/passive-reconnaissance/netcraft-side-tech-other-techs.png)
+![netcraft-side tech-other techs](/images/ejpt/day-1/active-reconnaissance/netcraft-side-tech-other-techs.png)
 
 ## 10. DNS Reconnaissance
 
@@ -191,20 +191,20 @@ Now we will try DNS Reconnaissance, but before DNS recon i will firstly speak ab
 ### 10.1 The 4 DNS Servers
 
 **1. DNS Recursor** — it is server who receives queries from client machine via apps like web browsers and it does other requests to satisfy the client's DNS query, the query can be applied in two modes recursive or iterative, it is like librarian who is asked to go find a particular book somewhere in a library.
-![dns-recursor](/images/ejpt/day-1/passive-reconnaissance/dns-recursor.png)
+![dns-recursor](/images/ejpt/day-1/active-reconnaissance/dns-recursor.png)
 
 **2. Root nameservers** — it is the first step in resolving hostname to its IP address, These servers can directly answer queries for records stored or cached within the root zone and are a network of hundreds of servers in many countries around the world, It can be thought of like an index in a library that points to different racks of books - typically it serves as a reference to other more specific locations, 13 DNS root nameservers.
-![dns-tree](/images/ejpt/day-1/passive-reconnaissance/dns-tree.png)
+![dns-tree](/images/ejpt/day-1/active-reconnaissance/dns-tree.png)
 
 **3. TLD nameserver** — maintains information for all the domain names that share a common domain extension, such as .com, .net, or whatever comes after the last dot in a URL, Management of TLD nameservers is handled by the Internet Assigned Numbers Authority (IANA), TLD has two types (Generic top-level domains (.com) - Country code top-level domains (.uk)), There is actually a third category for infrastructure domains, but it is almost never used (.arpa), The top level domain server ([TLD](https://www.cloudflare.com/learning/dns/top-level-domain/)) can be thought of as a specific rack of books in a library.
-![TLD nameservers](/images/ejpt/day-1/passive-reconnaissance/tld-nameservers.png)
+![TLD nameservers](/images/ejpt/day-1/active-reconnaissance/tld-nameservers.png)
 
 **4. Authoritative nameserver** — is usually the resolver's last step in the journey for an IP address, contains information specific to the domain name it serves (e.g. google.com) and it can provide a recursive resolver with the IP address of that server found in the [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), or if the domain has a [CNAME record](https://www.cloudflare.com/learning/dns/dns-records/dns-cname-record/) (alias) it will provide the recursive resolver with an alias domain, This final nameserver can be thought of as a dictionary on a rack of books, in which a specific name can be translated into its definition.
 
 > [!tip] Hint
 > It's worth mentioning that in instances where the query is for a subdomain such as foo.example.com or [blog.cloudflare.com](https://blog.cloudflare.com/), an additional nameserver will be added to the sequence after the authoritative nameserver, which is responsible for storing the subdomain's [CNAME record](https://www.cloudflare.com/learning/dns/dns-records/dns-cname-record/)
 
-![dns more tip](/images/ejpt/day-1/passive-reconnaissance/dns-more-tip.png)
+![dns more tip](/images/ejpt/day-1/active-reconnaissance/dns-more-tip.png)
 
 ### 10.2 Steps in a DNS Lookup
 
@@ -219,15 +219,15 @@ Now we will try DNS Reconnaissance, but before DNS recon i will firstly speak ab
 9. The browser makes a HTTP request to the IP address.
 10. The server at that IP returns the webpage to be rendered in the browser.
 
-![steps of dns](/images/ejpt/day-1/passive-reconnaissance/steps-of-dns.png)
+![steps of dns](/images/ejpt/day-1/active-reconnaissance/steps-of-dns.png)
 
 ### 10.3 Types of DNS Queries
 
 **1. Recursive query** — In a recursive query, a DNS client requires that a DNS server (typically a DNS recursive resolver) will respond to the client with either the requested resource record or an error message if the resolver can't find the record.
-![recursive dns query](/images/ejpt/day-1/passive-reconnaissance/recursive-dns-query.png)
+![recursive dns query](/images/ejpt/day-1/active-reconnaissance/recursive-dns-query.png)
 
 **2. Iterative query** — in this situation the DNS client will allow a DNS server to return the best answer it can. If the queried DNS server does not have a match for the query name, it will return a referral to a DNS server authoritative for a lower level of the domain namespace. The DNS client will then make a query to the referral address. This process continues with additional DNS servers down the query chain until either an error or timeout occurs.
-![iterative dns query](/images/ejpt/day-1/passive-reconnaissance/iterative-dns-query.png)
+![iterative dns query](/images/ejpt/day-1/active-reconnaissance/iterative-dns-query.png)
 
 **3. Non-recursive query** — if he can't find the IP it provides another server may have IP, so it may return IP if he knows it and if he doesn't know IP it returns another server may have this IP, typically this will occur when a DNS resolver client queries a DNS server for a record that it has access to either because it's authoritative for the record or the record exists inside of its cache. Typically, a DNS server will cache DNS records to prevent additional bandwidth consumption and load on upstream servers.
 
@@ -255,14 +255,14 @@ Now we will try DNS Reconnaissance, but before DNS recon i will firstly speak ab
 Now we will try DNS Reconnaissance, one of the most important phases in reconnaissance operation, because it revels information about DNS using DNS records which each record hold different information about domain, two examples of tools:
 
 **1. dnsrecon** → terminal based tool we can find it inside kali installed, simple python script that enables to gather DNS-oriented information on a given target
-1. ![dnsrecon-1](/images/ejpt/day-1/passive-reconnaissance/dnsrecon-1.png)
-2. ![dnnrecon-2](/images/ejpt/day-1/passive-reconnaissance/dnnrecon-2.png)
+1. ![dnsrecon-1](/images/ejpt/day-1/active-reconnaissance/dnsrecon-1.png)
+2. ![dnnrecon-2](/images/ejpt/day-1/active-reconnaissance/dnnrecon-2.png)
 
 **2. [dns dumpster](https://dnsdumpster.com/)** → it is website discovers hosts related to a domain
-1. ![dnsdumpster-1](/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-1.png)
-2. ![dnsdumpster-2](/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-2.png)
+1. ![dnsdumpster-1](/images/ejpt/day-1/active-reconnaissance/dnsdumpster-1.png)
+2. ![dnsdumpster-2](/images/ejpt/day-1/active-reconnaissance/dnsdumpster-2.png)
 3. It provides an image flow to view the dns info in very good flow way
-   ![dnsdumpster-3](/images/ejpt/day-1/passive-reconnaissance/dnsdumpster-3.png)
+   ![dnsdumpster-3](/images/ejpt/day-1/active-reconnaissance/dnsdumpster-3.png)
 
 As we have seen that each tool gives information using different DNS record types which holds different information about the domain.
 
@@ -285,7 +285,7 @@ There are 3 ways to implement the WAF:
 
 **3. Cloud-based WAF** — offer an affordable option that is very easy to implement, have a minimal upfront cost, as users pay monthly or annually for security as a service, Cloud-based WAFs can also offer a solution that is consistently updated to protect against the newest threats) without any additional work or cost on the user's end. The drawback of a cloud-based WAF is that users hand over the responsibility to a third party, and WAF services may be black box for the users.
 
-![WAF](/images/ejpt/day-1/passive-reconnaissance/waf.png)
+![WAF](/images/ejpt/day-1/active-reconnaissance/waf.png)
 
 ### wafw00f
 
@@ -295,13 +295,13 @@ Now we will talk about WAF passive reconnaissance, to gather the public informat
 
 > simple rule-based logic to detect a WAF by comparing how a website responds to normal and suspicious requests. It checks for known signatures like headers and cookies (signature matching), observes status code changes when sending malicious payloads (response behavior), and looks for specific messages in the response body (content analysis). It also detects unusual or added headers (header anomalies) and compares differences between normal and blocked responses (behavioral analysis). If no exact match is found, it uses basic heuristics to guess that a WAF is present based on consistent blocking patterns.
 
-![wafw00f simple logic](/images/ejpt/day-1/passive-reconnaissance/wafw00f-simple-logic.png)
+![wafw00f simple logic](/images/ejpt/day-1/active-reconnaissance/wafw00f-simple-logic.png)
 
 When testing the wafw00f like the following:
 
-1. ![wafw00f test 1](/images/ejpt/day-1/passive-reconnaissance/wafw00f-test-1.png)
+1. ![wafw00f test 1](/images/ejpt/day-1/active-reconnaissance/wafw00f-test-1.png)
 2. This one gives no WAF so it may be that the IP we can get using the host command tool it may be the IP of the server that hosting the website
-   ![wafw00f test 2](/images/ejpt/day-1/passive-reconnaissance/wafw00f-test-2.png)
+   ![wafw00f test 2](/images/ejpt/day-1/active-reconnaissance/wafw00f-test-2.png)
 
 ## 12. Subdomain Passive Reconnaissance
 
@@ -311,7 +311,7 @@ Now we will going to subdomain passive reconnaissance, but firstly we will know 
 
 A subdomain is a way to create a distinct web address that is part of a larger domain. It allows you to divide your website into separate sections, each with its own unique web address, this is done by using DNS records, it acts as child for main domain, when you create a subdomain, you're setting up a DNS record that operates independently from your main domain name, Subdomains offer flexibility to create unique pages for your website, like ==_shop.coolexample.com_== for an online store with main website ==_coolexample.com_==, Subdomains are great if you have a large website with multiple sections, have specific websites for different regions or languages, or want separate page hierarchies to organize your site, so each subdomain acts as unique website on its own, but it is related to the domain, subdomain has different address than the.
 
-![subdomain explain](/images/ejpt/day-1/passive-reconnaissance/subdomain-explain.png)
+![subdomain explain](/images/ejpt/day-1/active-reconnaissance/subdomain-explain.png)
 
 Set up any DNS record as a subdomain by putting something in the **Name** section of the record. However, when organizing your site, the 2 most common DNS record types to use a subdomain on are A records and CNAMEs. The main difference between the two record types is what the record maps to.
 
@@ -328,13 +328,13 @@ Set up any DNS record as a subdomain by putting something in the **Name** sectio
 Secondly we will make passive reconnaissance using different tool:
 
 **1. [sublist3r](https://github.com/aboul3la/Sublist3r.git)** → designed to [^6]enumerate subdomains of websites using OSINT, gather subdomains for the domain they are targeting over the network. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu, and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster, and ReverseDNS, it can be integrated with Subbrute using brute forcing (this is considered to be active reconnaissance)
-![sublist3r test 1](/images/ejpt/day-1/passive-reconnaissance/sublist3r-test-1.png)
+![sublist3r test 1](/images/ejpt/day-1/active-reconnaissance/sublist3r-test-1.png)
 
 **2. [subfinder](https://github.com/projectdiscovery/subfinder.git)** → subdomain discovery tool that discovers subdomains for websites by using passive online sources, It has a simple, modular architecture and is optimized for speed. `subfinder` is built for doing one thing only - passive subdomain enumeration, and it does that very well.
-![subfinder test 1](/images/ejpt/day-1/passive-reconnaissance/subfinder-test-1.png)
+![subfinder test 1](/images/ejpt/day-1/active-reconnaissance/subfinder-test-1.png)
 
 **3. [findomain](https://github.com/Findomain/Findomain.git)** → subdomain enumerator
-![findomain test 1](/images/ejpt/day-1/passive-reconnaissance/findomain-test-1.png)
+![findomain test 1](/images/ejpt/day-1/active-reconnaissance/findomain-test-1.png)
 
 ## 13. Google Dorking / Hacking
 
@@ -355,30 +355,32 @@ Usage of the advanced search engines quires in the right or advanced way, and it
 | Searching for Specific Text on a Web Page | `intext:` | `intext:"cyber threat"` |
 
 **Without dorking** → you can find what you are searching for but in alot or information, it is not specified and the one you are searching for may have lower rank on google page ranking algorithm.
-![without dorking](/images/ejpt/day-1/passive-reconnaissance/without-dorking.png)
+![without dorking](/images/ejpt/day-1/active-reconnaissance/without-dorking.png)
 
 **1. `site:`** → allows you to search within a specific site, or searching for specific site itself, we can see that number of results has been decreased, ignoing non related websites to what i am searching for
-![site dorking](/images/ejpt/day-1/passive-reconnaissance/site-dorking.png)
+![site dorking](/images/ejpt/day-1/active-reconnaissance/site-dorking.png)
 
 **2. `filetype:`** → searches for specific file types, appear only this file type
-![filetype dorking](/images/ejpt/day-1/passive-reconnaissance/filetype-dorking.png)
+![filetype dorking](/images/ejpt/day-1/active-reconnaissance/filetype-dorking.png)
 
 **3. `intitle:`** → is used to search for specific terms in the title of a webpage, For example, `intitle:"index of"` could reveal web servers with directory listing enabled, index of is common vulnerability within webservice some of misconfiguration called directory listing, it allows user to view the content of that directory (`intitle:index of` or `intitle:index.of`)
-![intitle dorking](/images/ejpt/day-1/passive-reconnaissance/intitle-dorking.png)
+![intitle dorking](/images/ejpt/day-1/active-reconnaissance/intitle-dorking.png)
 
 **4. Subdomains + intitle:** → to search for all subdomains that contain admin in webpage title
-![subdomains+intiltle dorking](/images/ejpt/day-1/passive-reconnaissance/subdomainsintiltle-dorking.png)
+![subdomains+intiltle dorking](/images/ejpt/day-1/active-reconnaissance/subdomainsintiltle-dorking.png)
 
 **5. cache / [Wayback Machine](https://web.archive.org/)** → to find an older version to website, displays Google's saved version of a webpage, allowing users to view content that has been updated, deleted, or is otherwise inaccessible now by the live image that is running now (historical view of what website look like) so it may have unchanged email addresses and other information
+![Pasted image 20260429121012](/images/ejpt/day-1/active-reconnaissance/pasted-image-20260429121012.png)
+![Pasted image 20260429123335](/images/ejpt/day-1/active-reconnaissance/pasted-image-20260429123335.png)
 
 **6. `inurl:auth_user_file.txt`** → Searches for specific text within URLs, auth_user_file.txt to find exposed password files we can change file.txt to any other type of file
-![inurl auth user file txt](/images/ejpt/day-1/passive-reconnaissance/inurl-auth-user-file-txt.png)
+![inurl auth user file txt](/images/ejpt/day-1/active-reconnaissance/inurl-auth-user-file-txt.png)
 
 **7. `intitle:"Index of" password.txt`** → to search for exposed password file
-![intitle password.txt](/images/ejpt/day-1/passive-reconnaissance/intitle-passwordtxt.png)
+![intitle password.txt](/images/ejpt/day-1/active-reconnaissance/intitle-passwordtxt.png)
 
 **8. [Google Hacking Database](https://www.exploit-db.com/google-hacking-database)** → it is website that contains almost all google dorks could be generated to extract specific information, each dork has specific job or extract specific information, dorks are written by different authors, so we can say it is like blog where the author write the dork and its usage and info it is used to extract.
-![GHDB](/images/ejpt/day-1/passive-reconnaissance/ghdb.png)
+![GHDB](/images/ejpt/day-1/active-reconnaissance/ghdb.png)
 
 ## 14. Email Reconnaissance — theHarvester
 
@@ -395,33 +397,33 @@ This tool has various modes that is worked under them, it gives us customization
 - `(-d)` → for company name (gives less information) or domain name (gives more information)
 - `(-b)` → to specify the source for searching or gathering the information
 
-![theHarvester-help-1](/images/ejpt/day-1/passive-reconnaissance/theharvester-help-1.png)
+![theHarvester-help-1](/images/ejpt/day-1/active-reconnaissance/theharvester-help-1.png)
 
 Now let's try gathering information using it:
 
 **By company name:**
 1. The request with specified company name and sources for searching information
-   ![theHarvester-company name req-2](/images/ejpt/day-1/passive-reconnaissance/theharvester-company-name-req-2.png)
+   ![theHarvester-company name req-2](/images/ejpt/day-1/active-reconnaissance/theharvester-company-name-req-2.png)
 2. The results, may find emails but it may not be accurate since we search using the name of company so it may be accurate or not
-   ![theHarvester-company name res-3](/images/ejpt/day-1/passive-reconnaissance/theharvester-company-name-res-3.png)
+   ![theHarvester-company name res-3](/images/ejpt/day-1/active-reconnaissance/theharvester-company-name-res-3.png)
 
 **By domain name:**
 1. The request with specified domain name and sources for searching information
-   ![theHarvester-domain name req-4](/images/ejpt/day-1/passive-reconnaissance/theharvester-domain-name-req-4.png)
+   ![theHarvester-domain name req-4](/images/ejpt/day-1/active-reconnaissance/theharvester-domain-name-req-4.png)
 2. The results, it will find more information rather than the company name usage, and it will be more accurate in email results, those emails are real ones
-   ![theHarvester-domain name res-5](/images/ejpt/day-1/passive-reconnaissance/theharvester-domain-name-res-5.png)
+   ![theHarvester-domain name res-5](/images/ejpt/day-1/active-reconnaissance/theharvester-domain-name-res-5.png)
 
 ## 15. Checking Leaked Password Databases
 
 This is the next step after email reconnaissance which is checking leaked password databases for the emails we have found and the most popular website is (==[Have I been pawned?](https://haveibeenpwned.com/)==) which contain very large database of previous leaked that has happened and still happening, this website shows when and where the breach of specific email happens, also there is another famous website to check for email breach called (==[Data Breach](https://databreach.com/)==), like the next:
 
 **1. No breach check:**
-![have i been pawend-1](/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawend-1.png)
+![have i been pawend-1](/images/ejpt/day-1/active-reconnaissance/have-i-been-pawend-1.png)
 
 **2. Breach check:**
-1. ![have i been pawned-2](/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-2.png)
-2. ![have i been pawned-3](/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-3.png)
-3. ![have i been pawned-4](/images/ejpt/day-1/passive-reconnaissance/have-i-been-pawned-4.png)
+1. ![have i been pawned-2](/images/ejpt/day-1/active-reconnaissance/have-i-been-pawned-2.png)
+2. ![have i been pawned-3](/images/ejpt/day-1/active-reconnaissance/have-i-been-pawned-3.png)
+3. ![have i been pawned-4](/images/ejpt/day-1/active-reconnaissance/have-i-been-pawned-4.png)
 
 We can say here that we have finished the passive reconnaissance phase as deep dive introduction, the next thing will be active reconnaissance phase.
 
@@ -447,7 +449,7 @@ We can say here that we have finished the passive reconnaissance phase as deep d
         3. user experience → page speed and mobile friendliness
         4. content quality → depth, freshness and uniqueness
 
-    ![search engines](/images/ejpt/day-1/passive-reconnaissance/search-engines.png)
+    ![search engines](/images/ejpt/day-1/active-reconnaissance/search-engines.png)
 
 [^2]: The POODLE attack demonstrates how an attacker can exploit this vulnerability to decrypt and extract information from inside an encrypted transaction.
 
@@ -455,7 +457,7 @@ We can say here that we have finished the passive reconnaissance phase as deep d
 
 [^4]: Learn about SSL certificate chains, including the roles of root, intermediate, and server certificates, and how they work together to secure your website.
 
-    ![certificate chain](/images/ejpt/day-1/passive-reconnaissance/certificate-chain.png)
+    ![certificate chain](/images/ejpt/day-1/active-reconnaissance/certificate-chain.png)
 
 [^5]: [SPF (Sender Policy Framework)](https://www.valimail.com/spf/) is an email validation protocol that enables domain owners to define a list of authorized email servers allowed to send emails on behalf of their domain. Domain owners publish SPF records in their Domain Name System (DNS) to specify which servers are legitimate senders of emails originating from their domain.
 

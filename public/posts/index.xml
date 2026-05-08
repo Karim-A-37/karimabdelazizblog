@@ -6,14 +6,23 @@
     <description>Recent content in Posts on Karim&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Active Reconnaissance</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</guid>
+      <description>&lt;p&gt;we have already discussed passive reconnaissance, but now we are going to talk about active reconnaissance, active recon means gathering information by engaging with the target not like passive which gather public info, sending and receiving packets or other things to the target like DNS transfer zone and scanning ports with Nmap.&lt;/p&gt;
+&lt;p&gt;we have discussed before in passive reconnaissance about DNS and how it actually it works in details, it is protocol mostly used to transfer hostnames into their corresponding IP addresses, as we said before it contains about several records each record is responsible to display specific information like&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Introduction to information gathering</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
+      <description>&lt;hr&gt;
+&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
 &lt;p&gt;Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)&lt;/p&gt;
 &lt;h2 id=&#34;types-of-reconnaissance&#34;&gt;Types of Reconnaissance&lt;/h2&gt;
 &lt;ol&gt;
@@ -36,7 +45,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;host tool&lt;/strong&gt; → DNS lookup utility, we use to convert names into IPs and vice versa&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/passive-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/active-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
