@@ -6,8 +6,35 @@
     <description>Recent content on Karim&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Network Primer</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</link>
+      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</guid>
+      <description>&lt;h1 id=&#34;-day-2--networking-primer&#34;&gt;📝 Day 2 — [Networking Primer]&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Date:&lt;/strong&gt; &lt;code&gt;=dateformat(date(today), &amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt; &lt;strong&gt;Week:&lt;/strong&gt; 1 | &lt;strong&gt;Day:&lt;/strong&gt; 2 &lt;strong&gt;Module/Section:&lt;/strong&gt; (Networking Primer)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-session-goals&#34;&gt;🎯 Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Fundamentals ✅ 2026-05-14&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Layer and how it works ✅ 2026-05-14&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; TCP Layer and how it works ✅ 2026-05-14&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-concepts-learned&#34;&gt;🧠 Concepts Learned&lt;/h2&gt;
+&lt;h3 id=&#34;concept-1-protocol&#34;&gt;Concept 1: [Protocol]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+protocol is set of rules the hosts use to connect or communicate with each other, each protocol represent specific service, written as set of rules
+&lt;strong&gt;Why it matters in a pentest:&lt;/strong&gt;
+it is important to understand protocols because they are the milestones of communications between any hosts&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Active Reconnaissance</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</link>
