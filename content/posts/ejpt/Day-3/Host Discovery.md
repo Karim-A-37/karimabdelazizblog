@@ -1,13 +1,13 @@
 ---
-title: "Host Discovery"
+title: Host Discovery
 date: 2026-05-30
-slug: "host-discovery"
+slug: host-discovery
 draft: false
 ---
 
 # Day 3 — [Host Discovery]
 
-> **Date:** 2026 **Week:** 1 | **Day:** 3? **Module/Section:** Host Discovery
+> **Date:** 2026-05-30 **Week:** 1 | **Day:** 3? **Module/Section:** Host Discovery
 
 ---
 
