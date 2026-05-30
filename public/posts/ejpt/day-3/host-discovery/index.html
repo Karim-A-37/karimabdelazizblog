@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="dark">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Host Discovery | Karim&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Day 3 — [Host Discovery]
+
+Date: =dateformat(date(today), &quot;yyyy-MM-dd&quot;) Week: 1 | Day: 3? Module/Section: Host Discovery
+
+
+🎯 Session Goals
+
+What do you want to be able to DO by the end of this session?
+
+
+ Network Mapping ✅ 2026-05-30
+ Ping Sweeps ✅ 2026-05-30
+ Host Discovery ✅ 2026-05-30
+
+
+🧠 Concepts Learned
+
+The Concepts i have learned in this session
+
+Concept 1: [Network Mapping]
+What it is:
+Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements">
+<meta name="author" content="Karim Abdelaziz">
+<link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://karimabdelazizblog.tech/apple-touch-icon.png">
+<link rel="mask-icon" href="https://karimabdelazizblog.tech/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
+  <meta property="og:site_name" content="Karim&#39;s Blog">
+  <meta property="og:title" content="Host Discovery">
+  <meta property="og:description" content="Day 3 — [Host Discovery] Date: =dateformat(date(today), &#34;yyyy-MM-dd&#34;) Week: 1 | Day: 3? Module/Section: Host Discovery
+🎯 Session Goals What do you want to be able to DO by the end of this session?
+Network Mapping ✅ 2026-05-30 Ping Sweeps ✅ 2026-05-30 Host Discovery ✅ 2026-05-30 🧠 Concepts Learned The Concepts i have learned in this session
+Concept 1: [Network Mapping] What it is: Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-30T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-30T00:00:00+00:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Host Discovery">
+  <meta name="twitter:description" content="Day 3 — [Host Discovery] Date: =dateformat(date(today), &#34;yyyy-MM-dd&#34;) Week: 1 | Day: 3? Module/Section: Host Discovery
+🎯 Session Goals What do you want to be able to DO by the end of this session?
+Network Mapping ✅ 2026-05-30 Ping Sweeps ✅ 2026-05-30 Host Discovery ✅ 2026-05-30 🧠 Concepts Learned The Concepts i have learned in this session
+Concept 1: [Network Mapping] What it is: Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://karimabdelazizblog.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Host Discovery",
+      "item": "https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Host Discovery",
+  "name": "Host Discovery",
+  "description": "Day 3 — [Host Discovery] Date: =dateformat(date(today), \u0026quot;yyyy-MM-dd\u0026quot;) Week: 1 | Day: 3? Module/Section: Host Discovery\n🎯 Session Goals What do you want to be able to DO by the end of this session?\nNetwork Mapping ✅ 2026-05-30 Ping Sweeps ✅ 2026-05-30 Host Discovery ✅ 2026-05-30 🧠 Concepts Learned The Concepts i have learned in this session\nConcept 1: [Network Mapping] What it is: Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Day 3 — [Host Discovery] Date: =dateformat(date(today), \"yyyy-MM-dd\") Week: 1 | Day: 3? Module/Section: Host Discovery\n🎯 Session Goals What do you want to be able to DO by the end of this session?\nNetwork Mapping ✅ 2026-05-30 Ping Sweeps ✅ 2026-05-30 Host Discovery ✅ 2026-05-30 🧠 Concepts Learned The Concepts i have learned in this session\nConcept 1: [Network Mapping] What it is: Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements\nConcept 2: [Host Discovery Techniques] What it is: it is the process to detect the live host on specific network CIDR or scan specific IP to see it is live or not to map the network of live hosts, there are different techniques for host discovery:\nping sweeps –» ICMP echo requests, it is blocked via windows by default ARP scanning –» identify hosts only on local network by sending broadcasted message to get IPs of devices using MAC , if the device sends back its IP so it is live TCP SYN ping –» it is half open connection by send SYN packet and if host respond with SYN ACK so it is life and source will send RST packet, it is in Nmap called stealth scan UDP ping –» uses UDP packets to target host to see if it is live or not TCP ACK ping and SYN ACK ping if RST packet received then the host is live Concept 3: [Ping Sweeps] What it is: it is host discovery techniques it is using ICMP echo request or ping messages to see if the target is reachable if we receive response then it is live if not then it is not live or it is blocked or network congestion or temporary unavailability, windows by default block ICMP echo request, the two ICMP messages are:\nICMP echo request –» type : 8 , code : 0 ICMP echo response –» type : 0 , code : 0 type –» represent the purpose of the ICMP function code –» additional information related to message type there are two utilities used for doing ICMP echo requests or ping messages: ping –» it is utility based on ICMP echo requests that sends them and wait for reply fping –» it is the same function of ping but differs from it that we can specify any number of targets we can do ping sweeps with namp with -sn option Concept 4: [-sn option] What it is: for ping sweeps by using it, it disable port scan and do host discovery only, it consist of three techniques of host discovery\nICMP echo request + TCP SYN(443 port) + TCP ACK(80 port) if we are in local network Nmap will use ARP in ping use (–send-ip) to override ARP in local network and use other requests like ICMP Concept 5: [-iL option] What it is: is used to make Nmap take IPs from a text file instead of writing IP Concept 6: [TCP SYN Ping] What it is: it is half open connection scan, so we send TCP packet with SYN flag only is set to port(80 the default, we can specify any other port or range of ports) and if it is opened the host will send SYN ACK packet then the we will send back RST packet to reset the connection, if it is closed host will send RST packet directly, in Nmap we use this by (-PS) option and (S stands for SYN), the connection is being half open because it isn’t sending the final ACK because we need to discover only if the host is live or not\nConcept 7: [TCP ACK Ping] What it is: it sends TCP packet with ACK flag only is set to port 80 the default and we can specify any other port or range of ports, if this is closed or firewall block ACK it will not respond to the request, and if it is opened it will return RST packet if there is no portable three way handshake which RST packet defines that the target is online, in Nmap we use this by (-PA) option (A stands for ACK) it has limitation which some networks or targets may block packet with ACK flag set.\nConcept 8: [ICMP Ping echo request only] What it is: it send ICMP echo request(type:8,code:0) which is internet control message protocol packet to the target if target is reachable and firewall allows this type of packets not blocked it will respond with ICMP reply(type:0,code:0), in Nmap we use this by (-PE) option (E stands for Echo).\nConcept 10: [-Pn] What it is: The -Pn option in Nmap disables the host discovery phase and instructs Nmap to assume that the target host is online. This is particularly useful when scanning systems that block ICMP ping requests or other discovery probes, such as Windows hosts protected by a firewall. By skipping host discovery, Nmap proceeds directly to port scanning, allowing it to identify open ports and services even when the target does not respond to ping. As a result, -Pn helps ensure that potentially reachable hosts are not missed during a scan.\n⚙️ Tools Used The Tools i have used during this session\nNmap Nmap stands for Network Mapper, which is tool dedicated for network analysis and for our use in this session we will use it for host discovery which uses:\nARP –\u003e uses for local networks only and it is the default when scan local network ICMP –\u003e ICMP echo requests or ping requests TCP/UDP probes it is used for port scanning and OS detection and services versions detection, we will discuss later. ⚙️ Commands Learned The commands i have learned during this session\nping utility 1# ping utility is used to send ICMP echo request and wait for reply 2ping google.com 3 4# to specify the number of the requests being sent(-c in linux and -n for windows) 5#for linux 6ping -c 5 google.com 7 8#for windows 9ping -n 5 google.com for Linux for windows\nfping utility 1# the of ping but it differes that we can target multiple targets and it doesnot wait for reply 2fping -a -g 142.251.208.0/24 3# -a for showing live hosts 4# -g for generate target list to secify subnet or network CIDR 3. namp for ping sweeps\n1# -sn 2nmap -sn 142.251.208.238 1# this target is windows system so it is blocking our ping request 2nmap -sn 10.5.22.188 1# to override arp if i scan local network 2nmap -sn 10.10.44.0/24 --send-ip 4. IPs inside file\n1# to take target IPs as file 2nmap -sn -iL IPs.txt 5. using TCP SYN Ping\n1# -PS overrides on -sn , and uses only TCP SYN ping on default port 80 2nmap -sn -PS 10.5.22.188 1# we can change the port to any othr ports or range of ports as following 2nmap -sn -PS1-1000 10.5.22.188 Using TCP ACK Ping 1# -PS overrides on -sn , and uses only TCP ACK ping on default port 80 2nmap -sn -PA1-1000 10.5.22.188 ICMP echo request only 1# uses to send ICMP echo request and waiting for reply it it is replying with ICMP reply so it is online, if there is no reply then it is offline 2nmap -sn -PE 10.5.22.188 1# --send-ip --\u003e it is overriding on ARP in local network to use ICMP echo requests 2nmap -sn -PE 10.10.44.0/24 --send-ip skipping host scanning and ping discovery 1# to skip ping discovery if the target is windows which block ping requests by default 2nmap -sn -Pn 10.5.22.188 the full test architecture 1# full test architecture of using nmap 2nmap -sn -v -T4 10.5.22.188 -PS -PU 3# -sn --\u003e no port scanning, host discovery only 4# -v --\u003e verposity, contorl deteails of output that appear of the screen 5# -T4 --\u003e the speed or numbers of packets send [1 --\u003e slowest, 5 --\u003e fastest] 6# -PS --\u003e TCP SYN Ping scan 7# -PU --\u003e UDP scan , to scan services that are running via UDP to see if there any response which means it is reachable ✅ End-of-Session Self Test Answer without looking at your notes\nCan I explain today’s main concept in one sentence? ✅ 2026-05-30 Can I run the key commands from memory? ✅ 2026-05-30 Can I reproduce the lab attack chain without help? ✅ 2026-05-30 Honest rating of today’s session: [ ] 🔴 Struggling | [ ] 🟡 Getting it | [x] 🟢 Solid\n📌 Tags #ejpt #host discovery #week-1 `#host-discovery\n",
+  "wordCount" : "1434",
+  "inLanguage": "en",
+  "datePublished": "2026-05-30T00:00:00Z",
+  "dateModified": "2026-05-30T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Karim Abdelaziz"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Karim's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://karimabdelazizblog.tech/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://karimabdelazizblog.tech/" accesskey="h" title="Karim&#39;s Blog (Alt + H)">Karim&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://karimabdelazizblog.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    <a href='https://karimabdelazizblog.tech/'>Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="https://karimabdelazizblog.tech/posts/">Posts</a></nav>
+    <h1 class="post-title entry-hint-parent">
+      Host Discovery
+    </h1>
+    <div class="post-meta"><span title='2026-05-30 00:00:00 +0000 UTC'>May 30, 2026</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#day-3--host-discovery" aria-label="Day 3 — [Host Discovery]">Day 3 — [Host Discovery]</a><ul>
+                    
+            <li>
+                <a href="#-session-goals" aria-label="🎯 Session Goals">🎯 Session Goals</a></li>
+            <li>
+                <a href="#-concepts-learned" aria-label="🧠 Concepts Learned">🧠 Concepts Learned</a><ul>
+                    
+            <li>
+                <a href="#concept-1-network-mapping" aria-label="Concept 1: [Network Mapping]">Concept 1: [Network Mapping]</a></li>
+            <li>
+                <a href="#concept-2-host-discovery-techniques" aria-label="Concept 2: [Host Discovery Techniques]">Concept 2: [Host Discovery Techniques]</a></li>
+            <li>
+                <a href="#concept-3-ping-sweeps" aria-label="Concept 3: [Ping Sweeps]">Concept 3: [Ping Sweeps]</a></li>
+            <li>
+                <a href="#concept-4--sn-option" aria-label="Concept 4: [-sn option]">Concept 4: [-sn option]</a></li>
+            <li>
+                <a href="#concept-5--il-option" aria-label="Concept 5: [-iL option]">Concept 5: [-iL option]</a></li>
+            <li>
+                <a href="#concept-6-tcp-syn-ping" aria-label="Concept 6: [TCP SYN Ping]">Concept 6: [TCP SYN Ping]</a></li>
+            <li>
+                <a href="#concept-7-tcp-ack-ping" aria-label="Concept 7: [TCP ACK Ping]">Concept 7: [TCP ACK Ping]</a></li>
+            <li>
+                <a href="#concept-8-icmp-ping-echo-request-only" aria-label="Concept 8: [ICMP Ping echo request only]">Concept 8: [ICMP Ping echo request only]</a></li>
+            <li>
+                <a href="#concept-10--pn" aria-label="Concept 10: [-Pn]">Concept 10: [-Pn]</a></li></ul>
+            </li>
+            <li>
+                <a href="#-tools-used" aria-label="⚙️ Tools Used">⚙️ Tools Used</a><ul>
+                    
+            <li>
+                <a href="#nmap" aria-label="Nmap">Nmap</a></li></ul>
+            </li>
+            <li>
+                <a href="#-commands-learned" aria-label="⚙️ Commands Learned">⚙️ Commands Learned</a></li>
+            <li>
+                <a href="#-end-of-session-self-test" aria-label="✅ End-of-Session Self Test">✅ End-of-Session Self Test</a></li>
+            <li>
+                <a href="#-tags" aria-label="📌 Tags">📌 Tags</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h1 id="day-3--host-discovery">Day 3 — [Host Discovery]<a hidden class="anchor" aria-hidden="true" href="#day-3--host-discovery">#</a></h1>
+<blockquote>
+<p><strong>Date:</strong> <code>=dateformat(date(today), &quot;yyyy-MM-dd&quot;)</code> <strong>Week:</strong> 1 | <strong>Day:</strong> 3? <strong>Module/Section:</strong> Host Discovery</p>
+</blockquote>
+<hr>
+<h2 id="-session-goals">🎯 Session Goals<a hidden class="anchor" aria-hidden="true" href="#-session-goals">#</a></h2>
+<blockquote>
+<p>What do you want to be able to DO by the end of this session?</p>
+</blockquote>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Network Mapping ✅ 2026-05-30</li>
+<li><input checked="" disabled="" type="checkbox"> Ping Sweeps ✅ 2026-05-30</li>
+<li><input checked="" disabled="" type="checkbox"> Host Discovery ✅ 2026-05-30</li>
+</ul>
+<hr>
+<h2 id="-concepts-learned">🧠 Concepts Learned<a hidden class="anchor" aria-hidden="true" href="#-concepts-learned">#</a></h2>
+<blockquote>
+<p>The Concepts i have learned in this session</p>
+</blockquote>
+<h3 id="concept-1-network-mapping">Concept 1: [Network Mapping]<a hidden class="anchor" aria-hidden="true" href="#concept-1-network-mapping">#</a></h3>
+<p><strong>What it is:</strong>
+Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements</p>
+<hr>
+<h3 id="concept-2-host-discovery-techniques">Concept 2: [Host Discovery Techniques]<a hidden class="anchor" aria-hidden="true" href="#concept-2-host-discovery-techniques">#</a></h3>
+<p><strong>What it is:</strong>
+it is the process to detect the live host on specific network CIDR or scan specific IP to see it is live or not to map the network of live hosts, there are different techniques for host discovery:</p>
+<ul>
+<li>ping sweeps &ndash;&raquo; ICMP echo requests, it is blocked via windows by default</li>
+<li>ARP scanning &ndash;&raquo; identify hosts only on local network by sending broadcasted message to get IPs of devices using MAC , if the device sends back its IP so it is live</li>
+<li>TCP  SYN ping &ndash;&raquo; it is half open connection by send SYN packet and if host respond with SYN ACK so it is life and source will send RST packet, it is in Nmap called stealth scan</li>
+<li>UDP ping &ndash;&raquo; uses UDP packets to target host to see if it is live or not</li>
+<li>TCP ACK ping and SYN ACK ping if RST packet received then the host is live</li>
+</ul>
+<hr>
+<h3 id="concept-3-ping-sweeps">Concept 3: [Ping Sweeps]<a hidden class="anchor" aria-hidden="true" href="#concept-3-ping-sweeps">#</a></h3>
+<p><strong>What it is:</strong>
+it is host discovery techniques it is using ICMP echo request or ping messages to see if the target is reachable if we receive response then it is live if not then it is not live or it is blocked or network congestion or temporary unavailability, windows by default block ICMP echo request, the two ICMP messages are:</p>
+<ul>
+<li>ICMP echo request &ndash;&raquo; type : 8 , code : 0</li>
+<li>ICMP echo response &ndash;&raquo; type : 0 , code : 0</li>
+<li>type &ndash;&raquo; represent the purpose of the ICMP function</li>
+<li>code &ndash;&raquo; additional information related to message type
+there are two utilities used for doing ICMP echo requests or ping messages:</li>
+<li>ping &ndash;&raquo; it is utility based on ICMP echo requests that sends them and wait for reply</li>
+<li>fping &ndash;&raquo; it is the same function of ping but differs from it that we can specify any number of targets</li>
+<li>we can do ping sweeps with namp with -sn option
+<img alt="ping-sweeps-visual" loading="lazy" src="/images/ejpt/day-3/host-discovery/ping-sweeps-visual.png"></li>
+</ul>
+<hr>
+<h3 id="concept-4--sn-option">Concept 4: [-sn option]<a hidden class="anchor" aria-hidden="true" href="#concept-4--sn-option">#</a></h3>
+<p><strong>What it is:</strong>
+for ping sweeps by using it, it disable port scan and do host discovery only, it consist of three techniques of host discovery</p>
+<ul>
+<li>ICMP echo request + TCP SYN(443 port) + TCP ACK(80 port)
+<ul>
+<li><img alt="-sn" loading="lazy" src="/images/ejpt/day-3/host-discovery/sn.png"></li>
+</ul>
+</li>
+<li>if we are in local network Nmap will use ARP in ping
+<ul>
+<li><img alt="nmap-sn-arp-localnetwork" loading="lazy" src="/images/ejpt/day-3/host-discovery/nmap-sn-arp-localnetwork.png"></li>
+</ul>
+</li>
+<li>use (&ndash;send-ip) to override ARP in local network and use other requests like ICMP
+<ul>
+<li><img alt="local-network-sn-use-icmp-by&ndash;send-ip-to-override-on-arp" loading="lazy" src="/images/ejpt/day-3/host-discovery/local-network-sn-use-icmp-by-send-ip-to-override-on-arp.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="concept-5--il-option">Concept 5: [-iL option]<a hidden class="anchor" aria-hidden="true" href="#concept-5--il-option">#</a></h3>
+<p><strong>What it is:</strong>
+is used to make Nmap take IPs from a text file instead of writing IP
+<img alt="-iL-to-put-ips-into-file" loading="lazy" src="/images/ejpt/day-3/host-discovery/il-to-put-ips-into-file.png"></p>
+<hr>
+<h3 id="concept-6-tcp-syn-ping">Concept 6: [TCP SYN Ping]<a hidden class="anchor" aria-hidden="true" href="#concept-6-tcp-syn-ping">#</a></h3>
+<p><strong>What it is:</strong>
+it is half open connection scan, so we send TCP packet with SYN flag only is set to port(80 the default, we can specify any other port or range of ports) and if it is opened the host will send SYN ACK packet then the we will send back RST packet to reset the connection, if it is closed host will send RST packet directly, in Nmap we use this by (-PS) option and (S stands for SYN), the connection is being half open because it isn&rsquo;t sending the final ACK because we need to discover only if the host is live or not</p>
+<hr>
+<h3 id="concept-7-tcp-ack-ping">Concept 7: [TCP ACK Ping]<a hidden class="anchor" aria-hidden="true" href="#concept-7-tcp-ack-ping">#</a></h3>
+<p><strong>What it is:</strong>
+it sends TCP packet with ACK flag only is set to port 80 the default and we can specify any other port or range of ports, if this is closed or firewall block ACK it will not respond to the request, and if it is opened it will return RST packet if there is no portable three way handshake which RST packet defines that the target is online, in Nmap we use this by (-PA) option (A stands for ACK) it has limitation which some networks or targets may block packet with ACK flag set.</p>
+<hr>
+<h3 id="concept-8-icmp-ping-echo-request-only">Concept 8: [ICMP Ping echo request only]<a hidden class="anchor" aria-hidden="true" href="#concept-8-icmp-ping-echo-request-only">#</a></h3>
+<p><strong>What it is:</strong>
+it send ICMP echo request(type:8,code:0) which is internet control message protocol packet to the target if target is reachable and firewall allows this type of packets not blocked it will respond with ICMP reply(type:0,code:0), in Nmap we use this by (-PE) option (E stands for Echo).</p>
+<hr>
+<h3 id="concept-10--pn">Concept 10: [-Pn]<a hidden class="anchor" aria-hidden="true" href="#concept-10--pn">#</a></h3>
+<p><strong>What it is:</strong>
+The <code>-Pn</code> option in Nmap disables the host discovery phase and instructs Nmap to assume that the target host is online. This is particularly useful when scanning systems that block ICMP ping requests or other discovery probes, such as Windows hosts protected by a firewall. By skipping host discovery, Nmap proceeds directly to port scanning, allowing it to identify open ports and services even when the target does not respond to ping. As a result, <code>-Pn</code> helps ensure that potentially reachable hosts are not missed during a scan.</p>
+<hr>
+<h2 id="-tools-used">⚙️ Tools Used<a hidden class="anchor" aria-hidden="true" href="#-tools-used">#</a></h2>
+<blockquote>
+<p>The Tools i have used during this session</p>
+</blockquote>
+<h3 id="nmap">Nmap<a hidden class="anchor" aria-hidden="true" href="#nmap">#</a></h3>
+<p>Nmap stands for Network Mapper, which is tool dedicated for network analysis and for our use in this session we will use it for host discovery which uses:</p>
+<ul>
+<li>ARP &ndash;&gt; uses for local networks only and it is the default when scan local network</li>
+<li>ICMP &ndash;&gt; ICMP echo requests or ping requests</li>
+<li>TCP/UDP probes
+it is used for port scanning and OS detection and services versions detection, we will discuss later.</li>
+</ul>
+<hr>
+<h2 id="-commands-learned">⚙️ Commands Learned<a hidden class="anchor" aria-hidden="true" href="#-commands-learned">#</a></h2>
+<blockquote>
+<p>The commands i have learned during this session</p>
+</blockquote>
+<ol>
+<li>ping utility</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># ping utility is used to send ICMP echo request and wait for reply</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>ping google.com
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#75715e"># to specify the number of the requests being sent(-c in linux and -n for windows)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#75715e">#for linux</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>ping -c <span style="color:#ae81ff">5</span> google.com
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span><span style="color:#75715e">#for windows</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span><span>ping -n <span style="color:#ae81ff">5</span> google.com
+</span></span></code></pre></div><p>for Linux<img alt="ping-linux" loading="lazy" src="/images/ejpt/day-3/host-discovery/ping-linux.png">
+for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-discovery/ping-windows.png"></p>
+<ol start="2">
+<li>fping utility</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># the of ping but it differes that we can target multiple targets and it doesnot wait for reply</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>fping -a -g 142.251.208.0/24
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#75715e"># -a for showing live hosts</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#75715e"># -g for generate target list to secify subnet or network CIDR</span>
+</span></span></code></pre></div><p><img alt="fping-with-g" loading="lazy" src="/images/ejpt/day-3/host-discovery/fping-with-g.png">
+<img alt="fping-without-g" loading="lazy" src="/images/ejpt/day-3/host-discovery/fping-without-g.png">
+3. namp for ping sweeps</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># -sn</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn 142.251.208.238
+</span></span></code></pre></div><p><img alt="nmap-sn-linux" loading="lazy" src="/images/ejpt/day-3/host-discovery/nmap-sn-linux.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># this target is windows system so it is blocking our ping request</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn 10.5.22.188
+</span></span></code></pre></div><p><img alt="-sn&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/sn-nmap.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># to override arp if i scan local network</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn 10.10.44.0/24 --send-ip
+</span></span></code></pre></div><p><img alt="local-network-sn-use-icmp-by&ndash;send-ip-to-override-on-arp&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/local-network-sn-use-icmp-by-send-ip-to-override-on-arp-nmap.png">
+<img alt="local-network-sn-use-icmp-by&ndash;send-ip-to-override-on-arp 1" loading="lazy" src="/images/ejpt/day-3/host-discovery/local-network-sn-use-icmp-by-send-ip-to-override-on-arp-1.png">
+4. IPs inside file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># to take target IPs as file</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -iL IPs.txt
+</span></span></code></pre></div><p><img alt="-iL-to-put-ips-into-file&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/il-to-put-ips-into-file-nmap.png">
+<img alt="-iL-to-put-ips-into-file&ndash;wireshark" loading="lazy" src="/images/ejpt/day-3/host-discovery/il-to-put-ips-into-file-wireshark.png">
+5. using TCP SYN Ping</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># -PS overrides on -sn , and uses only TCP SYN ping on default port 80</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -PS 10.5.22.188
+</span></span></code></pre></div><p><img alt="-ps&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/ps-nmap.png">
+<img alt="-ps&ndash;wireshark" loading="lazy" src="/images/ejpt/day-3/host-discovery/ps-wireshark.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># we can change the port to any othr ports or range of ports as following</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -PS1-1000 10.5.22.188
+</span></span></code></pre></div><p><img alt="-ps&ndash;nmap-different-ports" loading="lazy" src="/images/ejpt/day-3/host-discovery/ps-nmap-different-ports.png">
+<img alt="-ps&ndash;wireshark-different-ports" loading="lazy" src="/images/ejpt/day-3/host-discovery/ps-wireshark-different-ports.png"></p>
+<ol start="6">
+<li>Using TCP ACK Ping</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># -PS overrides on -sn , and uses only TCP ACK ping on default port 80</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -PA1-1000 10.5.22.188
+</span></span></code></pre></div><p><img alt="-pa&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/pa-nmap.png">
+<img alt="-pa&ndash;wireshark" loading="lazy" src="/images/ejpt/day-3/host-discovery/pa-wireshark.png"></p>
+<ol start="7">
+<li>ICMP echo request only</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># uses to send ICMP echo request and waiting for reply it it is replying with ICMP reply so it is online, if there is no reply then it is offline</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -PE 10.5.22.188
+</span></span></code></pre></div><p><img alt="-pe&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/pe-nmap.png">
+<img alt="-pe&ndash;wireshark" loading="lazy" src="/images/ejpt/day-3/host-discovery/pe-wireshark.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># --send-ip --&gt; it is overriding on ARP in local network to use ICMP echo requests</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -PE 10.10.44.0/24 --send-ip
+</span></span></code></pre></div><p><img alt="-pe&ndash;nmap&ndash;send-ip" loading="lazy" src="/images/ejpt/day-3/host-discovery/pe-nmap-send-ip.png">
+<img alt="-pe&ndash;wireshark&ndash;send-ip 1" loading="lazy" src="/images/ejpt/day-3/host-discovery/pe-wireshark-send-ip-1.png"></p>
+<ol start="8">
+<li>skipping host scanning and ping discovery</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># to skip ping discovery if the target is windows which block ping requests by default</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -Pn 10.5.22.188
+</span></span></code></pre></div><p><img alt="-pn&ndash;nmap" loading="lazy" src="/images/ejpt/day-3/host-discovery/pn-nmap.png"></p>
+<ol start="9">
+<li>the full test architecture</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># full test architecture of using nmap</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -sn -v -T4 10.5.22.188 -PS -PU
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#75715e"># -sn --&gt; no port scanning, host discovery only</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#75715e"># -v --&gt; verposity, contorl deteails of output that appear of the screen</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#75715e"># -T4 --&gt; the speed or numbers of packets send [1 --&gt; slowest, 5 --&gt; fastest]</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#75715e"># -PS --&gt; TCP SYN Ping scan </span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#75715e"># -PU --&gt; UDP scan , to scan services that are running via UDP to see if there any response which means it is reachable</span>
+</span></span></code></pre></div><p><img alt="full-flow" loading="lazy" src="/images/ejpt/day-3/host-discovery/full-flow.png">
+<img alt="full-flow-wireshark" loading="lazy" src="/images/ejpt/day-3/host-discovery/full-flow-wireshark.png"></p>
+<hr>
+<h2 id="-end-of-session-self-test">✅ End-of-Session Self Test<a hidden class="anchor" aria-hidden="true" href="#-end-of-session-self-test">#</a></h2>
+<blockquote>
+<p>Answer without looking at your notes</p>
+</blockquote>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Can I explain today&rsquo;s main concept in one sentence? ✅ 2026-05-30</li>
+<li><input checked="" disabled="" type="checkbox"> Can I run the key commands from memory? ✅ 2026-05-30</li>
+<li><input checked="" disabled="" type="checkbox"> Can I reproduce the lab attack chain without help? ✅ 2026-05-30</li>
+</ul>
+<p><strong>Honest rating of today&rsquo;s session:</strong> <code>[ ] 🔴 Struggling</code> | <code>[ ] 🟡 Getting it</code> | <code>[x] 🟢 Solid</code></p>
+<hr>
+<h2 id="-tags">📌 Tags<a hidden class="anchor" aria-hidden="true" href="#-tags">#</a></h2>
+<p><code>#ejpt</code> <code>#host discovery</code> <code>#week-1</code> `#host-discovery</p>
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/">
+    <span class="title">Next »</span>
+    <span>Network Primer</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://karimabdelazizblog.tech/">Karim&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a><script>
+(function () {
+  var toc = document.getElementById('TableOfContents');
+  if (!toc) return;
+
+  
+  var mainDetails = document.querySelector('.toc > details');
+  if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
+
+   
+  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
+    var parentLi = ul.parentElement;
+    if (!parentLi || parentLi.tagName !== 'LI') return;
+    var directLink = parentLi.querySelector(':scope > a');
+    if (!directLink) return;
+
+    var det = document.createElement('details');
+    var sum = document.createElement('summary');
+    sum.appendChild(directLink.cloneNode(true));
+    det.appendChild(sum);
+    det.appendChild(ul);
+    directLink.replaceWith(det);
+  });
+
+   
+  
+  var headings = Array.from(
+    document.querySelectorAll('h2[id], h3[id]')
+  );
+  if (!headings.length) return;
+
+  var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  var cur   = { link: null, heading: null };
+
+  function activate(heading) {
+    if (cur.link)    cur.link.classList.remove('toc-active');
+    if (cur.heading) cur.heading.classList.remove('heading-active');
+
+    cur.heading = heading || null;
+    cur.link    = null;
+
+    if (!heading) return;
+
+    heading.classList.add('heading-active');
+
+    
+    for (var i = 0; i < links.length; i++) {
+      var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
+      if (frag === heading.id) { cur.link = links[i]; break; }
+    }
+
+    if (cur.link) {
+      cur.link.classList.add('toc-active');
+
+      
+      var parentDet = cur.link.closest('#TableOfContents details');
+      if (parentDet) parentDet.open = true;
+
+      
+      var panel = document.querySelector('.toc');
+      if (panel && window.innerWidth >= 1280) {
+        var top = cur.link.offsetTop - panel.clientHeight / 2;
+        panel.scrollTop = Math.max(0, top);
+      }
+    }
+  }
+
+  var lastHeading;
+
+  function onScroll() {
+    var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
+    var found = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
+        found = headings[i];
+      }
+    }
+    if (found !== lastHeading) {
+      lastHeading = found;
+      activate(found);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); 
+})();
+</script>
+
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1174,3 +1174,11 @@
 [2026-05-14 18:52:55] MISSING (no match found): /images/ejpt/day-1/active-reconnaissance/pasted-image-20260429123335.png  in  Passive Reconnaissance.md
 [2026-05-14 18:52:55] All image links OK.
 [2026-05-14 18:52:55] --- image-checker run done ---
+[2026-05-30 14:38:22] --- image-checker run started ---
+[2026-05-30 14:38:22] MISSING (no match found): /images/ejpt/day-3/host-discovery/pn-nmap.png  in  Host Discovery.md
+[2026-05-30 14:38:22] MISSING (no match found): /images/ejpt/day-3/host-discovery/full-flow.png  in  Host Discovery.md
+[2026-05-30 14:38:22] MISSING (no match found): /images/ejpt/day-3/host-discovery/full-flow-wireshark.png  in  Host Discovery.md
+[2026-05-30 14:38:22] MISSING (no match found): /images/ejpt/day-1/active-reconnaissance/pasted-image-20260429121012.png  in  Passive Reconnaissance.md
+[2026-05-30 14:38:22] MISSING (no match found): /images/ejpt/day-1/active-reconnaissance/pasted-image-20260429123335.png  in  Passive Reconnaissance.md
+[2026-05-30 14:38:22] All image links OK.
+[2026-05-30 14:38:22] --- image-checker run done ---

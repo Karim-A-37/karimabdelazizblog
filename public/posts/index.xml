@@ -6,8 +6,36 @@
     <description>Recent content in Posts on Karim&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Host Discovery</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</link>
+      <pubDate>Sat, 30 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</guid>
+      <description>&lt;h1 id=&#34;day-3--host-discovery&#34;&gt;Day 3 — [Host Discovery]&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Date:&lt;/strong&gt; &lt;code&gt;=dateformat(date(today), &amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt; &lt;strong&gt;Week:&lt;/strong&gt; 1 | &lt;strong&gt;Day:&lt;/strong&gt; 3? &lt;strong&gt;Module/Section:&lt;/strong&gt; Host Discovery&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-session-goals&#34;&gt;🎯 Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Mapping ✅ 2026-05-30&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ping Sweeps ✅ 2026-05-30&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Host Discovery ✅ 2026-05-30&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-concepts-learned&#34;&gt;🧠 Concepts Learned&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Concepts i have learned in this session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;concept-1-network-mapping&#34;&gt;Concept 1: [Network Mapping]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Network Primer</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</link>
