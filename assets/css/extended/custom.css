@@ -132,3 +132,95 @@
 }
 .series-nav__btn:hover { color: #22c55e; border-color: #22c55e; }
 .series-nav__btn--next { margin-left: auto; text-align: right; }
+
+/* ── Certification Cards ───────────────────────────────────── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.cert-card__badge {
+  padding: 0.55rem 1rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.cert-card__badge--cisco   { background: linear-gradient(135deg, #049fd9, #005073); }
+.cert-card__badge--aws     { background: linear-gradient(135deg, #ff9900, #c27400); }
+.cert-card__badge--gov     { background: linear-gradient(135deg, #e74c3c, #962d22); }
+.cert-card__badge--uni     { background: linear-gradient(135deg, #8b5cf6, #5b21b6); }
+
+.cert-card__body {
+  flex: 1;
+  padding: 1rem 1.1rem 0.6rem;
+}
+
+.cert-card__title {
+  font-size: 0.95rem !important;
+  font-weight: 700;
+  color: var(--primary, #fff);
+  margin: 0 0 0.45rem 0 !important;
+  line-height: 1.35;
+}
+
+.cert-card__issuer {
+  font-size: 0.78rem;
+  color: var(--secondary, #999);
+  margin: 0 0 0.2rem 0;
+  font-weight: 500;
+}
+
+.cert-card__date {
+  font-size: 0.7rem;
+  color: var(--secondary, #666);
+  margin: 0;
+  opacity: 0.75;
+}
+
+.cert-card__btn {
+  display: block;
+  margin: 0.6rem 1rem 1rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: background 0.14s, color 0.14s, border-color 0.14s;
+}
+.cert-card__btn:hover {
+  background: #22c55e;
+  color: #000;
+  border-color: #22c55e;
+}
+
+@media (max-width: 640px) {
+  .certs-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+

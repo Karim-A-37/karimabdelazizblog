@@ -1,79 +1,71 @@
 ---
-title: "Certifications & Skills"
-description: "Security certifications, tools, platforms, and learning roadmap."
+title: "Certifications"
+description: "Professional certifications and credentials earned by Karim Abdelaziz."
 layout: page
 draft: false
+ShowToc: false
 ---
 
-## Certifications
+<div class="certs-grid">
 
-| Certification | Issuer | Status |
-|---|---|---|
-| eJPT — Junior Penetration Tester | eLearnSecurity | 🔄 In Progress |
-| Wazuh SIEM & XDR Deployment | Self-Directed Lab | ✅ Completed |
-| SetChain — Graduation Project (AI + Blockchain SIEM) | University | ✅ Completed |
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--cisco">CCNA</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">Cisco Certified Network Associate Security</h3>
+    <p class="cert-card__issuer">Cisco</p>
+    <p class="cert-card__date">Issued Mar 2026</p>
+  </div>
+  <a class="cert-card__btn" href="https://www.credly.com/badges/ab1b809b-494f-491e-bca1-4b32a3643ae8/public_url" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
----
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--cisco">CCNAv7</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">CCNAv7: Switching, Routing & Wireless</h3>
+    <p class="cert-card__issuer">NTI</p>
+    <p class="cert-card__date">Issued Mar 2026</p>
+  </div>
+  <a class="cert-card__btn" href="https://drive.google.com/file/d/1ir_f1f0fUhwVVQXM47sAlA3da5yXLQAu/view?usp=sharing" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
-## Active Platforms
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--aws">Cloud</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">Academy Cloud Security Foundations</h3>
+    <p class="cert-card__issuer">Amazon Web Services (AWS)</p>
+    <p class="cert-card__date">Issued May 2025</p>
+  </div>
+  <a class="cert-card__btn" href="https://www.credly.com/badges/2ff86823-47ce-4c46-9e1f-195d457ee679/print" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
-| Platform | Profile | Focus |
-|---|---|---|
-| **HackTheBox** | [profile](https://profile.hackthebox.com/profile/019daf59-087e-71ba-9ae1-58ab43a8a4c8) | Machine pwning, CTF |
-| **TryHackMe** | [JaGuar](https://tryhackme.com/p/JaGuar) | Guided learning paths |
-| **HackerOne** | [2f4ces](https://hackerone.com/2f4ces) | Bug bounty research |
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--aws">Cloud</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">AWS Academy Cloud Foundations</h3>
+    <p class="cert-card__issuer">Amazon Web Services (AWS)</p>
+    <p class="cert-card__date">Issued Dec 2024</p>
+  </div>
+  <a class="cert-card__btn" href="https://www.credly.com/badges/c8788026-f267-43d0-a8d1-898ec3c7ea01/print" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
----
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--gov">Award</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">Digitopia Competition</h3>
+    <p class="cert-card__issuer">Ministry of Communications & IT (MCIT), Egypt</p>
+    <p class="cert-card__date">Issued Oct 2025</p>
+  </div>
+  <a class="cert-card__btn" href="https://drive.google.com/file/d/1OEDk3SL0qQ3BgVmdKunVapXRS1NHJKs1/view?usp=sharing" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
-## Technical Skills
+<div class="cert-card">
+  <div class="cert-card__badge cert-card__badge--uni">Intern</div>
+  <div class="cert-card__body">
+    <h3 class="cert-card__title">Quantum Computing Intern</h3>
+    <p class="cert-card__issuer">Alamein International University</p>
+    <p class="cert-card__date">Issued Oct 2025</p>
+  </div>
+  <a class="cert-card__btn" href="https://drive.google.com/file/d/1s6vs5fYzR84XraHKNkNmH2b5iZ6kE9Ld/view?usp=sharing" target="_blank" rel="noopener">View Credential →</a>
+</div>
 
-### Security & Operations
-- **SIEM / XDR**: Wazuh, Suricata, File Integrity Monitoring
-- **Threat Detection**: Custom rules, MITRE ATT&CK mapping, Sysmon
-- **Malware Analysis**: FIM, CDB hash lists, VirusTotal, APT simulation
-- **Network Analysis**: Nmap, Suricata IDS/IPS, Emerging Threats ruleset
-- **Penetration Testing**: Recon, passive/active reconnaissance, web app attacks
-- **Web Attacks**: SQL Injection, XSS, DVWA exploitation
-
-### Development & Automation
-- **Languages**: Python, Bash, PowerShell, JavaScript / Node.js
-- **AI / ML**: Isolation Forest, XGBoost, FastAPI, Groq LLM (llama3)
-- **Blockchain**: Hyperledger Fabric, IPFS (Kubo), STIX 2.1 threat intelligence
-- **Workflow**: n8n automation, Docker, Docker Compose
-- **Web**: Hugo (static sites), HTML/CSS/JS
-
-### Systems & Infrastructure
-- **Linux**: Ubuntu, Rocky Linux, Kali Linux, Debian
-- **Windows**: Windows 10, PowerShell automation, Event Viewer, Windows Defender
-- **Virtualization**: VMware, VirtualBox
-- **Version Control**: Git, GitHub
-
----
-
-## Learning Roadmap
-
-```
-✅ Completed           🔄 In Progress        📋 Planned
-```
-
-| Track | Status |
-|---|---|
-| Passive & Active Reconnaissance (eJPT) | 🔄 In Progress |
-| Exploitation fundamentals (eJPT) | 📋 Planned |
-| Web Application Attacks | 📋 Planned |
-| Active Directory basics | 📋 Planned |
-| OSCP — Offensive Security Certified Professional | 📋 Planned |
-| CEH — Certified Ethical Hacker | 📋 Planned |
-| AWS Security Specialty | 📋 Planned |
-
----
-
-## Featured Project
-
-> **SetChain** — Graduation project: A fully automated cybersecurity pipeline combining
-> Wazuh SIEM, Suricata IDS, an n8n workflow engine, a 5-layer AI model pipeline
-> (Isolation Forest → XGBoost → MITRE mapping → human-review routing → LLM playbook),
-> STIX 2.1 structured threat intelligence, IPFS decentralized storage, and
-> Hyperledger Fabric blockchain for immutable audit trails.
->
-> [Read the full write-up →](/projects/wazuh/wazuh-lab-3-setchain/)
+</div>
