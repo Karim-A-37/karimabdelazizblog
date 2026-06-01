@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Suricata on Karim&#39;s Blog</title>
+    <link>https://karimabdelazizblog.tech/tags/suricata/</link>
+    <description>Recent content in Suricata on Karim&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://karimabdelazizblog.tech/tags/suricata/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lab 1 - Wazuh &#43; Suricata IDS Setup</title>
+      <link>https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/</link>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/</guid>
+      <description>Setting up Wazuh SIEM with Suricata NIDS to detect port scans, SQL injection, XSS, and Tor connections using Emerging Threats rules.</description>
+    </item>
+  </channel>
+</rss>

@@ -3,6 +3,9 @@ title: "Passive Reconnaissance"
 date: 2026-05-01
 slug: passive-reconnaissance
 draft: false
+series: ["eJPT"]
+ShowToc: true
+TocOpen: false
 tags:
   - ejpt
   - recon

@@ -1,26 +1,28 @@
 baseURL = "https://karimabdelazizblog.tech/"
-locale = "en-us"
-title = "Karim's Blog"
-theme = "PaperMod"
+locale  = "en-us"
+title   = "Karim's Blog"
+theme   = "PaperMod"
 paginate = 6
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [params]
-  author = "Karim Abdelaziz"
-  description = "Notes, writeups and projects"
-  defaultTheme = "dark"
-  ShowReadingTime = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
+  author              = "Karim Abdelaziz"
+  description         = "Security notes, CTF writeups, and projects by Karim Abdelaziz"
+  defaultTheme        = "dark"
+  ShowReadingTime     = true
+  ShowPostNavLinks    = true
+  ShowBreadCrumbs     = true
   ShowCodeCopyButtons = true
-  ShowToc = true
-  TocOpen = false
-  tocHighlight = true
+  ShowToc             = true
+  TocOpen             = false
+  tocHighlight        = true
 
   [params.homeInfoParams]
-    Title = "Hey, I'm Karim Abdelaziz"
+    Title   = "Hey, I'm Karim Abdelaziz"
     Content = "Security notes, CTF writeups, and tech projects."
 
-  # ── Social links (shown as icons on your homepage) ──────────
   [[params.socialIcons]]
     name = "github"
     url  = "https://github.com/Karim-A-37"
@@ -66,13 +68,22 @@ paginate = 6
 
 [menu]
   [[menu.main]]
-    name = "About"
-    url  = "/about/"
+    name   = "Notes"
+    url    = "/posts/"
+    weight = 5
+  [[menu.main]]
+    name   = "Projects"
+    url    = "/projects/"
     weight = 10
   [[menu.main]]
-    name = "Tags"
-    url  = "/tags/"
+    name   = "Search"
+    url    = "/search/"
+    weight = 15
+  [[menu.main]]
+    name   = "About"
+    url    = "/about/"
     weight = 20
 
 [taxonomies]
-  tags = "tags"
+  tags   = "tags"
+  series = "series"

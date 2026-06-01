@@ -6,8 +6,57 @@
     <description>Recent content in Tags on Karim&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai</title>
+      <link>https://karimabdelazizblog.tech/tags/ai/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Blockchain</title>
+      <link>https://karimabdelazizblog.tech/tags/blockchain/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Graduation-Project</title>
+      <link>https://karimabdelazizblog.tech/tags/graduation-project/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/graduation-project/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hyperledger</title>
+      <link>https://karimabdelazizblog.tech/tags/hyperledger/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/hyperledger/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ipfs</title>
+      <link>https://karimabdelazizblog.tech/tags/ipfs/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/ipfs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>N8n</title>
+      <link>https://karimabdelazizblog.tech/tags/n8n/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/n8n/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wazuh</title>
+      <link>https://karimabdelazizblog.tech/tags/wazuh/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/wazuh/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Ejpt</title>
       <link>https://karimabdelazizblog.tech/tags/ejpt/</link>
@@ -20,6 +69,62 @@
       <link>https://karimabdelazizblog.tech/tags/recon/</link>
       <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/tags/recon/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fim</title>
+      <link>https://karimabdelazizblog.tech/tags/fim/</link>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/fim/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Malware</title>
+      <link>https://karimabdelazizblog.tech/tags/malware/</link>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/malware/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sysmon</title>
+      <link>https://karimabdelazizblog.tech/tags/sysmon/</link>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/sysmon/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Virustotal</title>
+      <link>https://karimabdelazizblog.tech/tags/virustotal/</link>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/virustotal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ids</title>
+      <link>https://karimabdelazizblog.tech/tags/ids/</link>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/ids/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Network-Security</title>
+      <link>https://karimabdelazizblog.tech/tags/network-security/</link>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/network-security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Siem</title>
+      <link>https://karimabdelazizblog.tech/tags/siem/</link>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/siem/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Suricata</title>
+      <link>https://karimabdelazizblog.tech/tags/suricata/</link>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/tags/suricata/</guid>
       <description></description>
     </item>
   </channel>
