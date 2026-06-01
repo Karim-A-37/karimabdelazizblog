@@ -133,198 +133,94 @@
 .series-nav__btn:hover { color: #22c55e; border-color: #22c55e; }
 .series-nav__btn--next { margin-left: auto; text-align: right; }
 
-/* ── Certifications Page ───────────────────────────────────── */
-.certs-page {
-  max-width: 780px;
-  margin: 0 auto;
-}
-
-.certs-header {
-  margin-bottom: 1.5rem;
-}
-
-.certs-pill {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #60a5fa;
-  background: rgba(96, 165, 250, 0.1);
-  border: 1px solid rgba(96, 165, 250, 0.2);
-  border-radius: 50px;
-  padding: 0.25rem 0.75rem;
-  margin-bottom: 0.6rem;
-}
-
-.certs-meta {
-  display: flex;
-  gap: 1.2rem;
-  font-size: 0.75rem;
-  color: var(--secondary, #777);
-  margin: 0.5rem 0 0 0;
-}
-.certs-meta__item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-.certs-meta__item svg { opacity: 0.6; }
-
-/* Stats row */
-.certs-stats {
-  display: flex;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-.certs-stat {
-  flex: 1;
-  background: var(--entry, #1e1e2e);
-  border: 1px solid var(--border, #333);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  text-align: center;
-}
-.certs-stat__num {
-  display: block;
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--primary, #fff);
-  line-height: 1.2;
-}
-.certs-stat__label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--secondary, #666);
-}
-
-/* Section dividers */
-.certs-section {
-  margin: 2rem 0 0.8rem;
-}
-.certs-section__label {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--secondary, #555);
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border, #2a2a2a);
-}
-.certs-section__label svg { opacity: 0.5; }
-
-/* Card grid */
+/* ── Certification Cards ───────────────────────────────────── */
 .certs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1rem;
-  margin-top: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-/* Individual card */
 .cert-card {
   display: flex;
   flex-direction: column;
   background: var(--entry, #1e1e2e);
   border: 1px solid var(--border, #333);
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
-  border-top: 3px solid transparent;
-  transition: border-color 0.16s, box-shadow 0.16s;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 .cert-card:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  border-color: var(--border, #444);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.12);
 }
 
-/* Color accents — top border only */
-.cert-card--blue  { border-top-color: #60a5fa; }
-.cert-card--amber { border-top-color: #f59e0b; }
-.cert-card--rose  { border-top-color: #f43f5e; }
-.cert-card--violet { border-top-color: #a78bfa; }
-
-.cert-card__inner {
-  flex: 1;
-  padding: 1rem 1.1rem 0.7rem;
-}
-
-/* Category pill */
-.cert-card__cat {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.cert-card__badge {
+  padding: 0.55rem 1rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.18rem 0.55rem;
-  border-radius: 4px;
-  margin-bottom: 0.65rem;
+  color: #fff;
 }
-.cert-card__cat--blue   { color: #60a5fa; background: rgba(96,165,250,0.1); }
-.cert-card__cat--amber  { color: #f59e0b; background: rgba(245,158,11,0.1); }
-.cert-card__cat--rose   { color: #f43f5e; background: rgba(244,63,94,0.1); }
-.cert-card__cat--violet { color: #a78bfa; background: rgba(167,139,250,0.1); }
+.cert-card__badge--cisco   { background: linear-gradient(135deg, #049fd9, #005073); }
+.cert-card__badge--aws     { background: linear-gradient(135deg, #ff9900, #c27400); }
+.cert-card__badge--gov     { background: linear-gradient(135deg, #e74c3c, #962d22); }
+.cert-card__badge--uni     { background: linear-gradient(135deg, #8b5cf6, #5b21b6); }
+
+.cert-card__body {
+  flex: 1;
+  padding: 1rem 1.1rem 0.6rem;
+}
 
 .cert-card__title {
-  font-size: 0.92rem !important;
+  font-size: 0.95rem !important;
   font-weight: 700;
   color: var(--primary, #fff);
-  margin: 0 0 0.4rem 0 !important;
+  margin: 0 0 0.45rem 0 !important;
   line-height: 1.35;
 }
 
 .cert-card__issuer {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.76rem;
-  color: var(--secondary, #888);
-  margin: 0;
+  font-size: 0.78rem;
+  color: var(--secondary, #999);
+  margin: 0 0 0.2rem 0;
   font-weight: 500;
-}
-.cert-card__issuer svg { opacity: 0.45; }
-
-/* Footer with date + link */
-.cert-card__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 1.1rem;
-  border-top: 1px solid var(--border, #2a2a2a);
 }
 
 .cert-card__date {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
   font-size: 0.7rem;
   color: var(--secondary, #666);
+  margin: 0;
+  opacity: 0.75;
 }
-.cert-card__date svg { opacity: 0.45; }
 
-.cert-card__link {
-  font-size: 0.72rem;
+.cert-card__btn {
+  display: block;
+  margin: 0.6rem 1rem 1rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: #2dd4bf;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 8px;
   text-decoration: none;
-  padding: 0.25rem 0.6rem;
-  border: 1px solid rgba(45, 212, 191, 0.25);
-  border-radius: 6px;
-  transition: background 0.14s, color 0.14s;
-  white-space: nowrap;
+  letter-spacing: 0.03em;
+  transition: background 0.14s, color 0.14s, border-color 0.14s;
 }
-.cert-card__link:hover {
-  background: rgba(45, 212, 191, 0.1);
-  color: #5eead4;
+.cert-card__btn:hover {
+  background: #22c55e;
+  color: #000;
+  border-color: #22c55e;
 }
 
 @media (max-width: 640px) {
-  .certs-grid { grid-template-columns: 1fr; }
-  .certs-stats { flex-direction: column; gap: 0.5rem; }
+  .certs-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
