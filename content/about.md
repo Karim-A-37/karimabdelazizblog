@@ -251,7 +251,7 @@ GPA **3.8 / 4.0** · Courses: Network Security · InfoSec Management · Blockcha
 ## 📄 Curriculum Vitae
 
 <div style="margin:1rem 0">
-<a href="/files/karim-cv.pdf" target="_blank"
+<a href="/files/karim-cv.pdf?v=2" target="_blank"
    style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.1rem;border-radius:8px;border:1.5px solid var(--primary);color:var(--primary);text-decoration:none;font-weight:600;font-size:0.9rem;transition:background 0.2s,color 0.2s"
    onmouseover="this.style.background='var(--primary)';this.style.color='var(--theme)'"
    onmouseout="this.style.background='';this.style.color='var(--primary)'">
@@ -260,5 +260,5 @@ GPA **3.8 / 4.0** · Courses: Network Security · InfoSec Management · Blockcha
 </div>
 
 <div style="width:100%;height:880px;border:1px solid var(--border);border-radius:10px;overflow:hidden">
-  <iframe src="/files/karim-cv.pdf" style="width:100%;height:100%;border:none" title="Karim Abdelaziz CV"></iframe>
+  <iframe src="/files/karim-cv.pdf?v=2" style="width:100%;height:100%;border:none" title="Karim Abdelaziz CV"></iframe>
 </div>
