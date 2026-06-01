@@ -31,7 +31,7 @@ What it is:
 Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cde51804a98f673914a87465af0692a5ce3b4a272fb0785f705ec8dcdaba196.css" integrity="sha256-XN5RgEqY9nORSodGWvBpKlzjtKJy&#43;weF9wXsjc2roZY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -66,8 +66,10 @@ Concept 1: [Network Mapping] What it is: Network mapping encapsulates active rec
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-05-30T00:00:00+00:00">
     <meta property="article:modified_time" content="2026-05-30T00:00:00+00:00">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
   <meta name="twitter:title" content="Host Discovery">
   <meta name="twitter:description" content="Day 3 — [Host Discovery] Date: 2026-05-30 Week: 1 | Day: 3? Module/Section: Host Discovery
 🎯 Session Goals What do you want to be able to DO by the end of this session?
@@ -114,7 +116,7 @@ Concept 1: [Network Mapping] What it is: Network mapping encapsulates active rec
   "articleBody": "Day 3 — [Host Discovery] Date: 2026-05-30 Week: 1 | Day: 3? Module/Section: Host Discovery\n🎯 Session Goals What do you want to be able to DO by the end of this session?\nNetwork Mapping ✅ 2026-05-30 Ping Sweeps ✅ 2026-05-30 Host Discovery ✅ 2026-05-30 🧠 Concepts Learned The Concepts i have learned in this session\nConcept 1: [Network Mapping] What it is: Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements\nConcept 2: [Host Discovery Techniques] What it is: it is the process to detect the live host on specific network CIDR or scan specific IP to see it is live or not to map the network of live hosts, there are different techniques for host discovery:\nping sweeps –» ICMP echo requests, it is blocked via windows by default ARP scanning –» identify hosts only on local network by sending broadcasted message to get IPs of devices using MAC , if the device sends back its IP so it is live TCP SYN ping –» it is half open connection by send SYN packet and if host respond with SYN ACK so it is life and source will send RST packet, it is in Nmap called stealth scan UDP ping –» uses UDP packets to target host to see if it is live or not TCP ACK ping and SYN ACK ping if RST packet received then the host is live Concept 3: [Ping Sweeps] What it is: it is host discovery techniques it is using ICMP echo request or ping messages to see if the target is reachable if we receive response then it is live if not then it is not live or it is blocked or network congestion or temporary unavailability, windows by default block ICMP echo request, the two ICMP messages are:\nICMP echo request –» type : 8 , code : 0 ICMP echo response –» type : 0 , code : 0 type –» represent the purpose of the ICMP function code –» additional information related to message type there are two utilities used for doing ICMP echo requests or ping messages: ping –» it is utility based on ICMP echo requests that sends them and wait for reply fping –» it is the same function of ping but differs from it that we can specify any number of targets we can do ping sweeps with namp with -sn option Concept 4: [-sn option] What it is: for ping sweeps by using it, it disable port scan and do host discovery only, it consist of three techniques of host discovery\nICMP echo request + TCP SYN(443 port) + TCP ACK(80 port) if we are in local network Nmap will use ARP in ping use (–send-ip) to override ARP in local network and use other requests like ICMP Concept 5: [-iL option] What it is: is used to make Nmap take IPs from a text file instead of writing IP Concept 6: [TCP SYN Ping] What it is: it is half open connection scan, so we send TCP packet with SYN flag only is set to port(80 the default, we can specify any other port or range of ports) and if it is opened the host will send SYN ACK packet then the we will send back RST packet to reset the connection, if it is closed host will send RST packet directly, in Nmap we use this by (-PS) option and (S stands for SYN), the connection is being half open because it isn’t sending the final ACK because we need to discover only if the host is live or not\nConcept 7: [TCP ACK Ping] What it is: it sends TCP packet with ACK flag only is set to port 80 the default and we can specify any other port or range of ports, if this is closed or firewall block ACK it will not respond to the request, and if it is opened it will return RST packet if there is no portable three way handshake which RST packet defines that the target is online, in Nmap we use this by (-PA) option (A stands for ACK) it has limitation which some networks or targets may block packet with ACK flag set.\nConcept 8: [ICMP Ping echo request only] What it is: it send ICMP echo request(type:8,code:0) which is internet control message protocol packet to the target if target is reachable and firewall allows this type of packets not blocked it will respond with ICMP reply(type:0,code:0), in Nmap we use this by (-PE) option (E stands for Echo).\nConcept 10: [-Pn] What it is: The -Pn option in Nmap disables the host discovery phase and instructs Nmap to assume that the target host is online. This is particularly useful when scanning systems that block ICMP ping requests or other discovery probes, such as Windows hosts protected by a firewall. By skipping host discovery, Nmap proceeds directly to port scanning, allowing it to identify open ports and services even when the target does not respond to ping. As a result, -Pn helps ensure that potentially reachable hosts are not missed during a scan.\n⚙️ Tools Used The Tools i have used during this session\nNmap Nmap stands for Network Mapper, which is tool dedicated for network analysis and for our use in this session we will use it for host discovery which uses:\nARP –\u003e uses for local networks only and it is the default when scan local network ICMP –\u003e ICMP echo requests or ping requests TCP/UDP probes it is used for port scanning and OS detection and services versions detection, we will discuss later. ⚙️ Commands Learned The commands i have learned during this session\nping utility 1# ping utility is used to send ICMP echo request and wait for reply 2ping google.com 3 4# to specify the number of the requests being sent(-c in linux and -n for windows) 5#for linux 6ping -c 5 google.com 7 8#for windows 9ping -n 5 google.com for Linux for windows\nfping utility 1# the of ping but it differes that we can target multiple targets and it doesnot wait for reply 2fping -a -g 142.251.208.0/24 3# -a for showing live hosts 4# -g for generate target list to secify subnet or network CIDR 3. namp for ping sweeps\n1# -sn 2nmap -sn 142.251.208.238 1# this target is windows system so it is blocking our ping request 2nmap -sn 10.5.22.188 1# to override arp if i scan local network 2nmap -sn 10.10.44.0/24 --send-ip 4. IPs inside file\n1# to take target IPs as file 2nmap -sn -iL IPs.txt 5. using TCP SYN Ping\n1# -PS overrides on -sn , and uses only TCP SYN ping on default port 80 2nmap -sn -PS 10.5.22.188 1# we can change the port to any othr ports or range of ports as following 2nmap -sn -PS1-1000 10.5.22.188 Using TCP ACK Ping 1# -PS overrides on -sn , and uses only TCP ACK ping on default port 80 2nmap -sn -PA1-1000 10.5.22.188 ICMP echo request only 1# uses to send ICMP echo request and waiting for reply it it is replying with ICMP reply so it is online, if there is no reply then it is offline 2nmap -sn -PE 10.5.22.188 1# --send-ip --\u003e it is overriding on ARP in local network to use ICMP echo requests 2nmap -sn -PE 10.10.44.0/24 --send-ip skipping host scanning and ping discovery 1# to skip ping discovery if the target is windows which block ping requests by default 2nmap -sn -Pn 10.5.22.188 the full test architecture 1# full test architecture of using nmap 2nmap -sn -v -T4 10.5.22.188 -PS -PU 3# -sn --\u003e no port scanning, host discovery only 4# -v --\u003e verposity, contorl deteails of output that appear of the screen 5# -T4 --\u003e the speed or numbers of packets send [1 --\u003e slowest, 5 --\u003e fastest] 6# -PS --\u003e TCP SYN Ping scan 7# -PU --\u003e UDP scan , to scan services that are running via UDP to see if there any response which means it is reachable ✅ End-of-Session Self Test Answer without looking at your notes\nCan I explain today’s main concept in one sentence? ✅ 2026-05-30 Can I run the key commands from memory? ✅ 2026-05-30 Can I reproduce the lab attack chain without help? ✅ 2026-05-30 Honest rating of today’s session: [ ] 🔴 Struggling | [ ] 🟡 Getting it | [x] 🟢 Solid\n📌 Tags #ejpt #host discovery #week-1 `#host-discovery\n",
   "wordCount" : "1433",
   "inLanguage": "en",
-  "datePublished": "2026-05-30T00:00:00Z",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2026-05-30T00:00:00Z",
   "dateModified": "2026-05-30T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -177,6 +179,16 @@ Concept 1: [Network Mapping] What it is: Network mapping encapsulates active rec
             <li>
                 <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
                 </a>
             </li>
             <li>
@@ -470,9 +482,7 @@ for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-d
 <hr>
 
 
-  </div>
-
-  <footer class="post-footer">
+  </div><footer class="post-footer">
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
@@ -501,12 +511,77 @@ for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-d
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a><script>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
   var mainDetails = document.querySelector('.toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
@@ -516,7 +591,6 @@ for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-d
     if (!parentLi || parentLi.tagName !== 'LI') return;
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
-
     var det = document.createElement('details');
     var sum = document.createElement('summary');
     sum.appendChild(directLink.cloneNode(true));
@@ -526,50 +600,34 @@ for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-d
   });
 
    
-  
-  var headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id]')
-  );
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
   if (!headings.length) return;
-
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  var cur   = { link: null, heading: null };
+  var cur = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
     if (cur.heading) cur.heading.classList.remove('heading-active');
-
     cur.heading = heading || null;
-    cur.link    = null;
-
+    cur.link = null;
     if (!heading) return;
-
     heading.classList.add('heading-active');
-
-    
     for (var i = 0; i < links.length; i++) {
       var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
       if (frag === heading.id) { cur.link = links[i]; break; }
     }
-
     if (cur.link) {
       cur.link.classList.add('toc-active');
-
-      
       var parentDet = cur.link.closest('#TableOfContents details');
       if (parentDet) parentDet.open = true;
-
-      
       var panel = document.querySelector('.toc');
       if (panel && window.innerWidth >= 1280) {
-        var top = cur.link.offsetTop - panel.clientHeight / 2;
-        panel.scrollTop = Math.max(0, top);
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
       }
     }
   }
 
   var lastHeading;
-
   function onScroll() {
     var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
@@ -578,14 +636,10 @@ for windows<img alt="ping-windows" loading="lazy" src="/images/ejpt/day-3/host-d
         found = headings[i];
       }
     }
-    if (found !== lastHeading) {
-      lastHeading = found;
-      activate(found);
-    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

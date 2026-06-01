@@ -4,6 +4,11 @@
     <title>Wazuh SIEM &amp; XDR Labs on Karim&#39;s Blog</title>
     <link>https://karimabdelazizblog.tech/projects/wazuh/</link>
     <description>Recent content in Wazuh SIEM &amp; XDR Labs on Karim&#39;s Blog</description>
+    <image>
+      <title>Karim&#39;s Blog</title>
+      <url>https://karimabdelazizblog.tech/images/og-default.png</url>
+      <link>https://karimabdelazizblog.tech/images/og-default.png</link>
+    </image>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>

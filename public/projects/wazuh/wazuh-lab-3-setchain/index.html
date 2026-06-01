@@ -10,7 +10,7 @@
 <meta name="description" content="Graduation project: automated cybersecurity pipeline — Wazuh, Suricata, n8n, 5-layer AI (Isolation Forest &#43; XGBoost &#43; LLM), STIX 2.1, IPFS, and Hyperledger Fabric blockchain.">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-3-setchain/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cde51804a98f673914a87465af0692a5ce3b4a272fb0785f705ec8dcdaba196.css" integrity="sha256-XN5RgEqY9nORSodGWvBpKlzjtKJy&#43;weF9wXsjc2roZY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -48,10 +48,12 @@
     <meta property="article:tag" content="Hyperledger">
     <meta property="article:tag" content="N8n">
     <meta property="article:tag" content="Ipfs">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
       <meta property="og:see_also" content="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/">
       <meta property="og:see_also" content="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-2-malware-detection/">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
   <meta name="twitter:title" content="Lab 3 - SetChain: AI &#43; Blockchain Threat Detection">
   <meta name="twitter:description" content="Graduation project: automated cybersecurity pipeline — Wazuh, Suricata, n8n, 5-layer AI (Isolation Forest &#43; XGBoost &#43; LLM), STIX 2.1, IPFS, and Hyperledger Fabric blockchain.">
 
@@ -95,7 +97,7 @@
   "articleBody": "SetChain — AI-Powered Cybersecurity Automation Platform Graduation Project | Automated Threat Detection · AI Confidence Scoring · STIX 2.1 Threat Intelligence · Hyperledger Fabric Blockchain · IPFS Decentralized Storage · Automated Active Response\nTable of Contents Project Overview System Architecture Technology Stack Prerequisites \u0026 Lab Environment Component 1 — Suricata IDS Installation \u0026 Wazuh Link Component 2 — Docker \u0026 n8n Workflow Engine Component 3 — Wazuh → n8n Integration Component 4 — Smart Alert Filter Component 5 — AI Models API (SetChain Pipeline) Component 6 — n8n Workflow Node-by-Node Component 7 — IPFS Decentralized Storage Component 8 — Hyperledger Fabric Blockchain Component 9 — Blockchain Connector API Component 10 — AI Chatbot (RAG Integration) Wazuh Active Response Configuration Wazuh ossec.conf Reference End-to-End Testing Service Management \u0026 Startup Order Problems Encountered \u0026 Solutions Quick Reference 1. Project Overview SetChain is a fully automated cybersecurity pipeline that:\nDetects network threats via Suricata IDS and Wazuh SIEM Scores every alert with a 5-layer AI pipeline (anomaly detection → confidence scoring → MITRE mapping → human-review routing → LLM playbook) Converts confirmed threats to STIX 2.1 structured threat intelligence Stores every indicator immutably on IPFS + Hyperledger Fabric blockchain Triggers automated active response (firewall block, host deny, account disable) via the Wazuh API — the action chosen by the AI, not a static rule Feeds all execution data into a RAG-powered AI chatbot that can answer questions about live pipeline activity in natural language End-to-End Pipeline 1Network Traffic 2 ↓ 3Suricata IDS (packet inspection · ET Open Rules) 4 ↓ 5Wazuh SIEM (log correlation · rule matching · alert generation) 6 ↓ 7Smart Filter Script (rate limiting · dedup · noise reduction) 8 ↓ 9n8n Webhook (workflow automation engine) 10 ↓ 11SetChain AI API (5-layer ML + LLM · /analyze) 12 ↓ 13 ┌──────────────────────────────────────────────┐ 14 │ decision == ACTION_REQUIRED │ decision == IGNORE 15 ↓ ↓ 16AbuseIPDB Threat Intel Lookup No Operation 17 ↓ ↓ 18STIX 2.1 Indicator Bundle File Log (for chatbot memory) 19 ↓ 20IPFS Upload (content-addressed · decentralized) 21 ↓ 22Hyperledger Fabric (immutable audit trail · recordAlert txn) 23 ↓ 24Wazuh JWT Auth (fresh token) 25 ↓ 26Build Active Response (AI maps decision → command) 27 ↓ 28Wazuh Active Response API (firewall-drop / host-deny / disable-account) 29 ↓ 30Edit Fields (format final execution summary) 31 ↓ 32File Log → AI Chatbot Memory (RAG context for /chat) Key Contributions 5-layer AI pipeline combining Isolation Forest, XGBoost, MITRE ATT\u0026CK mapping, human-review routing, and LLM-based playbook generation (Groq llama3-70b-8192) Automated response selection — the AI chooses the response type, timeout, and command based on confidence score, threat level, and MITRE tactic. Not a static rule. Tamper-evident threat intelligence — every STIX 2.1 bundle is stored on IPFS and the CID is recorded on Hyperledger Fabric, creating an immutable audit trail RAG chatbot that reads live n8n execution logs and can trace any alert through every stage of the pipeline 2. System Architecture Lab Topology 1┌─────────────────────────────────────────────────────────────────────────────┐ 2│ Lab Environment (VMware / VirtualBox) │ 3│ │ 4│ ┌──────────────────────┐ ┌───────────────────────────────────┐ │ 5│ │ Wazuh Manager │ │ Ubuntu Agent 192.168.100.34 │ │ 6│ │ 192.168.100.33 │◄────────►│ │ │ 7│ │ │ │ ┌──────────┐ ┌───────────────┐ │ │ 8│ │ wazuh-manager │ │ │ Suricata │ │ n8n :5678 │ │ │ 9│ │ ossec.conf │ │ │ IDS │ │ (Docker) │ │ │ 10│ │ Smart Filter Script │ │ │ ET Rules │ └───────────────┘ │ │ 11│ │ Active Response │ │ └──────────┘ ┌───────────────┐ │ │ 12│ └──────────────────────┘ │ │ AI API :8000 │ │ │ 13│ │ ┌──────────┐ │ FastAPI │ │ │ 14│ │ │ Wazuh │ │ 5-layer ML │ │ │ 15│ │ │ Agent │ └───────────────┘ │ │ 16│ │ └──────────┘ ┌───────────────┐ │ │ 17│ │ │ Blockchain │ │ │ 18│ │ ┌──────────┐ │ API :3005 │ │ │ 19│ │ │ IPFS │ │ Hyperledger │ │ │ 20│ │ │ :5001 │ │ Fabric │ │ │ 21│ │ └──────────┘ └───────────────┘ │ │ 22│ └───────────────────────────────────┘ │ 23└─────────────────────────────────────────────────────────────────────────────┘ AI Pipeline (5 Layers) 1Alert JSON 2 ↓ 3Layer 0 — Anomaly Detection 4 Isolation Forest model 5 Output: anomaly_score, is_anomaly 6 ↓ 7Layer 1 — Confidence Scoring 8 XGBoost classifier 9 Multi-feature: rule level · groups · MITRE tactic · anomaly score 10 Output: confidence (0.0 – 1.0) 11 ↓ 12Layer 2 — Response Recommendation 13 Rule-based + ML hybrid 14 Output: BLOCK_IP | ALERT_ADMIN | KILL_PROCESS | DISABLE_ACCOUNT | MONITOR_ONLY 15 ↓ 16Layer 3 — Human Review Routing 17 Threshold gating 18 Output: threat_level = APPROVED_RESPONSE | NEEDS_HUMAN_REVIEW 19 ↓ 20Layer 4 — LLM Playbook Generator 21 Groq llama3-70b-8192 22 MITRE ATT\u0026CK framework integration 23 Output: structured playbook with mitigation, technique_id, tactic 24 ↓ 25Final: { decision, playbook } 3. Technology Stack Layer Technology Version Purpose IDS Suricata 7.x Packet inspection, ET Open rules SIEM Wazuh 4.7+ Log correlation, alerting, active response Workflow n8n Latest Pipeline automation, webhook receiver Container Docker + Compose 26.x n8n containerization AI Runtime FastAPI + Uvicorn 0.110+ HTTP API server for AI pipeline Anomaly Detection Isolation Forest (scikit-learn) — Layer 0 Confidence Scoring XGBoost — Layer 1 LLM Groq (llama3-70b-8192) — Layer 4 playbook generation Threat Intel AbuseIPDB API v2 — IP reputation lookup Threat Standard STIX 2.1 — Structured threat intelligence format Decentralized Storage IPFS (Kubo) Latest Content-addressed storage Blockchain Hyperledger Fabric 2.5.15 Immutable audit trail Blockchain CA Fabric CA 1.5.17 Identity management Smart Contract Node.js chaincode — ThreatIntelContract Language Python 3.12 — AI pipeline, filter scripts Language JavaScript / Node.js 18 — Blockchain connector, chaincode OS Ubuntu 24.04 LTS (Noble) — Agent machine 4. Prerequisites \u0026 Lab Environment Hardware Requirements Resource Minimum Recommended RAM 8 GB 16 GB Disk 40 GB free 80 GB CPU 4 cores 8 cores Disk note: Hyperledger Fabric Docker images alone consume ~8 GB. IPFS, n8n, and AI model files add another 5–10 GB.\nNetwork Layout Machine IP Role Wazuh Manager 192.168.100.33 SIEM manager, alert analysis, active response engine Ubuntu Agent 192.168.100.34 Wazuh agent, Suricata, n8n, AI API, Blockchain Open Ports (Ubuntu Agent) Port Service 22 SSH 5678 n8n UI \u0026 webhook receiver 8000 SetChain AI API 3005 Blockchain Connector API 4001 IPFS swarm 5001 IPFS API 8080 IPFS Gateway Required Software (Pre-installed) Ubuntu 24.04.4 LTS (ubuntu-24.04.4-live-server-amd64.iso) Wazuh Agent (pre-installed and enrolled to manager before this guide) Python 3.12 + pip + venv 5. Component 1 — Suricata IDS Installation \u0026 Wazuh Link Machine: Ubuntu Agent (192.168.100.34)\n5.1 Install Suricata 1sudo apt update 2sudo add-apt-repository ppa:oisf/suricata-stable -y 3sudo apt update 4sudo apt install suricata -y 5suricata --version 5.2 Download Emerging Threats Open Rules 1sudo suricata-update 2sudo suricata-update update-sources 3sudo suricata-update enable-source et/open 4sudo suricata-update 5.3 Configure Suricata 1sudo nano /etc/suricata/suricata.yaml Key settings to verify:\n1# Set your monitored interface 2af-packet: 3 - interface: ens33 # replace with your actual interface name 4 5# Output — Wazuh reads this file 6outputs: 7 - eve-log: 8 enabled: yes 9 filetype: regular 10 filename: /var/log/suricata/eve.json 11 types: 12 - alert 13 - dns 14 - http 15 - tls 16 - flow Find your interface:\n1ip link show 5.4 Start and enable Suricata 1sudo systemctl enable suricata 2sudo systemctl start suricata 3sudo systemctl status suricata 4 5# Watch alerts in real time 6sudo tail -f /var/log/suricata/eve.json | python3 -m json.tool 5.5 Link Suricata to Wazuh Tell the Wazuh agent to forward Suricata’s eve.json to the manager.\n1sudo nano /var/ossec/etc/ossec.conf Add inside :\n1 2 json 3 /var/log/suricata/eve.json 4 Restart the agent:\n1sudo systemctl restart wazuh-agent 5.6 Suppress noisy Suricata rule at source Rule 86601 (ET INFO pwd= cleartext) fires on every matching HTTP packet and causes alert floods. Add a threshold:\n1sudo nano /etc/suricata/threshold.config Add at the bottom:\n1# ET INFO pwd= rule — max 1 per source IP per 12 hours 2threshold gen_id 1, sig_id 2013504, type threshold, track by_src, count 1, seconds 43200 1sudo systemctl reload suricata Also add a Wazuh-level throttle on the Manager:\n1# On the Wazuh MANAGER 2sudo nano /var/ossec/etc/rules/local_rules.xml 1",
   "wordCount" : "8523",
   "inLanguage": "en",
-  "datePublished": "2026-05-25T00:00:00Z",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2026-05-25T00:00:00Z",
   "dateModified": "2026-05-25T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -158,6 +160,16 @@
             <li>
                 <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
                 </a>
             </li>
             <li>
@@ -2871,9 +2883,27 @@ Two reasons: (1) <code>fetch()</code> is not available in n8n&rsquo;s sandboxed 
 <p><em>SetChain — Wazuh · Suricata · n8n · FastAPI · Hyperledger Fabric · IPFS · STIX 2.1 · Groq LLaMA 3</em></p>
 
 
-  </div>
-
-  <footer class="post-footer">
+  </div><div class="series-nav">
+    <div class="series-nav__header">
+      <span class="series-nav__label">Part of series</span>
+      <a class="series-nav__title" href="https://karimabdelazizblog.tech/series/wazuh-labs/">Wazuh Labs</a>
+      <span class="series-nav__count">3 posts</span>
+    </div>
+    <ol class="series-nav__list"><li class="series-nav__item">
+        <span class="series-nav__num">1</span>
+        <a href="/projects/wazuh/wazuh-lab-1-ids-setup/">Lab 1 - Wazuh &#43; Suricata IDS Setup</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">2</span>
+        <a href="/projects/wazuh/wazuh-lab-2-malware-detection/">Lab 2 - Malware Detection with Wazuh</a>
+      </li><li class="series-nav__item series-nav__item--active">
+        <span class="series-nav__num">3</span>
+        <a href="/projects/wazuh/wazuh-lab-3-setchain/">Lab 3 - SetChain: AI &#43; Blockchain Threat Detection</a>
+      </li></ol>
+    <div class="series-nav__nav"><a class="series-nav__btn series-nav__btn--prev" href="/projects/wazuh/wazuh-lab-2-malware-detection/">
+        <span>&larr;</span>
+        <span>Lab 2 - Malware Detection with Wazuh</span>
+      </a></div>
+  </div><footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://karimabdelazizblog.tech/tags/wazuh/">Wazuh</a></li>
       <li><a href="https://karimabdelazizblog.tech/tags/ai/">Ai</a></li>
@@ -2903,12 +2933,77 @@ Two reasons: (1) <code>fetch()</code> is not available in n8n&rsquo;s sandboxed 
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a><script>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
   var mainDetails = document.querySelector('.toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
@@ -2918,7 +3013,6 @@ Two reasons: (1) <code>fetch()</code> is not available in n8n&rsquo;s sandboxed 
     if (!parentLi || parentLi.tagName !== 'LI') return;
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
-
     var det = document.createElement('details');
     var sum = document.createElement('summary');
     sum.appendChild(directLink.cloneNode(true));
@@ -2928,50 +3022,34 @@ Two reasons: (1) <code>fetch()</code> is not available in n8n&rsquo;s sandboxed 
   });
 
    
-  
-  var headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id]')
-  );
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
   if (!headings.length) return;
-
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  var cur   = { link: null, heading: null };
+  var cur = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
     if (cur.heading) cur.heading.classList.remove('heading-active');
-
     cur.heading = heading || null;
-    cur.link    = null;
-
+    cur.link = null;
     if (!heading) return;
-
     heading.classList.add('heading-active');
-
-    
     for (var i = 0; i < links.length; i++) {
       var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
       if (frag === heading.id) { cur.link = links[i]; break; }
     }
-
     if (cur.link) {
       cur.link.classList.add('toc-active');
-
-      
       var parentDet = cur.link.closest('#TableOfContents details');
       if (parentDet) parentDet.open = true;
-
-      
       var panel = document.querySelector('.toc');
       if (panel && window.innerWidth >= 1280) {
-        var top = cur.link.offsetTop - panel.clientHeight / 2;
-        panel.scrollTop = Math.max(0, top);
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
       }
     }
   }
 
   var lastHeading;
-
   function onScroll() {
     var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
@@ -2980,14 +3058,10 @@ Two reasons: (1) <code>fetch()</code> is not available in n8n&rsquo;s sandboxed 
         found = headings[i];
       }
     }
-    if (found !== lastHeading) {
-      lastHeading = found;
-      activate(found);
-    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

@@ -10,7 +10,7 @@
 <meta name="description" content="Setting up Wazuh SIEM with Suricata NIDS to detect port scans, SQL injection, XSS, and Tor connections using Emerging Threats rules.">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cde51804a98f673914a87465af0692a5ce3b4a272fb0785f705ec8dcdaba196.css" integrity="sha256-XN5RgEqY9nORSodGWvBpKlzjtKJy&#43;weF9wXsjc2roZY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -47,10 +47,12 @@
     <meta property="article:tag" content="Ids">
     <meta property="article:tag" content="Siem">
     <meta property="article:tag" content="Network-Security">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
       <meta property="og:see_also" content="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-2-malware-detection/">
       <meta property="og:see_also" content="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-3-setchain/">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
   <meta name="twitter:title" content="Lab 1 - Wazuh &#43; Suricata IDS Setup">
   <meta name="twitter:description" content="Setting up Wazuh SIEM with Suricata NIDS to detect port scans, SQL injection, XSS, and Tor connections using Emerging Threats rules.">
 
@@ -94,7 +96,7 @@
   "articleBody": "Wazuh Lab-1 Notes The cybersecurity landscape is constantly evolving, so there is need to use SIEM (Security Information/Incident and Event Management) to deal with the wide attack surfaces.\nWazuh is open source SIEM and XDR (Extended Detection and Response) that provides protection for endpoints and monitoring them all the time.\nWazuh has more benefits — the important one is that it is open source which enables anyone to customize it to adopt his business and it is also flexible and provides quality and security.\nIt has big communities of users and developers to connect with them; it also has very good documentation to solve most problems faces any user.\nIt is totally free tool. Wazuh enhances threat detection, incident response, and threat hunting and compliance management with any organization.\nWazuh combines powerful features such as intrusion detection, log analysis, file integrity monitoring, vulnerability detection, and security configuration assessment into a unified solution.\nIn this first lab I will discover how to set up IDS (Intrusion Detection System) to discover suspicious traffic and also I will discover core components of Wazuh platform.\nDue to technology development, the cyber attacks have been increasing also, which make us need to practice solutions to prevent most of those attacks.\nHere the IDS comes which is proactive tool that tries to prevent attacks before it happens or during it happens.\nWazuh is IDS which works on various levels including host level which focuses on endpoints threat detection and collecting its logs and indexing it for analysis to get to discover solutions for security.\nIt also has various built-in tools like malware detection and file integrity and others.\nWe will use Wazuh with Suricata, which is IDS/IPS (Intrusion Detection System/Intrusion Prevention System) that works on network level, to help us detect any network anomalies.\nIDS Overview IDS monitors traffic and logs to identify patterns and signatures.\nAfter detection of identifying suspicious pattern it generates alerts to notify admins.\nThere are two types of IDS which vary from each other on scope and types of activities to detect, are:\nNIDS (Network IDS) (Suricata) → works at network level, functions on central places on network infrastructure, monitors in/out data from different devices that might indicate intrusion, detects network threats like DoS and others. HIDS (Host IDS) (Wazuh) → works at host level, installed on the host to monitor log files, system calls and host specific files, detects unauthorized access and privilege escalation and others. Suricata Overview Suricata is NIDS/IPS which is also open source tool.\nIt monitors network traffic to prevent attacks and detect anomalies and prevent them using rule-based language, but it has problem in IPS which can prevent legitimate incidents also.\nTo provide this most people focus much more on detection.\nSuricata has wide range use cases for DDoS and protocol analysis and network monitoring and logging and alerting and analysis known attack signatures to detect them and others.\nIn this lab I will use Suricata ruleset by ET (Emerging Threats) community, it can help us to detect malware and viruses and web-based attacks.\nIt also can be integrated with other tools in our case with Wazuh, where Suricata logs and sends alerts to SIEM platforms like Wazuh to link those data from Suricata with other events.\nInstalling Suricata on Rocky Linux Minimal (RPM Method) I will use Rocky Linux minimal to download Suricata on it, so I will use RPM installation:\nGo to the official website → https://suricata.io/download/\nInstall using RPM packages → https://docs.suricata.io/en/suricata-8.0.1/install/rpm.html\nUse Enterprise Linux and Rebuilds:\n13.1- sudo dnf install epel-release dnf-plugins-core -y # Adds the Extra Packages for Enterprise Linux (EPEL) repository 23.2- sudo dnf copr enable @oisf/suricata-8.0 -y # Official repository maintained by the OISF for Suricata 8.0 builds 33.3- sudo dnf install suricata -y # Installs the Suricata package and dependencies 43.4- sudo systemctl start suricata # Start Suricata 53.5- sudo systemctl enable suricata # Enable Suricata on boot 63.6- sudo systemctl stop suricata # Stop Suricata Suricata Deployment Options There are several ways to deploy Suricata as IDS:\nInline Deployment at Network Perimeter\nSuricata sits between external internet and internal network\n(internet \u003c----\u003e suricata \u003c----\u003e local network)\nIt can be added as physical or VM (in our case), to analyze in/out packets.\nInternal Network Monitoring\nWe use Suricata sensors that may be physical or virtual devices to monitor internal network (different departments in the same organization).\nSensors capture data, analyze them, and then alert the central server.\nCloud Environment Monitoring\nWe can use cloud services like AWS to deploy Suricata on its environments to monitor resources and virtual networks.\nNetwork Tap Deployment\nSuricata is used in conjunction with network taps or port mirroring to capture a copy of network traffic, which is then sent to Suricata for analysis.\nWazuh Platform Components Wazuh provides a centralized platform for monitoring and managing security events.\nWe install Wazuh Agent on the endpoints that need to be monitored.\nThe Wazuh solution is made up of three parts:\n1. Wazuh Server This is the central component used to manage agents and analyze the data collected from them. Integrates logs from different resources, then collects logs and normalizes them using the Wazuh decoder to make them in uniform state. It also provides an API for interaction. 2. Wazuh Indexer It stores and indexes alerts generated by Wazuh server (repository). It has different index patterns to store data: wazuh-alerts-* → Index pattern for alerts generated by Wazuh server wazuharchives-* → Index pattern for all events sent to Wazuh server wazuh-monitoring-* → Pattern for monitoring status of Wazuh agents wazuh-statistics-* → Used for statistical information about Wazuh server 3. Wazuh Dashboard Web interface for visualization and analysis. Allows us to create rules, monitor regulatory compliances, and much more. Wazuh Agents and Deployment Wazuh agents are installed on different types of endpoints.\nWazuh utilizes the OSSEC HIDS module, which is open source tool used in various things, to collect events from all endpoints.\nWazuh has the ability to fully monitor security — it depends on what is our requirements.\nFor production environment, we should install Wazuh in cluster mode (setting up more than one Wazuh server node) to improve speed and scalability.\nThere are other deployment options like dedicated server, VM image, Docker container, and Kubernetes, each deployment option has its advantages.\nWazuh Virtual Machine Deployment Documentation\nNote:\nDocker and Kubernetes → for production-level deployment.\nWazuh Modules and Administration Wazuh has something is called modules which will help us to find security threats and make sure that we are follow rules, Wazuh has four default modules or sections:\n1. Security Information Management Security event and integrity monitoring module, by using security predefined rules for security events and display alerts, and make sure and detect any tampering for system files for integrity.\n2. Threat Detection and Response Has two modules vulnerabilities (tracks known vulnerabilities) and MITRE ATT\u0026CK (Adversarial tactics, techniques and common knowledge) (maps detected threats to framework) and we can add other modules like VirusTotal and others.\n3. Auditing and Policy Monitoring It monitors policies and configurations, this section about policies, has three modules:\nPolicy monitoring (ensure that policies are established) System auditing (tracks and audits activities on the endpoints) Security configuration assessment (checks system configurations against best practices using CIS framework). 4. Regulatory Compliance For make sure that rules meet those Regulatory Compliance containing most popular regularities like (GDPR, …more). Wazuh rules are created with some of this regularities.\nWazuh Administration Section Wazuh administration section has pivotal role in Wazuh for detecting in real world, it has the following:\n1. Decoders It pulling out important info from different log entries formats and normalize them into one standard format. It contains of different tags: 1.1 - decoder name.\n1.2 - parent –\u003e this will be processed first then child decoders.\n1.3 - prematch –\u003e condition that must match to apply decoder.\n1.4 - regex –\u003e represents regular expressions to extract data.\n1.5 - order –\u003e indicates list of fields in which the extracted info or values will be stored.\nFor more about decoders syntax we will use this page:\nDecoders Syntax Documentation\n2. Rules Rules help the system to detect attacks in early stages, it is one of the most important thing in Wazuh or SIEM solution in general, because it defines how good is your detection system.\nThere are predefined rules but we can create our custom rules. Let’s divide its content; it has different tags:\n2.1 - rule id –\u003e unique id for rule.\n2.2 - level –\u003e range from 0 to 15 each number indicates different severity.\n2.3 - if_sid –\u003e id of another rule which is treated as parent rule which will be checked first.\n2.4 - field name –\u003e name of field extracted from decoder, the value is matched by regular expression.\n2.5 - mitre –\u003e id of mapped mitre or associates the rule with a mitre technique.\n2.6 - options –\u003e options to do when this rule is triggered.\n2.7 - group –\u003e organize Wazuh rules by categorizing them into groups.\nThere are more and more options and we will find them here:\nRules Syntax Documentation\n3. CDB Lists Constant database for categorization IPs and Domains based on their characteristics, may include suspicious domains and IPs or trusted IPs.\nFor learning more about those lists we will use:\nCDB Lists Documentation\n4. Groups Agents or endpoints grouping operation based on different things, using this may make pushing rules to one similar group rather than one by one.\nTo know more about this we will use:\nGrouping Agents Documentation\n5. Configuration Helps to fine-tune Wazuh configurations like cluster configuration, alert management and log data analysis and more, by editing: Configuration is managed by editing the file in Wazuh manager or Wazuh agent:\n1/var/ossec/etc/ossec.conf Wazuh Server Setup Guide as we have disscused that the wazuh serever is central component including:\nwazuh manager –\u003e collects data from wazuh agents then analyze them then trigger alerts\nFilebeat –\u003e forward alerts to wazuh indexer\nwe will get into production phase which we will use multi node cluster method:\nproduction –\u003e https://documentation.wazuh.com/current/installation-guide/index.html\nVM OVA –\u003e https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html\neach documentation has full steps for installation guide\nwe will depend on this guide of production https://documentation.wazuh.com/current/installation-guide/index.html\nsteps to monitor by wazuh: we will go to this link (https://documentation.wazuh.com/current/quickstart.html)\nwe will run this command into our VM(ubuntu) which is Wazuh installation assistant(installs anything wazuh needs–\u003e config files - wazuh indexer - wazuh server - wazuh dashboard)\n1curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh \u0026\u0026 sudo bash ./wazuh-install.sh -a after finishing installation it will give me username and password to get into dashboard using them\nthis username and password are stored in filebeat.yml file\nwe can find all password for all wazuh indexers in wazuh-passwords.txt inside wazuh-install-files.tar to print them we use this command\n1sudo tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt to go to dashboard we needs our machine ip address using this command\n1ip addr then we will go to https://machine-ip-addr\nafter geting into wazuh dashboard we wiil see different sections\nENDPOINT SECURITY –\u003e assessment of configurations, malware and file integrity\nTHREAT INTELLIGENCE –\u003e responsible for threat hunting,vulnerability detection and mapping to mitre att\u0026ck framework\nSECURITY OPTIONS –\u003e assess system, and regulatories compliance(PCI-DSS,GDPR,HIPAA, and others)\nCLOUD SECURITY –\u003e cloud services like docker aws and others security monitoring\nnow we will deploy new agent, my agent is kali Linux purple VM\nwe will choose the type of the agent os (Linux,windws,macos) to download suitable packages\nenter wazuh server ip address(ubuntu)\nenter name of wazuh agent(kali purple)\nenter group (if there OSs with same structure we can put them into groups)\nit will give us command we will copy it and paste it in wazuh agent(purple) this will install packages and services needed into agent\nif there is any firewall rules it should be deleted\nif we want to install windows agent it will follow the same steps but choosing type of os windows\nwe wiil go to Agents and we will find kali purple agent, it takes and id and some meta data about machine\nSuricata Installation Suricata is an NSM tool, which has the potential to work as an IPS/IDS. Its goal is to stop intrusion, malware, and other types of malicious attempts from taking advantage of a network, now the steps of installing Suricata:\nuse those three commands:\nsudo add-apt-repository ppa:oisf/suricata-stable\nsudo apt-get update\nsudo apt-get install suricata –y\ninstall et rules which is set of rules and we need to store all rules in /etc/suricata/rules directory\n1cd /tmp/ \u0026\u0026 curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz \u0026\u0026 sudo tar -xvzf emerging.rules.tar.gz \u0026\u0026 sudo mv rules/*.rules /etc/suricata/rules/ \u0026\u0026 sudo chmod 640 /etc/suricata/rules/*.rules modify suricata configurations to change default settings in file /etc/suricata/suricata.yaml\n3.1- we will find some codes are already written, lets break the needed ones until now 3.1.1- HOME_NET --\u003e needs the agent IP address 3.1.2- EXTERNAL_NET --\u003e we will set it as any to monitor all external IP addresses we can specify the external IPs we need to monitor 3.1.3- default-rule-path --\u003e the set of rules we have installed and is /etc/suricata/rules 3.1.4- af-packet --\u003e packet capture method on NIC, NIC by command ip addr before restarting suricata it will ask for reloading since we change the configuration file by using\n1sudo systemctl daemon-reload 2sudo systemctl restart suricata to integrate suricata with wazuh we should specify suricata log file location under wazuh agent ossec config file at /var/ossec/etc/ossec.conf and Suricata stores all the logs at /var/log/suricata/eve.json, we will put suricata log file location into location tag in ossec.conf by putting this code : 1 2\t3\tjson 4\t/var/log/suricata/eve.json 5\t6 Restart the Wazuh agent service using 1sudo systemctl restart wazuh-agent we have finally integrated wazuh with suricata, we have installed suricata on Ubuntu server with et rules and then our endpoint is ready to trigger alerts for any malicious traffic matched with any et rule.\nthere are two ways to install suricata on :\n1. install suricata on wazuh server --\u003e it works as centeral point , but it has condition that it should sees the traffic between kali and purple 2. install suricata on wazuh agent --\u003e it works on the endpoint itself to monitor this endpoint only(we will use on our case) 2.1- sudo apt update \u0026\u0026 sudo apt install -y suricata suricata-update --\u003e Install Suricata + dependencies\n2.2- sudo suricata-update update-sources , sudo suricata-update --\u003e Update and enable Emerging Threats (ET) rules\n2.3- sudo nano /etc/suricata/suricata.yaml --\u003e edit configuration file - outputs: - - eve-log: - enabled: yes - filetype: regular - filename: /var/log/suricata/eve.json - community-id: yes - types: - - alert: - payload: yes - metadata: yes\n2.4- sudo systemctl restart suricata --\u003e restart suricata\n2.5- sudo nano /etc/default/suricata --\u003e to edit default interface by putting in it (IFACE=eth0) which will listen on this interface\n2.6- sudo nano /var/ossec/etc/ossec.conf --\u003e to edit wazuh agent config file\n1 2 3 json 4 /var/log/suricata/eve.json 5 6 1\t2.7- sudo systemctl restart wazuh-agent --\u003e restart wazuh agent 2\t2.8- test usin nmap --\u003e 1nmap -sS -Pn 1\t2.9- seeing result in wazuh dashboard suricata is powerful when rule is powerful, there are many rule templates but we will learn how to create custom suricata rules.\nsuricata uses rules to detect different network events and when certain conditions are met it may alert or block this event it depends on how we write it, we will break down the rule syntax:\n1action proto src_ip src_port -\u003e dest_ip dest_port (msg:\"Alert message\"; content:\"string\"; sid:12345;) 1- action --\u003e action will be taken when the rule is true may be alert or drop or any other action 2- proto --\u003e shows what kind of traffic is being matched(tcp,udp,icmp and others), type of traffic 3- src_ip --\u003e specify range of IPs where traffic comes from 4- src_port --\u003e specify range of ports where traffic comes form 5- dest_ip --\u003e specify range of IPs where traffic is going 6- dest_port --\u003e specify range of ports where traffic is going 7- msg --\u003e message that will be shown as alert when rule is true 8- content --\u003e optional field that checks the packet payload for certain content 9- flow --\u003e this defines the direction of the traffic that initiates the rule, prevents initial connection attempts from generating alerts. 10- sid --\u003e rule id should be unique 1alert tcp $EXTERNAL_NET any -\u003e $HOME_NET 22 (msg:\"SSH connction detected\";flow:to_server,established;content:\"SSH-2.0-OpenSSH\"; sid:100001;) 1- alert: The rule specifies that an alert should be generated if the specified conditions are met. 2- tcp: This refers to Transmission Communication Protocol (TCP) based traffic. 3- $EXTERNAL_NET any -\u003e $HOME_NET 22: The traffic flow is defined by directing traffic from any external network IP address ($EXTERNAL_NET) to any home or local network IP ($HOME_NET) on port 22 (SSH). 4- (msg:\"SSH connection detected\";): This specifies a detailed message to be added to the alert. It indicates that the rule has identified an SSH connection in this instance. 5- flow:to_server,established: This defines the direction of the traffic that initiates the rule. It is looking for established connections between the server (home network) and the server (external network). This portion of the rule prevents initial connection attempts from generating alerts. 6- content:\"SSH-2.0-OpenSSH\": This part looks at the payload of the packet for a particular string (\"SSH-2.0-OpenSSH\"). It searches the traffic payload for this specific string, which signifies the utilization of the OpenSSH protocol and the SSH protocol in general. 7- sid:100001: It is a unique identifier for a particular rule. now we will start to test this by using network scanning probe attack, Network scanning is initial stage of most hacking exercises, and most powerful tool for this is Nmap scanner, Nmap is a free open source tool, helps us to scan any host to discover any opened ports, sw versions , OSs and so on.it is used for security testing and vulnerability detection, and threat agents use it also to discover opened ports or vulnerability packages. we will now initiate network scanning using Nmap against our wazuh agent(purple –\u003e running suricata services). ET rule set already contains rules to detect Nmap scanning.\n1- to test the Nmap scenario we neet three parts 1.1- attacker --\u003e kali Linux 1.2- wazuh agent --\u003e purple (our defendable endpoint) 1.3- wazuh server --\u003e ubuntu we can install Nmap using this command 1 sudo apt-get install nmap ,the flow is ( attacker –port scanning–\u003e endpoint(wazuh agent) \u003c– wazuh server)\n2- now we will simulate the attack , here is the steps: 2.1- opens kali 2.2- opens terminal 2.3- enter nmap command using (-sS) keyword for SYN scan and (-Pn) to skip host discovery, here how it works 2.3.1- The Nmap SYN scan is a half open scan that works by sending a TCP SYN packet to the target machine (the Wazuh agent)\n2.3.2- If the port is open, the target device responds with a SYN-ACK (synchronize-acknowledgment) packet\n2.3.3- However, if the port is closed, the device may respond with an RST (reset) packet\n2.3.4- (-sS) --\u003e to check for open ports --\u003e\n1 nmap -sS -Pn 192.168.133.128 1\tStarting Nmap 7.95 ( https://nmap.org ) at 2025-10-31 09:37 EET 2\tNmap scan report for 192.168.133.128 (192.168.133.128) 3\tHost is up (0.00026s latency). 4\tNot shown: 999 closed tcp ports (reset) 5\tPORT STATE SERVICE 6\t22/tcp open ssh 7\tMAC Address: 00:0C:29:4F:22:28 (VMware) 8 9\t2.3.5- (-sV) --\u003e to check for software version --\u003e ```bash nmap -sV -Pn 192.168.133.128 ``` 1\tStarting Nmap 7.95 ( https://nmap.org ) at 2025-10-31 09:39 EET 2\tNmap scan report for 192.168.133.128 (192.168.133.128) 3\tHost is up (0.00022s latency). 4\tNot shown: 999 closed tcp ports (reset) 5\tPORT STATE SERVICE VERSION 6\t22/tcp open ssh OpenSSH 10.0p2 Debian 8 (protocol 2.0) 7\tMAC Address: 00:0C:29:4F:22:28 (VMware) 8\tService Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel 9\tService detection performed. Please report any incorrect results at https://nmap.org/submit/ . after run the two commands we will learn what all the ports are open and second, what version of the package is installed on the target machine\n3- in wazuh dashboard we will see alerts like (Suricata: Alert - ET SCAN Suspicious inbound to PostgreSQL port 5432) we can expand this alert to see more information like : 3.1- data.alert.signature --\u003e this filed talks about the ruricata rule applied and detected this abnormal traffic(ET for rule set) 3.2- data.dest_ip --\u003e this field gives us victim machine 3.3- data.src_ip --\u003e this field gives us attacker machine 3.4- data.alert.action --\u003e this field indicates the actions taken by wazuh in response to the detected event 3.5- alerts.severity --\u003e this field shows severity level to the event by wazuh there are more and more fields this is how the wazuh can detect network scanning probes via suricata and wazuh visualizes it on the dashboard.\nTesting Web-Based Attacks Using DVWA As web-based attacks causing data breaches are increasing, some common attacks include:\nXSS (Cross-Site Scripting) DDoS (Distributed Denial of Service) CSRF (Cross-Site Request Forgery) XXE (XML External Entity) SQL Injection Suricata ET rule sets can detect such attacks by analyzing the packet payload and examining HTTP/HTTPS headers for abnormal traffic patterns. We will now utilize an intentionally vulnerable web application, DVWA. DVWA is a PHP-based application popular among penetration testers, helping them practice on security vulnerabilities and exploitation.\nTest Case Machine Setup In this test case, we will configure our machines as follows:\nAttacker: Kali Victim: DVWA (Debian) Wazuh + Suricata Agent: TAP server (Purple) Wazuh Server: Ubuntu DVWA Installation and Configuration Now, we will install the DVWA application and its dependencies on Debian-based Linux by following these steps:\n1. Install Dependencies 1sudo apt install apache2 mariadb-server php php-mysqli php-gd php-xml php-mbstring php-zip php-curl git -y 1sudo systemctl restart apache2 2. Prepare Database Setup database: 1sudo mysql Create DVWA database with username dvwa and password password: 1CREATE DATABASE dvwa; 2CREATE USER 'dvwa'@'localhost' IDENTIFIED BY 'password'; 3GRANT ALL PRIVILEGES ON dvwa.* TO 'dvwa'@'localhost'; 4FLUSH PRIVILEGES; 5EXIT; 3. Installation of DVWA and Configuration Navigate to the web directory: 1cd /var/www/html Install DVWA: 1sudo git clone https://github.com/digininja/DVWA.git Ensure Apache has full access to DVWA: 1sudo chown -R www-data:www-data /var/www/html/DVWA 1sudo chmod -R 755 /var/www/html/DVWA 1cd /var/www/html/DVWA/config 1sudo cp config.inc.php.dist config.inc.php Edit config.inc.php (check for username admin and password password as in the MySQL database): 1sudo nano config.inc.php Edit php.ini to enable allow_url_include and display_errors: 1sudo nano /etc/php/*/apache2/php.ini (Set allow_url_include = On and display_errors = On) 1sudo systemctl restart apache2 4. Run DVWA Open DVWA in browser: 1http://localhost/DVWA/setup.php Click on login. Enter username admin and password password. SQL Injection Attack Test Now that DVWA installation is complete and functional, we will proceed to test attacks. We will start with an SQL injection attack. SQL injection involves inserting malicious SQL code to retrieve unauthorized information. We will configure Debian as a Wazuh agent and install Suricata on it, similar to the ‘purple’ machine. The SQL injection URL is:\n1http:///DVWA/vulnerabilities/sqli/?id=a' UNION SELECT \"Hello\",\"Hello Again\";-- -\u0026Submit=Submit Let’s break down the components of this SQL injection:\nThe UNION SELECT: This statement is used to combine the results of two or more SELECT queries into a single result set. In our case, “Hello” and “Hello Again” are the two results that we want to inject. -- -: This is a comment in SQL; anything following it is ignored by the SQL server. \u0026Submit=Submit: This suggests that the query is part of a form submission, and the Submit parameter has the value Submit. The Suricata ET rule set detects this attack and generates the following two alerts:\nNov 24, 2025 @ 15:57:31.604 purple SQL injection attempt. Nov 24, 2025 @ 15:57:31.613 purple Suricata: Alert - ET WEB_SERVER Possible SQL Injection Attempt UNION SELECT in HTTP URI When expanding this alert, we can see: data.alert.category: Web Application Attack - Category of the ET rule that detected this SQL injection attack. data.alert.metadata.tag: SQL_Injection - Metadata tag for this attack, indicating it meets the specified attack in the Web Application Attack category. data.http.http_user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0 - Represents the browser from which the attack was deployed. data.http.url: /DVWA/vulnerabilities/sqli/?id=a%27%20UNION%20SELECT%20%22Hello%22,%22Hello,Again%22;--%20-\u0026Submit=Submit - Represents the URL used in the attack. XSS (Cross-Site Scripting) Attack Test Next, we will test another attack: XSS (Cross-Site Scripting). XSS is a type of code injection attack that targets websites by sending malicious scripts to a user’s web browser for execution. The user’s browser executes the attack, and the script is reflected to the user’s browser from the web server. Reflected XSS exploits poor filtration of information, which reflects data directly to the user without sufficient sanitization. We will test this vulnerability by injecting JavaScript code and observing if the application reflects it directly to the user. Steps:\nGo to DVWA to the Reflected XSS vulnerability tab. In the field of info, we will put this JavaScript code snippet: 1\u003cscript\u003ealert(\"Hello\");\u003c/script\u003e ",
   "wordCount" : "5033",
   "inLanguage": "en",
-  "datePublished": "2025-10-31T00:00:00Z",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2025-10-31T00:00:00Z",
   "dateModified": "2025-10-31T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -157,6 +159,16 @@
             <li>
                 <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
                 </a>
             </li>
             <li>
@@ -1021,9 +1033,27 @@ When expanding this alert, we can see:
 <p>We can run all tests at once by entering <code>16</code>, which executes all available tests.</p>
 
 
-  </div>
-
-  <footer class="post-footer">
+  </div><div class="series-nav">
+    <div class="series-nav__header">
+      <span class="series-nav__label">Part of series</span>
+      <a class="series-nav__title" href="https://karimabdelazizblog.tech/series/wazuh-labs/">Wazuh Labs</a>
+      <span class="series-nav__count">3 posts</span>
+    </div>
+    <ol class="series-nav__list"><li class="series-nav__item series-nav__item--active">
+        <span class="series-nav__num">1</span>
+        <a href="/projects/wazuh/wazuh-lab-1-ids-setup/">Lab 1 - Wazuh &#43; Suricata IDS Setup</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">2</span>
+        <a href="/projects/wazuh/wazuh-lab-2-malware-detection/">Lab 2 - Malware Detection with Wazuh</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">3</span>
+        <a href="/projects/wazuh/wazuh-lab-3-setchain/">Lab 3 - SetChain: AI &#43; Blockchain Threat Detection</a>
+      </li></ol>
+    <div class="series-nav__nav"><span></span><a class="series-nav__btn series-nav__btn--next" href="/projects/wazuh/wazuh-lab-2-malware-detection/">
+        <span>Lab 2 - Malware Detection with Wazuh</span>
+        <span>&rarr;</span>
+      </a></div>
+  </div><footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://karimabdelazizblog.tech/tags/wazuh/">Wazuh</a></li>
       <li><a href="https://karimabdelazizblog.tech/tags/suricata/">Suricata</a></li>
@@ -1051,12 +1081,77 @@ When expanding this alert, we can see:
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a><script>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
   var mainDetails = document.querySelector('.toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
@@ -1066,7 +1161,6 @@ When expanding this alert, we can see:
     if (!parentLi || parentLi.tagName !== 'LI') return;
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
-
     var det = document.createElement('details');
     var sum = document.createElement('summary');
     sum.appendChild(directLink.cloneNode(true));
@@ -1076,50 +1170,34 @@ When expanding this alert, we can see:
   });
 
    
-  
-  var headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id]')
-  );
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
   if (!headings.length) return;
-
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  var cur   = { link: null, heading: null };
+  var cur = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
     if (cur.heading) cur.heading.classList.remove('heading-active');
-
     cur.heading = heading || null;
-    cur.link    = null;
-
+    cur.link = null;
     if (!heading) return;
-
     heading.classList.add('heading-active');
-
-    
     for (var i = 0; i < links.length; i++) {
       var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
       if (frag === heading.id) { cur.link = links[i]; break; }
     }
-
     if (cur.link) {
       cur.link.classList.add('toc-active');
-
-      
       var parentDet = cur.link.closest('#TableOfContents details');
       if (parentDet) parentDet.open = true;
-
-      
       var panel = document.querySelector('.toc');
       if (panel && window.innerWidth >= 1280) {
-        var top = cur.link.offsetTop - panel.clientHeight / 2;
-        panel.scrollTop = Math.max(0, top);
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
       }
     }
   }
 
   var lastHeading;
-
   function onScroll() {
     var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
@@ -1128,14 +1206,10 @@ When expanding this alert, we can see:
         found = headings[i];
       }
     }
-    if (found !== lastHeading) {
-      lastHeading = found;
-      activate(found);
-    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

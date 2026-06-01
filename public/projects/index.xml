@@ -4,6 +4,11 @@
     <title>Projects on Karim&#39;s Blog</title>
     <link>https://karimabdelazizblog.tech/projects/</link>
     <description>Recent content in Projects on Karim&#39;s Blog</description>
+    <image>
+      <title>Karim&#39;s Blog</title>
+      <url>https://karimabdelazizblog.tech/images/og-default.png</url>
+      <link>https://karimabdelazizblog.tech/images/og-default.png</link>
+    </image>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate></lastBuildDate>

@@ -10,7 +10,7 @@
 <meta name="description" content="Security notes, CTF writeups, and projects by Karim Abdelaziz">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/tags/ids/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cde51804a98f673914a87465af0692a5ce3b4a272fb0785f705ec8dcdaba196.css" integrity="sha256-XN5RgEqY9nORSodGWvBpKlzjtKJy&#43;weF9wXsjc2roZY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -40,8 +40,10 @@
   <meta property="og:description" content="Security notes, CTF writeups, and projects by Karim Abdelaziz">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
   <meta name="twitter:title" content="Ids">
   <meta name="twitter:description" content="Security notes, CTF writeups, and projects by Karim Abdelaziz">
 
@@ -88,6 +90,16 @@
             <li>
                 <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
                 </a>
             </li>
             <li>
@@ -149,7 +161,6 @@ It is totally free tool. Wazuh enhances threat detection, incident response, and
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
   var mainDetails = document.querySelector('.toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
@@ -159,7 +170,6 @@ It is totally free tool. Wazuh enhances threat detection, incident response, and
     if (!parentLi || parentLi.tagName !== 'LI') return;
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
-
     var det = document.createElement('details');
     var sum = document.createElement('summary');
     sum.appendChild(directLink.cloneNode(true));
@@ -169,50 +179,34 @@ It is totally free tool. Wazuh enhances threat detection, incident response, and
   });
 
    
-  
-  var headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id]')
-  );
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
   if (!headings.length) return;
-
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  var cur   = { link: null, heading: null };
+  var cur = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
     if (cur.heading) cur.heading.classList.remove('heading-active');
-
     cur.heading = heading || null;
-    cur.link    = null;
-
+    cur.link = null;
     if (!heading) return;
-
     heading.classList.add('heading-active');
-
-    
     for (var i = 0; i < links.length; i++) {
       var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
       if (frag === heading.id) { cur.link = links[i]; break; }
     }
-
     if (cur.link) {
       cur.link.classList.add('toc-active');
-
-      
       var parentDet = cur.link.closest('#TableOfContents details');
       if (parentDet) parentDet.open = true;
-
-      
       var panel = document.querySelector('.toc');
       if (panel && window.innerWidth >= 1280) {
-        var top = cur.link.offsetTop - panel.clientHeight / 2;
-        panel.scrollTop = Math.max(0, top);
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
       }
     }
   }
 
   var lastHeading;
-
   function onScroll() {
     var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
@@ -221,14 +215,10 @@ It is totally free tool. Wazuh enhances threat detection, incident response, and
         found = headings[i];
       }
     }
-    if (found !== lastHeading) {
-      lastHeading = found;
-      activate(found);
-    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

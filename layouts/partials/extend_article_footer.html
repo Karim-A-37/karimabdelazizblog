@@ -1,0 +1,58 @@
+{{- /* Series navigation — shown at bottom of each post that has a series */ -}}
+{{- $currentPage := . -}}
+{{- range .Params.series -}}
+  {{- $seriesName := . -}}
+  {{- $termKey := urlize $seriesName -}}
+  {{- $term := index $currentPage.Site.Taxonomies.series $termKey -}}
+  {{- if $term -}}
+    {{- $pages := $term.Pages.ByParam "weight" -}}
+    {{- $total := len $pages -}}
+
+    {{- /* Find prev / next using Scratch */ -}}
+    {{- $s := newScratch -}}
+    {{- $s.Set "prev" nil -}}
+    {{- $s.Set "next" nil -}}
+    {{- range $i, $p := $pages -}}
+      {{- if eq $p.RelPermalink $currentPage.RelPermalink -}}
+        {{- if gt $i 0 -}}
+          {{- $s.Set "prev" (index $pages (sub $i 1)) -}}
+        {{- end -}}
+        {{- if lt (add $i 1) $total -}}
+          {{- $s.Set "next" (index $pages (add $i 1)) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+<div class="series-nav">
+  <div class="series-nav__header">
+    <span class="series-nav__label">Part of series</span>
+    <a class="series-nav__title" href="{{ $currentPage.Site.BaseURL }}series/{{ $termKey }}/">{{ $seriesName }}</a>
+    <span class="series-nav__count">{{ $total }} posts</span>
+  </div>
+  <ol class="series-nav__list">
+    {{- range $i, $p := $pages -}}
+    <li class="series-nav__item{{- if eq $p.RelPermalink $currentPage.RelPermalink }} series-nav__item--active{{- end -}}">
+      <span class="series-nav__num">{{ add $i 1 }}</span>
+      <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+    </li>
+    {{- end -}}
+  </ol>
+  <div class="series-nav__nav">
+    {{- with $s.Get "prev" -}}
+    <a class="series-nav__btn series-nav__btn--prev" href="{{ .RelPermalink }}">
+      <span>←</span>
+      <span>{{ .Title }}</span>
+    </a>
+    {{- else -}}
+    <span></span>
+    {{- end -}}
+    {{- with $s.Get "next" -}}
+    <a class="series-nav__btn series-nav__btn--next" href="{{ .RelPermalink }}">
+      <span>{{ .Title }}</span>
+      <span>→</span>
+    </a>
+    {{- end -}}
+  </div>
+</div>
+  {{- end -}}
+{{- end -}}

@@ -30,7 +30,7 @@ Why it matters in a pentest:
 it is important to understand protocols because they are the milestones of communications between any hosts">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89360fd0b88d2002fd053a30223e92a1c7a7fe0d37dd7caf5ed1e38954ecda27.css" integrity="sha256-iTYP0LiNIAL9BTowIj6Socen/g033XyvXtHjiVTs2ic=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cde51804a98f673914a87465af0692a5ce3b4a272fb0785f705ec8dcdaba196.css" integrity="sha256-XN5RgEqY9nORSodGWvBpKlzjtKJy&#43;weF9wXsjc2roZY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -64,8 +64,10 @@ Network Fundamentals ✅ 2026-05-14 Network Layer and how it works ✅ 2026-05-1
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-05-14T00:00:00+00:00">
     <meta property="article:modified_time" content="2026-05-14T00:00:00+00:00">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
   <meta name="twitter:title" content="Network Primer">
   <meta name="twitter:description" content="Day 2 — [Networking Primer] Date: =dateformat(date(today), &#34;yyyy-MM-dd&#34;) Week: 1 | Day: 2 Module/Section: (Networking Primer)
 🎯 Session Goals What do you want to be able to DO by the end of this session?
@@ -111,7 +113,7 @@ Network Fundamentals ✅ 2026-05-14 Network Layer and how it works ✅ 2026-05-1
   "articleBody": "Day 2 — [Networking Primer] Date: =dateformat(date(today), \"yyyy-MM-dd\") Week: 1 | Day: 2 Module/Section: (Networking Primer)\n🎯 Session Goals What do you want to be able to DO by the end of this session?\nNetwork Fundamentals ✅ 2026-05-14 Network Layer and how it works ✅ 2026-05-14 TCP Layer and how it works ✅ 2026-05-14 🧠 Concepts Learned Concept 1: [Protocol] What it is: protocol is set of rules the hosts use to connect or communicate with each other, each protocol represent specific service, written as set of rules Why it matters in a pentest: it is important to understand protocols because they are the milestones of communications between any hosts\nConcept 2: [Packets] What it is: packet is stream of bits that is represent data in the network layer(data + IP(Network layer) + Ports(Transport layer)) so it is data but it is now in Network layer, it is divided into two layers(header + payload) header contains information about packet or data, and payload is the actual data being transferred.\nConcept 3: [OSI] What it is: OSI(Open System Interconnection) is conceptual model representation of network and is divided into 7 layers each layer represent specific phase of network and how it works, it is theoretical model to facilitate the network in studying of troubleshooting, but actually in real word TCP/IP model is being used, the 7 layers are ( Application(7) –\u003e Presentation(6) –\u003e Session(5) –\u003e Transport(4) –\u003e Network(3) –\u003e Data Link(2) –\u003e Physical(1) ) Concept 4: [Network Layer] What it is: It is the layer responsible for logical addressing(IPs) and routing(routers), identifies the path that the data transfers from source to destination in internal networks or different networks(external networks), there are two types of IPs(IPv4 –\u003e32 bits this is the foundation of the communication of the internet , IPv6 –\u003e 128 bits this provides broader scope for IPs ) also has another protocol which is ICMP(Internet Control Message Protocol) which is used for error reporting and diagnostic, it uses echo requests and replies (ping utility), there another protocol is called DHCP(Dynamic Host Configuration Protocol) which assigns IPs to devices dynamically to avoid that two devices take the same IP.\nConcept 5: [Internet Protocol(IP)] What it is: it enables communication between different hosts by providing standardized way to identify hosts in different networks, it is responsible for addressing, routing, fragmentation, packets reassembling, packet structure, and subnetting(it is techniques to divides large IP networks into subnetworks or smaller networks to be easy to manage and enhance security and efficiency), it has two versions (IPv4 –\u003e (x.x.x.x) set of 4 octets, 32 bits this is the foundation of the communication of the internet , IPv6 –\u003e (x:x:x:x:x:x:x:x) represented in hexadecimals,128 bits this provides broader scope for IPs ), IPs can be classified into 3 types(unicast(1 to 1) , broadcast (1 to all) , multicast(1 to many in group)), there are classes of IPs as it is illustrated in this figure in IP header there are various data is written in binary values that IPv4 services references as they forward packets Version — Identifies the IP version being used (IPv4 = 4). Internet Header Length (IHL) — Specifies the size of the IPv4 header. Type of Service (ToS) / DSCP + ECN — Defines packet priority, QoS handling, and congestion notification. Total Length — Indicates the total size of the IP packet (header + data). Identification — Unique value used to identify packet fragments belonging to the same original packet. Flags — Controls fragmentation behavior (e.g., Don’t Fragment flag). Fragment Offset — Shows the position of a fragment within the original packet. Time To Live (TTL) — Limits how many routers the packet can pass through before being discarded. Protocol — Identifies the upper-layer protocol being carried (e.g., TCP, UDP, ICMP). Header Checksum — Error-checking value for the IPv4 header. Source IP Address — IPv4 address of the sender. Destination IP Address — IPv4 address of the receiver. Options — Optional settings for special routing, security, or debugging purposes. Padding — Extra bits added to ensure the header length is a multiple of 32 bits. Concept 6: [Transport Layer] What it is: Transport Layer is the 4th layer and it is responsible for end to end communication and flow control and segmentation and ports is added to data here in this layer so data here is called(segment —\u003e data + port number), port is numerical number from 0 to 65535 which represent different protocol or services, from 0 to 1023 those are reserved ports for famous services like (80 –\u003e http, 443 –\u003e https), from 1024 to 49151 are registered for specific services like (3306 –\u003e MySQL Database), in transport layer we have two main protocols TCP and UDP.\nConcept 7: [TCP] What it is: TCP(Transmission Control Protocol) which is connection oriented(which establishes a connection between client and server before any data is exchanging), reliable(which this connection is reliable or guarantee the delivery of data that the data has been delivered and not lost on the way and if it finds it is lost it resents it again) and is ordered data transfer(it ensures that data is delivered in correct order), TCP achieves the connection oriented via Three way handshake which is method used to achieve connection orientation between client and server, the client send packet with SYN(Synchronization) flag activated to the server with ISN(Initial Sequence Number –\u003e random unique value) (1st way), then the server respond with SYN+ACK flags activated, and ACK is set as one more the ISN of SYN of client and the server SYN ISN is set to random number also(2nd way), then the client respond with only ACK flag activated which is one more the ISN of SYN of the server that was sent with SYN+ACK packet (3rd way) then the connection is established and after that client start sending the data and TCP header will be as the following Source Port — Port number of the sending application. Destination Port — Port number of the receiving application. Sequence Number — Indicates the order number of the first byte in this TCP segment. Acknowledgment Number — Confirms receipt of data by specifying the next expected byte. Data Offset (Header Length) — Specifies the size of the TCP header. Reserved — Reserved bits for future use; normally set to zero. Flags (Control Bits) — Control connection behavior (e.g., SYN, ACK, FIN, RST, PSH, URG). Window Size — Specifies how much data the receiver can accept at one time. Checksum — Error-checking value for the TCP header and data. Urgent Pointer — Indicates the location of urgent data when the URG flag is set. Options — Optional TCP features such as Maximum Segment Size (MSS) and Window Scaling. Padding — Extra bits added so the header length becomes a multiple of 32 bits. Concept 8: [UDP] What it is: UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does not depend on creating conation between client and server), unreliable(which doesn’t care about data is delivered or not it just sent it and doesn’t check if packet lost or not), it is stateless(doesn’t save the client state so the server doesn’t recognize him each time so it doesn’t save the client info or states on server),it is used for streaming(VoIP) and online gaming, UDP header format will be as following Source Port — Port number of the sending application. Destination Port — Port number of the receiving application. Length — Specifies the total size of the UDP header and data. Checksum — Error-checking value for the UDP header and transmitted data. ⚙️ Commands Learned this command is used to list active TCP connections that our device is connected to or created\n1# for linux 2netstat -antp 1# for windows 2netstat -ano ⚙️ Tools Used Wireshark we have used tool called Wireshark, and it is one the best tools to analyze traffic on network, it shows it as OSI layers each layer with all the information sent via it or it role inside the sending operation, and here we have used it to analyze the Transport layer and Network layer as following\nas we can see in the image of Wireshark this represents the Network layer and IP and its header values we have discussed it in section of IP like (TTL : 64 , Flags : Don’t fragment is set , source and destination IPs , IP Version : 4) those info shows us the exactly packet that is sent via internet and let us to see what is inside each layer. as we can see in the image exactly the TCP 3 way handshake to build connection between client and server, as we discussed it before in TCP section here we can find all info about TCP protocol and all header info we have discussed in the TCP section, and the ISN of SYN packet and only flag of SYN is set because this is the first packet in the 3 way handshake method, also we can see that the port numbers(source + destination) is set to the data. Honest rating of today’s session: [ ] 🔴 Struggling | [ ] 🟡 Getting it | [x] 🟢 Solid\n📌 Tags #Ejpt #Networking\n",
   "wordCount" : "1531",
   "inLanguage": "en",
-  "datePublished": "2026-05-14T00:00:00Z",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2026-05-14T00:00:00Z",
   "dateModified": "2026-05-14T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -174,6 +176,16 @@ Network Fundamentals ✅ 2026-05-14 Network Layer and how it works ✅ 2026-05-1
             <li>
                 <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
                 </a>
             </li>
             <li>
@@ -372,9 +384,7 @@ UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does 
 <p><code>#Ejpt</code> <code>#Networking</code></p>
 
 
-  </div>
-
-  <footer class="post-footer">
+  </div><footer class="post-footer">
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
@@ -407,12 +417,77 @@ UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does 
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a><script>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;
 
-  
   var mainDetails = document.querySelector('.toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
@@ -422,7 +497,6 @@ UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does 
     if (!parentLi || parentLi.tagName !== 'LI') return;
     var directLink = parentLi.querySelector(':scope > a');
     if (!directLink) return;
-
     var det = document.createElement('details');
     var sum = document.createElement('summary');
     sum.appendChild(directLink.cloneNode(true));
@@ -432,50 +506,34 @@ UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does 
   });
 
    
-  
-  var headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id]')
-  );
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
   if (!headings.length) return;
-
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  var cur   = { link: null, heading: null };
+  var cur = { link: null, heading: null };
 
   function activate(heading) {
     if (cur.link)    cur.link.classList.remove('toc-active');
     if (cur.heading) cur.heading.classList.remove('heading-active');
-
     cur.heading = heading || null;
-    cur.link    = null;
-
+    cur.link = null;
     if (!heading) return;
-
     heading.classList.add('heading-active');
-
-    
     for (var i = 0; i < links.length; i++) {
       var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
       if (frag === heading.id) { cur.link = links[i]; break; }
     }
-
     if (cur.link) {
       cur.link.classList.add('toc-active');
-
-      
       var parentDet = cur.link.closest('#TableOfContents details');
       if (parentDet) parentDet.open = true;
-
-      
       var panel = document.querySelector('.toc');
       if (panel && window.innerWidth >= 1280) {
-        var top = cur.link.offsetTop - panel.clientHeight / 2;
-        panel.scrollTop = Math.max(0, top);
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
       }
     }
   }
 
   var lastHeading;
-
   function onScroll() {
     var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
     var found = null;
@@ -484,14 +542,10 @@ UDP(User Datagram Protocol) is the opposite of TCP which is connectionless(does 
         found = headings[i];
       }
     }
-    if (found !== lastHeading) {
-      lastHeading = found;
-      activate(found);
-    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); 
+  onScroll();
 })();
 </script>
 

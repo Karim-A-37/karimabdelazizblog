@@ -18,6 +18,7 @@ paginate = 6
   ShowToc             = true
   TocOpen             = false
   tocHighlight        = true
+  images              = ["images/og-default.png"]
 
   [params.homeInfoParams]
     Title   = "Hey, I'm Karim Abdelaziz"
@@ -79,6 +80,14 @@ paginate = 6
     name   = "Search"
     url    = "/search/"
     weight = 15
+  [[menu.main]]
+    name   = "Archive"
+    url    = "/archives/"
+    weight = 18
+  [[menu.main]]
+    name   = "Certs"
+    url    = "/certs/"
+    weight = 19
   [[menu.main]]
     name   = "About"
     url    = "/about/"
