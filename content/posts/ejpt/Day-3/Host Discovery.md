@@ -252,6 +252,6 @@ nmap -sn -v -T4 10.5.22.188 -PS -PU
 
 ## 📌 Tags
 
-`#ejpt` `#host discovery` `#week-1` `#host-discovery
+#ejpt  #week-1 #host-discovery
 
 ---
