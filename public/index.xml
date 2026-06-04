@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lab 1 - Wazuh &#43; Suricata IDS Setup</title>
@@ -33,6 +33,34 @@
       <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-3-setchain/</guid>
       <description>Graduation project: automated cybersecurity pipeline — Wazuh, Suricata, n8n, 5-layer AI (Isolation Forest &#43; XGBoost &#43; LLM), STIX 2.1, IPFS, and Hyperledger Fabric blockchain.</description>
+    </item>
+    <item>
+      <title>Port Scanning</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</link>
+      <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</guid>
+      <description>&lt;h1 id=&#34;day-4--port-scanning&#34;&gt;Day 4 — [Port Scanning]&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Date:&lt;/strong&gt; &lt;code&gt;=dateformat(date(today), &amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt; &lt;strong&gt;Week:&lt;/strong&gt; 1 | &lt;strong&gt;Day:&lt;/strong&gt; 4 Port Scanning&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Port Scanning ✅ 2026-06-03&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Services versions and Operating Systems detection ✅ 2026-06-03&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Nmap Scripting Engine (NSE) ✅ 2026-06-03&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;concepts-learned&#34;&gt;Concepts Learned&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Concepts i have learned in this session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;concept-1-port-scanning&#34;&gt;Concept 1: [Port Scanning]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+in port scanning we try to discover which ports are open, closed or filtered TCP or UDP in the target system, and each one is going to give us information about what target are doing:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Host Discovery</title>

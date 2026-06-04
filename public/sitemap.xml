@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://karimabdelazizblog.tech/posts/ejpt/</loc>
-    <lastmod>2026-05-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/</loc>
     <lastmod>2025-10-31T00:00:00+00:00</lastmod>
   </url><url>
@@ -14,13 +11,16 @@
     <loc>https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-3-setchain/</loc>
     <lastmod>2026-05-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</loc>
-    <lastmod>2026-05-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://karimabdelazizblog.tech/</loc>
-    <lastmod>2026-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2026-06-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</loc>
+    <lastmod>2026-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://karimabdelazizblog.tech/posts/</loc>
+    <lastmod>2026-06-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</loc>
     <lastmod>2026-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://karimabdelazizblog.tech/tags/ai/</loc>
@@ -72,9 +72,6 @@
     <lastmod>2026-05-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://karimabdelazizblog.tech/about/</loc>
-    <lastmod>2026-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://karimabdelazizblog.tech/series/ejpt/</loc>
     <lastmod>2026-05-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</loc>
