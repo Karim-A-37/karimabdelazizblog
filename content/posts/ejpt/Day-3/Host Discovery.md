@@ -5,11 +5,6 @@ slug: host-discovery
 draft: false
 ---
 
-# Day 3 — [Host Discovery]
-
-> **Date:** 2026-05-30 **Week:** 1 | **Day:** 3? **Module/Section:** Host Discovery
-
----
 
 ## 🎯 Session Goals
 

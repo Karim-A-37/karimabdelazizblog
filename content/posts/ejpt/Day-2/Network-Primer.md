@@ -5,12 +5,6 @@ slug: "network-primer"
 draft: false
 ---
 
-# Day 2 — [Networking Primer]
-
-> **Date:** `=dateformat(date(today), "yyyy-MM-dd")` **Week:** 1 | **Day:** 2 **Module/Section:** (Networking Primer)
-
----
-
 ## 🎯 Session Goals
 
 > What do you want to be able to DO by the end of this session?

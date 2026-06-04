@@ -1,8 +1,9 @@
 ---
-title: "Port Scanning"
+title: Port Scanning
 date: 2026-06-04
-slug: "port-scanning"
+slug: port-scanning
 draft: false
+series:
 ---
 
 
