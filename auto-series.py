@@ -200,6 +200,24 @@ if __name__ == "__main__":
         if not os.path.isdir(content_dir):
             continue
 
+        # Auto-create _index.md for the content dir itself
+        root_idx = os.path.join(content_dir, "_index.md")
+        if not os.path.exists(root_idx):
+            dirname = os.path.basename(content_dir).title()
+            write_file(root_idx, f'---\ntitle: "{dirname}"\n---\n')
+            print(f"FIXED  Created {os.path.relpath(root_idx, SITE_ROOT)}")
+            total_fixed += 1
+
+        # Auto-create _index.md for each subfolder
+        for name in sorted(os.listdir(content_dir)):
+            folder = os.path.join(content_dir, name)
+            if os.path.isdir(folder) and not name.startswith(".") and not name.startswith("_"):
+                idx = os.path.join(folder, "_index.md")
+                if not os.path.exists(idx):
+                    write_file(idx, f'---\ntitle: "{name}"\ndescription: "{name} study notes and resources."\n---\n')
+                    print(f"FIXED  Created {os.path.relpath(idx, SITE_ROOT)}")
+                    total_fixed += 1
+
         groups = collect_posts_by_series_folder(content_dir)
 
         for folder_name, file_paths in sorted(groups.items()):
@@ -216,4 +234,5 @@ if __name__ == "__main__":
     if total_fixed:
         print(f"\nDone. Updated {total_fixed} file(s).")
     else:
-        print("All series/weight OK — no changes needed.")
+        print("All series/weight OK - no changes needed.")
+

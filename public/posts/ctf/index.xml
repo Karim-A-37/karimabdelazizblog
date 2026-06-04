@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Notes on Karim&#39;s Blog</title>
-    <link>https://karimabdelazizblog.tech/posts/</link>
-    <description>Recent content in Notes on Karim&#39;s Blog</description>
+    <title>CTF on Karim&#39;s Blog</title>
+    <link>https://karimabdelazizblog.tech/posts/ctf/</link>
+    <description>Recent content in CTF on Karim&#39;s Blog</description>
     <image>
       <title>Karim&#39;s Blog</title>
       <url>https://karimabdelazizblog.tech/images/og-default.png</url>
@@ -11,7 +11,6 @@
     </image>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate></lastBuildDate>
-    <atom:link href="https://karimabdelazizblog.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://karimabdelazizblog.tech/posts/ctf/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

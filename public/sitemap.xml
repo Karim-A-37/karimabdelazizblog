@@ -29,6 +29,9 @@
     <loc>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</loc>
     <lastmod>2026-06-04T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://karimabdelazizblog.tech/posts/ejpt/</loc>
+    <lastmod>2026-06-04T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://karimabdelazizblog.tech/series/ejpt/</loc>
     <lastmod>2026-06-04T00:00:00+00:00</lastmod>
   </url><url>
@@ -110,6 +113,8 @@
     <loc>https://karimabdelazizblog.tech/archives/</loc>
   </url><url>
     <loc>https://karimabdelazizblog.tech/certs/</loc>
+  </url><url>
+    <loc>https://karimabdelazizblog.tech/posts/ctf/</loc>
   </url><url>
     <loc>https://karimabdelazizblog.tech/search/</loc>
   </url>
