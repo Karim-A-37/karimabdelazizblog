@@ -23,22 +23,10 @@ CONTENT_DIRS = [
     os.path.join(SITE_ROOT, "content", "projects"),
 ]
 
-# Map folder names to friendly series names.
-# Add entries here for custom naming; otherwise folder name is title-cased.
-SERIES_NAME_MAP = {
-    "ejpt": "eJPT",
-    "wazuh": "Wazuh Labs",
-    "ctf-writeups": "CTF Writeups",
-}
-
-
+# Series name = exact folder name as-is (e.g. "eJPT", "CTF", "wazuh")
 def get_series_name(folder_name):
-    """Convert a folder name to a series display name."""
-    key = folder_name.lower().strip()
-    if key in SERIES_NAME_MAP:
-        return SERIES_NAME_MAP[key]
-    # Default: replace hyphens/underscores with spaces and title-case
-    return folder_name.replace("-", " ").replace("_", " ").title()
+    """Use the folder name directly as the series name."""
+    return folder_name
 
 
 def read_file(path):

@@ -10,7 +10,7 @@ tags:
   - "siem"
   - "network-security"
 series:
-  - "Wazuh Labs"
+  - "wazuh"
 weight: 1
 draft: false
 ShowToc: true

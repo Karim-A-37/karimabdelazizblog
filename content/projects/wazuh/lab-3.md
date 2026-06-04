@@ -12,7 +12,7 @@ tags:
   - "ipfs"
   - "graduation-project"
 series:
-  - "Wazuh Labs"
+  - "wazuh"
 weight: 3
 draft: false
 ShowToc: true

@@ -10,7 +10,7 @@ tags:
   - "virustotal"
   - "sysmon"
 series:
-  - "Wazuh Labs"
+  - "wazuh"
 weight: 2
 draft: false
 ShowToc: true
