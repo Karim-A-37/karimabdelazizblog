@@ -10,7 +10,7 @@
 <meta name="description" content="Search all notes, labs, and projects">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/search/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f47d3184a43acbc5a94caf59a67cb77cc04c4b3b2500521ca2b6a9af8386e0cc.css" integrity="sha256-9H0xhKQ6y8WpTK9Zpny3fMBMSzslAFIcorapr4OG4Mw=" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1534e24a3e344fe8865a55ef140409f1e1578649398660c4ba2d3a48a290d763.css" integrity="sha256-FTTiSj40T&#43;iGWlXvFAQJ8eFXhkk5hmDEui06SKKQ12M=" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
 <script defer crossorigin="anonymous" src="/assets/js/search.7232aeb8c34a68a38c910706ad25c530109cf409d02889cc80cba1e0c1175f4d.js" integrity="sha256-cjKuuMNKaKOMkQcGrSXFMBCc9AnQKInMgMuh4MEXX00="></script>
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
@@ -195,73 +195,7 @@
         <polyline points="17 11 12 6 7 11"></polyline>
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
-</a>
-<style>
-#reading-progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 3px;
-  width: 0%;
-  background: #22c55e;
-  z-index: 9999;
-  transition: width 0.08s linear;
-  border-radius: 0 2px 2px 0;
-  box-shadow: 0 0 8px rgba(34,197,94,0.5);
-}
- 
-#toc-mobile-btn {
-  display: none;
-  position: fixed;
-  bottom: 1.4rem;
-  right: 1.2rem;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--entry, #1e1e2e);
-  border: 1px solid var(--border, #333);
-  border-radius: 50px;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--secondary, #aaa);
-  cursor: pointer;
-  z-index: 200;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  transition: color 0.15s, border-color 0.15s;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
-@media (max-width: 1279px) {
-  #toc-mobile-btn { display: flex; }
-}
-</style>
-
-<div id="reading-progress"></div>
-
-<button id="toc-mobile-btn" onclick="
-  var toc = document.querySelector('.toc');
-  if (toc) {
-    toc.scrollIntoView({behavior:'smooth', block:'start'});
-    var det = toc.querySelector('details');
-    if (det) det.open = true;
-  }
-">☰ Contents</button>
-
-
-<script>
-
-(function(){
-  var bar = document.getElementById('reading-progress');
-  function upd(){
-    var h = document.documentElement;
-    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
-    bar.style.width = Math.min(100, pct) + '%';
-  }
-  window.addEventListener('scroll', upd, {passive: true});
-  upd();
-})();
-</script>
-<script>
+</a><script>
 (function () {
   var toc = document.getElementById('TableOfContents');
   if (!toc) return;

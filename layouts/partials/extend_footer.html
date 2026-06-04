@@ -1,7 +1,7 @@
 {{- /* Reading progress bar + TOC scroll-spy + mobile TOC button */ -}}
 
 {{- /* ── 1. Reading progress bar (all single pages) ─────────────────── */ -}}
-{{ if .IsPage }}
+{{ if and .IsPage (or (eq .Section "posts") (eq .Section "projects")) }}
 <style>
 #reading-progress {
   position: fixed;
@@ -13,6 +13,10 @@
   transition: width 0.08s linear;
   border-radius: 0 2px 2px 0;
   box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+/* Re-enable top-link for reading pages */
+#top-link {
+  display: flex !important;
 }
 /* Mobile TOC floating button */
 #toc-mobile-btn {

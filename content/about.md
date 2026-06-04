@@ -259,7 +259,12 @@ GPA **3.8 / 4.0** · Courses: Network Security · InfoSec Management · Blockcha
 </a>
 </div>
 
-<div style="width:100%;height:880px;border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative">
+<style>
+  @media (max-width: 768px) {
+    .cv-iframe-container { display: none !important; }
+  }
+</style>
+<div class="cv-iframe-container" style="width:100%;height:880px;border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative">
   <iframe src="/files/karim-cv.pdf?v=2" style="width:100%;height:100%;border:none" title="Karim Abdelaziz CV"></iframe>
   <noscript>
     <p style="text-align:center;padding:2rem">Your browser cannot display PDFs inline. <a href="/files/karim-cv.pdf?v=2">Click here to download</a>.</p>

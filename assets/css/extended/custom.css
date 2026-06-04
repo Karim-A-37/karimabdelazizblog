@@ -239,5 +239,7 @@
   letter-spacing: 0.03em;
 }
 
-
-
+/* Hide top-link globally, show only on posts/projects via extend_footer.html */
+#top-link {
+    display: none !important;
+}
