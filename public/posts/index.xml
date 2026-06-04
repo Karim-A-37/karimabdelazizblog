@@ -18,12 +18,7 @@
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</link>
       <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</guid>
-      <description>&lt;h1 id=&#34;day-4--port-scanning&#34;&gt;Day 4 — [Port Scanning]&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Date:&lt;/strong&gt; &lt;code&gt;=dateformat(date(today), &amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt; &lt;strong&gt;Week:&lt;/strong&gt; 1 | &lt;strong&gt;Day:&lt;/strong&gt; 4 Port Scanning&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
 &lt;/blockquote&gt;

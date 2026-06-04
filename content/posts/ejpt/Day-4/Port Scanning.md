@@ -5,11 +5,7 @@ slug: "port-scanning"
 draft: false
 ---
 
-# Day 4 — [Port Scanning]
 
-> **Date:** `=dateformat(date(today), "yyyy-MM-dd")` **Week:** 1 | **Day:** 4 Port Scanning
-
----
 
 ## Session Goals
 
