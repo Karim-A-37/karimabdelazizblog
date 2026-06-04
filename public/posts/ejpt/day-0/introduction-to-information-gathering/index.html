@@ -684,6 +684,25 @@ Types of Reconnaissance Passive information gathering → collect information th
   onScroll();
 })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const images = Array.from(document.querySelectorAll('.post-content img'));
+  if (images.length > 0) {
+    mediumZoom(images, {
+      margin: 24,
+      background: 'rgba(15, 15, 19, 0.95)'
+    });
+  }
+});
+</script>
+<style>
+ 
+.post-content img { cursor: zoom-in; border-radius: 6px; }
+.medium-zoom-overlay { z-index: 1000; }
+.medium-zoom-image--opened { z-index: 1001; }
+</style>
+
 
 
 <script>
