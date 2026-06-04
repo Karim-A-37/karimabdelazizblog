@@ -38,6 +38,7 @@ $StaticImagesPath   = "$HugoSitePath\static\images"
 $ImagesScript       = "$HugoSitePath\images.py"
 $ImageCheckerScript = "$HugoSitePath\image-checker.py"
 $FrontmatterScript  = "$HugoSitePath\fix-frontmatter.py"
+$AutoSeriesScript   = "$HugoSitePath\auto-series.py"
 $LogFile            = "$HugoSitePath\watcher.log"
 
 $global:LastDeploy  = [DateTime]::MinValue
@@ -120,6 +121,13 @@ function Invoke-BlogDeploy {
             if ($_ -match 'FIXED') { Write-Log "  frontmatter: $_" }
         }
         Write-Log "Frontmatter checked." "OK"
+
+        # -- Step 2d: Auto-inject series & weight from folder names -----------
+        Write-Log "Auto-injecting series/weight..." "STEP"
+        & $PythonCmd $AutoSeriesScript 2>&1 | ForEach-Object {
+            if ($_ -match 'FIXED|Updated') { Write-Log "  auto-series: $_" }
+        }
+        Write-Log "Series/weight injected." "OK"
 
         # -- Step 3: Hugo build -----------------------------------------------───────
         Write-Log "Building Hugo site..." "STEP"

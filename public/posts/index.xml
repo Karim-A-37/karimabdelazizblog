@@ -14,6 +14,93 @@
     <lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Introduction to information gathering</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
+      <description>&lt;hr&gt;
+&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
+&lt;p&gt;Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)&lt;/p&gt;
+&lt;h2 id=&#34;types-of-reconnaissance&#34;&gt;Types of Reconnaissance&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Passive information gathering&lt;/strong&gt; → collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Active information gathering&lt;/strong&gt; → collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;target-scoping-in-scope---out-scope&#34;&gt;Target Scoping (In-Scope - Out-Scope)&lt;/h2&gt;
+&lt;p&gt;Target scoping is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Active Reconnaissance</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</guid>
+      <description>&lt;h1 id=&#34;active-reconnaissance&#34;&gt;Active Reconnaissance&lt;/h1&gt;
+&lt;p&gt;We have already discussed passive reconnaissance, but now we are going to talk about active reconnaissance, active recon means gathering information by engaging with the target not like passive which gather public info, sending and receiving packets or other things to the target like DNS transfer zone and scanning ports with Nmap.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-dns-zone-reconnaissance&#34;&gt;1. DNS Zone Reconnaissance&lt;/h2&gt;
+&lt;p&gt;We have discussed before in passive reconnaissance about DNS and how it actually it works in details, it is protocol mostly used to transfer hostnames into their corresponding IP addresses, as we said before it contains about several records each record is responsible to display specific information like:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Passive Reconnaissance</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</guid>
+      <description>&lt;h1 id=&#34;passive-reconnaissance&#34;&gt;Passive Reconnaissance&lt;/h1&gt;
+&lt;p&gt;As we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.&lt;/p&gt;
+&lt;h2 id=&#34;1-host-tool--ip-lookup&#34;&gt;1. Host Tool — IP Lookup&lt;/h2&gt;
+&lt;p&gt;The first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;host tool&lt;/strong&gt; → DNS lookup utility, we use to convert names into IPs and vice versa&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/active-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Network Primer</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</link>
+      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</guid>
+      <description>&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Fundamentals ✅ 2026-05-14&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Layer and how it works ✅ 2026-05-14&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; TCP Layer and how it works ✅ 2026-05-14&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;concepts-learned&#34;&gt;Concepts Learned&lt;/h2&gt;
+&lt;h3 id=&#34;concept-1-protocol&#34;&gt;Concept 1: [Protocol]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+protocol is set of rules the hosts use to connect or communicate with each other, each protocol represent specific service, written as set of rules
+&lt;strong&gt;Why it matters in a pentest:&lt;/strong&gt;
+it is important to understand protocols because they are the milestones of communications between any hosts&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Host Discovery</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</link>
+      <pubDate>Sat, 30 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</guid>
+      <description>&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Mapping ✅ 2026-05-30&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ping Sweeps ✅ 2026-05-30&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Host Discovery ✅ 2026-05-30&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;concepts-learned&#34;&gt;Concepts Learned&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Concepts i have learned in this session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;concept-1-network-mapping&#34;&gt;Concept 1: [Network Mapping]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Port Scanning</title>
       <link>https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/</link>
       <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
@@ -35,93 +122,6 @@
 &lt;h3 id=&#34;concept-1-port-scanning&#34;&gt;Concept 1: [Port Scanning]&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
 in port scanning we try to discover which ports are open, closed or filtered TCP or UDP in the target system, and each one is going to give us information about what target are doing:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Host Discovery</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</link>
-      <pubDate>Sat, 30 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/</guid>
-      <description>&lt;h2 id=&#34;-session-goals&#34;&gt;🎯 Session Goals&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Mapping ✅ 2026-05-30&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ping Sweeps ✅ 2026-05-30&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Host Discovery ✅ 2026-05-30&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-concepts-learned&#34;&gt;🧠 Concepts Learned&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The Concepts i have learned in this session&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;concept-1-network-mapping&#34;&gt;Concept 1: [Network Mapping]&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
-Network mapping encapsulates active recon techniques to draw a blueprint of the live hosts or devices on the network, it is the process of discovering live hosts to map the network architecture, by discovering different elements&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Network Primer</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</link>
-      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/</guid>
-      <description>&lt;h2 id=&#34;-session-goals&#34;&gt;🎯 Session Goals&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;What do you want to be able to DO by the end of this session?&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Fundamentals ✅ 2026-05-14&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Network Layer and how it works ✅ 2026-05-14&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; TCP Layer and how it works ✅ 2026-05-14&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-concepts-learned&#34;&gt;🧠 Concepts Learned&lt;/h2&gt;
-&lt;h3 id=&#34;concept-1-protocol&#34;&gt;Concept 1: [Protocol]&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
-protocol is set of rules the hosts use to connect or communicate with each other, each protocol represent specific service, written as set of rules
-&lt;strong&gt;Why it matters in a pentest:&lt;/strong&gt;
-it is important to understand protocols because they are the milestones of communications between any hosts&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Active Reconnaissance</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</link>
-      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/</guid>
-      <description>&lt;h1 id=&#34;active-reconnaissance&#34;&gt;Active Reconnaissance&lt;/h1&gt;
-&lt;p&gt;We have already discussed passive reconnaissance, but now we are going to talk about active reconnaissance, active recon means gathering information by engaging with the target not like passive which gather public info, sending and receiving packets or other things to the target like DNS transfer zone and scanning ports with Nmap.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;1-dns-zone-reconnaissance&#34;&gt;1. DNS Zone Reconnaissance&lt;/h2&gt;
-&lt;p&gt;We have discussed before in passive reconnaissance about DNS and how it actually it works in details, it is protocol mostly used to transfer hostnames into their corresponding IP addresses, as we said before it contains about several records each record is responsible to display specific information like:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Introduction to information gathering</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/</guid>
-      <description>&lt;hr&gt;
-&lt;h1 id=&#34;information-gathering-reconnaissance&#34;&gt;Information Gathering (Reconnaissance)&lt;/h1&gt;
-&lt;p&gt;Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)&lt;/p&gt;
-&lt;h2 id=&#34;types-of-reconnaissance&#34;&gt;Types of Reconnaissance&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Passive information gathering&lt;/strong&gt; → collect information that is public available without any active engaging with the target (IP and DNS information - Domain names - web technologies - subdomains and so on)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Active information gathering&lt;/strong&gt; → collecting information that isn&amp;rsquo;t public available with active engaging with the target (need authorization from target) (port scanning - information about internal network infrastructure - enumeration of gathered information)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;target-scoping-in-scope---out-scope&#34;&gt;Target Scoping (In-Scope - Out-Scope)&lt;/h2&gt;
-&lt;p&gt;Target scoping is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Passive Reconnaissance</title>
-      <link>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/</guid>
-      <description>&lt;h1 id=&#34;passive-reconnaissance&#34;&gt;Passive Reconnaissance&lt;/h1&gt;
-&lt;p&gt;As we know passive recon is collecting information without direct interacting with target, in passive we are trying to know the target very well and our boundaries and the meaningful data that will other steps of penetration testing efficiently.&lt;/p&gt;
-&lt;h2 id=&#34;1-host-tool--ip-lookup&#34;&gt;1. Host Tool — IP Lookup&lt;/h2&gt;
-&lt;p&gt;The first thing we can do is trying to get the IP address of website using tool called (&lt;strong&gt;==host==&lt;/strong&gt;)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;host tool&lt;/strong&gt; → DNS lookup utility, we use to convert names into IPs and vice versa&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;host tool&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-1/active-reconnaissance/host-tool.png&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

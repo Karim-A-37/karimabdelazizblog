@@ -4,6 +4,9 @@ date: 2026-06-04
 slug: port-scanning
 draft: false
 series:
+  - "eJPT"
+weight: 6
+ShowToc: true
 ---
 
 

@@ -82,10 +82,34 @@ def extract_tags(text):
 
 def build_frontmatter(fm, tags):
     lines = ['---']
-    for key in ['title', 'date', 'slug', 'draft']:
+    # Emit core fields first in a nice order, then everything else
+    priority = ['title', 'date', 'slug', 'description', 'draft',
+                'series', 'weight', 'ShowToc', 'TocOpen']
+    emitted = set()
+    for key in priority:
         val = fm.get(key)
-        if val is not None:
-            # Quote strings with spaces
+        if val is None:
+            continue
+        emitted.add(key)
+        if isinstance(val, list):
+            lines.append('%s:' % key)
+            for item in val:
+                lines.append('  - %s' % item)
+        else:
+            if isinstance(val, str) and ' ' in val and not val.startswith('"'):
+                val = '"%s"' % val
+            lines.append('%s: %s' % (key, val))
+    # Emit any remaining fields not in priority list
+    for key, val in fm.items():
+        if key in emitted or key == 'tags':
+            continue
+        if val is None:
+            continue
+        if isinstance(val, list):
+            lines.append('%s:' % key)
+            for item in val:
+                lines.append('  - %s' % item)
+        else:
             if isinstance(val, str) and ' ' in val and not val.startswith('"'):
                 val = '"%s"' % val
             lines.append('%s: %s' % (key, val))

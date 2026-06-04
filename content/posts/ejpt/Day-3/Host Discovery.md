@@ -3,10 +3,14 @@ title: Host Discovery
 date: 2026-05-30
 slug: host-discovery
 draft: false
+series:
+  - "eJPT"
+weight: 5
+ShowToc: true
 ---
 
 
-## 🎯 Session Goals
+##  Session Goals
 
 > What do you want to be able to DO by the end of this session?
 
@@ -16,7 +20,7 @@ draft: false
 
 ---
 
-## 🧠 Concepts Learned
+##  Concepts Learned
 
 > The Concepts i have learned in this session
 

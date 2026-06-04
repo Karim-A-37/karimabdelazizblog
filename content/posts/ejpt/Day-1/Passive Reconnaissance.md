@@ -6,6 +6,10 @@ draft: false
 tags:
   - ejpt
   - recon
+series:
+  - "eJPT"
+weight: 3
+ShowToc: true
 ---
 
 # Passive Reconnaissance

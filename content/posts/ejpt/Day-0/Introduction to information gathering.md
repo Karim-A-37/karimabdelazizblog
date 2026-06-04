@@ -3,6 +3,10 @@ title: Introduction to information gathering
 date: 2026-05-01
 slug: introduction-to-information-gathering
 draft: false
+series:
+  - "eJPT"
+weight: 1
+ShowToc: true
 ---
 
 

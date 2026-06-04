@@ -1,11 +1,15 @@
 ---
-title: "Network Primer"
+title: Network Primer
 date: 2026-05-14
-slug: "network-primer"
+slug: network-primer
 draft: false
+series:
+  - "eJPT"
+weight: 4
+ShowToc: true
 ---
 
-## 🎯 Session Goals
+##  Session Goals
 
 > What do you want to be able to DO by the end of this session?
 
@@ -15,7 +19,7 @@ draft: false
 
 ---
 
-## 🧠 Concepts Learned
+##  Concepts Learned
 
 ### Concept 1: [Protocol]
 

@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EJPT</title>
+      <link>https://karimabdelazizblog.tech/series/ejpt/</link>
+      <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/series/ejpt/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Wazuh Labs</title>
       <link>https://karimabdelazizblog.tech/series/wazuh-labs/</link>
