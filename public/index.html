@@ -183,87 +183,6 @@
 
 .home-hero__socials { margin-bottom: 1.8rem; }
 
- 
-.home-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-bottom: 2rem;
-}
-.home-stat {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  background: var(--entry);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  color: var(--secondary);
-  transition: border-color 0.15s, color 0.15s;
-}
-.home-stat:hover { border-color: #22c55e; color: #22c55e; }
-.home-stat__num {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--primary);
-}
-
- 
-.home-featured__label {
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--secondary);
-  margin-bottom: 0.7rem;
-}
-.home-featured-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-.home-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 1.1rem 0.9rem;
-  background: var(--entry);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  border-top: 3px solid transparent;
-  text-decoration: none;
-  transition: box-shadow 0.15s, border-color 0.15s;
-}
-.home-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.3); }
-.home-card--note  { border-top-color: #22c55e; }
-.home-card--proj  { border-top-color: #60a5fa; }
-.home-card--cert  { border-top-color: #f59e0b; }
-.home-card__type {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-.home-card--note .home-card__type { color: #22c55e; }
-.home-card--proj .home-card__type { color: #60a5fa; }
-.home-card--cert .home-card__type { color: #f59e0b; }
-.home-card__title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--primary);
-  line-height: 1.3;
-  margin: 0 0 0.3rem;
-}
-.home-card__meta {
-  font-size: 0.72rem;
-  color: var(--secondary);
-  margin-top: auto;
-  padding-top: 0.4rem;
-}
 </style>
 
 <div class="home-hero">
@@ -340,40 +259,7 @@
 </div>
 
   </div>
-  <div class="home-stats">
-    <a class="home-stat" href="/posts/">
-      <span class="home-stat__num">6</span> Notes
-    </a>
-    <a class="home-stat" href="/projects/">
-      <span class="home-stat__num">3</span> Labs
-    </a>
-    <a class="home-stat" href="/certs/">
-      <span class="home-stat__num">6</span> Certs
-    </a>
-    <a class="home-stat" href="/about/">
-      <span class="home-stat__num">3.8</span> GPA
-    </a>
-  </div>
-</div>
-<div class="home-featured">
-  <div class="home-featured__label">Recent highlights</div>
-  <div class="home-featured-grid">
-    <a class="home-card home-card--note" href="https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/">
-      <span class="home-card__type">📝 Latest Note</span>
-      <span class="home-card__title">Introduction to information gathering</span>
-      <span class="home-card__meta">May 1, 2026 · 4 min read</span>
-    </a>
-    <a class="home-card home-card--proj" href="https://karimabdelazizblog.tech/projects/wazuh/wazuh-lab-1-ids-setup/">
-      <span class="home-card__type">🔬 Latest Lab</span>
-      <span class="home-card__title">Lab 1 - Wazuh &#43; Suricata IDS Setup</span>
-      <span class="home-card__meta">Oct 31, 2025 · 24 min read</span>
-    </a>
-    <a class="home-card home-card--cert" href="/certs/">
-      <span class="home-card__type">🏆 Latest Cert</span>
-      <span class="home-card__title">CCNA Security (CCNA)</span>
-      <span class="home-card__meta">Cisco · Mar 2026 · Credly Verified</span>
-    </a>
-  </div>
+
 </div>
 
 <script>
