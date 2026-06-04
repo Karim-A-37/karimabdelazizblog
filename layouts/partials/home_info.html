@@ -1,0 +1,228 @@
+{{- with site.Params.homeInfoParams }}
+<style>
+/* ── Hero ─────────────────────────────────────────────────── */
+.home-hero {
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.home-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #22c55e;
+  margin-bottom: 0.8rem;
+}
+.home-hero__dot {
+  width: 6px; height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+.home-hero__name {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.home-hero__typing-wrap {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--secondary);
+  margin: 0 0 1.2rem;
+  min-height: 1.6em;
+}
+.home-hero__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #22c55e;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.home-hero__socials { margin-bottom: 1.8rem; }
+
+/* ── Stats row ────────────────────────────────────────────── */
+.home-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+}
+.home-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--secondary);
+  transition: border-color 0.15s, color 0.15s;
+}
+.home-stat:hover { border-color: #22c55e; color: #22c55e; }
+.home-stat__num {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* ── Featured section ─────────────────────────────────────── */
+.home-featured__label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 0.7rem;
+}
+.home-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+.home-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.1rem 0.9rem;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-top: 3px solid transparent;
+  text-decoration: none;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.home-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.3); }
+.home-card--note  { border-top-color: #22c55e; }
+.home-card--proj  { border-top-color: #60a5fa; }
+.home-card--cert  { border-top-color: #f59e0b; }
+.home-card__type {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.home-card--note .home-card__type { color: #22c55e; }
+.home-card--proj .home-card__type { color: #60a5fa; }
+.home-card--cert .home-card__type { color: #f59e0b; }
+.home-card__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.3;
+  margin: 0 0 0.3rem;
+}
+.home-card__meta {
+  font-size: 0.72rem;
+  color: var(--secondary);
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+</style>
+
+<div class="home-hero">
+  <div class="home-hero__eyebrow">
+    <span class="home-hero__dot"></span>
+    Open to opportunities · Jun 2026
+  </div>
+  <h1 class="home-hero__name">Karim Abdelaziz</h1>
+  <div class="home-hero__typing-wrap">
+    <span id="hero-typed"></span><span class="home-hero__cursor"></span>
+  </div>
+  <div class="home-hero__socials">
+    {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+  </div>
+
+  {{- /* Live stats pulled from Hugo page data */ -}}
+  {{- $notes    := len (where site.RegularPages "Section" "posts") }}
+  {{- $projects := len (where site.RegularPages "Section" "projects") }}
+  <div class="home-stats">
+    <a class="home-stat" href="/posts/">
+      <span class="home-stat__num">{{ $notes }}</span> Notes
+    </a>
+    <a class="home-stat" href="/projects/">
+      <span class="home-stat__num">{{ $projects }}</span> Labs
+    </a>
+    <a class="home-stat" href="/certs/">
+      <span class="home-stat__num">6</span> Certs
+    </a>
+    <a class="home-stat" href="/about/">
+      <span class="home-stat__num">3.8</span> GPA
+    </a>
+  </div>
+</div>
+
+{{- /* Featured: latest note, latest project, latest cert */ -}}
+{{- $latestNote := index (where site.RegularPages "Section" "posts") 0 }}
+{{- $latestProj := index (where site.RegularPages "Section" "projects") 0 }}
+<div class="home-featured">
+  <div class="home-featured__label">Recent highlights</div>
+  <div class="home-featured-grid">
+    {{- with $latestNote }}
+    <a class="home-card home-card--note" href="{{ .Permalink }}">
+      <span class="home-card__type">📝 Latest Note</span>
+      <span class="home-card__title">{{ .Title }}</span>
+      <span class="home-card__meta">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+    </a>
+    {{- end }}
+    {{- with $latestProj }}
+    <a class="home-card home-card--proj" href="{{ .Permalink }}">
+      <span class="home-card__type">🔬 Latest Lab</span>
+      <span class="home-card__title">{{ .Title }}</span>
+      <span class="home-card__meta">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+    </a>
+    {{- end }}
+    <a class="home-card home-card--cert" href="/certs/">
+      <span class="home-card__type">🏆 Latest Cert</span>
+      <span class="home-card__title">CCNA Security (CCNA)</span>
+      <span class="home-card__meta">Cisco · Mar 2026 · Credly Verified</span>
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var phrases = [
+    "Cybersecurity Student",
+    "Penetration Testing Learner",
+    "SIEM & XDR Builder",
+    "CTF Player",
+    "Red Team Aspirant"
+  ];
+  var el = document.getElementById("hero-typed");
+  if (!el) return;
+  var pi = 0, ci = 0, deleting = false, wait = 0;
+  function tick() {
+    var phrase = phrases[pi];
+    if (!deleting) {
+      ci++;
+      el.textContent = phrase.slice(0, ci);
+      if (ci === phrase.length) { deleting = true; wait = 28; }
+    } else {
+      if (wait-- > 0) { setTimeout(tick, 60); return; }
+      ci--;
+      el.textContent = phrase.slice(0, ci);
+      if (ci === 0) { deleting = false; pi = (pi+1) % phrases.length; wait = 0; }
+    }
+    setTimeout(tick, deleting ? 38 : 68);
+  }
+  tick();
+})();
+</script>
+{{- end -}}

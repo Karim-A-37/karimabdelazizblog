@@ -33,7 +33,10 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://karimabdelazizblog.tech/404.html">
+</script><link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<meta name="theme-color" content="#1a1a2e" />
+<meta property="og:url" content="https://karimabdelazizblog.tech/404.html">
   <meta property="og:site_name" content="Karim&#39;s Blog">
   <meta property="og:title" content="404 Page not found">
   <meta property="og:description" content="Security notes, CTF writeups, and projects by Karim Abdelaziz">
@@ -110,7 +113,105 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+<style>
+.err-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+.err-404__code {
+  font-size: clamp(5rem, 20vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+.err-404__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.3rem;
+  color: var(--primary);
+}
+.err-404__sub {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  margin: 0 0 2rem;
+  max-width: 380px;
+}
+.err-404__search {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+.err-404__search input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--entry);
+  color: var(--primary);
+  font-size: 0.9rem;
+  outline: none;
+}
+.err-404__search input:focus { border-color: #22c55e; }
+.err-404__search button {
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.15s;
+}
+.err-404__search button:hover { opacity: 0.85; }
+.err-404__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.err-404__link {
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: border-color 0.15s, color 0.15s;
+}
+.err-404__link:hover { border-color: #22c55e; color: #22c55e; }
+</style>
+
+<div class="err-404">
+  <p class="err-404__code">404</p>
+  <h1 class="err-404__title">Page Not Found</h1>
+  <p class="err-404__sub">This page doesn't exist or was moved. Try searching, or head back to a known location.</p>
+
+  <form class="err-404__search" action="/search/" method="get">
+    <input type="text" name="q" placeholder="Search notes, labs, projects…" autofocus />
+    <button type="submit">Search</button>
+  </form>
+
+  <div class="err-404__links">
+    <a class="err-404__link" href="/">Home</a>
+    <a class="err-404__link" href="/posts/">Notes</a>
+    <a class="err-404__link" href="/projects/">Projects</a>
+    <a class="err-404__link" href="/certs/">Certs</a>
+    <a class="err-404__link" href="/about/">About</a>
+  </div>
+</div>
     </main>
     
 <footer class="footer">
