@@ -15,6 +15,7 @@ paginate = 6
   ShowPostNavLinks    = true
   ShowBreadCrumbs     = true
   ShowCodeCopyButtons = true
+  ShowShareButtons    = true
   ShowToc             = true
   TocOpen             = false
   tocHighlight        = true
