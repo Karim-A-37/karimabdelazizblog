@@ -243,3 +243,66 @@
 #top-link {
     display: none !important;
 }
+
+/* ── Styled Terminal Code Blocks ────────────────────────── */
+.highlight {
+    background: #1e1e2e !important;
+    border-radius: 8px !important;
+    padding-top: 36px !important;
+    position: relative !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+    margin-bottom: 1.5rem !important;
+    overflow: hidden !important;
+}
+
+.highlight::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #ff5f56;
+    box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27c93f;
+    z-index: 2;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.highlight pre {
+    margin: 0 !important;
+    padding: 1.2rem !important;
+    background: transparent !important;
+}
+
+.highlight .copy-code {
+    top: 5px !important;
+    right: 8px !important;
+    background: var(--entry) !important;
+    color: var(--secondary) !important;
+    border-radius: 5px !important;
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    border: 1px solid var(--border) !important;
+    z-index: 10 !important;
+    font-weight: 600 !important;
+}
+
+.highlight .copy-code:hover {
+    background: #22c55e !important;
+    color: #fff !important;
+    border-color: #22c55e !important;
+}
