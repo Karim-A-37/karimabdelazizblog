@@ -3,12 +3,12 @@ title: "Passive Reconnaissance"
 date: 2026-05-01
 slug: passive-reconnaissance
 draft: false
-tags:
-  - ejpt
-  - recon
 series:
   - "eJPT"
 weight: 3
+tags:
+  - ejpt
+  - recon
 ShowToc: true
 ---
 

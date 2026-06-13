@@ -59,7 +59,7 @@
     {
       "@type": "ListItem",
       "position":  1 ,
-      "name": "Notes",
+      "name": "Posts",
       "item": "https://karimabdelazizblog.tech/posts/"
     }, 
     {
@@ -141,7 +141,7 @@
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
                 <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
-            <a href="https://karimabdelazizblog.tech/posts/">Notes</a></nav>
+            <a href="https://karimabdelazizblog.tech/posts/">Posts</a></nav>
   <h1>eJPT</h1>
   <div class="post-description">
     eJPT study notes and resources.
@@ -226,6 +226,19 @@ Concept 1: [Port Scanning] What it is: in port scanning we try to discover which
     </div>
     <footer class="entry-footer"><span title='2026-06-04 00:00:00 +0000 UTC'>June 4, 2026</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span></footer>
     <a class="entry-link" aria-label="post link to Port Scanning" href="https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/"></a>
+  </article>
+  <article class="post-entry"> 
+    <header class="entry-header">
+      <h2 class="entry-hint-parent">Scanning Optmization
+      </h2>
+    </header>
+    <div class="entry-content">
+      <p> Session Goals In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls
+Concepts Learned The Concepts i have learned in this session
+Concept 1: [Firewall Detection] What it is: Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it. so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following for using this option like the following as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn’t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not ...</p>
+    </div>
+    <footer class="entry-footer"><span title='2026-06-13 00:00:00 +0000 UTC'>June 13, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span></footer>
+    <a class="entry-link" aria-label="post link to Scanning Optmization" href="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/"></a>
   </article>
     </main>
     

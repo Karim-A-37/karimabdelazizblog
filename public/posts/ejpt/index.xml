@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/posts/ejpt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to information gathering</title>
@@ -122,6 +122,32 @@ Network mapping encapsulates active recon techniques to draw a blueprint of the 
 &lt;h3 id=&#34;concept-1-port-scanning&#34;&gt;Concept 1: [Port Scanning]&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
 in port scanning we try to discover which ports are open, closed or filtered TCP or UDP in the target system, and each one is going to give us information about what target are doing:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Scanning Optmization</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/</link>
+      <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/</guid>
+      <description>&lt;hr&gt;
+&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;concepts-learned&#34;&gt;Concepts Learned&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Concepts i have learned in this session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;concept-1-firewall-detection&#34;&gt;Concept 1: [Firewall Detection]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it.
+&lt;img alt=&#34;firewall-explanantion&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/firewall-explanantion.png&#34;&gt;
+so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following
+&lt;img alt=&#34;ack-firewall&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/ack-firewall.png&#34;&gt;
+for using this option like the following
+&lt;img alt=&#34;-sA-for-firewall&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/sa-for-firewall.png&#34;&gt;
+as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn&amp;rsquo;t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not
+&lt;img alt=&#34;firewall-detection-sA-wireshark-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/firewall-detection-sa-wireshark-2.png&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

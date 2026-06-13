@@ -3,12 +3,12 @@ title: "Active Reconnaissance"
 date: 2026-05-08
 slug: active-reconnaissance
 draft: false
-tags:
-  - ejpt
-  - recon
 series:
   - "eJPT"
 weight: 2
+tags:
+  - ejpt
+  - recon
 ShowToc: true
 ---
 

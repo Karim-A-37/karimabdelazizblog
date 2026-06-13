@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="dark">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Scanning Optmization | Karim&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+Session Goals
+
+In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls
+
+
+Concepts Learned
+
+The Concepts i have learned in this session
+
+Concept 1: [Firewall Detection]
+What it is:
+Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it.
+
+so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following
+
+for using this option like the following
+
+as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn&rsquo;t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not
+">
+<meta name="author" content="Karim Abdelaziz">
+<link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd542239371c89b9b26447e55ef7b258372d18cb9b5612dce0760afc2b7be272.css" integrity="sha256-zVQiOTccibmyZEflXveyWDctGMubVhLc4HYK/Ct74nI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://karimabdelazizblog.tech/apple-touch-icon.png">
+<link rel="mask-icon" href="https://karimabdelazizblog.tech/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<meta name="theme-color" content="#1a1a2e" />
+<meta property="og:url" content="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/">
+  <meta property="og:site_name" content="Karim&#39;s Blog">
+  <meta property="og:title" content="Scanning Optmization">
+  <meta property="og:description" content="Session Goals In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls
+Concepts Learned The Concepts i have learned in this session
+Concept 1: [Firewall Detection] What it is: Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it. so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following for using this option like the following as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn’t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-06-13T00:00:00+00:00">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
+  <meta name="twitter:title" content="Scanning Optmization">
+  <meta name="twitter:description" content="Session Goals In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls
+Concepts Learned The Concepts i have learned in this session
+Concept 1: [Firewall Detection] What it is: Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it. so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following for using this option like the following as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn’t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://karimabdelazizblog.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "eJPT",
+      "item": "https://karimabdelazizblog.tech/posts/ejpt/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Scanning Optmization",
+      "item": "https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Scanning Optmization",
+  "name": "Scanning Optmization",
+  "description": " Session Goals In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls\nConcepts Learned The Concepts i have learned in this session\nConcept 1: [Firewall Detection] What it is: Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it. so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following for using this option like the following as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn\u0026rsquo;t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not ",
+  "keywords": [
+    
+  ],
+  "articleBody": " Session Goals In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls\nConcepts Learned The Concepts i have learned in this session\nConcept 1: [Firewall Detection] What it is: Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it. so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following for using this option like the following as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn’t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not Concept 2: [Intrusion Detection System(IDS) Evasion] What it is: IDS is system that monitors network for any malicious activity, we are trying to use different techniques to evade this IDS if it is existing:\nfragmentation –\u003e is a technique which Nmap fragment packets into smaller portions of packets, fragmentation is breaking down a packet into smaller individual packets that reassembled as final one when it is arrived to destination , it also takes different options like: –ttl –\u003e to specify time to live for packets manually –data-length –\u003e append random data to packets we send –mtu –\u003e it is maximum transmitted unit, which we specify the size of packet transmitted, it is multiply of 8 like (8,16,24,32) using option (-f) as we can see : Before fragmentation After fragmentation One more thing: many modern firewalls, IDS/IPS systems, cloud providers, and Linux network stacks reassemble fragments or simply drop fragmented scans, so -f is much less effective today than it was years ago. For a lab or coursework environment it’s useful to learn, but in real networks it often provides little or no evasion benefit. Decoy –\u003e in Nmap is used to make it harder for a target or IDS/IPS to determine which IP address is actually performing the scan it is known as spoofing, as we can see in the following images how to use decoy IPs For your cybersecurity studies, decoys are useful for understanding IP spoofing concepts, IDS evasion techniques, and how security monitoring correlates scan traffic, but they are not a reliable way to hide your identity on modern networks. Concept 3: [Optimizing Nmap scan] What it is: we are increasing scan performance and manipulate it to get more efficient results like slow down scan or fast up scan by option (-T0:5) it is also called time template we use it to evade the IDS like when we slow down scan when we deal with IDS and when we deal with old network:\n-T0 –\u003e Paranoid –\u003e Extremely slow, designed to avoid IDS detection -T1 –\u003e Sneaky –\u003e Very slow, low network footprint -T2 –\u003e Polite –\u003e Reduces bandwidth usage -T3 –\u003e Normal –\u003e Default timing -T4 –\u003e Aggressive –\u003e Faster scans on reliable networks -T5 –\u003e Insane –\u003e Very fast, may miss results each time template has unique name that represent its usage, here are two examples one is using T1 and the other use s T4: T1 –\u003e as we can it is very slow T4 –\u003e as we can see it is very fast here are some options we use to customize time: –scan-delay (time(s/m/h))–\u003e to adjust delay between probes or packets are sent between each other or between one and another –max-scan-delay (time(s/m/h))–\u003e to adjust delay between probes or packets are sent between each other or between one and another by adding maximum delay that must not be exceeded but it is lower and not exceeded the specified time what i mean is it is may be less than the specified time but it must not exceed it –host-timeout (time(s/m/h))–\u003e give up on target after this time , we use it if we scan large number of IPs or large CIDR Concept 4: [Output Manipulating] What it is: we can save output of Nmap for next phases of penetration testing operation in different formats like :\n-oN –\u003e Normal Format like output in the terminal screen -oX –\u003e XML Format to use it inside Metasploit for exploitation -oS –\u003e script Kiddie Format , but it doesn’t used too much -oG –\u003e Grepable Format to use in commands like grep and other usage, but it doesn’t used too much -oA –\u003e for all three main formats (-oN + -oX + -oG) all at once -v –\u003e for amount of details info displays on terminal screen while scan is running, we increase (v) for more details like (-vv) –reason –\u003e to reason anything like why port appears on that state here is example of using XML format inside Metasploit: ⚙️ Commands Learned The commands i have learned during this session\nFirewall detection using -sA 1# -sA --\u003e scan ports to find if they are filtered or not 2nmap -Pn -sA -F 5.196.105.14 ![[posts/eJPT/Day-5/Scanning-optmization-images/firewall-detection-sA.png|567]] Decoy and Fragmentation 1# -D --\u003e for Decoy to add spoofing IPs 2#-f --data-length 200 --\u003e to fragmentation and appended randowm data lenght is 200 3nmap -Pn -sS -sV - -F -D 192.168.210.120 192.168.210.121 192.168.210.122 -f --data-length 200 5.196.105.14 Honest rating of today’s session: [ ] 🔴 Struggling | [ ] 🟡 Getting it | [x] 🟢 Solid\n📌 Tags #ejpt #scanning-optimization #week-1\n",
+  "wordCount" : "980",
+  "inLanguage": "en",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2026-06-13T00:00:00Z",
+  "dateModified": "2026-06-13T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Karim Abdelaziz"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Karim's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://karimabdelazizblog.tech/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://karimabdelazizblog.tech/" accesskey="h" title="Karim&#39;s Blog (Alt + H)">Karim&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://karimabdelazizblog.tech/posts/" title="Notes">
+                    <span>Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    <a href='https://karimabdelazizblog.tech/'>Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="https://karimabdelazizblog.tech/posts/">Posts</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="https://karimabdelazizblog.tech/posts/ejpt/">eJPT</a></nav>
+    <h1 class="post-title entry-hint-parent">
+      Scanning Optmization
+    </h1>
+    <div class="post-meta"><span title='2026-06-13 00:00:00 +0000 UTC'>June 13, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#session-goals" aria-label="Session Goals">Session Goals</a></li>
+            <li>
+                <a href="#concepts-learned" aria-label="Concepts Learned">Concepts Learned</a><ul>
+                    
+            <li>
+                <a href="#concept-1-firewall-detection" aria-label="Concept 1: [Firewall Detection]">Concept 1: [Firewall Detection]</a></li>
+            <li>
+                <a href="#concept-2-intrusion-detection-systemids-evasion" aria-label="Concept 2: [Intrusion Detection System(IDS) Evasion]">Concept 2: [Intrusion Detection System(IDS) Evasion]</a></li>
+            <li>
+                <a href="#concept-3-optimizing-nmap-scan" aria-label="Concept 3: [Optimizing Nmap scan]">Concept 3: [Optimizing Nmap scan]</a></li>
+            <li>
+                <a href="#concept-4-output-manipulating" aria-label="Concept 4: [Output Manipulating]">Concept 4: [Output Manipulating]</a></li></ul>
+            </li>
+            <li>
+                <a href="#-commands-learned" aria-label="⚙️ Commands Learned">⚙️ Commands Learned</a></li>
+            <li>
+                <a href="#-tags" aria-label="📌 Tags">📌 Tags</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><hr>
+<h2 id="session-goals">Session Goals<a hidden class="anchor" aria-hidden="true" href="#session-goals">#</a></h2>
+<blockquote>
+<p>In this session we will discuss how to optimize our scan and also how to use the different techniques to evade IDS and detect Firewalls</p>
+</blockquote>
+<hr>
+<h2 id="concepts-learned">Concepts Learned<a hidden class="anchor" aria-hidden="true" href="#concepts-learned">#</a></h2>
+<blockquote>
+<p>The Concepts i have learned in this session</p>
+</blockquote>
+<h3 id="concept-1-firewall-detection">Concept 1: [Firewall Detection]<a hidden class="anchor" aria-hidden="true" href="#concept-1-firewall-detection">#</a></h3>
+<p><strong>What it is:</strong>
+Firewalls are considered filters of any type of server if we need to filter ping requests(ICMP echo requests) we need to create rule and put it inside the firewall and based on that rule it will decide to pass the packet or drop(filter) it.
+<img alt="firewall-explanantion" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/firewall-explanantion.png">
+so we want to detect if there is a firewall on target or not, to do this we will use option (-sA) which is scanning uses ACK packet which sees if the ports are filtered or not based on the response, it work like following
+<img alt="ack-firewall" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/ack-firewall.png">
+for using this option like the following
+<img alt="-sA-for-firewall" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/sa-for-firewall.png">
+as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn&rsquo;t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not
+<img alt="firewall-detection-sA-wireshark-2" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/firewall-detection-sa-wireshark-2.png"></p>
+<hr>
+<h3 id="concept-2-intrusion-detection-systemids-evasion">Concept 2: [Intrusion Detection System(IDS) Evasion]<a hidden class="anchor" aria-hidden="true" href="#concept-2-intrusion-detection-systemids-evasion">#</a></h3>
+<p><strong>What it is:</strong>
+IDS is system that monitors network for any malicious activity, we are trying to use different techniques to evade this IDS if it is existing:</p>
+<ul>
+<li>fragmentation &ndash;&gt; is a technique which Nmap fragment packets into smaller portions of packets, fragmentation is breaking down a packet into smaller individual packets that reassembled as final one when it is arrived to destination , it also takes different options like:
+<ul>
+<li>&ndash;ttl  &ndash;&gt; to specify time to live for packets manually</li>
+<li>&ndash;data-length &ndash;&gt; append random data to packets we send</li>
+<li>&ndash;mtu &ndash;&gt; it is maximum transmitted unit, which we specify the size of packet transmitted, it is multiply of 8 like (8,16,24,32)
+using option (-f) as we can see :</li>
+<li>Before fragmentation
+<ul>
+<li><img alt="before-frag-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/before-frag-nmap.png"></li>
+<li><img alt="before-frag-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/before-frag-wireshark.png"></li>
+</ul>
+</li>
+<li>After fragmentation
+<ul>
+<li><img alt="after-frag-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/after-frag-nmap.png"></li>
+<li><img alt="after-frag-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/after-frag-wireshark.png">
+One more thing: many modern firewalls, IDS/IPS systems, cloud providers, and Linux network stacks reassemble fragments or simply drop fragmented scans, so <code>-f</code> is much less effective today than it was years ago. For a lab or coursework environment it&rsquo;s useful to learn, but in real networks it often provides little or no evasion benefit.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Decoy &ndash;&gt; in Nmap is used to make it harder for a target or IDS/IPS to determine which IP address is actually performing the scan it is known as spoofing, as we can see in the following images how to use decoy IPs
+<ul>
+<li><img alt="decoy-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/decoy-nmap.png"></li>
+<li><img alt="decoy-wireshark-1" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/decoy-wireshark-1.png"></li>
+<li><img alt="decoy-wireshark-2" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/decoy-wireshark-2.png">
+For your cybersecurity studies, decoys are useful for understanding <strong>IP spoofing concepts, IDS evasion techniques, and how security monitoring correlates scan traffic</strong>, but they are not a reliable way to hide your identity on modern networks.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="concept-3-optimizing-nmap-scan">Concept 3: [Optimizing Nmap scan]<a hidden class="anchor" aria-hidden="true" href="#concept-3-optimizing-nmap-scan">#</a></h3>
+<p><strong>What it is:</strong>
+we are increasing scan performance and manipulate it to get more efficient results like slow down scan or fast up scan by option (-T0:5) it is also called time template we use it to evade the IDS like when we slow down scan when we deal with IDS and when we deal with old network:</p>
+<ul>
+<li>-T0 &ndash;&gt; Paranoid &ndash;&gt; Extremely slow, designed to avoid IDS detection</li>
+<li>-T1 &ndash;&gt; Sneaky &ndash;&gt; Very slow, low network footprint</li>
+<li>-T2 &ndash;&gt; Polite &ndash;&gt; Reduces bandwidth usage</li>
+<li>-T3 &ndash;&gt; Normal &ndash;&gt; Default timing</li>
+<li>-T4 &ndash;&gt; Aggressive &ndash;&gt; Faster scans on reliable networks</li>
+<li>-T5 &ndash;&gt; Insane &ndash;&gt; Very fast, may miss results
+each time template has unique name that represent its usage, here are two examples one is using T1 and the other use s T4:</li>
+<li>T1 &ndash;&gt; as we can it  is very slow
+<ul>
+<li><img alt="t1-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/t1-nmap.png"></li>
+<li><img alt="t1-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/t1-wireshark.png"></li>
+</ul>
+</li>
+<li>T4 &ndash;&gt; as we can see it is very fast
+<ul>
+<li><img alt="t4-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/t4-nmap.png"></li>
+<li><img alt="t4-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/t4-wireshark.png">
+here are some options we use to customize time:</li>
+</ul>
+</li>
+<li>&ndash;scan-delay (time(s/m/h))&ndash;&gt; to adjust delay between probes or packets are sent between each other or between one and another
+<ul>
+<li><img alt="scan-delay-nmap" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/scan-delay-nmap.png"></li>
+<li><img alt="scan-delay-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/scan-delay-wireshark.png"></li>
+</ul>
+</li>
+<li>&ndash;max-scan-delay (time(s/m/h))&ndash;&gt; to adjust delay between probes or packets are sent between each other or between one and another  by adding maximum delay that must not be exceeded but it is lower and not exceeded the specified time what i mean is it is may be less than the specified time but it must not exceed it</li>
+<li>&ndash;host-timeout (time(s/m/h))&ndash;&gt; give up on target after this time , we use it if we scan large number of IPs or large CIDR
+<ul>
+<li><img alt="host-timeout" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/host-timeout.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="concept-4-output-manipulating">Concept 4: [Output Manipulating]<a hidden class="anchor" aria-hidden="true" href="#concept-4-output-manipulating">#</a></h3>
+<p><strong>What it is:</strong>
+we can save output of Nmap for next phases of penetration testing operation in different formats like :</p>
+<ul>
+<li>-oN &ndash;&gt; Normal Format like output in the terminal screen
+<ul>
+<li><img alt="normal-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/normal-output.png"></li>
+</ul>
+</li>
+<li>-oX &ndash;&gt; XML Format to use it inside Metasploit for exploitation
+<ul>
+<li><img alt="xml-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/xml-output.png"></li>
+</ul>
+</li>
+<li>-oS &ndash;&gt; script Kiddie Format , but it doesn&rsquo;t used too much
+<ul>
+<li><img alt="script-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/script-output.png"></li>
+</ul>
+</li>
+<li>-oG &ndash;&gt; Grepable Format to use in commands like grep and other usage, but it doesn&rsquo;t used too much
+<ul>
+<li><img alt="Grepable-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/grepable-output.png"></li>
+</ul>
+</li>
+<li>-oA &ndash;&gt; for all three main formats (-oN + -oX + -oG) all at once</li>
+<li>-v &ndash;&gt; for amount of details info displays on terminal screen while scan is running, we increase (v) for more details like (-vv)
+<ul>
+<li><img alt="detailed-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/detailed-output.png"></li>
+</ul>
+</li>
+<li>&ndash;reason &ndash;&gt; to reason anything like why port appears on that state
+<ul>
+<li><img alt="reason-output" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/reason-output.png">
+here is example of using XML format inside Metasploit:</li>
+</ul>
+</li>
+<li><img alt="metasploit-step-1" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/metasploit-step-1.png"></li>
+<li><img alt="metasploit-step-2" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/metasploit-step-2.png"></li>
+<li><img alt="metasploit-step-3" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/metasploit-step-3.png"></li>
+</ul>
+<hr>
+<h2 id="-commands-learned">⚙️ Commands Learned<a hidden class="anchor" aria-hidden="true" href="#-commands-learned">#</a></h2>
+<blockquote>
+<p>The commands i have learned during this session</p>
+</blockquote>
+<ol>
+<li>Firewall detection using -sA</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># -sA --&gt; scan ports to find if they are filtered or not</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>nmap -Pn -sA -F 5.196.105.14
+</span></span></code></pre></div><p>![[posts/eJPT/Day-5/Scanning-optmization-images/firewall-detection-sA.png|567]]
+<img alt="firewall-detection-sA-wireshark" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/firewall-detection-sa-wireshark.png"></p>
+<ol start="2">
+<li>Decoy and Fragmentation</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#75715e"># -D --&gt; for Decoy to add spoofing IPs</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#75715e">#-f --data-length 200 --&gt; to fragmentation and appended randowm data lenght is 200</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>nmap -Pn -sS -sV - -F -D 192.168.210.120 192.168.210.121 192.168.210.122 -f --data-length <span style="color:#ae81ff">200</span> 5.196.105.14
+</span></span></code></pre></div><p><img alt="decoy-nmap-1" loading="lazy" src="/images/ejpt/day-5/scanning-optmization/decoy-nmap-1.png"></p>
+<hr>
+<p><strong>Honest rating of today&rsquo;s session:</strong> <code>[ ] 🔴 Struggling</code> | <code>[ ] 🟡 Getting it</code> | <code>[x] 🟢 Solid</code></p>
+<hr>
+<h2 id="-tags">📌 Tags<a hidden class="anchor" aria-hidden="true" href="#-tags">#</a></h2>
+<p>#ejpt #scanning-optimization #week-1</p>
+
+
+  </div><div class="series-nav">
+    <div class="series-nav__header">
+      <span class="series-nav__label">Part of series</span>
+      <a class="series-nav__title" href="https://karimabdelazizblog.tech/series/ejpt/">eJPT</a>
+      <span class="series-nav__count">7 posts</span>
+    </div>
+    <ol class="series-nav__list"><li class="series-nav__item">
+        <span class="series-nav__num">1</span>
+        <a href="/posts/ejpt/day-0/introduction-to-information-gathering/">Introduction to information gathering</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">2</span>
+        <a href="/posts/ejpt/day-1/active-reconnaissance/">Active Reconnaissance</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">3</span>
+        <a href="/posts/ejpt/day-1/passive-reconnaissance/">Passive Reconnaissance</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">4</span>
+        <a href="/posts/ejpt/day-2/network-primer/">Network Primer</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">5</span>
+        <a href="/posts/ejpt/day-3/host-discovery/">Host Discovery</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">6</span>
+        <a href="/posts/ejpt/day-4/port-scanning/">Port Scanning</a>
+      </li><li class="series-nav__item series-nav__item--active">
+        <span class="series-nav__num">7</span>
+        <a href="/posts/ejpt/day-5/scanning-optmization/">Scanning Optmization</a>
+      </li></ol>
+    <div class="series-nav__nav"><a class="series-nav__btn series-nav__btn--prev" href="/posts/ejpt/day-4/port-scanning/">
+        <span>&larr;</span>
+        <span>Port Scanning</span>
+      </a></div>
+  </div><footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/">
+    <span class="title">« Prev</span>
+    <span>Port Scanning</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on x"
+            href="https://x.com/intent/tweet/?text=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f&amp;hashtags=">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f&amp;title=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog&amp;summary=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog&amp;source=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f&title=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on whatsapp"
+            href="https://api.whatsapp.com/send?text=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog%20-%20https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on telegram"
+            href="https://telegram.me/share/url?text=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Scanning Optmization | Karim&#39;s Security Blog on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Scanning%20Optmization%20%7c%20Karim%27s%20Security%20Blog&u=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-5%2fscanning-optmization%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://karimabdelazizblog.tech/">Karim&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#top-link {
+  display: flex !important;
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
+(function () {
+  var toc = document.getElementById('TableOfContents');
+  if (!toc) return;
+
+  var mainDetails = document.querySelector('.toc > details');
+  if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
+
+   
+  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
+    var parentLi = ul.parentElement;
+    if (!parentLi || parentLi.tagName !== 'LI') return;
+    var directLink = parentLi.querySelector(':scope > a');
+    if (!directLink) return;
+    var det = document.createElement('details');
+    var sum = document.createElement('summary');
+    sum.appendChild(directLink.cloneNode(true));
+    det.appendChild(sum);
+    det.appendChild(ul);
+    directLink.replaceWith(det);
+  });
+
+   
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
+  if (!headings.length) return;
+  var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  var cur = { link: null, heading: null };
+
+  function activate(heading) {
+    if (cur.link)    cur.link.classList.remove('toc-active');
+    if (cur.heading) cur.heading.classList.remove('heading-active');
+    cur.heading = heading || null;
+    cur.link = null;
+    if (!heading) return;
+    heading.classList.add('heading-active');
+    for (var i = 0; i < links.length; i++) {
+      var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
+      if (frag === heading.id) { cur.link = links[i]; break; }
+    }
+    if (cur.link) {
+      cur.link.classList.add('toc-active');
+      var parentDet = cur.link.closest('#TableOfContents details');
+      if (parentDet) parentDet.open = true;
+      var panel = document.querySelector('.toc');
+      if (panel && window.innerWidth >= 1280) {
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
+      }
+    }
+  }
+
+  var lastHeading;
+  function onScroll() {
+    var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
+    var found = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
+        found = headings[i];
+      }
+    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const images = Array.from(document.querySelectorAll('.post-content img'));
+  if (images.length > 0) {
+    mediumZoom(images, {
+      margin: 24,
+      background: 'rgba(15, 15, 19, 0.95)'
+    });
+  }
+});
+</script>
+<style>
+ 
+.post-content img { cursor: zoom-in; border-radius: 6px; }
+.medium-zoom-overlay { z-index: 1000; }
+.medium-zoom-image--opened { z-index: 1001; }
+</style>
+
+
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
