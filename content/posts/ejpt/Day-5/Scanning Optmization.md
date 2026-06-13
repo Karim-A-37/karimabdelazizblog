@@ -115,7 +115,7 @@ here is example of using XML format inside Metasploit:
 
 ---
 
-## ⚙️ Commands Learned
+## Commands Learned
 
 > The commands i have learned during this session
 
@@ -145,6 +145,6 @@ nmap -Pn -sS -sV - -F -D 192.168.210.120 192.168.210.121 192.168.210.122 -f --da
 
 ---
 
-## 📌 Tags
+## Tags
 
 #ejpt #scanning-optimization #week-1  
