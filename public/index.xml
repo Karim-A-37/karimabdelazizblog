@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://karimabdelazizblog.tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to information gathering</title>
@@ -169,6 +169,25 @@ for using this option like the following
 &lt;img alt=&#34;-sA-for-firewall&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/sa-for-firewall.png&#34;&gt;
 as we can see in the previous image we see it says 100 unfiltered from this we say that there is no firewall or it exist but doesn&amp;rsquo;t filter on the specific ports we scanned which are most 100 famous ports using option (-F), also as we can see if we capture the process using Wireshark as following image we can see that it uses packets with ACK flag is set to detect if it filter packets or not
 &lt;img alt=&#34;firewall-detection-sA-wireshark-2&#34; loading=&#34;lazy&#34; src=&#34;https://karimabdelazizblog.tech/images/ejpt/day-5/scanning-optmization/firewall-detection-sa-wireshark-2.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Enumeration</title>
+      <link>https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/</link>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/</guid>
+      <description>&lt;hr&gt;
+&lt;h2 id=&#34;session-goals&#34;&gt;Session Goals&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;concepts-learned&#34;&gt;Concepts Learned&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Concepts i have learned at this session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;concept-1-enumeration&#34;&gt;Concept 1: [Enumeration]&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;
+Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that  might be useful for other steps of the penetration testing process, there are three types of Enumeration:&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>

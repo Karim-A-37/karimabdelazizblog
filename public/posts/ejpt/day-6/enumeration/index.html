@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="dark">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Enumeration | Karim&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+Session Goals
+
+Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP
+
+
+Concepts Learned
+
+The Concepts i have learned at this session
+
+Concept 1: [Enumeration]
+What it is:
+Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that  might be useful for other steps of the penetration testing process, there are three types of Enumeration:">
+<meta name="author" content="Karim Abdelaziz">
+<link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd542239371c89b9b26447e55ef7b258372d18cb9b5612dce0760afc2b7be272.css" integrity="sha256-zVQiOTccibmyZEflXveyWDctGMubVhLc4HYK/Ct74nI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://karimabdelazizblog.tech/apple-touch-icon.png">
+<link rel="mask-icon" href="https://karimabdelazizblog.tech/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<meta name="theme-color" content="#1a1a2e" />
+<meta property="og:url" content="https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/">
+  <meta property="og:site_name" content="Karim&#39;s Blog">
+  <meta property="og:title" content="Enumeration">
+  <meta property="og:description" content="Session Goals Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP
+Concepts Learned The Concepts i have learned at this session
+Concept 1: [Enumeration] What it is: Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that might be useful for other steps of the penetration testing process, there are three types of Enumeration:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-08-27T00:00:00+00:00">
+      <meta property="og:image" content="https://karimabdelazizblog.tech/images/og-default.png">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-1/active-reconnaissance/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-1/passive-reconnaissance/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-2/network-primer/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-3/host-discovery/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/">
+      <meta property="og:see_also" content="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://karimabdelazizblog.tech/images/og-default.png">
+  <meta name="twitter:title" content="Enumeration">
+  <meta name="twitter:description" content="Session Goals Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP
+Concepts Learned The Concepts i have learned at this session
+Concept 1: [Enumeration] What it is: Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that might be useful for other steps of the penetration testing process, there are three types of Enumeration:">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://karimabdelazizblog.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "eJPT",
+      "item": "https://karimabdelazizblog.tech/posts/ejpt/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Enumeration",
+      "item": "https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Enumeration",
+  "name": "Enumeration",
+  "description": " Session Goals Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP\nConcepts Learned The Concepts i have learned at this session\nConcept 1: [Enumeration] What it is: Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that might be useful for other steps of the penetration testing process, there are three types of Enumeration:\n",
+  "keywords": [
+    
+  ],
+  "articleBody": " Session Goals Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP\nConcepts Learned The Concepts i have learned at this session\nConcept 1: [Enumeration] What it is: Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that might be useful for other steps of the penetration testing process, there are three types of Enumeration:\nNetwork Enumeration –» trying to find number of active hosts and IPs by using scanning protocols like ICMP and SNMP and their applications Service Enumeration –» trying to find or discover the running services and the open ports and their configurations and versions exist on the target system User Enumeration –» trying to get the usernames of accounts exist on the target system Concept 2: [FTP Enumeration] What it is: FTP(File Transfer Protocol on port 21 TCP) is a protocol used to transfer files from one host to another one, by Enumerating FTP we try to get more information that could be later exploit to get advantage on the FTP server so we can get credentials so we can login with them. To do this we will use auxiliary modules inside Metasploit:\nauxiliary modules –\u003e are helping modules which have its objective, each auxiliary can do something, each one has its job For doing the FTP Enumeration, those are the steps: scanning the target IP so we can identify if the FTP service work or not, the following appears that the port 21/TCP(which is the default port of FTP service) is open After that, we will try to get more information about the FTP service that is running like its version using specific auxiliary module (ftp_version), as we can see it gives us the version of the running ftp service (ProFTPD 1.3.5a) and its name also, all those inside something is called FTP Banner which appears to the clients who successfully connected to the FTP server![[posts/eJPT/Day-6/Enumeration-images/2-ftp-version-checker.png|672]] Now we are in login phase, we now will try to login into the ftp service without any credentials as anonymous credentials using auxiliary module (anonymous), as we can see this ftp server disallow the anonymous login, so this trial failed Now we will try to get credentials by brute forcing auxiliary module (ftp_login), but before that we need to set wordlists for usernames and passwords so it can be used in brute forcing, and as we we can see in the following images we have found two successful credentials, we will use them so we can access to the ft Final step we will login with the credentials we found, using ftp command which allow us to connect to the ftp of the targeted server, and after that we will input our credentials which username and password and as we can see we have successfully got into the server and we can even download or upload as we can see For conclusion, we try to get more information about the FTP service so it helps us in our information gathering phase that is the FTP Enumeration. Concept 3: [SMB Enumeration] What it is: SMB(Server Message Block) is client to server communication protocol, it is used for shared access to files, directories and printers over a network (LAN), it provides an authenticated Inter process communication mechanism, by enumerating the SMB we try to get more specific information about the one who is running on the target, Its application on Linux is called SAMBA which is an implementation of SMB on Linux and it allows the sharing between Windows and Linux, it uses port 445 over TCP but originally it uses port 139 over NetBIOS. For doing the SMB Enumeration, those are the steps\nThe first of all we will scan the target IP using Nmap by using stealth scanning, and scan all ports, as we can see in the image there are two open ports 139 and 445 which are the ports of the SMB or its implementation SAMBA here is another scan using UDP ports After that, we will try to gather specific information about the SMB version using module (smb_version), as we can see in the image it is (samba 4.3.11) running on Ubuntu distribution, this information we will need it in the exploitation the Next thing we need to find the existed users on the SMB server by using (smb_enumusers) module, we can see that there are users existing also we need to know each user share, or what each user share on the SMB server by using (smb_enumshares) modules, share in SMB is a directory or set of resources which are exposed on the SMB server and its owner identifies what to appear and who can access itwe can use anther tool to get more information like shares, the tool is called smbclient Now we will try to find credentials for login into the SAMBA server by using brute forcing auxiliary module (smb_login), by setting specific username from one we found before and then putting the password wordlist, as it appear we put the username as admin and we found its password, also in we tried on another user is called emma Now we will use the credentials we have found to get into the SMB server using a tool is called smbclient,as we can see we should put username and the target share from shares we found before then we will put the password, and as we can see we get into the server and even we have downloaded a filealso for the another user which is emma Also we should find if we can login as anonymous without needing username or password, on this specific target we can see shares without username or password so the anonymous login is allowedand now we will login, as we can see we got in without any credentialswe can use another tool to login into the SMB server either anonymous or with credentials, but in the image we have logged as anonymous we can get more information about the host OS and NetBIOS computer name using Nmap scripting engine scripts like (smb-os-discovery.nse) which try to get the OS and its version and other information like NetBIOS computer name which is (SAMBA-RECON) For conclusion we can see that we are trying to find information as we can about the SMB using different tools and different modules so this information will help us on next penetration testing phase. Concept 4: [WEB SERVER Enumeration] What it is: Web Server is software that serves websites data on the web by using HTTP to facilitate the communication between client and webserver:\nport 80/TCP –\u003e unencrypted communication –\u003e HTTP port 443/TCP –\u003e secured and encrypted communication(with SSL/TLS) –\u003e HTTP Web Server Enumeration is trial to gather more information about the webserver that runs on the target like: version of webserver which webserver is running HTTP headers brute forcing the directories to find hidden ones the steps of web server enumeration as following: the first thing we will try to find the version of the web server and its typeso as we can see it s is Apache web server running on Ubuntu Linux distribution and its version is (2.4.18), those information will help us in the exploitation phase to find vulnerabilities related to this type of webserver and this specific version we can also run another auxiliary module to get the http headers which will reveal more information about the webserver, it is another way to get the name and version of the webserverand as we can see there are 3 headers found and one of them is SERVER which reveals information about the webserver’s name and version, as i say it is another way After that we will use another auxiliary module to get the robots.txt content which has allowed and disallowed to be indexed by the search engine, which we can find from it more information about the webserver contentas we can see that the admin of the webserver disallowed 2 directories or endpoints from being indexed by the search engine, this means that they are existed but we can’t find them by normal searching, as we can see in the following imagethey are exist but we should discover them by ourselves since they will not appear by normal google searching Now we will try to find the interested directories that may exist by using wordlist that contains popular directories nameswe found a lot of directories that we can’t get by normal search, and also we find the two that was disallowed by the admin to be indexed by search engine, also we are trying to find files that exist inside those directories as following At this step we are trying to find credentials so we can access the login page which we found before /secure endpoint, by brute forcing auxiliary modulewe got credentials and we logged in with them and it have been succussed like following we can also use another module to get the interesting directories which search within wordlist about the popular directories names that could have interesting information Now we are brute forcing to get information about user directories which could reveal information about the users on Apache server, for simplification the Apache server gives or makes directory for each user with its same name of username, so we are trying to find those directories which is the same as the their users so we actually find the usernamesas we can see we have found all users existed on the Apache server. there is another auxiliary module trying to abuse the misconfiguration by sending data via specific HTTP header which is PUT (http_put) by trying to upload or delete content using PUT or DELETE requests which they are http headers, PUT is the default which is trying to upload file to abuse the misconfiguration, and we can switch to DELETE so we can send DELETE request to delete the content At the end as all other services by enumerating the Web Server we are trying to get more specified information about the specific webserver. Concept 5: [MYSQL Enumeration] What it is: MYSQL(Structured Query Language) is open source relational database Management system the stores records of different types of data, and it is used to store data for web applications, works on port 330/TCP but companies always change the default port to deceive attacker but the attacker simply can scan all ports to find which port MYSQL runs on, MYSQL is designed to store, manage and retrieve data efficiently, by enumerating MYSQL we are trying to find information about this system as we can like its version and if we can dump the data that is stored in it. For doing this we will do:\nFirst, we need to scan all ports to find which port does the MYSQL runs on, and as we can see it runs on its default port 330/TCP Second, we will get MYSQL version and as we can see in the following image the version of MYSQL server is (5.5.61) and as a beside information we got the OS which is (ubuntu) and its version also Third, we are trying to brute forcing to get the credentials to able to login to MYSQL server and expose the data inside it, as we can see in the image this auxiliary module puts the default username as root(which is quite the most common username as root username) then we put our wordlist for password, we can put verbose option either true or false which says reveal detailed information or not, and as we can see it has found root’s password which is (twinkle) Fourth, will try to connect to server with the leaked credentials to see how it will response, as it appears in the image it has connected successfully and it shows us more information about the server like the exactly OS, its architecture and data directoryand in the following image we can see it reveals the users that exists on MYSQL server and its hashed passwordswe can use separate auxiliary module to make hash dump so we can later crack them Fifth, we will use the revealed credentials to send quires so we can manipulate the data records in MYSQL server, the following image appear that we sent a SELECT query to reveal the version, since SELECT is working all other queries should work alsolike the following image appears we use different query to show what databases are existed, and we can do show what exist inside each database tablewe can do the same thing of the previous image but with different auxiliary module like the following image illustrates Sixth, we can brute force to find the existed files inside MYSQL server, to do this we will use auxiliary module and set file names wordlist, and as we can see it found more than file already so if someone is already interest we can use it Finally, we can brute force to find writeable directories(the directories that i could write on it), and as it appears we have already found two that are existed At conclusion, we can see as other enumeration MYSQL enumeration is like them we try to find information as we can to use them for the later stages of penetration testing. Concept 6: [SSH Enumeration] What it is: SSH(Secure Shell) is remote administration protocol that provides encrypted remote access over port 22/TCP by default, it is like the shell on the Linux but it is remotely so if we have access to SSH terminal we are now controlling the target, but we enter of the credentials access we got, but there is a solution which is privilege escalation which is technique to give us more permissions than the allowed ones, but we will do this later. For now the steps to get more information are:\nInitially, we need to know on which port does the SSH exist, as we say before it may not be the default port as the companies change it, but in our case it is the default one which is 22/TCP Secondly, we will try to get the SSH version and its OS that it is running on, as we can see we found the SSH version and the server encryption fingerprint as we said before it provides encrypted communication, and it gives also detailed information about all things Thirdly, we are trying brute forcing to find the proper credentials so we can create an authenticated communication channel, we will input usernames and passwords wordlists, and as it appears it actually found credentials, also as we can see it uses password for authentication that’s why we used this auxiliary module (ssh_login) but if the authentication by the Key pair (public and private keys) we will use this auxiliary module (ssh_login_pubkey), it also have connecting to SSH server by opening a session called session 1 with the credentials it found before Finally, we can normally interact with the opened session it opened before as we can see all commands works efficiently, we can list directory or either change directory and so on all commands that this user is able to do we can do it At conclusion, we can see as other enumeration SSH enumeration is like them we try to find information as we can to use them for the later stages of penetration testing Concept 7: [SMTP Enumeration] What it is: SMTP(Simple Mail Transfer Protocol) is communication protocol that is used to transfer emails works over port 25/TCP by default and if there is an SSL certificate it will run over port 465/TCP and 587/TCP, we are enumerating SMTP to gather information that we will use it for other attacks so it operates other attacks. The steps of doing SMTP Enumeration:\nFirst, we will try to find which port does SMTP works on and as we can see it works on 25 which says that there is no SSL certificate activated Second, we will try to grab SMTP Banner which reveals information like name and the domain used in emails Third, we are trying to enumerate the users or finding the existed users by using two internal commands(VRFY –\u003e confirms names of valid users and EXPN –\u003e reveals actual address fo users aliases and lists of emails)we can use another tool to find usernames which is called (smtp-user-enum) by giving it the targeted domain or IP and usernames wordlistwe will try connecting to server to see if two users exist and how it will respond to us for each one (admin (existed) - commander (not existed)) Fourth, we will use telnet and connect to SMTP server to check the available commands Finally, we now connected to the SMTP server and sending fake email to root userwe can use telnet also to send it At conclusion, we can see as other enumeration SMTP enumeration is like them we try to find information as we can to use them for the later stages of penetration testing and operates other attacks. Honest rating of today’s session: [ ] 🔴 Struggling | [ ] 🟡 Getting it | [x] 🟢 Solid\n📌 Tags #ejpt #Enumeration #week-1\n",
+  "wordCount" : "2878",
+  "inLanguage": "en",
+  "image": "https://karimabdelazizblog.tech/images/og-default.png","datePublished": "2026-08-27T00:00:00Z",
+  "dateModified": "2026-08-27T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Karim Abdelaziz"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://karimabdelazizblog.tech/posts/ejpt/day-6/enumeration/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Karim's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://karimabdelazizblog.tech/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://karimabdelazizblog.tech/" accesskey="h" title="Karim&#39;s Blog (Alt + H)">Karim&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://karimabdelazizblog.tech/posts/" title="Notes">
+                    <span>Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/certs/" title="Certs">
+                    <span>Certs</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://karimabdelazizblog.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    <a href='https://karimabdelazizblog.tech/'>Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="https://karimabdelazizblog.tech/posts/">Posts</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="https://karimabdelazizblog.tech/posts/ejpt/">eJPT</a></nav>
+    <h1 class="post-title entry-hint-parent">
+      Enumeration
+    </h1>
+    <div class="post-meta"><span title='2026-08-27 00:00:00 +0000 UTC'>August 27, 2026</span>&nbsp;·&nbsp;<span>14 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#session-goals" aria-label="Session Goals">Session Goals</a></li>
+            <li>
+                <a href="#concepts-learned" aria-label="Concepts Learned">Concepts Learned</a><ul>
+                    
+            <li>
+                <a href="#concept-1-enumeration" aria-label="Concept 1: [Enumeration]">Concept 1: [Enumeration]</a></li>
+            <li>
+                <a href="#concept-2-ftp-enumeration" aria-label="Concept 2: [FTP Enumeration]">Concept 2: [FTP Enumeration]</a></li>
+            <li>
+                <a href="#concept-3-smb-enumeration" aria-label="Concept 3: [SMB Enumeration]">Concept 3: [SMB Enumeration]</a></li>
+            <li>
+                <a href="#concept-4-web-server-enumeration" aria-label="Concept 4: [WEB SERVER Enumeration]">Concept 4: [WEB SERVER Enumeration]</a></li>
+            <li>
+                <a href="#concept-5-mysql-enumeration" aria-label="Concept 5: [MYSQL Enumeration]">Concept 5: [MYSQL Enumeration]</a></li>
+            <li>
+                <a href="#concept-6-ssh-enumeration" aria-label="Concept 6: [SSH Enumeration]">Concept 6: [SSH Enumeration]</a></li>
+            <li>
+                <a href="#concept-7-smtp-enumeration" aria-label="Concept 7: [SMTP Enumeration]">Concept 7: [SMTP Enumeration]</a></li></ul>
+            </li>
+            <li>
+                <a href="#-tags" aria-label="📌 Tags">📌 Tags</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><hr>
+<h2 id="session-goals">Session Goals<a hidden class="anchor" aria-hidden="true" href="#session-goals">#</a></h2>
+<blockquote>
+<p>Inside this session we will practicing Enumeration on different services like FTP, SMB, Web server, MYSQL, SSH and SMTP</p>
+</blockquote>
+<hr>
+<h2 id="concepts-learned">Concepts Learned<a hidden class="anchor" aria-hidden="true" href="#concepts-learned">#</a></h2>
+<blockquote>
+<p>The Concepts i have learned at this session</p>
+</blockquote>
+<h3 id="concept-1-enumeration">Concept 1: [Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-1-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+Enumeration is active process of gathering detailed information about specific target or service, it is the process of querying the target system by interacting with it to get more information that  might be useful for other steps of the penetration testing process, there are three types of Enumeration:</p>
+<ul>
+<li>Network Enumeration &ndash;&raquo; trying to find number of active hosts and IPs by using scanning protocols like ICMP and SNMP and their applications</li>
+<li>Service Enumeration &ndash;&raquo; trying to find or discover the running services and the open ports and their configurations and versions exist on the target system</li>
+<li>User Enumeration &ndash;&raquo; trying to get the usernames of accounts exist on the target system</li>
+</ul>
+<hr>
+<h3 id="concept-2-ftp-enumeration">Concept 2: [FTP Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-2-ftp-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+FTP(File Transfer Protocol on port 21 TCP) is a protocol used to transfer files from one host to another one, by Enumerating FTP we try to get more information that could be later exploit to get advantage on the FTP server so we can get credentials so we can login with them.
+To do this we will use auxiliary modules inside Metasploit:</p>
+<ul>
+<li>auxiliary modules &ndash;&gt; are helping modules which have its objective, each auxiliary can do something, each one has its job
+For doing the FTP Enumeration, those are the steps:</li>
+</ul>
+<ol>
+<li>scanning the target IP so we can identify if the FTP service work or not, the following appears that the port 21/TCP(which is the default port of FTP service) is open<img alt="1-portscan-for-ftp" loading="lazy" src="/images/ejpt/day-6/enumeration/1-portscan-for-ftp.png"></li>
+<li>After that, we will try to get more information about the FTP service that is running like its version using specific auxiliary module (ftp_version), as we can see it gives us the version of the running ftp service (ProFTPD 1.3.5a) and its name also, all those inside something is called FTP Banner which appears to the clients who successfully connected to the FTP server![[posts/eJPT/Day-6/Enumeration-images/2-ftp-version-checker.png|672]]</li>
+<li>Now we are in login phase, we now will try to login into the ftp service without any credentials as anonymous credentials using auxiliary module (anonymous), as we can see this ftp server disallow the anonymous login, so this trial failed<img alt="8-check-anonymous-access" loading="lazy" src="/images/ejpt/day-6/enumeration/8-check-anonymous-access.png"></li>
+<li>Now we will try to get credentials by brute forcing auxiliary module (ftp_login), but before that we need to set wordlists for usernames and passwords so it can be used in brute forcing, and as we we can see in the following images we have found two successful credentials, we will use them so we can access to the ft<img alt="3-ftp-login-bruteforce-wordlists" loading="lazy" src="/images/ejpt/day-6/enumeration/3-ftp-login-bruteforce-wordlists.png"><img alt="4-bruteforce-result-found-username-and-password" loading="lazy" src="/images/ejpt/day-6/enumeration/4-bruteforce-result-found-username-and-password.png"><img alt="5-another-username-and-password" loading="lazy" src="/images/ejpt/day-6/enumeration/5-another-username-and-password.png"></li>
+<li>Final step we will login with the credentials we found, using ftp command which allow us to connect to the ftp of the targeted server, and after that we will input our credentials which username and password and as we can see we have successfully got into the server and we can even download or upload as we can see<img alt="6-first-user-test-login" loading="lazy" src="/images/ejpt/day-6/enumeration/6-first-user-test-login.png"><img alt="7-second-user-test-login" loading="lazy" src="/images/ejpt/day-6/enumeration/7-second-user-test-login.png">
+For conclusion, we try to get more information about the FTP service so it helps us in our information gathering phase that is the FTP Enumeration.</li>
+</ol>
+<hr>
+<h3 id="concept-3-smb-enumeration">Concept 3: [SMB Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-3-smb-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+SMB(Server Message Block) is client to server communication protocol, it is used for shared access to files, directories and printers over a network (LAN), it provides an authenticated Inter process communication mechanism, by enumerating the SMB we try to get more specific information about the one who is running on the target, Its application on Linux is called SAMBA which is an implementation of SMB on Linux and it allows the sharing between Windows and Linux, it uses port 445 over TCP but originally it uses port 139 over NetBIOS.
+For doing the SMB Enumeration, those are the steps</p>
+<ol>
+<li>The first of all we will scan the target IP using Nmap by using stealth scanning, and scan all ports, as we can see in the image there are two open ports 139 and 445 which are the ports of the SMB or its implementation SAMBA <img alt="1-find-all-tcp-running-services-using-nmap" loading="lazy" src="/images/ejpt/day-6/enumeration/1-find-all-tcp-running-services-using-nmap.png">here is another scan using UDP ports<img alt="2-find-smb-port-that-run-on-udp" loading="lazy" src="/images/ejpt/day-6/enumeration/2-find-smb-port-that-run-on-udp.png"></li>
+<li>After that, we will try to gather specific information about the SMB version using module (smb_version), as we can see in the image it is (samba 4.3.11) running on Ubuntu distribution, this information we will need it in the exploitation <img alt="3-smb-version-samba-version" loading="lazy" src="/images/ejpt/day-6/enumeration/3-smb-version-samba-version.png"></li>
+<li>the Next thing we need to find the existed users on the SMB server by using (smb_enumusers) module, we can see that there are users existing <img alt="4-smb-users-finding" loading="lazy" src="/images/ejpt/day-6/enumeration/4-smb-users-finding.png"></li>
+<li>also we need to know each user share, or what each user share on the SMB server by using (smb_enumshares) modules, share in SMB is a directory or set of resources which are exposed on the SMB server and its owner identifies what to appear and who can access it<img alt="5-smb-shares-finding" loading="lazy" src="/images/ejpt/day-6/enumeration/5-smb-shares-finding.png">we can use anther tool to get more information like shares, the tool is called smbclient<img alt="8-using-smbclient-to-find-more-information" loading="lazy" src="/images/ejpt/day-6/enumeration/8-using-smbclient-to-find-more-information.png"></li>
+<li>Now we will try to find credentials for login into the SAMBA server by using brute forcing auxiliary module (smb_login), by setting specific username from one we found before and then putting the password wordlist, as it appear we put the username as admin and we found its password, also in we tried on another user is called emma<img alt="6-bruteforce-to-get-admin-user-password" loading="lazy" src="/images/ejpt/day-6/enumeration/6-bruteforce-to-get-admin-user-password.png"><img alt="7-bruteforce-to-get-emma-user-password 1" loading="lazy" src="/images/ejpt/day-6/enumeration/7-bruteforce-to-get-emma-user-password-1.png"></li>
+<li>Now we will use the credentials we have found to get into the SMB server using a tool is called smbclient,as we can see we should put username and the target share from shares we found before then we will put the password, and as we can see we get into the server and even we have downloaded a file<img alt="9-displaying-the-actual-smb-and-logging-with-share-public" loading="lazy" src="/images/ejpt/day-6/enumeration/9-displaying-the-actual-smb-and-logging-with-share-public.png">also for the another user which is emma<img alt="10-displaying-the-actual-smb-and-logging-with-another-user-emma-and-share-emma" loading="lazy" src="/images/ejpt/day-6/enumeration/10-displaying-the-actual-smb-and-logging-with-another-user-emma-and-share-emma.png"></li>
+<li>Also we should find if we can login as anonymous without needing username or password, on this specific target we can see shares without username or password so the anonymous login is allowed<img alt="14-anonymous-full-session-is-allowed-without-need-to-username-or-password" loading="lazy" src="/images/ejpt/day-6/enumeration/14-anonymous-full-session-is-allowed-without-need-to-username-or-password.png">and now we will login, as we can see we got in without any credentials<img alt="15-login-with-give-the-share-name-and-without-username-or-password" loading="lazy" src="/images/ejpt/day-6/enumeration/15-login-with-give-the-share-name-and-without-username-or-password.png">we can use another tool to login into the SMB server either anonymous or with credentials, but in the image we have logged as anonymous <img alt="16-login-into-rpcclient-without-any-username-or-password 1" loading="lazy" src="/images/ejpt/day-6/enumeration/16-login-into-rpcclient-without-any-username-or-password-1.png"></li>
+<li>we can get more information about the host OS and NetBIOS computer name using Nmap scripting engine scripts like (smb-os-discovery.nse) which try to get the OS and its version and other information like NetBIOS computer name which is (SAMBA-RECON)<img alt="12-smb-os-discovery-by-nmap-scripts" loading="lazy" src="/images/ejpt/day-6/enumeration/12-smb-os-discovery-by-nmap-scripts.png">
+For conclusion we can see that we are trying to find information as we can about the SMB using different tools and different modules so this information will help us on next penetration testing phase.</li>
+</ol>
+<hr>
+<h3 id="concept-4-web-server-enumeration">Concept 4: [WEB SERVER Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-4-web-server-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+Web Server is software that serves websites data on the web by using HTTP to facilitate the communication between client and webserver:</p>
+<ul>
+<li>port 80/TCP &ndash;&gt; unencrypted communication &ndash;&gt; HTTP</li>
+<li>port 443/TCP &ndash;&gt; secured and encrypted communication(with SSL/TLS) &ndash;&gt; HTTP
+Web Server Enumeration is trial to gather more information about the webserver that runs on the target like:</li>
+<li>version of webserver</li>
+<li>which webserver is running</li>
+<li>HTTP headers</li>
+<li>brute forcing the directories to find hidden ones
+the steps of web server enumeration as following:</li>
+</ul>
+<ol>
+<li>the first thing we will try to find the version of the web server and its type<img alt="1-find-webserver-version-using-http" loading="lazy" src="/images/ejpt/day-6/enumeration/1-find-webserver-version-using-http.png">so as we can see it s is Apache web server running on Ubuntu Linux distribution and its version is (2.4.18), those information will help us in the exploitation phase to find vulnerabilities related to this type of webserver and this specific version</li>
+<li>we can also run another auxiliary module to get the http headers which will reveal more information about the webserver, it is another way to get the name and version of the webserver<img alt="2-use-http-headers-to-get-more-information-about-webserver" loading="lazy" src="/images/ejpt/day-6/enumeration/2-use-http-headers-to-get-more-information-about-webserver.png">and as we can see there are 3 headers found and one of them is SERVER which reveals information about the webserver&rsquo;s name and version, as i say it is another way</li>
+<li>After that we will use another auxiliary module to get the robots.txt content which has allowed and  disallowed to be indexed by the search engine, which we can find from it more information about the webserver content<img alt="3-using-robots-to-get-disallowed-directories-that-the-search-engine-disallowed-to-index-them" loading="lazy" src="/images/ejpt/day-6/enumeration/3-using-robots-to-get-disallowed-directories-that-the-search-engine-disallowed-to-index-them.png">as we can see that the admin of the webserver disallowed 2 directories or endpoints from being indexed by the search engine, this means that they are existed but we can&rsquo;t find them by normal searching, as we can see in the following image<img alt="4-test-the-hidden-dirs-detected-in-robots-file" loading="lazy" src="/images/ejpt/day-6/enumeration/4-test-the-hidden-dirs-detected-in-robots-file.png">they are exist but we should discover them by ourselves since they will not appear by  normal google searching</li>
+<li>Now we will try to find the interested directories that may exist by using wordlist that contains popular directories names<img alt="5-find-hidden-directories" loading="lazy" src="/images/ejpt/day-6/enumeration/5-find-hidden-directories.png">we found a lot of directories that we can&rsquo;t get by normal search, and also we find the two that was disallowed by the admin to be indexed by search engine, also we are trying to find files that exist inside those directories as following<img alt="6-bruteforce-to-find-files-exsited-in-dirs" loading="lazy" src="/images/ejpt/day-6/enumeration/6-bruteforce-to-find-files-exsited-in-dirs.png"></li>
+<li>At this step we are trying to find credentials so we can access the login page which we found before /secure endpoint, by brute forcing auxiliary module<img alt="7-1-bruteforce-authentication-form-of-website" loading="lazy" src="/images/ejpt/day-6/enumeration/7-1-bruteforce-authentication-form-of-website.png"><img alt="7-2-find-username-and-password" loading="lazy" src="/images/ejpt/day-6/enumeration/7-2-find-username-and-password.png">we got credentials and we logged in with them and it have been succussed like following <img alt="7-3-login-with-credintial-that-we-bruteforced" loading="lazy" src="/images/ejpt/day-6/enumeration/7-3-login-with-credintial-that-we-bruteforced.png">we can also use another module to get the interesting directories which search within wordlist about the popular directories names that could have interesting information<img alt="9-bruteforce-intersteing-directories" loading="lazy" src="/images/ejpt/day-6/enumeration/9-bruteforce-intersteing-directories.png"></li>
+<li>Now we are brute forcing to get information about user directories which could reveal information about the users on Apache server, for simplification  the Apache server gives or makes directory for each user with its same name of username, so we are trying to find those directories which is the same as the their users so we actually find the usernames<img alt="8-1-find-user-directories-of-apache" loading="lazy" src="/images/ejpt/day-6/enumeration/8-1-find-user-directories-of-apache.png"><img alt="8-2-all-users-have-been-found" loading="lazy" src="/images/ejpt/day-6/enumeration/8-2-all-users-have-been-found.png">as we can see we have found all users existed on the Apache server.</li>
+<li>there is another auxiliary module trying to abuse the misconfiguration by sending data via specific HTTP header which is PUT (http_put) by trying to upload or delete content using PUT or DELETE requests which they are http headers, PUT is the default which is trying to upload file to abuse the misconfiguration, and we can switch to DELETE so we can send DELETE request to delete the content<img alt="10-for-abusing-misconfigurations" loading="lazy" src="/images/ejpt/day-6/enumeration/10-for-abusing-misconfigurations.png">
+At the end as all other services by enumerating the Web Server we are trying to get more specified information about the specific webserver.</li>
+</ol>
+<hr>
+<h3 id="concept-5-mysql-enumeration">Concept 5: [MYSQL Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-5-mysql-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+MYSQL(Structured Query Language) is open source relational database Management system the stores records of different types of data, and it is used to store data for web applications, works on port 330/TCP but companies always change the default port to deceive attacker but the attacker simply can scan all ports to find which port MYSQL runs on, MYSQL is designed to store, manage and retrieve data efficiently, by enumerating MYSQL we are trying to find information about this system as we can like its version and if we can dump the data that is stored in it.
+For doing this we will do:</p>
+<ol>
+<li>First, we need to scan all ports to find which port does the MYSQL runs on, and as we can see it runs on its default port 330/TCP<img alt="1-scan-all-tcp-ports-to-find-mysql-run-on-which-port" loading="lazy" src="/images/ejpt/day-6/enumeration/1-scan-all-tcp-ports-to-find-mysql-run-on-which-port.png"></li>
+<li>Second, we will get MYSQL version and as we can see in the following image the version of MYSQL server is (5.5.61) and as a beside information we got the OS which is (ubuntu) and its version also<img alt="2-run-aux-module-to-find-mysql-version" loading="lazy" src="/images/ejpt/day-6/enumeration/2-run-aux-module-to-find-mysql-version.png"></li>
+<li>Third, we are trying to brute forcing to get the credentials to able to login to MYSQL server and expose the data inside it, as we can see in the image this auxiliary module puts the default username as root(which is quite the most common username as root username) then we put our wordlist for password, we can put verbose option either true or false which says reveal detailed information or not, and as we can see it has found root&rsquo;s password which is (twinkle)<img alt="3-bruteforcing-to-find-password-of-root-user-to-have-full-access-to-the-entire-database" loading="lazy" src="/images/ejpt/day-6/enumeration/3-bruteforcing-to-find-password-of-root-user-to-have-full-access-to-the-entire-database.png"></li>
+<li>Fourth, will try to connect to server with the leaked credentials to see how it will response, as it appears in the image it has connected successfully and it shows us more information about the server like the exactly OS, its architecture and data directory<img alt="4-1-enumerate-using-the-leaked-credentials-of-root-user-to-get-more-info-like-mysql-version-and-os-distro" loading="lazy" src="/images/ejpt/day-6/enumeration/4-1-enumerate-using-the-leaked-credentials-of-root-user-to-get-more-info-like-mysql-version-and-os-distro.png">and in the following image we can see it reveals the users that exists on MYSQL server and its hashed passwords<img alt="4-2-different-existed-user-and-their-pass-hashes" loading="lazy" src="/images/ejpt/day-6/enumeration/4-2-different-existed-user-and-their-pass-hashes.png">we can use separate auxiliary module to make hash dump so we can later crack them<img alt="8-dumping-hasches-of-users-to-crack-them-later" loading="lazy" src="/images/ejpt/day-6/enumeration/8-dumping-hasches-of-users-to-crack-them-later.png"></li>
+<li>Fifth, we will use the revealed credentials to send quires so we can manipulate the data records in MYSQL server, the following image appear that we sent a SELECT query to reveal the version, since SELECT is working all other queries should work also<img alt="5-1-executing-different-sql-quiries-to-get-more-information" loading="lazy" src="/images/ejpt/day-6/enumeration/5-1-executing-different-sql-quiries-to-get-more-information.png">like the following image appears we use different query to show what databases are existed, and we can do show what exist inside each database table<img alt="5-2-use-more-types-of-quiries" loading="lazy" src="/images/ejpt/day-6/enumeration/5-2-use-more-types-of-quiries.png">we can do the same thing of the previous image but with different auxiliary module like the following image illustrates<img alt="6-extract-databases-and-its-tables-using-aux-schema" loading="lazy" src="/images/ejpt/day-6/enumeration/6-extract-databases-and-its-tables-using-aux-schema.png"></li>
+<li>Sixth, we can brute force to find the existed files inside MYSQL server, to do this we will use auxiliary module and set file names wordlist, and as we can see it found more than file already so if someone is already interest we can use it<img alt="7-find-existed-files-and-directories" loading="lazy" src="/images/ejpt/day-6/enumeration/7-find-existed-files-and-directories.png"></li>
+<li>Finally, we can brute force to find writeable directories(the directories that i could write on it), and as it appears we have already found two that are existed<img alt="9-finding-dirs-that-i-could-write-on-them" loading="lazy" src="/images/ejpt/day-6/enumeration/9-finding-dirs-that-i-could-write-on-them.png">
+At conclusion, we can see as other enumeration MYSQL enumeration is like them we try to find information as we can to use them for the later stages of penetration testing.</li>
+</ol>
+<hr>
+<h3 id="concept-6-ssh-enumeration">Concept 6: [SSH Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-6-ssh-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+SSH(Secure Shell) is remote administration protocol that provides encrypted remote access over port 22/TCP by default, it is like the shell on the Linux but it is remotely so if we have access to SSH terminal we are now controlling the target, but we enter of the credentials access we got, but there is a solution which is privilege escalation which is technique to give us more permissions than the allowed ones, but we will do this later.
+For now the steps to get more information are:</p>
+<ol>
+<li>Initially, we need to know on which port does the SSH exist, as we say before it may not be the default port as the companies change it, but in our case it is the default one which is 22/TCP<img alt="1-find-on-which-port-ssh-service-is-running" loading="lazy" src="/images/ejpt/day-6/enumeration/1-find-on-which-port-ssh-service-is-running.png"></li>
+<li>Secondly, we will try to get the SSH version and its OS that it is running on, as we can see we found the SSH version and the server encryption fingerprint as we said before it provides encrypted communication, and it gives also detailed information about all things <img alt="2-1-find-ssh-version" loading="lazy" src="/images/ejpt/day-6/enumeration/2-1-find-ssh-version.png"><img alt="2-2-morse-info-from-version-aux-module-like-os-distro-and-its-version" loading="lazy" src="/images/ejpt/day-6/enumeration/2-2-morse-info-from-version-aux-module-like-os-distro-and-its-version.png"></li>
+<li>Thirdly, we are trying brute forcing to find the proper credentials so we can create an authenticated communication channel, we will input usernames and passwords wordlists, and as it appears it actually found credentials, also as we can see it uses password for authentication that&rsquo;s why we used this auxiliary module (ssh_login) but if the authentication by the Key pair (public and private keys) we will use this auxiliary module (ssh_login_pubkey), it also have connecting to SSH server by opening a session called session 1 with the credentials it found before <img alt="3-1-bruteforcing-to-get-username-and-password" loading="lazy" src="/images/ejpt/day-6/enumeration/3-1-bruteforcing-to-get-username-and-password.png"></li>
+<li>Finally, we can normally interact with the opened session it opened before as we can see all commands works efficiently, we can list directory or either change directory and so on all commands that this user is able to do we can do it <img alt="3-2-connecting-to-ssh" loading="lazy" src="/images/ejpt/day-6/enumeration/3-2-connecting-to-ssh.png"><img alt="3-3-chnaging-directory-and-finding-flag" loading="lazy" src="/images/ejpt/day-6/enumeration/3-3-chnaging-directory-and-finding-flag.png">
+At conclusion, we can see as other enumeration SSH enumeration is like them we try to find information as we can to use them for the later stages of penetration testing</li>
+</ol>
+<hr>
+<h3 id="concept-7-smtp-enumeration">Concept 7: [SMTP Enumeration]<a hidden class="anchor" aria-hidden="true" href="#concept-7-smtp-enumeration">#</a></h3>
+<p><strong>What it is:</strong>
+SMTP(Simple Mail Transfer Protocol) is communication protocol that is used to transfer emails works over port 25/TCP by default and if there is an SSL certificate it will run over port 465/TCP and 587/TCP, we are enumerating SMTP to gather information that we will use it for other attacks so it operates other attacks.
+The steps of doing SMTP Enumeration:</p>
+<ol>
+<li>First, we will try to find which port does SMTP works on and as we can see it works on 25 which says that there is no SSL certificate activated<img alt="1-search-for-smtp-port-number" loading="lazy" src="/images/ejpt/day-6/enumeration/1-search-for-smtp-port-number.png"></li>
+<li>Second, we will try to grab SMTP Banner which reveals information like name and the domain used in emails<img alt="2-find-smtp-name-and-banner-and-domain-used-in-emails" loading="lazy" src="/images/ejpt/day-6/enumeration/2-find-smtp-name-and-banner-and-domain-used-in-emails.png"></li>
+<li>Third, we are trying to enumerate the users or finding the existed users by using two internal commands(VRFY &ndash;&gt; confirms names of valid users and EXPN &ndash;&gt; reveals actual address fo users aliases and lists of emails)<img alt="3-enumeration-user-names-from-unix-list" loading="lazy" src="/images/ejpt/day-6/enumeration/3-enumeration-user-names-from-unix-list.png">we can use another tool to find usernames which is called (smtp-user-enum) by giving it the targeted domain or IP and usernames wordlist<img alt="4-2-using-another-wordlist-to-enum-users-another-way" loading="lazy" src="/images/ejpt/day-6/enumeration/4-2-using-another-wordlist-to-enum-users-another-way.png">we will try connecting to server to see if two users exist and how it will respond to us for each one (admin (existed) - commander (not existed))<img alt="5-connecting-to-smtp-to-check-if-user-admin-and-commander-exsit-or-not" loading="lazy" src="/images/ejpt/day-6/enumeration/5-connecting-to-smtp-to-check-if-user-admin-and-commander-exsit-or-not.png"></li>
+<li>Fourth, we will use telnet and connect to SMTP server to check the available commands<img alt="6-using-telnet-to-connect-to-smtp-and-check-available-commands" loading="lazy" src="/images/ejpt/day-6/enumeration/6-using-telnet-to-connect-to-smtp-and-check-available-commands.png"></li>
+<li>Finally, we now connected to the SMTP server and sending fake email to root user<img alt="7-2-send-fake-email-to-root-user-by-connecting-to-smtp-by-sendemail-command" loading="lazy" src="/images/ejpt/day-6/enumeration/7-2-send-fake-email-to-root-user-by-connecting-to-smtp-by-sendemail-command.png">we can use telnet also to send it <img alt="7-send-fake-email-to-root-user-by-connecting-to-smtp-using-telnet" loading="lazy" src="/images/ejpt/day-6/enumeration/7-send-fake-email-to-root-user-by-connecting-to-smtp-using-telnet.png">
+At conclusion, we can see as other enumeration SMTP enumeration is like them we try to find information as we can to use them for the later stages of penetration testing and operates other attacks.</li>
+</ol>
+<hr>
+<p><strong>Honest rating of today&rsquo;s session:</strong> <code>[ ] 🔴 Struggling</code> | <code>[ ] 🟡 Getting it</code> | <code>[x] 🟢 Solid</code></p>
+<hr>
+<h2 id="-tags">📌 Tags<a hidden class="anchor" aria-hidden="true" href="#-tags">#</a></h2>
+<p>#ejpt #Enumeration #week-1</p>
+
+
+  </div><div class="series-nav">
+    <div class="series-nav__header">
+      <span class="series-nav__label">Part of series</span>
+      <a class="series-nav__title" href="https://karimabdelazizblog.tech/series/ejpt/">eJPT</a>
+      <span class="series-nav__count">8 posts</span>
+    </div>
+    <ol class="series-nav__list"><li class="series-nav__item">
+        <span class="series-nav__num">1</span>
+        <a href="/posts/ejpt/day-0/introduction-to-information-gathering/">Introduction to information gathering</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">2</span>
+        <a href="/posts/ejpt/day-1/active-reconnaissance/">Active Reconnaissance</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">3</span>
+        <a href="/posts/ejpt/day-1/passive-reconnaissance/">Passive Reconnaissance</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">4</span>
+        <a href="/posts/ejpt/day-2/network-primer/">Network Primer</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">5</span>
+        <a href="/posts/ejpt/day-3/host-discovery/">Host Discovery</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">6</span>
+        <a href="/posts/ejpt/day-4/port-scanning/">Port Scanning</a>
+      </li><li class="series-nav__item">
+        <span class="series-nav__num">7</span>
+        <a href="/posts/ejpt/day-5/scanning-optmization/">Scanning Optmization</a>
+      </li><li class="series-nav__item series-nav__item--active">
+        <span class="series-nav__num">8</span>
+        <a href="/posts/ejpt/day-6/enumeration/">Enumeration</a>
+      </li></ol>
+    <div class="series-nav__nav"><a class="series-nav__btn series-nav__btn--prev" href="/posts/ejpt/day-5/scanning-optmization/">
+        <span>&larr;</span>
+        <span>Scanning Optmization</span>
+      </a></div>
+  </div><footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://karimabdelazizblog.tech/posts/ejpt/day-5/scanning-optmization/">
+    <span class="title">« Prev</span>
+    <span>Scanning Optmization</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on x"
+            href="https://x.com/intent/tweet/?text=Enumeration%20%7c%20Karim%27s%20Security%20Blog&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f&amp;hashtags=">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f&amp;title=Enumeration%20%7c%20Karim%27s%20Security%20Blog&amp;summary=Enumeration%20%7c%20Karim%27s%20Security%20Blog&amp;source=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f&title=Enumeration%20%7c%20Karim%27s%20Security%20Blog">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on whatsapp"
+            href="https://api.whatsapp.com/send?text=Enumeration%20%7c%20Karim%27s%20Security%20Blog%20-%20https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on telegram"
+            href="https://telegram.me/share/url?text=Enumeration%20%7c%20Karim%27s%20Security%20Blog&amp;url=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Enumeration | Karim&#39;s Security Blog on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Enumeration%20%7c%20Karim%27s%20Security%20Blog&u=https%3a%2f%2fkarimabdelazizblog.tech%2fposts%2fejpt%2fday-6%2fenumeration%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://karimabdelazizblog.tech/">Karim&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: #22c55e;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+}
+ 
+#top-link {
+  display: flex !important;
+}
+ 
+#toc-mobile-btn {
+  display: none;
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--entry, #1e1e2e);
+  border: 1px solid var(--border, #333);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary, #aaa);
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#toc-mobile-btn:hover { color: #22c55e; border-color: #22c55e; }
+@media (max-width: 1279px) {
+  #toc-mobile-btn { display: flex; }
+}
+</style>
+
+<div id="reading-progress"></div>
+
+<button id="toc-mobile-btn" onclick="
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    toc.scrollIntoView({behavior:'smooth', block:'start'});
+    var det = toc.querySelector('details');
+    if (det) det.open = true;
+  }
+">☰ Contents</button>
+
+
+<script>
+
+(function(){
+  var bar = document.getElementById('reading-progress');
+  function upd(){
+    var h = document.documentElement;
+    var pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive: true});
+  upd();
+})();
+</script>
+<script>
+(function () {
+  var toc = document.getElementById('TableOfContents');
+  if (!toc) return;
+
+  var mainDetails = document.querySelector('.toc > details');
+  if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
+
+   
+  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
+    var parentLi = ul.parentElement;
+    if (!parentLi || parentLi.tagName !== 'LI') return;
+    var directLink = parentLi.querySelector(':scope > a');
+    if (!directLink) return;
+    var det = document.createElement('details');
+    var sum = document.createElement('summary');
+    sum.appendChild(directLink.cloneNode(true));
+    det.appendChild(sum);
+    det.appendChild(ul);
+    directLink.replaceWith(det);
+  });
+
+   
+  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
+  if (!headings.length) return;
+  var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  var cur = { link: null, heading: null };
+
+  function activate(heading) {
+    if (cur.link)    cur.link.classList.remove('toc-active');
+    if (cur.heading) cur.heading.classList.remove('heading-active');
+    cur.heading = heading || null;
+    cur.link = null;
+    if (!heading) return;
+    heading.classList.add('heading-active');
+    for (var i = 0; i < links.length; i++) {
+      var frag = decodeURIComponent((links[i].getAttribute('href') || '').replace(/^#/, ''));
+      if (frag === heading.id) { cur.link = links[i]; break; }
+    }
+    if (cur.link) {
+      cur.link.classList.add('toc-active');
+      var parentDet = cur.link.closest('#TableOfContents details');
+      if (parentDet) parentDet.open = true;
+      var panel = document.querySelector('.toc');
+      if (panel && window.innerWidth >= 1280) {
+        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
+      }
+    }
+  }
+
+  var lastHeading;
+  function onScroll() {
+    var threshold = window.scrollY + Math.min(140, window.innerHeight * 0.3);
+    var found = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top + window.scrollY <= threshold) {
+        found = headings[i];
+      }
+    }
+    if (found !== lastHeading) { lastHeading = found; activate(found); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const images = Array.from(document.querySelectorAll('.post-content img'));
+  if (images.length > 0) {
+    mediumZoom(images, {
+      margin: 24,
+      background: 'rgba(15, 15, 19, 0.95)'
+    });
+  }
+});
+</script>
+<style>
+ 
+.post-content img { cursor: zoom-in; border-radius: 6px; }
+.medium-zoom-overlay { z-index: 1000; }
+.medium-zoom-image--opened { z-index: 1001; }
+</style>
+
+
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
