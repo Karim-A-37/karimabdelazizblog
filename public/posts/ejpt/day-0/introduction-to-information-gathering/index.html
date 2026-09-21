@@ -20,7 +20,7 @@ Target Scoping (In-Scope - Out-Scope)
 Target scoping is the process of defining what systems, apps and networks are allowed to test or not to test, it is the rules of engaging (what am i allowed to collect information about?), during reconnaissance the target is defined via one of those ways:">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-0/introduction-to-information-gathering/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d64f0204b03291862cffdc77549d11118cf9b1ae200fc56f3f2141141f2e8346.css" integrity="sha256-1k8CBLAykYYs/9x3VJ0REYz5sa4gD8VvPyFBFB8ug0Y=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5e4e981f8d037087c77ce8dd5a4f067c9d82274f8f4db502e4009f705671b4c3.css" integrity="sha256-Xk6YH40DcIfHfOjdWk8GfJ2CJ0&#43;PTbUC5ACfcFZxtMM=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -220,7 +220,8 @@ Types of Reconnaissance Passive information gathering → collect information th
     <div class="post-meta"><span title='2026-05-01 00:00:00 +0000 UTC'>May 1, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Karim Abdelaziz</span>
 
 </div>
-  </header> <details class="toc" >
+  </header> 
+  <div class="toc-side-wrap"><details class="toc" >
     <summary accesskey="c" title="(Alt + C)">
         <span class="title">Table of Contents</span>
     </summary>
@@ -273,291 +274,161 @@ Types of Reconnaissance Passive information gathering → collect information th
         </ul>
     </div>
 </details>
-<div class="obsidian-local-graph-wrap" id="obsidian-local-graph-wrap">
-  <div class="obsidian-local-card">
-    <div class="obsidian-local-header">
-      <div class="obsidian-local-title">
-        <span class="obsidian-local-dot"></span>
-        <span>Local Graph</span>
-        <span class="obsidian-local-meta" id="obsidian-local-meta"></span>
-      </div>
-      <div class="obsidian-local-actions">
-        <a href="/graph/" class="obsidian-local-link" title="Open Full Global Graph">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <polyline points="9 21 3 21 3 15"></polyline>
-            <line x1="21" y1="3" x2="14" y2="10"></line>
-            <line x1="3" y1="21" x2="10" y2="14"></line>
-          </svg>
-          <span>Full Graph</span>
-        </a>
-        <button id="obsidian-local-toggle" class="obsidian-local-btn" title="Toggle graph">▾</button>
-      </div>
+<div class="toc-graph-widget" id="toc-graph-widget">
+  <div class="toc-graph-header">
+    <div class="toc-graph-title">
+      <span class="toc-graph-dot"></span>
+      <span>TOC Graph</span>
+      <span class="toc-graph-count" id="toc-graph-count"></span>
     </div>
-
-    <div class="obsidian-local-body" id="obsidian-local-body">
-      
-      <div class="obsidian-square-viewport" id="obsidian-square-viewport">
-        <canvas id="obsidian-local-canvas"></canvas>
-        <div id="obsidian-local-tooltip" class="obsidian-local-tooltip" style="display:none;"></div>
-      </div>
-      <div class="obsidian-local-footer">
-        <span>Connected notes in vault · Click any node to open</span>
-      </div>
+    <div class="toc-graph-actions">
+      <a href="/graph/" class="toc-graph-full-link" title="Open Global Knowledge Graph">⤢ Full</a>
+      <button id="toc-graph-toggle" class="toc-graph-toggle-btn" title="Toggle Graph">▾</button>
     </div>
   </div>
-</div><script id="obsidian-local-data" type="application/json">
-{
-  "current": {
-    "id": "/posts/ejpt/day-0/introduction-to-information-gathering/",
-    "title": "Introduction to information gathering",
-    "url": "/posts/ejpt/day-0/introduction-to-information-gathering/",
-    "category": "eJPT",
-    "tags": []
-  },
-  "vault": [{
-          "id": "/projects/wazuh/wazuh-lab-1-ids-setup/",
-          "title": "Lab 1 - Wazuh + Suricata IDS Setup",
-          "url": "/projects/wazuh/wazuh-lab-1-ids-setup/",
-          "category": "wazuh",
-          "series": ["wazuh"],
-          "tags": ["wazuh","suricata","ids","siem","network-security"],
-          "weight":  1 
-        },{
-          "id": "/posts/ejpt/day-1/active-reconnaissance/",
-          "title": "Active Reconnaissance",
-          "url": "/posts/ejpt/day-1/active-reconnaissance/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": ["ejpt","recon"],
-          "weight":  2 
-        },{
-          "id": "/projects/wazuh/wazuh-lab-2-malware-detection/",
-          "title": "Lab 2 - Malware Detection with Wazuh",
-          "url": "/projects/wazuh/wazuh-lab-2-malware-detection/",
-          "category": "wazuh",
-          "series": ["wazuh"],
-          "tags": ["wazuh","malware","fim","virustotal","sysmon"],
-          "weight":  2 
-        },{
-          "id": "/projects/wazuh/wazuh-lab-3-setchain/",
-          "title": "Lab 3 - SetChain: AI + Blockchain Threat Detection",
-          "url": "/projects/wazuh/wazuh-lab-3-setchain/",
-          "category": "wazuh",
-          "series": ["wazuh"],
-          "tags": ["wazuh","ai","blockchain","hyperledger","n8n","ipfs","graduation-project"],
-          "weight":  3 
-        },{
-          "id": "/posts/ejpt/day-1/passive-reconnaissance/",
-          "title": "Passive Reconnaissance",
-          "url": "/posts/ejpt/day-1/passive-reconnaissance/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": ["ejpt","recon"],
-          "weight":  3 
-        },{
-          "id": "/posts/ejpt/day-2/network-primer/",
-          "title": "Network Primer",
-          "url": "/posts/ejpt/day-2/network-primer/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": [],
-          "weight":  4 
-        },{
-          "id": "/posts/ejpt/day-3/host-discovery/",
-          "title": "Host Discovery",
-          "url": "/posts/ejpt/day-3/host-discovery/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": [],
-          "weight":  5 
-        },{
-          "id": "/posts/ejpt/day-4/port-scanning/",
-          "title": "Port Scanning",
-          "url": "/posts/ejpt/day-4/port-scanning/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": [],
-          "weight":  6 
-        },{
-          "id": "/posts/ejpt/day-5/scanning-optmization/",
-          "title": "Scanning Optmization",
-          "url": "/posts/ejpt/day-5/scanning-optmization/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": [],
-          "weight":  7 
-        },{
-          "id": "/posts/ejpt/day-6/enumeration/",
-          "title": "Enumeration",
-          "url": "/posts/ejpt/day-6/enumeration/",
-          "category": "eJPT",
-          "series": ["eJPT"],
-          "tags": [],
-          "weight":  8 
-        },{
-          "id": "/about/",
-          "title": "About Me",
-          "url": "/about/",
-          "category": "eJPT",
-          "series": [],
-          "tags": [],
-          "weight":  999 
-        },{
-          "id": "/archives/",
-          "title": "Archive",
-          "url": "/archives/",
-          "category": "eJPT",
-          "series": [],
-          "tags": [],
-          "weight":  999 
-        },{
-          "id": "/certs/",
-          "title": "Certifications",
-          "url": "/certs/",
-          "category": "eJPT",
-          "series": [],
-          "tags": [],
-          "weight":  999 
-        }]
-}
-</script>
+
+  <div class="toc-graph-body" id="toc-graph-body">
+    
+    <div class="toc-graph-square-box" id="toc-graph-square-box">
+      <canvas id="toc-graph-canvas"></canvas>
+      <div id="toc-graph-tooltip" class="toc-graph-tooltip" style="display:none;"></div>
+    </div>
+    <div class="toc-graph-hint">
+      <span>■ Click header square to jump to section</span>
+    </div>
+  </div>
+</div>
 
 <style>
  
-.obsidian-local-graph-wrap {
-  margin: 1.5rem 0 2rem;
-  width: 100%;
-}
-
-.obsidian-local-card {
+.toc-graph-widget {
   background: var(--entry, #16161d);
   border: 1px solid var(--border, #2a2a38);
   border-radius: 12px;
-  padding: 0.85rem 1rem;
-  max-width: 440px;
-  margin: 0 auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 0.75rem 0.85rem;
+  width: 100%;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
 }
 
-.obsidian-local-header {
+.toc-graph-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
 }
 
-.obsidian-local-title {
+.toc-graph-title {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.82rem;
+  gap: 0.4rem;
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--primary, #e8e8f0);
 }
 
-.obsidian-local-dot {
-  width: 7px;
-  height: 7px;
+.toc-graph-dot {
+  width: 6px;
+  height: 6px;
   background: #22c55e;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.7);
 }
 
-.obsidian-local-meta {
-  font-size: 0.68rem;
+.toc-graph-count {
+  font-size: 0.65rem;
   color: #71717a;
   font-family: monospace;
 }
 
-.obsidian-local-actions {
+.toc-graph-actions {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
-.obsidian-local-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
+.toc-graph-full-link {
+  font-size: 0.65rem;
   font-weight: 600;
   color: #22c55e;
   text-decoration: none;
   background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  border-radius: 5px;
-  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
   transition: all 0.15s;
 }
-.obsidian-local-link:hover {
-  background: rgba(34, 197, 94, 0.18);
+.toc-graph-full-link:hover {
+  background: rgba(34, 197, 94, 0.2);
 }
 
-.obsidian-local-btn {
+.toc-graph-toggle-btn {
   background: transparent;
   border: 1px solid var(--border, #2a2a38);
-  border-radius: 5px;
+  border-radius: 4px;
   color: var(--secondary, #888);
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   transition: all 0.15s;
 }
-.obsidian-local-btn:hover {
+.toc-graph-toggle-btn:hover {
   color: #22c55e;
   border-color: #22c55e;
 }
 
  
-.obsidian-square-viewport {
+.toc-graph-square-box {
   position: relative;
   width: 100%;
-  max-width: 320px;
-  height: 320px;
+  aspect-ratio: 1 / 1;
+  max-width: 240px;
+  max-height: 240px;
   margin: 0 auto;
-  background: #141416;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  background: #121215;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.5);
   cursor: grab;
 }
-.obsidian-square-viewport:active {
+.toc-graph-square-box:active {
   cursor: grabbing;
 }
 
-#obsidian-local-canvas {
+#toc-graph-canvas {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.obsidian-local-footer {
+.toc-graph-hint {
   text-align: center;
-  margin-top: 0.55rem;
-  font-size: 0.68rem;
+  margin-top: 0.45rem;
+  font-size: 0.63rem;
   color: #71717a;
 }
 
  
-.obsidian-local-tooltip {
+.toc-graph-tooltip {
   position: absolute;
   pointer-events: none;
-  background: rgba(24, 24, 27, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(20, 20, 24, 0.96);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(34, 197, 94, 0.45);
   border-radius: 6px;
-  padding: 0.35rem 0.65rem;
-  font-size: 0.72rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.68rem;
   color: #f4f4f5;
   font-weight: 600;
-  max-width: 220px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  max-width: 190px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   z-index: 50;
   transform: translate(-50%, -125%);
   line-height: 1.3;
@@ -566,19 +437,15 @@ Types of Reconnaissance Passive information gathering → collect information th
 
 <script>
 (function () {
-  var dataEl = document.getElementById('obsidian-local-data');
-  if (!dataEl) return;
-  var graphData = JSON.parse(dataEl.textContent || '{}');
+  var widget = document.getElementById('toc-graph-widget');
+  if (!widget) return;
 
-  var currentNote = graphData.current;
-  var vaultPages = graphData.vault || [];
-
-  var box = document.getElementById('obsidian-square-viewport');
-  var canvas = document.getElementById('obsidian-local-canvas');
-  var tooltip = document.getElementById('obsidian-local-tooltip');
-  var metaEl = document.getElementById('obsidian-local-meta');
-  var toggleBtn = document.getElementById('obsidian-local-toggle');
-  var bodyEl = document.getElementById('obsidian-local-body');
+  var box = document.getElementById('toc-graph-square-box');
+  var canvas = document.getElementById('toc-graph-canvas');
+  var tooltip = document.getElementById('toc-graph-tooltip');
+  var countEl = document.getElementById('toc-graph-count');
+  var toggleBtn = document.getElementById('toc-graph-toggle');
+  var bodyEl = document.getElementById('toc-graph-body');
   if (!box || !canvas) return;
 
   var ctx = canvas.getContext('2d');
@@ -592,150 +459,87 @@ Types of Reconnaissance Passive information gathering → collect information th
   });
 
   
-  var COLOR_CURRENT  = '#22c55e'; 
-  var COLOR_CATEGORY = '#f4f4f5'; 
-  var COLOR_NEIGHBOR = '#a1a1aa'; 
-  var COLOR_CONCEPT  = '#52525b'; 
+  var headings = Array.from(document.querySelectorAll('.post-content h2, .post-content h3'));
+  if (headings.length === 0) {
+    widget.style.display = 'none';
+    return;
+  }
 
+  if (countEl) {
+    countEl.textContent = '(' + headings.length + ')';
+  }
+
+  
+  var noteTitleEl = document.querySelector('.post-title');
+  var noteTitle = noteTitleEl ? noteTitleEl.textContent.trim() : 'Note';
+
+  
   var nodes = [];
   var links = [];
-  var nodeMap = {};
 
-  function addNode(n) {
-    if (!nodeMap[n.id]) {
-      nodes.push(n);
-      nodeMap[n.id] = n;
-    }
-    return nodeMap[n.id];
-  }
-
-  function addLink(srcId, tgtId, length, strength) {
-    var s = nodeMap[srcId];
-    var t = nodeMap[tgtId];
-    if (s && t) {
-      links.push({ source: s, target: t, length: length || 60, strength: strength || 0.12 });
-    }
-  }
-
-  var width = box.clientWidth || 320;
-  var height = box.clientHeight || 320;
+  var width = box.clientWidth || 230;
+  var height = box.clientHeight || 230;
   var cx = width / 2;
   var cy = height / 2;
 
   
-  var activeNode = addNode({
-    id: currentNote.id,
-    title: currentNote.title,
-    url: currentNote.url,
-    type: 'current',
-    radius: 7.5,
-    color: COLOR_CURRENT,
+  var mainNode = {
+    id: 'main-note',
+    title: noteTitle,
+    type: 'main',
+    shape: 'circle',
+    radius: 8.5,
+    color: '#ffffff',
     homeX: cx,
     homeY: cy,
     x: cx,
     y: cy,
     vx: 0,
     vy: 0
-  });
+  };
+  nodes.push(mainNode);
 
   
-  var catName = currentNote.category || 'eJPT';
-  var catId = 'cat-' + catName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+  var lastH2 = null;
+  var angleStep = (Math.PI * 2) / headings.length;
 
-  var catNode = addNode({
-    id: catId,
-    title: catName,
-    url: null,
-    type: 'category',
-    radius: 10.5,
-    color: COLOR_CATEGORY,
-    homeX: cx - 45,
-    homeY: cy - 55,
-    x: cx - 45,
-    y: cy - 55,
-    vx: 0,
-    vy: 0
-  });
-  addLink(catId, currentNote.id, 65, 0.15);
-
-  
-  var currentTags = currentNote.tags || [];
-  var connectedNotes = vaultPages.filter(function (p) {
-    var isSameCat = (p.category === currentNote.category);
-    var sharesTag = false;
-    if (p.tags && p.tags.length && currentTags.length) {
-      for (var t = 0; t < p.tags.length; t++) {
-        if (currentTags.indexOf(p.tags[t]) !== -1) { sharesTag = true; break; }
-      }
-    }
-    return isSameCat || sharesTag;
-  });
-
-  
-  connectedNotes = connectedNotes.slice(0, 8);
-
-  var angleStep = (Math.PI * 2) / Math.max(1, connectedNotes.length);
-  connectedNotes.forEach(function (p, idx) {
+  headings.forEach(function (h, idx) {
+    var isH2 = h.tagName.toLowerCase() === 'h2';
+    var cleanTitle = h.textContent.replace(/^#+\s*/, '').trim();
     var a = idx * angleStep;
-    var dist = 75 + (idx % 2) * 20;
+    var dist = isH2 ? (62 + (idx % 2) * 16) : (78 + (idx % 2) * 12);
 
-    var nNode = addNode({
-      id: p.id,
-      title: p.title,
-      url: p.url,
-      type: 'neighbor',
-      radius: 5,
-      color: COLOR_NEIGHBOR,
+    var sqSize = isH2 ? 7.5 : 5.5; 
+    var subNode = {
+      id: h.id || ('heading-' + idx),
+      headerElement: h,
+      title: cleanTitle,
+      type: isH2 ? 'h2' : 'h3',
+      shape: 'square',
+      size: sqSize,
+      color: isH2 ? '#a1a1aa' : '#71717a',
       homeX: cx + Math.cos(a) * dist,
       homeY: cy + Math.sin(a) * dist,
       x: cx + Math.cos(a) * dist,
       y: cy + Math.sin(a) * dist,
       vx: 0,
       vy: 0
-    });
+    };
+    nodes.push(subNode);
 
     
-    addLink(catId, p.id, 70, 0.08);
-
-    
-    if (idx === 0 || idx === 1 || idx === connectedNotes.length - 1) {
-      addLink(currentNote.id, p.id, 60, 0.12);
+    if (isH2) {
+      links.push({ source: mainNode, target: subNode, length: dist, strength: 0.14 });
+      lastH2 = subNode;
+    } else {
+      
+      var parent = lastH2 || mainNode;
+      links.push({ source: parent, target: subNode, length: 35, strength: 0.16 });
     }
   });
 
   
-  var conceptNames = currentTags.slice(0, 4);
-  if (conceptNames.length === 0) {
-    conceptNames = ['Overview', 'Techniques', 'Commands', 'Lab Setup'];
-  }
-  conceptNames.forEach(function (cName, cIdx) {
-    var leafId = 'leaf-' + cIdx;
-    var ca = (cIdx / conceptNames.length) * Math.PI * 2 + 0.5;
-    var cDist = 36 + (cIdx % 2) * 8;
-
-    var leafNode = addNode({
-      id: leafId,
-      title: cName,
-      url: null,
-      type: 'concept',
-      radius: 3,
-      color: COLOR_CONCEPT,
-      homeX: cx + Math.cos(ca) * cDist,
-      homeY: cy + Math.sin(ca) * cDist,
-      x: cx + Math.cos(ca) * cDist,
-      y: cy + Math.sin(ca) * cDist,
-      vx: 0,
-      vy: 0
-    });
-    addLink(currentNote.id, leafId, 32, 0.18);
-  });
-
-  if (metaEl) {
-    metaEl.textContent = '(' + (nodes.length - 1) + ' links)';
-  }
-
-  
-  function resizeCanvas() {
+  function resize() {
     var dpr = window.devicePixelRatio || 1;
     width = box.clientWidth;
     height = box.clientHeight;
@@ -743,8 +547,8 @@ Types of Reconnaissance Passive information gathering → collect information th
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
   }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  window.addEventListener('resize', resize);
+  resize();
 
   
   var simAlpha = 1.0;
@@ -758,9 +562,8 @@ Types of Reconnaissance Passive information gathering → collect information th
       return;
     }
 
-    var kHome = 0.05;
+    var kHome = 0.07; 
 
-    
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (n === draggedNode) continue;
@@ -776,10 +579,10 @@ Types of Reconnaissance Passive information gathering → collect information th
         var dx = nb.x - na.x;
         var dy = nb.y - na.y;
         var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        var minDist = na.radius + nb.radius + 8;
+        var minDist = (na.size || na.radius || 6) + (nb.size || nb.radius || 6) + 10;
 
         if (dist < minDist) {
-          var push = (minDist - dist) * 0.4 * simAlpha;
+          var push = (minDist - dist) * 0.45 * simAlpha;
           var nx = dx / dist;
           var ny = dy / dist;
           na.vx -= nx * push;
@@ -799,33 +602,31 @@ Types of Reconnaissance Passive information gathering → collect information th
       var diff = (ld - link.length) * link.strength * simAlpha;
       diff = Math.max(-4, Math.min(4, diff));
 
-      var lfx = (ldx / ld) * diff;
-      var lfy = (ldy / ld) * diff;
-
-      link.source.vx += lfx;
-      link.source.vy += lfy;
-      link.target.vx -= lfx;
-      link.target.vy -= lfy;
+      link.source.vx += (ldx / ld) * diff;
+      link.source.vy += (ldy / ld) * diff;
+      link.target.vx -= (ldx / ld) * diff;
+      link.target.vy -= (ldy / ld) * diff;
     }
 
     
     for (var k = 0; k < nodes.length; k++) {
       var nd = nodes[k];
       if (nd === draggedNode) continue;
-      nd.vx *= 0.72;
-      nd.vy *= 0.72;
+      nd.vx *= 0.70;
+      nd.vy *= 0.70;
       nd.x += nd.vx;
       nd.y += nd.vy;
     }
 
     if (!draggedNode) {
-      simAlpha *= 0.965;
+      simAlpha *= 0.96;
     }
   }
 
   
   var hoveredNode = null;
   var draggedNode = null;
+  var activeHeadingNode = null;
 
   function render() {
     tickPhysics();
@@ -836,15 +637,14 @@ Types of Reconnaissance Passive information gathering → collect information th
     for (var i = 0; i < links.length; i++) {
       var l = links[i];
       var isHi = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
-
       ctx.beginPath();
       ctx.moveTo(l.source.x, l.source.y);
       ctx.lineTo(l.target.x, l.target.y);
 
       if (isHi) {
         ctx.strokeStyle = '#22c55e';
-        ctx.lineWidth = 1.4;
-        ctx.globalAlpha = 0.9;
+        ctx.lineWidth = 1.3;
+        ctx.globalAlpha = 0.95;
       } else {
         ctx.strokeStyle = '#3f3f46';
         ctx.lineWidth = 0.75;
@@ -858,42 +658,48 @@ Types of Reconnaissance Passive information gathering → collect information th
     for (var j = 0; j < nodes.length; j++) {
       var node = nodes[j];
       var isHover = (node === hoveredNode);
+      var isActive = (node === activeHeadingNode);
 
       
-      if (node.type === 'current' || isHover) {
+      if (node.shape === 'circle') {
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(34, 197, 94, 0.3)';
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = isHover ? '#22c55e' : '#f4f4f5';
         ctx.fill();
-      }
-
-      
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      ctx.fillStyle = isHover ? '#22c55e' : node.color;
-      ctx.fill();
-
-      
-      if (node.type === 'category' || node.type === 'current') {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
         ctx.lineWidth = 1;
         ctx.stroke();
-      }
 
-      
-      var showLabel = (node.type === 'category') || (node.type === 'current') || isHover;
-      if (showLabel) {
-        ctx.font = (node.type === 'category' ? 'bold 11px' : (node.type === 'current' ? 'bold 10px' : '500 9px')) + ' Inter, sans-serif';
-        ctx.fillStyle = (node.type === 'current' ? '#22c55e' : (node.type === 'category' ? '#ffffff' : '#e4e4e7'));
+        
+        ctx.font = 'bold 9px Inter, sans-serif';
+        ctx.fillStyle = isHover ? '#22c55e' : '#e4e4e7';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
 
         
-        ctx.strokeStyle = '#141416';
-        ctx.lineWidth = 3;
-        var labelText = node.type === 'current' ? 'You are here' : node.title;
-        ctx.strokeText(labelText, node.x, node.y + node.radius + 3);
-        ctx.fillText(labelText, node.x, node.y + node.radius + 3);
+        ctx.strokeStyle = '#121215';
+        ctx.lineWidth = 2.5;
+        var displayTitle = node.title.length > 18 ? node.title.slice(0, 16) + '..' : node.title;
+        ctx.strokeText(displayTitle, node.x, node.y + node.radius + 3);
+        ctx.fillText(displayTitle, node.x, node.y + node.radius + 3);
+      }
+      
+      else if (node.shape === 'square') {
+        var half = node.size / 2;
+        var sqColor = (isHover || isActive) ? '#22c55e' : node.color;
+
+        
+        if (isHover || isActive) {
+          ctx.fillStyle = 'rgba(34, 197, 94, 0.35)';
+          ctx.fillRect(node.x - half - 3, node.y - half - 3, node.size + 6, node.size + 6);
+        }
+
+        ctx.fillStyle = sqColor;
+        ctx.fillRect(node.x - half, node.y - half, node.size, node.size);
+
+        ctx.strokeStyle = (isHover || isActive) ? '#4ade80' : 'rgba(255, 255, 255, 0.18)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(node.x - half, node.y - half, node.size, node.size);
       }
     }
 
@@ -908,7 +714,7 @@ Types of Reconnaissance Passive information gathering → collect information th
 
     for (var i = nodes.length - 1; i >= 0; i--) {
       var n = nodes[i];
-      var r = n.radius + 5;
+      var r = (n.shape === 'circle' ? n.radius : n.size) + 5;
       var dx = x - n.x;
       var dy = y - n.y;
       if (dx * dx + dy * dy <= r * r) {
@@ -928,7 +734,7 @@ Types of Reconnaissance Passive information gathering → collect information th
       draggedNode.y = my;
       draggedNode.vx = 0;
       draggedNode.vy = 0;
-      simAlpha = Math.max(simAlpha, 0.35);
+      simAlpha = Math.max(simAlpha, 0.3);
       return;
     }
 
@@ -936,7 +742,7 @@ Types of Reconnaissance Passive information gathering → collect information th
     if (target !== hoveredNode) {
       hoveredNode = target;
       if (hoveredNode) {
-        var prefix = hoveredNode.type === 'current' ? '★ Current Note' : (hoveredNode.type === 'category' ? '📁 Category' : '📄 Note');
+        var prefix = hoveredNode.type === 'main' ? '★ Note Title' : (hoveredNode.type.toUpperCase() + ' Header');
         tooltip.innerHTML = '<strong>' + prefix + '</strong>: ' + hoveredNode.title;
         tooltip.style.display = 'block';
         tooltip.style.left = mx + 'px';
@@ -957,7 +763,7 @@ Types of Reconnaissance Passive information gathering → collect information th
     var target = findNode(e.clientX, e.clientY);
     if (target) {
       draggedNode = target;
-      simAlpha = Math.max(simAlpha, 0.35);
+      simAlpha = Math.max(simAlpha, 0.3);
     }
   });
 
@@ -968,21 +774,42 @@ Types of Reconnaissance Passive information gathering → collect information th
     draggedNode = null;
   });
 
+  
   canvas.addEventListener('click', function (e) {
     var dx = Math.abs(e.clientX - clickStart.x);
     var dy = Math.abs(e.clientY - clickStart.y);
     if (dx > 4 || dy > 4) return;
 
     var target = findNode(e.clientX, e.clientY);
-    if (target && target.url && target.type !== 'current') {
-      window.location.href = target.url;
+    if (target && target.shape === 'square' && target.headerElement) {
+      target.headerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+
+  
+  window.addEventListener('scroll', function () {
+    var scrollPos = window.scrollY + 140;
+    var current = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].offsetTop <= scrollPos) {
+        current = headings[i];
+      }
+    }
+    if (current) {
+      for (var j = 0; j < nodes.length; j++) {
+        if (nodes[j].headerElement === current) {
+          activeHeadingNode = nodes[j];
+          break;
+        }
+      }
+    }
+  }, { passive: true });
 
   render();
 })();
 </script>
 
+  </div>
   <div class="post-content md-content"><hr>
 <h1 id="information-gathering-reconnaissance">Information Gathering (Reconnaissance)<a hidden class="anchor" aria-hidden="true" href="#information-gathering-reconnaissance">#</a></h1>
 <p>Reconnaissance is the first phase in penetration testing operation and is to collect or gather information that is public available (passive reconnaissance) or private (active reconnaissance) about organization or individual or system or website and so on (information about our target)</p>
@@ -1172,34 +999,6 @@ Types of Reconnaissance Passive information gathering → collect information th
     <div class="series-nav__nav"><span></span><a class="series-nav__btn series-nav__btn--next" href="/posts/ejpt/day-1/active-reconnaissance/">
         <span>Active Reconnaissance</span>
         <span>&rarr;</span>
-      </a></div>
-  </div><div class="local-graph-box">
-    <div class="local-graph-box__header">
-      <div class="local-graph-box__title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="6" cy="6" r="3"></circle>
-          <circle cx="18" cy="18" r="3"></circle>
-          <line x1="8.5" y1="8.5" x2="15.5" y2="15.5"></line>
-          <circle cx="18" cy="6" r="3"></circle>
-          <line x1="15.5" y1="8.5" x2="8.5" y2="15.5"></line>
-          <circle cx="6" cy="18" r="3"></circle>
-        </svg>
-        <span>Knowledge Graph · Connected Notes</span>
-      </div>
-      <a href="/graph/" class="local-graph-box__link">Open Full Graph ➔</a>
-    </div>
-    <div class="local-graph-box__nodes"><a href="/posts/ejpt/day-1/active-reconnaissance/" class="local-graph-node">
-        <span class="local-graph-node__dot"></span>
-        <span class="local-graph-node__text">Active Reconnaissance</span>
-      </a><a href="/posts/ejpt/day-1/passive-reconnaissance/" class="local-graph-node">
-        <span class="local-graph-node__dot"></span>
-        <span class="local-graph-node__text">Passive Reconnaissance</span>
-      </a><a href="/posts/ejpt/day-2/network-primer/" class="local-graph-node">
-        <span class="local-graph-node__dot"></span>
-        <span class="local-graph-node__text">Network Primer</span>
-      </a><a href="/posts/ejpt/day-3/host-discovery/" class="local-graph-node">
-        <span class="local-graph-node__dot"></span>
-        <span class="local-graph-node__text">Host Discovery</span>
       </a></div>
   </div><footer class="post-footer">
     <ul class="post-tags">
