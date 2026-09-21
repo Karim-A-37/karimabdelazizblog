@@ -472,19 +472,22 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
 .toc-graph-tooltip {
   position: absolute;
   pointer-events: none;
-  background: rgba(20, 20, 24, 0.96);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(34, 197, 94, 0.45);
+  background: rgba(18, 18, 22, 0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid #22c55e;
   border-radius: 6px;
   padding: 0.35rem 0.6rem;
   font-size: 0.68rem;
   color: #f4f4f5;
-  font-weight: 600;
-  max-width: 190px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
   z-index: 50;
-  transform: translate(-50%, -125%);
-  line-height: 1.3;
+  line-height: 1.35;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  max-width: 200px;
+  min-width: 90px;
 }
 </style>
 
@@ -591,7 +594,7 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
     var links = [];
 
     var angleStep = (Math.PI * 2) / headingItems.length;
-    var baseRadius = Math.min(width, height) * 0.36;
+    var baseRadius = Math.min(width, height) * 0.29;
     var lastTopLevelNode = null;
 
     headingItems.forEach(function (item, idx) {
@@ -827,21 +830,47 @@ host tool → DNS lookup utility, we use to convert names into IPs and vice vers
       }
 
       var target = findNode(e.clientX, e.clientY);
-      if (target !== hoveredNode) {
-        hoveredNode = target;
-        if (hoveredNode) {
-          var prefix = hoveredNode.type === 'main' ? '★ Note Title' : (hoveredNode.type === 'sub-header' ? '↳ Sub-Section' : '§ Section');
-          tooltip.innerHTML = '<strong>' + prefix + '</strong>: ' + hoveredNode.title;
-          tooltip.style.display = 'block';
-          tooltip.style.left = mx + 'px';
-          tooltip.style.top = my + 'px';
+      hoveredNode = target;
+
+      if (!hoveredNode) {
+        tooltip.style.display = 'none';
+      } else {
+        var prefix = hoveredNode.type === 'main' ? '★ Note Title' : (hoveredNode.type === 'sub-header' ? '↳ Sub-Header' : '§ Header');
+        tooltip.innerHTML = '<span style="color:#22c55e;font-size:0.63rem;font-weight:700;letter-spacing:0.04em;display:block;margin-bottom:2px;">' + prefix + '</span>' + hoveredNode.title;
+        tooltip.style.display = 'block';
+
+        
+        var tipW = tooltip.offsetWidth || 120;
+        var tipH = tooltip.offsetHeight || 32;
+        var boxW = box.clientWidth || 240;
+        var boxH = box.clientHeight || 240;
+
+        
+        var posX = mx - (tipW / 2);
+        if (posX < 8) posX = 8;
+        if (posX + tipW > boxW - 8) posX = boxW - tipW - 8;
+
+        
+        
+        
+        var posY;
+        if (my - tipH - 12 < 6) {
+          posY = my + 16;
+          if (posY + tipH > boxH - 6) {
+            posY = Math.max(6, boxH - tipH - 6);
+          }
         } else {
-          tooltip.style.display = 'none';
+          posY = my - tipH - 12;
         }
-      } else if (hoveredNode) {
-        tooltip.style.left = mx + 'px';
-        tooltip.style.top = my + 'px';
+
+        tooltip.style.left = Math.round(posX) + 'px';
+        tooltip.style.top = Math.round(posY) + 'px';
       }
+    });
+
+    canvas.addEventListener('mouseleave', function () {
+      hoveredNode = null;
+      tooltip.style.display = 'none';
     });
 
     var clickStart = { x: 0, y: 0 };
