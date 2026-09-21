@@ -3,21 +3,87 @@
 <meta name="theme-color" content="#1a1a2e" />
 
 <style>
-/* ── Katana chain row under blog title ─────────────────── */
-.ka-katana-chain-row {
-  display: block;
-  height: 30px;
-  margin-top: 2px;
+/* ══════════════════════════════════════════════
+   Hanging katana chain — positioned UNDER the
+   .logo element, spanning its full width
+   ══════════════════════════════════════════════ */
+.ka-chain-wrap {
   pointer-events: none;
-}
-.ka-katana-chain-row svg {
-  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
   width: 100%;
-  height: 30px;
+  height: 80px;
+  z-index: 20;
   overflow: visible;
 }
 
-/* ── Theme toggle pulse ─────────────────────────────────── */
+/* The thin horizontal rope/chain line */
+.ka-chain-wire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34,197,94,0.5) 10%,
+    rgba(34,197,94,0.35) 50%,
+    rgba(34,197,94,0.5) 90%,
+    transparent 100%
+  );
+}
+
+/* Individual hanging katana container */
+.ka-pend {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 70px;
+  transform-origin: 50% 0;
+  animation: ka-sway 2.4s ease-in-out infinite alternate;
+}
+
+/* Stagger each katana's swing */
+.ka-pend:nth-child(1)  { animation-delay:  0.00s; left:  6%; }
+.ka-pend:nth-child(2)  { animation-delay: -0.28s; left: 20%; }
+.ka-pend:nth-child(3)  { animation-delay: -0.55s; left: 35%; }
+.ka-pend:nth-child(4)  { animation-delay: -0.82s; left: 50%; }
+.ka-pend:nth-child(5)  { animation-delay: -1.10s; left: 65%; }
+.ka-pend:nth-child(6)  { animation-delay: -1.38s; left: 80%; }
+.ka-pend:nth-child(7)  { animation-delay: -0.70s; left: 93%; }
+
+@keyframes ka-sway {
+  0%   { transform: rotate(-11deg); }
+  100% { transform: rotate( 11deg); }
+}
+
+/* The rope thread */
+.ka-rope {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 12px;
+  background: rgba(34,197,94,0.5);
+  transform: translateX(-50%);
+}
+
+/* The SVG katana blade */
+.ka-pend svg {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 56px;
+  overflow: visible;
+  filter: drop-shadow(0 0 3px rgba(34,197,94,0.55));
+  opacity: 0.85;
+}
+
+/* ── Theme toggle pulse ─────────────────────────────── */
 #theme-toggle { transition: transform 0.2s ease; }
 #theme-toggle:active { transform: scale(0.88); }
 @keyframes ka-shield-pulse {
@@ -32,7 +98,7 @@
 </style>
 
 <script>
-/* ── Theme toggle green pulse ─────────────────────── */
+/* ── Theme toggle pulse ──────────────────── */
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('#theme-toggle');
   if (!btn) return;
@@ -44,115 +110,68 @@ document.addEventListener('click', function(e) {
   }, { once: true });
 });
 
-/* ── Katana chain row injected under logo link ─────── */
+/* ── Inject katana chain UNDER logo ─────── */
 document.addEventListener('DOMContentLoaded', function () {
-  var logoLink = document.querySelector('.logo > a');
-  if (!logoLink || document.getElementById('ka-chain-svg')) return;
+  var logo = document.querySelector('.logo');
+  if (!logo || document.getElementById('ka-chain-wrap')) return;
 
-  var ns = 'http://www.w3.org/2000/svg';
+  /* Make .logo relatively positioned so we can absolute-position under it */
+  logo.style.position = 'relative';
 
-  /* ── Keyframe ── */
-  var st = document.createElement('style');
-  st.textContent =
-    '@keyframes ka-katana-hang {' +
-      '0%,100%{ transform:rotate(-14deg); }' +
-      '50%    { transform:rotate(14deg);  }' +
-    '}';
-  document.head.appendChild(st);
-
-  /* ── SVG canvas ── */
-  var svg = document.createElementNS(ns, 'svg');
-  svg.id  = 'ka-chain-svg';
-  svg.setAttribute('viewBox','0 0 160 30');
-  svg.setAttribute('preserveAspectRatio','none');
-
-  /* Defs */
-  var defs = document.createElementNS(ns, 'defs');
-  defs.innerHTML =
-    '<linearGradient id="kbg" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0%" stop-color="#b9ffd0"/>' +
-      '<stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>' +
-    '</linearGradient>' +
-    '<filter id="kglow" x="-80%" y="-80%" width="260%" height="260%">' +
-      '<feGaussianBlur stdDeviation="0.7" result="b"/>' +
-      '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>' +
-    '</filter>';
-  svg.appendChild(defs);
-
-  /* Chain line */
-  var chainLine = document.createElementNS(ns, 'line');
-  chainLine.setAttribute('x1','0');  chainLine.setAttribute('y1','3');
-  chainLine.setAttribute('x2','160'); chainLine.setAttribute('y2','3');
-  chainLine.setAttribute('stroke','rgba(34,197,94,0.3)');
-  chainLine.setAttribute('stroke-width','0.8');
-  chainLine.setAttribute('stroke-dasharray','4 3');
-  svg.appendChild(chainLine);
-
-  /* Chain dots */
-  for (var d = 0; d <= 160; d += 8) {
-    var dot = document.createElementNS(ns, 'circle');
-    dot.setAttribute('cx', d); dot.setAttribute('cy','3');
-    dot.setAttribute('r','0.9');
-    dot.setAttribute('fill','rgba(34,197,94,0.45)');
-    svg.appendChild(dot);
+  /* One mini-katana SVG template (pointing downward, green) */
+  function makeSwordSVG() {
+    return [
+      '<svg viewBox="0 0 20 58" fill="none" xmlns="http://www.w3.org/2000/svg">',
+        '<defs>',
+          '<linearGradient id="kg" x1="0" y1="0" x2="0" y2="1">',
+            '<stop offset="0%" stop-color="#b9ffd0"/>',
+            '<stop offset="70%" stop-color="#22c55e"/>',
+            '<stop offset="100%" stop-color="transparent"/>',
+          '</linearGradient>',
+        '</defs>',
+        /* Blade */
+        '<polygon points="8,18 12,18 10,54" fill="url(#kg)"/>',
+        /* Blade tip highlight */
+        '<polygon points="9.5,18 12,18 10,54" fill="rgba(255,255,255,0.15)"/>',
+        /* Blade edge */
+        '<line x1="12" y1="18" x2="10" y2="54" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>',
+        /* Guard (tsuba) */
+        '<ellipse cx="10" cy="19" rx="8" ry="2.5" fill="#22c55e" opacity="0.9"/>',
+        '<ellipse cx="10" cy="19" rx="5" ry="1.5" fill="#4ade80" opacity="0.5"/>',
+        /* Handle */
+        '<rect x="7.5" y="2" width="5" height="16" rx="2" fill="#15803d"/>',
+        /* Handle wrap cross-lines */
+        '<line x1="7.5" y1="6"  x2="12.5" y2="8"  stroke="#4ade80" stroke-width="0.8" opacity="0.7"/>',
+        '<line x1="7.5" y1="10" x2="12.5" y2="12" stroke="#4ade80" stroke-width="0.8" opacity="0.7"/>',
+        '<line x1="7.5" y1="14" x2="12.5" y2="16" stroke="#4ade80" stroke-width="0.8" opacity="0.7"/>',
+        /* Pommel */
+        '<ellipse cx="10" cy="2" rx="4" ry="2" fill="#22c55e" opacity="0.8"/>',
+      '</svg>'
+    ].join('');
   }
 
-  /* 7 mini katanas hanging from the chain */
-  var xpos = [5, 27, 50, 80, 110, 133, 155];
-  xpos.forEach(function(px, i) {
-    var delay = (i * 0.25).toFixed(2);
-    var g = document.createElementNS(ns, 'g');
-    g.setAttribute('style',
-      'transform-box:fill-box;' +
-      'transform-origin:' + px + 'px 3px;' +
-      'animation:ka-katana-hang 2.6s ease-in-out ' + delay + 's infinite;'
-    );
+  /* Build the chain wrap */
+  var wrap = document.createElement('div');
+  wrap.id = 'ka-chain-wrap';
+  wrap.className = 'ka-chain-wrap';
+  wrap.setAttribute('aria-hidden', 'true');
 
-    /* Cord */
-    var cord = document.createElementNS(ns, 'line');
-    cord.setAttribute('x1',px); cord.setAttribute('y1','3');
-    cord.setAttribute('x2',px); cord.setAttribute('y2','7');
-    cord.setAttribute('stroke','rgba(34,197,94,0.5)');
-    cord.setAttribute('stroke-width','0.7');
-    g.appendChild(cord);
+  /* Wire */
+  var wire = document.createElement('div');
+  wire.className = 'ka-chain-wire';
+  wrap.appendChild(wire);
 
-    /* Handle */
-    var h = document.createElementNS(ns, 'rect');
-    h.setAttribute('x',px-1.8); h.setAttribute('y','7');
-    h.setAttribute('width','3.6'); h.setAttribute('height','5');
-    h.setAttribute('rx','1'); h.setAttribute('fill','#15803d');
-    g.appendChild(h);
+  /* 7 katanas */
+  for (var i = 0; i < 7; i++) {
+    var pend = document.createElement('div');
+    pend.className = 'ka-pend';
+    var rope = document.createElement('div');
+    rope.className = 'ka-rope';
+    pend.appendChild(rope);
+    pend.innerHTML += makeSwordSVG();
+    wrap.appendChild(pend);
+  }
 
-    /* Guard */
-    var gu = document.createElementNS(ns, 'ellipse');
-    gu.setAttribute('cx',px); gu.setAttribute('cy','12');
-    gu.setAttribute('rx','4'); gu.setAttribute('ry','1.5');
-    gu.setAttribute('fill','#22c55e');
-    g.appendChild(gu);
-
-    /* Blade */
-    var bl = document.createElementNS(ns, 'polygon');
-    bl.setAttribute('points',
-      (px-1.1)+',13 '+(px+1.1)+',13 '+px+',26'
-    );
-    bl.setAttribute('fill','url(#kbg)');
-    bl.setAttribute('filter','url(#kglow)');
-    g.appendChild(bl);
-
-    /* Handle diamond wrap */
-    var dw = document.createElementNS(ns, 'line');
-    dw.setAttribute('x1',px-1.8); dw.setAttribute('y1','9');
-    dw.setAttribute('x2',px+1.8); dw.setAttribute('y2','11');
-    dw.setAttribute('stroke','#4ade80'); dw.setAttribute('stroke-width','0.5'); dw.setAttribute('opacity','0.6');
-    g.appendChild(dw);
-
-    svg.appendChild(g);
-  });
-
-  /* Wrap and insert */
-  var row = document.createElement('span');
-  row.className = 'ka-katana-chain-row';
-  row.appendChild(svg);
-  logoLink.parentNode.insertBefore(row, logoLink.nextSibling);
+  logo.appendChild(wrap);
 });
 </script>
