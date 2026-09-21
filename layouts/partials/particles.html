@@ -1,4 +1,4 @@
-{{- /* Green Leaf Particles — homepage only */ -}}
+{{- /* Slower green leaf particles — homepage only */ -}}
 <canvas id="ka-particles" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
 
 <script>
@@ -6,10 +6,9 @@
   var canvas = document.getElementById('ka-particles');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
-
-  var greens = ['#22c55e','#16a34a','#4ade80','#86efac','#15803d','#bbf7d0'];
+  var greens = ['#22c55e','#16a34a','#4ade80','#86efac','#15803d'];
   var leaves = [];
-  var MAX = 18;
+  var MAX = 16;
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -20,30 +19,29 @@
 
   function spawnLeaf() {
     return {
-      x:      Math.random() * canvas.width,
-      y:      -30,
-      vy:     0.55 + Math.random() * 0.7,
-      vx:     (Math.random() - 0.5) * 0.6,
-      rot:    Math.random() * Math.PI * 2,
-      rotV:   (Math.random() - 0.5) * 0.025,
-      size:   7 + Math.random() * 9,
-      color:  greens[Math.floor(Math.random() * greens.length)],
-      alpha:  0.18 + Math.random() * 0.22,
-      swing:  Math.random() * Math.PI * 2,
-      swingV: 0.018 + Math.random() * 0.012
+      x:     Math.random() * canvas.width,
+      y:     -30,
+      vy:    0.2 + Math.random() * 0.28,   /* much slower */
+      vx:    (Math.random() - 0.5) * 0.3,
+      rot:   Math.random() * Math.PI * 2,
+      rotV:  (Math.random() - 0.5) * 0.012, /* slower rotation */
+      size:  8 + Math.random() * 9,
+      color: greens[Math.floor(Math.random() * greens.length)],
+      alpha: 0.16 + Math.random() * 0.2,
+      swing: Math.random() * Math.PI * 2,
+      swingV:0.01 + Math.random() * 0.008  /* slower swing */
     };
   }
 
   function drawLeaf(ctx, size) {
-    /* Simple elongated leaf shape using bezier curves */
     ctx.beginPath();
     ctx.moveTo(0, -size);
-    ctx.bezierCurveTo( size * 0.6, -size * 0.5,  size * 0.8,  size * 0.3,  0,  size);
-    ctx.bezierCurveTo(-size * 0.8,  size * 0.3, -size * 0.6, -size * 0.5,  0, -size);
+    ctx.bezierCurveTo( size*0.65, -size*0.5,  size*0.85,  size*0.3,  0,  size);
+    ctx.bezierCurveTo(-size*0.85,  size*0.3, -size*0.65, -size*0.5,  0, -size);
     ctx.closePath();
     /* Midrib */
-    ctx.moveTo(0, -size);
-    ctx.lineTo(0,  size);
+    ctx.moveTo(0, -size * 0.9);
+    ctx.lineTo(0,  size * 0.9);
   }
 
   for (var i = 0; i < MAX; i++) {
@@ -57,17 +55,17 @@
     for (var i = 0; i < leaves.length; i++) {
       var l = leaves[i];
       l.swing += l.swingV;
-      l.x  += l.vx + Math.sin(l.swing) * 0.35;
+      l.x  += l.vx + Math.sin(l.swing) * 0.28;
       l.y  += l.vy;
       l.rot += l.rotV;
 
       ctx.save();
       ctx.translate(l.x, l.y);
       ctx.rotate(l.rot);
-      ctx.globalAlpha = l.alpha;
-      ctx.fillStyle   = l.color;
-      ctx.strokeStyle = l.color;
-      ctx.lineWidth   = 0.5;
+      ctx.globalAlpha   = l.alpha;
+      ctx.fillStyle     = l.color;
+      ctx.strokeStyle   = l.color;
+      ctx.lineWidth     = 0.6;
       drawLeaf(ctx, l.size);
       ctx.fill();
       ctx.stroke();

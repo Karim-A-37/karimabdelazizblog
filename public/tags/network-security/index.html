@@ -40,46 +40,35 @@
 
 <style>
  
-.ka-header-katana {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: 8px;
-  vertical-align: middle;
-  user-select: none;
-  text-decoration: none !important;
+.ka-katana-chain-row {
+  display: block;
+  height: 30px;
+  margin-top: 2px;
+  pointer-events: none;
 }
+.ka-katana-chain-row svg {
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: visible;
+}
+
  
-.ka-chain-link {
-  display: inline-block;
-  width: 8px;
-  height: 5px;
-  border: 1.5px solid rgba(34,197,94,0.45);
-  border-radius: 3px;
-  animation: ka-chain-wave 1.8s ease-in-out infinite;
+#theme-toggle { transition: transform 0.2s ease; }
+#theme-toggle:active { transform: scale(0.88); }
+@keyframes ka-shield-pulse {
+  0%   { box-shadow: 0 0 0 0    rgba(34,197,94,0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0    rgba(34,197,94,0); }
 }
-.ka-chain-link:nth-child(1) { animation-delay: 0s; }
-.ka-chain-link:nth-child(2) { animation-delay: 0.15s; }
-.ka-chain-link:nth-child(3) { animation-delay: 0.30s; }
-@keyframes ka-chain-wave {
-  0%,100% { transform: scaleY(1);   border-color: rgba(34,197,94,0.35); }
-  50%      { transform: scaleY(1.7); border-color: rgba(34,197,94,0.75); }
-}
- 
-.ka-header-sword {
-  display: inline-block;
-  animation: ka-sword-swing 3s ease-in-out infinite;
-  transform-origin: 90% 60%;
-}
-@keyframes ka-sword-swing {
-  0%,100% { transform: rotate(-18deg); }
-  40%     { transform: rotate(12deg);  }
-  60%     { transform: rotate(8deg);   }
+#theme-toggle.ka-pulsing {
+  animation: ka-shield-pulse 0.5s ease;
+  border-radius: 6px;
 }
 </style>
 
 <script>
-
+ 
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('#theme-toggle');
   if (!btn) return;
@@ -91,30 +80,116 @@ document.addEventListener('click', function(e) {
   }, { once: true });
 });
 
-
+ 
 document.addEventListener('DOMContentLoaded', function () {
-  var logo = document.querySelector('.logo a, #site-header .logo, header .logo, a.logo');
-  if (!logo) return;
-  var wrap = document.createElement('span');
-  wrap.className = 'ka-header-katana';
-  wrap.innerHTML =
-    '<span class="ka-chain-link"></span>' +
-    '<span class="ka-chain-link"></span>' +
-    '<span class="ka-chain-link"></span>' +
-    '<svg class="ka-header-sword" width="22" height="10" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-      '<polygon points="0,7 90,9 100,10 90,11 0,13" fill="url(#hg)" />' +
-      '<polygon points="90,9 110,10 90,11" fill="#fff" opacity="0.9"/>' +
-      '<ellipse cx="13" cy="10" rx="4" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>' +
-      '<rect x="0" y="6.5" width="12" height="7" rx="2.5" fill="#15803d"/>' +
-      '<polygon points="3,6.5 6,10 3,13.5 0,10"  fill="#4ade80" opacity="0.8"/>' +
-      '<polygon points="9,6.5 12,10 9,13.5 6,10" fill="#4ade80" opacity="0.8"/>' +
-      '<defs><linearGradient id="hg" x1="0" y1="0" x2="110" y2="0">' +
-        '<stop offset="0%" stop-color="#4ade80"/>' +
-        '<stop offset="60%" stop-color="#fff"/>' +
-        '<stop offset="100%" stop-color="transparent"/>' +
-      '</linearGradient></defs>' +
-    '</svg>';
-  logo.appendChild(wrap);
+  var logoLink = document.querySelector('.logo > a');
+  if (!logoLink || document.getElementById('ka-chain-svg')) return;
+
+  var ns = 'http://www.w3.org/2000/svg';
+
+   
+  var st = document.createElement('style');
+  st.textContent =
+    '@keyframes ka-katana-hang {' +
+      '0%,100%{ transform:rotate(-14deg); }' +
+      '50%    { transform:rotate(14deg);  }' +
+    '}';
+  document.head.appendChild(st);
+
+   
+  var svg = document.createElementNS(ns, 'svg');
+  svg.id  = 'ka-chain-svg';
+  svg.setAttribute('viewBox','0 0 160 30');
+  svg.setAttribute('preserveAspectRatio','none');
+
+   
+  var defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML =
+    '<linearGradient id="kbg" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#b9ffd0"/>' +
+      '<stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>' +
+    '</linearGradient>' +
+    '<filter id="kglow" x="-80%" y="-80%" width="260%" height="260%">' +
+      '<feGaussianBlur stdDeviation="0.7" result="b"/>' +
+      '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>' +
+    '</filter>';
+  svg.appendChild(defs);
+
+   
+  var chainLine = document.createElementNS(ns, 'line');
+  chainLine.setAttribute('x1','0');  chainLine.setAttribute('y1','3');
+  chainLine.setAttribute('x2','160'); chainLine.setAttribute('y2','3');
+  chainLine.setAttribute('stroke','rgba(34,197,94,0.3)');
+  chainLine.setAttribute('stroke-width','0.8');
+  chainLine.setAttribute('stroke-dasharray','4 3');
+  svg.appendChild(chainLine);
+
+   
+  for (var d = 0; d <= 160; d += 8) {
+    var dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', d); dot.setAttribute('cy','3');
+    dot.setAttribute('r','0.9');
+    dot.setAttribute('fill','rgba(34,197,94,0.45)');
+    svg.appendChild(dot);
+  }
+
+   
+  var xpos = [5, 27, 50, 80, 110, 133, 155];
+  xpos.forEach(function(px, i) {
+    var delay = (i * 0.25).toFixed(2);
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('style',
+      'transform-box:fill-box;' +
+      'transform-origin:' + px + 'px 3px;' +
+      'animation:ka-katana-hang 2.6s ease-in-out ' + delay + 's infinite;'
+    );
+
+     
+    var cord = document.createElementNS(ns, 'line');
+    cord.setAttribute('x1',px); cord.setAttribute('y1','3');
+    cord.setAttribute('x2',px); cord.setAttribute('y2','7');
+    cord.setAttribute('stroke','rgba(34,197,94,0.5)');
+    cord.setAttribute('stroke-width','0.7');
+    g.appendChild(cord);
+
+     
+    var h = document.createElementNS(ns, 'rect');
+    h.setAttribute('x',px-1.8); h.setAttribute('y','7');
+    h.setAttribute('width','3.6'); h.setAttribute('height','5');
+    h.setAttribute('rx','1'); h.setAttribute('fill','#15803d');
+    g.appendChild(h);
+
+     
+    var gu = document.createElementNS(ns, 'ellipse');
+    gu.setAttribute('cx',px); gu.setAttribute('cy','12');
+    gu.setAttribute('rx','4'); gu.setAttribute('ry','1.5');
+    gu.setAttribute('fill','#22c55e');
+    g.appendChild(gu);
+
+     
+    var bl = document.createElementNS(ns, 'polygon');
+    bl.setAttribute('points',
+      (px-1.1)+',13 '+(px+1.1)+',13 '+px+',26'
+    );
+    bl.setAttribute('fill','url(#kbg)');
+    bl.setAttribute('filter','url(#kglow)');
+    g.appendChild(bl);
+
+     
+    var dw = document.createElementNS(ns, 'line');
+    dw.setAttribute('x1',px-1.8); dw.setAttribute('y1','9');
+    dw.setAttribute('x2',px+1.8); dw.setAttribute('y2','11');
+    dw.setAttribute('stroke','#4ade80'); dw.setAttribute('stroke-width','0.5'); dw.setAttribute('opacity','0.6');
+    g.appendChild(dw);
+
+    svg.appendChild(g);
+  });
+
+   
+  var row = document.createElement('span');
+  row.className = 'ka-katana-chain-row';
+  row.appendChild(svg);
+  logoLink.parentNode.insertBefore(row, logoLink.nextSibling);
 });
 </script>
 <meta property="og:url" content="https://karimabdelazizblog.tech/tags/network-security/">

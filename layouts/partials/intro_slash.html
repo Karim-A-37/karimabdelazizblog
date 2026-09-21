@@ -1,41 +1,43 @@
-{{- /* Green Katana Slash Intro — plays on EVERY page load */ -}}
+{{- /* Green Katana Center-Slash Intro — plays on EVERY page load */ -}}
 <div id="intro-slash" aria-hidden="true">
   <div class="slash-half slash-top"></div>
   <div class="slash-half slash-bottom"></div>
-
-  <!-- Katana SVG that sweeps across -->
-  <div class="slash-katana-wrap" id="slash-katana">
-    <svg class="slash-katana-svg" viewBox="0 0 520 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Blade -->
-      <polygon points="0,16 480,18 500,20 480,22 0,24" fill="url(#bladeGrad)" />
+  <div class="slash-katana-center" id="slash-katana">
+    <svg viewBox="0 0 60 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Blade (pointing down) -->
+      <polygon points="22,40 38,40 32,320 28,320" fill="url(#bladeV)" />
       <!-- Tip -->
-      <polygon points="480,18 520,20 480,22" fill="#ffffff" />
-      <!-- Edge glow -->
-      <polygon points="0,17 480,19 500,20 480,21 0,23" fill="rgba(255,255,255,0.18)" />
-      <!-- Guard (tsuba) -->
-      <ellipse cx="60" cy="20" rx="7" ry="14" fill="#22c55e" stroke="#16a34a" stroke-width="1.5"/>
-      <!-- Handle (tsuka) -->
-      <rect x="0" y="15" width="58" height="10" rx="4" fill="#15803d"/>
-      <!-- Handle wrap diamonds -->
-      <polygon points="8,15 14,20 8,25 2,20"  fill="#4ade80" opacity="0.7"/>
-      <polygon points="22,15 28,20 22,25 16,20" fill="#4ade80" opacity="0.7"/>
-      <polygon points="36,15 42,20 36,25 30,20" fill="#4ade80" opacity="0.7"/>
-      <polygon points="50,15 56,20 50,25 44,20" fill="#4ade80" opacity="0.7"/>
+      <polygon points="28,320 30,340 32,320" fill="#ffffff" opacity="0.95"/>
+      <!-- Blade edge highlight -->
+      <polygon points="30,40 37,40 31,310 29,310" fill="rgba(255,255,255,0.15)"/>
+      <!-- Guard (tsuba) - horizontal oval -->
+      <ellipse cx="30" cy="52" rx="22" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1.5"/>
+      <ellipse cx="30" cy="52" rx="15" ry="5" fill="#4ade80" opacity="0.4"/>
+      <!-- Handle -->
+      <rect x="21" y="0" width="18" height="50" rx="5" fill="#15803d"/>
+      <!-- Handle diamond wraps -->
+      <polygon points="30,2  38,10 30,18 22,10"  fill="#4ade80" opacity="0.75"/>
+      <polygon points="30,16 38,24 30,32 22,24"  fill="#4ade80" opacity="0.75"/>
+      <polygon points="30,30 38,38 30,46 22,38"  fill="#4ade80" opacity="0.75"/>
+      <!-- Handle pommel -->
+      <ellipse cx="30" cy="3" rx="9" ry="4" fill="#22c55e"/>
+      <!-- Blade fuller (groove) -->
+      <line x1="28" y1="60" x2="29" y2="310" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
 
       <defs>
-        <linearGradient id="bladeGrad" x1="0" y1="0" x2="520" y2="0">
-          <stop offset="0%"   stop-color="#4ade80"/>
-          <stop offset="50%"  stop-color="#ffffff"/>
+        <linearGradient id="bladeV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#b9ffd0"/>
+          <stop offset="40%"  stop-color="#4ade80"/>
+          <stop offset="80%"  stop-color="#22c55e"/>
           <stop offset="100%" stop-color="transparent"/>
         </linearGradient>
       </defs>
     </svg>
-    <!-- Motion blur glow trail -->
-    <div class="slash-katana-trail"></div>
+    <!-- Glow aura -->
+    <div class="slash-katana-glow"></div>
   </div>
-
-  <!-- The slash cut line that lingers -->
-  <div class="slash-line"></div>
+  <!-- The cut line that appears after slash -->
+  <div class="slash-cut-line"></div>
 </div>
 
 <style>
@@ -52,66 +54,90 @@
   position: absolute;
   left: 0; right: 0;
   background: #060a07;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
 }
-.slash-top    { top: 0;    height: 50.2%; transform: translateY(0); }
-.slash-bottom { bottom: 0; height: 50.2%; transform: translateY(0); }
+.slash-top    { top: 0;    height: 51%; transform: translateY(0); }
+.slash-bottom { bottom: 0; height: 51%; transform: translateY(0); }
 
-/* ── Katana sweep ── */
-.slash-katana-wrap {
+/* ── Katana centered, pointing down ── */
+.slash-katana-center {
   position: absolute;
   top: 50%;
-  left: -540px;
-  width: 520px;
-  height: 40px;
-  margin-top: -20px;
-  transform: rotate(-3deg);
-  transition: left 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: left;
+  left: 50%;
+  width: 60px;
+  height: 340px;
+  margin-left: -30px;
+  margin-top: -170px;
+  opacity: 0;
+  transform: translateY(-80px) rotate(0deg);
+  transition: opacity 0.2s ease, transform 0s;
+  will-change: transform, opacity;
 }
-.slash-katana-svg {
+.slash-katana-center svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 6px #22c55e) drop-shadow(0 0 18px rgba(34,197,94,0.6));
+  filter: drop-shadow(0 0 8px #22c55e)
+          drop-shadow(0 0 22px rgba(34,197,94,0.55))
+          drop-shadow(0 0 4px #fff);
 }
-.slash-katana-trail {
+.slash-katana-glow {
   position: absolute;
-  top: 50%; left: 0; right: 0;
-  height: 1px;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.25), transparent);
-  pointer-events: none;
+  top: 60px; left: 50%;
+  width: 2px;
+  height: calc(100% - 60px);
+  margin-left: -1px;
+  background: linear-gradient(180deg, rgba(34,197,94,0.6), transparent);
+  filter: blur(4px);
+  animation: ka-glow-pulse 0.8s ease-in-out infinite alternate;
+}
+@keyframes ka-glow-pulse {
+  from { opacity: 0.5; }
+  to   { opacity: 1;   }
 }
 
-/* ── The cut line ── */
-.slash-line {
+/* ── Slash animations ── */
+@keyframes ka-appear {
+  from { opacity:0; transform:translateY(-80px) rotate(0deg); }
+  to   { opacity:1; transform:translateY(0)    rotate(0deg); }
+}
+@keyframes ka-thrust {
+  0%   { transform: translateY(0)    scaleY(1); }
+  50%  { transform: translateY(30px) scaleY(1.04); }
+  100% { transform: translateY(0)    scaleY(1); }
+}
+
+/* ── Cut line at center ── */
+.slash-cut-line {
   position: absolute;
-  left: 0; right: 0;
   top: 50%;
-  height: 1px;
-  transform: translateY(-50%) rotate(-3deg);
+  left: 0; right: 0;
+  height: 2px;
+  margin-top: -1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(34,197,94,0.6) 20%,
-    rgba(255,255,255,0.9) 50%,
-    rgba(34,197,94,0.6) 80%,
+    rgba(34,197,94,0.5) 15%,
+    rgba(255,255,255,0.95) 50%,
+    rgba(34,197,94,0.5) 85%,
     transparent 100%);
-  box-shadow: 0 0 10px 2px rgba(34,197,94,0.5);
+  box-shadow: 0 0 12px 3px rgba(34,197,94,0.6),
+              0 0 30px 6px rgba(34,197,94,0.25);
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.15s ease;
 }
 
 /* ── State classes ── */
-#intro-slash.is-sweeping .slash-katana-wrap {
-  left: calc(100% + 60px);
+#intro-slash.is-appearing .slash-katana-center {
+  animation: ka-appear 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
-#intro-slash.is-cut .slash-line {
-  opacity: 1;
+#intro-slash.is-thrusting .slash-katana-center {
+  animation: ka-thrust 0.3s ease-in-out forwards;
 }
+#intro-slash.is-cut .slash-cut-line { opacity: 1; }
 #intro-slash.is-opening .slash-top    { transform: translateY(-100%); }
 #intro-slash.is-opening .slash-bottom { transform: translateY(100%); }
-#intro-slash.is-opening .slash-line   { opacity: 0; transition: opacity 0.4s; }
+#intro-slash.is-opening .slash-cut-line { opacity: 0; transition: opacity 0.5s; }
+#intro-slash.is-opening .slash-katana-center { opacity: 0; transition: opacity 0.3s; }
 #intro-slash.is-done { display: none; }
 </style>
 
@@ -120,16 +146,19 @@
   var el = document.getElementById('intro-slash');
   if (!el) return;
 
-  // Phase 1: katana sweeps across (380ms)
-  setTimeout(function () { el.classList.add('is-sweeping'); }, 80);
+  // Phase 1: katana drops in from above (350ms)
+  setTimeout(function () { el.classList.add('is-appearing'); }, 100);
 
-  // Phase 2: slash cut appears
-  setTimeout(function () { el.classList.add('is-cut'); }, 460);
+  // Phase 2: thrust downward
+  setTimeout(function () { el.classList.add('is-thrusting'); }, 500);
 
-  // Phase 3: halves split open
-  setTimeout(function () { el.classList.add('is-opening'); }, 620);
+  // Phase 3: cut line flashes
+  setTimeout(function () { el.classList.add('is-cut'); }, 750);
 
-  // Phase 4: remove from DOM
-  setTimeout(function () { el.classList.add('is-done'); }, 1350);
+  // Phase 4: screen splits open
+  setTimeout(function () { el.classList.add('is-opening'); }, 900);
+
+  // Phase 5: done
+  setTimeout(function () { el.classList.add('is-done'); }, 1700);
 })();
 </script>

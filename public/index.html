@@ -42,46 +42,35 @@
 
 <style>
  
-.ka-header-katana {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: 8px;
-  vertical-align: middle;
-  user-select: none;
-  text-decoration: none !important;
+.ka-katana-chain-row {
+  display: block;
+  height: 30px;
+  margin-top: 2px;
+  pointer-events: none;
 }
+.ka-katana-chain-row svg {
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: visible;
+}
+
  
-.ka-chain-link {
-  display: inline-block;
-  width: 8px;
-  height: 5px;
-  border: 1.5px solid rgba(34,197,94,0.45);
-  border-radius: 3px;
-  animation: ka-chain-wave 1.8s ease-in-out infinite;
+#theme-toggle { transition: transform 0.2s ease; }
+#theme-toggle:active { transform: scale(0.88); }
+@keyframes ka-shield-pulse {
+  0%   { box-shadow: 0 0 0 0    rgba(34,197,94,0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0    rgba(34,197,94,0); }
 }
-.ka-chain-link:nth-child(1) { animation-delay: 0s; }
-.ka-chain-link:nth-child(2) { animation-delay: 0.15s; }
-.ka-chain-link:nth-child(3) { animation-delay: 0.30s; }
-@keyframes ka-chain-wave {
-  0%,100% { transform: scaleY(1);   border-color: rgba(34,197,94,0.35); }
-  50%      { transform: scaleY(1.7); border-color: rgba(34,197,94,0.75); }
-}
- 
-.ka-header-sword {
-  display: inline-block;
-  animation: ka-sword-swing 3s ease-in-out infinite;
-  transform-origin: 90% 60%;
-}
-@keyframes ka-sword-swing {
-  0%,100% { transform: rotate(-18deg); }
-  40%     { transform: rotate(12deg);  }
-  60%     { transform: rotate(8deg);   }
+#theme-toggle.ka-pulsing {
+  animation: ka-shield-pulse 0.5s ease;
+  border-radius: 6px;
 }
 </style>
 
 <script>
-
+ 
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('#theme-toggle');
   if (!btn) return;
@@ -93,30 +82,116 @@ document.addEventListener('click', function(e) {
   }, { once: true });
 });
 
-
+ 
 document.addEventListener('DOMContentLoaded', function () {
-  var logo = document.querySelector('.logo a, #site-header .logo, header .logo, a.logo');
-  if (!logo) return;
-  var wrap = document.createElement('span');
-  wrap.className = 'ka-header-katana';
-  wrap.innerHTML =
-    '<span class="ka-chain-link"></span>' +
-    '<span class="ka-chain-link"></span>' +
-    '<span class="ka-chain-link"></span>' +
-    '<svg class="ka-header-sword" width="22" height="10" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-      '<polygon points="0,7 90,9 100,10 90,11 0,13" fill="url(#hg)" />' +
-      '<polygon points="90,9 110,10 90,11" fill="#fff" opacity="0.9"/>' +
-      '<ellipse cx="13" cy="10" rx="4" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>' +
-      '<rect x="0" y="6.5" width="12" height="7" rx="2.5" fill="#15803d"/>' +
-      '<polygon points="3,6.5 6,10 3,13.5 0,10"  fill="#4ade80" opacity="0.8"/>' +
-      '<polygon points="9,6.5 12,10 9,13.5 6,10" fill="#4ade80" opacity="0.8"/>' +
-      '<defs><linearGradient id="hg" x1="0" y1="0" x2="110" y2="0">' +
-        '<stop offset="0%" stop-color="#4ade80"/>' +
-        '<stop offset="60%" stop-color="#fff"/>' +
-        '<stop offset="100%" stop-color="transparent"/>' +
-      '</linearGradient></defs>' +
-    '</svg>';
-  logo.appendChild(wrap);
+  var logoLink = document.querySelector('.logo > a');
+  if (!logoLink || document.getElementById('ka-chain-svg')) return;
+
+  var ns = 'http://www.w3.org/2000/svg';
+
+   
+  var st = document.createElement('style');
+  st.textContent =
+    '@keyframes ka-katana-hang {' +
+      '0%,100%{ transform:rotate(-14deg); }' +
+      '50%    { transform:rotate(14deg);  }' +
+    '}';
+  document.head.appendChild(st);
+
+   
+  var svg = document.createElementNS(ns, 'svg');
+  svg.id  = 'ka-chain-svg';
+  svg.setAttribute('viewBox','0 0 160 30');
+  svg.setAttribute('preserveAspectRatio','none');
+
+   
+  var defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML =
+    '<linearGradient id="kbg" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#b9ffd0"/>' +
+      '<stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>' +
+    '</linearGradient>' +
+    '<filter id="kglow" x="-80%" y="-80%" width="260%" height="260%">' +
+      '<feGaussianBlur stdDeviation="0.7" result="b"/>' +
+      '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>' +
+    '</filter>';
+  svg.appendChild(defs);
+
+   
+  var chainLine = document.createElementNS(ns, 'line');
+  chainLine.setAttribute('x1','0');  chainLine.setAttribute('y1','3');
+  chainLine.setAttribute('x2','160'); chainLine.setAttribute('y2','3');
+  chainLine.setAttribute('stroke','rgba(34,197,94,0.3)');
+  chainLine.setAttribute('stroke-width','0.8');
+  chainLine.setAttribute('stroke-dasharray','4 3');
+  svg.appendChild(chainLine);
+
+   
+  for (var d = 0; d <= 160; d += 8) {
+    var dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', d); dot.setAttribute('cy','3');
+    dot.setAttribute('r','0.9');
+    dot.setAttribute('fill','rgba(34,197,94,0.45)');
+    svg.appendChild(dot);
+  }
+
+   
+  var xpos = [5, 27, 50, 80, 110, 133, 155];
+  xpos.forEach(function(px, i) {
+    var delay = (i * 0.25).toFixed(2);
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('style',
+      'transform-box:fill-box;' +
+      'transform-origin:' + px + 'px 3px;' +
+      'animation:ka-katana-hang 2.6s ease-in-out ' + delay + 's infinite;'
+    );
+
+     
+    var cord = document.createElementNS(ns, 'line');
+    cord.setAttribute('x1',px); cord.setAttribute('y1','3');
+    cord.setAttribute('x2',px); cord.setAttribute('y2','7');
+    cord.setAttribute('stroke','rgba(34,197,94,0.5)');
+    cord.setAttribute('stroke-width','0.7');
+    g.appendChild(cord);
+
+     
+    var h = document.createElementNS(ns, 'rect');
+    h.setAttribute('x',px-1.8); h.setAttribute('y','7');
+    h.setAttribute('width','3.6'); h.setAttribute('height','5');
+    h.setAttribute('rx','1'); h.setAttribute('fill','#15803d');
+    g.appendChild(h);
+
+     
+    var gu = document.createElementNS(ns, 'ellipse');
+    gu.setAttribute('cx',px); gu.setAttribute('cy','12');
+    gu.setAttribute('rx','4'); gu.setAttribute('ry','1.5');
+    gu.setAttribute('fill','#22c55e');
+    g.appendChild(gu);
+
+     
+    var bl = document.createElementNS(ns, 'polygon');
+    bl.setAttribute('points',
+      (px-1.1)+',13 '+(px+1.1)+',13 '+px+',26'
+    );
+    bl.setAttribute('fill','url(#kbg)');
+    bl.setAttribute('filter','url(#kglow)');
+    g.appendChild(bl);
+
+     
+    var dw = document.createElementNS(ns, 'line');
+    dw.setAttribute('x1',px-1.8); dw.setAttribute('y1','9');
+    dw.setAttribute('x2',px+1.8); dw.setAttribute('y2','11');
+    dw.setAttribute('stroke','#4ade80'); dw.setAttribute('stroke-width','0.5'); dw.setAttribute('opacity','0.6');
+    g.appendChild(dw);
+
+    svg.appendChild(g);
+  });
+
+   
+  var row = document.createElement('span');
+  row.className = 'ka-katana-chain-row';
+  row.appendChild(svg);
+  logoLink.parentNode.insertBefore(row, logoLink.nextSibling);
 });
 </script>
 <meta property="og:url" content="https://karimabdelazizblog.tech/">
@@ -571,40 +646,42 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 <div id="intro-slash" aria-hidden="true">
   <div class="slash-half slash-top"></div>
   <div class="slash-half slash-bottom"></div>
-
-  
-  <div class="slash-katana-wrap" id="slash-katana">
-    <svg class="slash-katana-svg" viewBox="0 0 520 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="slash-katana-center" id="slash-katana">
+    <svg viewBox="0 0 60 340" fill="none" xmlns="http://www.w3.org/2000/svg">
       
-      <polygon points="0,16 480,18 500,20 480,22 0,24" fill="url(#bladeGrad)" />
+      <polygon points="22,40 38,40 32,320 28,320" fill="url(#bladeV)" />
       
-      <polygon points="480,18 520,20 480,22" fill="#ffffff" />
+      <polygon points="28,320 30,340 32,320" fill="#ffffff" opacity="0.95"/>
       
-      <polygon points="0,17 480,19 500,20 480,21 0,23" fill="rgba(255,255,255,0.18)" />
+      <polygon points="30,40 37,40 31,310 29,310" fill="rgba(255,255,255,0.15)"/>
       
-      <ellipse cx="60" cy="20" rx="7" ry="14" fill="#22c55e" stroke="#16a34a" stroke-width="1.5"/>
+      <ellipse cx="30" cy="52" rx="22" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1.5"/>
+      <ellipse cx="30" cy="52" rx="15" ry="5" fill="#4ade80" opacity="0.4"/>
       
-      <rect x="0" y="15" width="58" height="10" rx="4" fill="#15803d"/>
+      <rect x="21" y="0" width="18" height="50" rx="5" fill="#15803d"/>
       
-      <polygon points="8,15 14,20 8,25 2,20"  fill="#4ade80" opacity="0.7"/>
-      <polygon points="22,15 28,20 22,25 16,20" fill="#4ade80" opacity="0.7"/>
-      <polygon points="36,15 42,20 36,25 30,20" fill="#4ade80" opacity="0.7"/>
-      <polygon points="50,15 56,20 50,25 44,20" fill="#4ade80" opacity="0.7"/>
+      <polygon points="30,2  38,10 30,18 22,10"  fill="#4ade80" opacity="0.75"/>
+      <polygon points="30,16 38,24 30,32 22,24"  fill="#4ade80" opacity="0.75"/>
+      <polygon points="30,30 38,38 30,46 22,38"  fill="#4ade80" opacity="0.75"/>
+      
+      <ellipse cx="30" cy="3" rx="9" ry="4" fill="#22c55e"/>
+      
+      <line x1="28" y1="60" x2="29" y2="310" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
 
       <defs>
-        <linearGradient id="bladeGrad" x1="0" y1="0" x2="520" y2="0">
-          <stop offset="0%"   stop-color="#4ade80"/>
-          <stop offset="50%"  stop-color="#ffffff"/>
+        <linearGradient id="bladeV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#b9ffd0"/>
+          <stop offset="40%"  stop-color="#4ade80"/>
+          <stop offset="80%"  stop-color="#22c55e"/>
           <stop offset="100%" stop-color="transparent"/>
         </linearGradient>
       </defs>
     </svg>
     
-    <div class="slash-katana-trail"></div>
+    <div class="slash-katana-glow"></div>
   </div>
-
   
-  <div class="slash-line"></div>
+  <div class="slash-cut-line"></div>
 </div>
 
 <style>
@@ -621,66 +698,90 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   position: absolute;
   left: 0; right: 0;
   background: #060a07;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
 }
-.slash-top    { top: 0;    height: 50.2%; transform: translateY(0); }
-.slash-bottom { bottom: 0; height: 50.2%; transform: translateY(0); }
+.slash-top    { top: 0;    height: 51%; transform: translateY(0); }
+.slash-bottom { bottom: 0; height: 51%; transform: translateY(0); }
 
  
-.slash-katana-wrap {
+.slash-katana-center {
   position: absolute;
   top: 50%;
-  left: -540px;
-  width: 520px;
-  height: 40px;
-  margin-top: -20px;
-  transform: rotate(-3deg);
-  transition: left 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: left;
+  left: 50%;
+  width: 60px;
+  height: 340px;
+  margin-left: -30px;
+  margin-top: -170px;
+  opacity: 0;
+  transform: translateY(-80px) rotate(0deg);
+  transition: opacity 0.2s ease, transform 0s;
+  will-change: transform, opacity;
 }
-.slash-katana-svg {
+.slash-katana-center svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 6px #22c55e) drop-shadow(0 0 18px rgba(34,197,94,0.6));
+  filter: drop-shadow(0 0 8px #22c55e)
+          drop-shadow(0 0 22px rgba(34,197,94,0.55))
+          drop-shadow(0 0 4px #fff);
 }
-.slash-katana-trail {
+.slash-katana-glow {
   position: absolute;
-  top: 50%; left: 0; right: 0;
-  height: 1px;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.25), transparent);
-  pointer-events: none;
+  top: 60px; left: 50%;
+  width: 2px;
+  height: calc(100% - 60px);
+  margin-left: -1px;
+  background: linear-gradient(180deg, rgba(34,197,94,0.6), transparent);
+  filter: blur(4px);
+  animation: ka-glow-pulse 0.8s ease-in-out infinite alternate;
+}
+@keyframes ka-glow-pulse {
+  from { opacity: 0.5; }
+  to   { opacity: 1;   }
 }
 
  
-.slash-line {
+@keyframes ka-appear {
+  from { opacity:0; transform:translateY(-80px) rotate(0deg); }
+  to   { opacity:1; transform:translateY(0)    rotate(0deg); }
+}
+@keyframes ka-thrust {
+  0%   { transform: translateY(0)    scaleY(1); }
+  50%  { transform: translateY(30px) scaleY(1.04); }
+  100% { transform: translateY(0)    scaleY(1); }
+}
+
+ 
+.slash-cut-line {
   position: absolute;
-  left: 0; right: 0;
   top: 50%;
-  height: 1px;
-  transform: translateY(-50%) rotate(-3deg);
+  left: 0; right: 0;
+  height: 2px;
+  margin-top: -1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(34,197,94,0.6) 20%,
-    rgba(255,255,255,0.9) 50%,
-    rgba(34,197,94,0.6) 80%,
+    rgba(34,197,94,0.5) 15%,
+    rgba(255,255,255,0.95) 50%,
+    rgba(34,197,94,0.5) 85%,
     transparent 100%);
-  box-shadow: 0 0 10px 2px rgba(34,197,94,0.5);
+  box-shadow: 0 0 12px 3px rgba(34,197,94,0.6),
+              0 0 30px 6px rgba(34,197,94,0.25);
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.15s ease;
 }
 
  
-#intro-slash.is-sweeping .slash-katana-wrap {
-  left: calc(100% + 60px);
+#intro-slash.is-appearing .slash-katana-center {
+  animation: ka-appear 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
-#intro-slash.is-cut .slash-line {
-  opacity: 1;
+#intro-slash.is-thrusting .slash-katana-center {
+  animation: ka-thrust 0.3s ease-in-out forwards;
 }
+#intro-slash.is-cut .slash-cut-line { opacity: 1; }
 #intro-slash.is-opening .slash-top    { transform: translateY(-100%); }
 #intro-slash.is-opening .slash-bottom { transform: translateY(100%); }
-#intro-slash.is-opening .slash-line   { opacity: 0; transition: opacity 0.4s; }
+#intro-slash.is-opening .slash-cut-line { opacity: 0; transition: opacity 0.5s; }
+#intro-slash.is-opening .slash-katana-center { opacity: 0; transition: opacity 0.3s; }
 #intro-slash.is-done { display: none; }
 </style>
 
@@ -690,16 +791,19 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   if (!el) return;
 
   
-  setTimeout(function () { el.classList.add('is-sweeping'); }, 80);
+  setTimeout(function () { el.classList.add('is-appearing'); }, 100);
 
   
-  setTimeout(function () { el.classList.add('is-cut'); }, 460);
+  setTimeout(function () { el.classList.add('is-thrusting'); }, 500);
 
   
-  setTimeout(function () { el.classList.add('is-opening'); }, 620);
+  setTimeout(function () { el.classList.add('is-cut'); }, 750);
 
   
-  setTimeout(function () { el.classList.add('is-done'); }, 1350);
+  setTimeout(function () { el.classList.add('is-opening'); }, 900);
+
+  
+  setTimeout(function () { el.classList.add('is-done'); }, 1700);
 })();
 </script>
 
@@ -710,10 +814,9 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   var canvas = document.getElementById('ka-particles');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
-
-  var greens = ['#22c55e','#16a34a','#4ade80','#86efac','#15803d','#bbf7d0'];
+  var greens = ['#22c55e','#16a34a','#4ade80','#86efac','#15803d'];
   var leaves = [];
-  var MAX = 18;
+  var MAX = 16;
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -724,30 +827,29 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 
   function spawnLeaf() {
     return {
-      x:      Math.random() * canvas.width,
-      y:      -30,
-      vy:     0.55 + Math.random() * 0.7,
-      vx:     (Math.random() - 0.5) * 0.6,
-      rot:    Math.random() * Math.PI * 2,
-      rotV:   (Math.random() - 0.5) * 0.025,
-      size:   7 + Math.random() * 9,
-      color:  greens[Math.floor(Math.random() * greens.length)],
-      alpha:  0.18 + Math.random() * 0.22,
-      swing:  Math.random() * Math.PI * 2,
-      swingV: 0.018 + Math.random() * 0.012
+      x:     Math.random() * canvas.width,
+      y:     -30,
+      vy:    0.2 + Math.random() * 0.28,    
+      vx:    (Math.random() - 0.5) * 0.3,
+      rot:   Math.random() * Math.PI * 2,
+      rotV:  (Math.random() - 0.5) * 0.012,  
+      size:  8 + Math.random() * 9,
+      color: greens[Math.floor(Math.random() * greens.length)],
+      alpha: 0.16 + Math.random() * 0.2,
+      swing: Math.random() * Math.PI * 2,
+      swingV:0.01 + Math.random() * 0.008   
     };
   }
 
   function drawLeaf(ctx, size) {
-     
     ctx.beginPath();
     ctx.moveTo(0, -size);
-    ctx.bezierCurveTo( size * 0.6, -size * 0.5,  size * 0.8,  size * 0.3,  0,  size);
-    ctx.bezierCurveTo(-size * 0.8,  size * 0.3, -size * 0.6, -size * 0.5,  0, -size);
+    ctx.bezierCurveTo( size*0.65, -size*0.5,  size*0.85,  size*0.3,  0,  size);
+    ctx.bezierCurveTo(-size*0.85,  size*0.3, -size*0.65, -size*0.5,  0, -size);
     ctx.closePath();
      
-    ctx.moveTo(0, -size);
-    ctx.lineTo(0,  size);
+    ctx.moveTo(0, -size * 0.9);
+    ctx.lineTo(0,  size * 0.9);
   }
 
   for (var i = 0; i < MAX; i++) {
@@ -761,17 +863,17 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
     for (var i = 0; i < leaves.length; i++) {
       var l = leaves[i];
       l.swing += l.swingV;
-      l.x  += l.vx + Math.sin(l.swing) * 0.35;
+      l.x  += l.vx + Math.sin(l.swing) * 0.28;
       l.y  += l.vy;
       l.rot += l.rotV;
 
       ctx.save();
       ctx.translate(l.x, l.y);
       ctx.rotate(l.rot);
-      ctx.globalAlpha = l.alpha;
-      ctx.fillStyle   = l.color;
-      ctx.strokeStyle = l.color;
-      ctx.lineWidth   = 0.5;
+      ctx.globalAlpha   = l.alpha;
+      ctx.fillStyle     = l.color;
+      ctx.strokeStyle   = l.color;
+      ctx.lineWidth     = 0.6;
       drawLeaf(ctx, l.size);
       ctx.fill();
       ctx.stroke();
@@ -933,7 +1035,7 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 
 <script>
 (function () {
-  if (localStorage.getItem('ka-tour-done')) {
+  if (localStorage.getItem('ka-tour-v2')) {
     var w = document.getElementById('ka-tour-btn-wrap');
     if (w) w.style.display = 'none';
   }
@@ -1044,7 +1146,7 @@ function kaTourEnd() {
   document.getElementById('ka-tour-overlay').style.display   = 'none';
   document.getElementById('ka-tour-spotlight').style.display = 'none';
   document.getElementById('ka-tour-tooltip').style.display   = 'none';
-  localStorage.setItem('ka-tour-done', '1');
+  localStorage.setItem('ka-tour-v2', '1');
 }
 </script>
 
