@@ -1,23 +1,25 @@
-{{- /* "Scan My Blog" guided tour — homepage only */ -}}
+{{- /* Auto Tour — automatically scrolls & highlights each section */ -}}
+
 <div id="ka-tour-btn-wrap">
-  <button id="ka-tour-btn" onclick="kaTourStart()" aria-label="Start guided tour">
-    <span class="ka-tour-icon">⬡</span> Scan My Blog
+  <button id="ka-tour-btn" onclick="kaTourStart()" aria-label="Start auto tour">
+    <span class="ka-tour-sword">⚔</span> Tour the Blog
   </button>
 </div>
 
 <div id="ka-tour-overlay" style="display:none" aria-hidden="true"></div>
+<div id="ka-tour-spotlight" style="display:none" aria-hidden="true"></div>
 <div id="ka-tour-tooltip" style="display:none" aria-live="polite">
   <div class="ka-tour-step-label" id="ka-tour-step-label"></div>
-  <div class="ka-tour-title"   id="ka-tour-title"></div>
-  <div class="ka-tour-desc"    id="ka-tour-desc"></div>
-  <div class="ka-tour-actions">
-    <button class="ka-tour-skip"  onclick="kaTourEnd()">Skip</button>
-    <button class="ka-tour-next"  id="ka-tour-next" onclick="kaTourNext()">Next →</button>
+  <div class="ka-tour-title"      id="ka-tour-title"></div>
+  <div class="ka-tour-desc"       id="ka-tour-desc"></div>
+  <div class="ka-tour-progress">
+    <div class="ka-tour-progress-bar" id="ka-tour-bar"></div>
   </div>
+  <button class="ka-tour-skip" onclick="kaTourEnd()">✕ Skip tour</button>
 </div>
 
 <style>
-/* ── Tour trigger button ── */
+/* ── Trigger button ── */
 #ka-tour-btn-wrap {
   position: fixed;
   bottom: 1.5rem;
@@ -27,50 +29,72 @@
 #ka-tour-btn {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.48rem 1rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1.05rem;
   background: var(--entry, #1c1c26);
-  border: 1px solid rgba(34,197,94,0.35);
+  border: 1px solid rgba(34,197,94,0.4);
   border-radius: 50px;
   color: #22c55e;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   cursor: pointer;
-  box-shadow: 0 2px 14px rgba(34,197,94,0.12);
-  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 16px rgba(34,197,94,0.14);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 #ka-tour-btn:hover {
-  background: rgba(34,197,94,0.12);
-  box-shadow: 0 2px 20px rgba(34,197,94,0.25);
+  background: rgba(34,197,94,0.1);
+  box-shadow: 0 2px 22px rgba(34,197,94,0.28);
+  transform: translateY(-1px);
 }
-.ka-tour-icon {
-  font-size: 1rem;
-  animation: ka-hex-spin 6s linear infinite;
+.ka-tour-sword {
+  font-size: 1.05rem;
+  animation: ka-sword-bob 2.5s ease-in-out infinite;
   display: inline-block;
+  transform-origin: bottom center;
 }
-@keyframes ka-hex-spin { to { transform: rotate(360deg); } }
+@keyframes ka-sword-bob {
+  0%,100% { transform: rotate(-15deg); }
+  50%      { transform: rotate(15deg); }
+}
 
 /* ── Overlay ── */
 #ka-tour-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.72);
+  background: rgba(0,0,0,0.68);
   z-index: 9000;
-  pointer-events: all;
+  pointer-events: none;
 }
 
-/* ── Tooltip card ── */
+/* ── Spotlight cutout ── */
+#ka-tour-spotlight {
+  position: fixed;
+  z-index: 9001;
+  border-radius: 10px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.68),
+              0 0 0 2px rgba(34,197,94,0.55),
+              0 0 20px 4px rgba(34,197,94,0.2);
+  pointer-events: none;
+  transition: top 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              left 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              width 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              height 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+/* ── Tooltip ── */
 #ka-tour-tooltip {
   position: fixed;
   z-index: 9100;
   background: var(--entry, #1c1c26);
   border: 1px solid rgba(34,197,94,0.4);
   border-radius: 12px;
-  padding: 1.1rem 1.3rem 0.9rem;
-  max-width: 300px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5),
-              0 0 0 1px rgba(34,197,94,0.15);
+  padding: 1.1rem 1.3rem 0.85rem;
+  max-width: 290px;
+  width: 290px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(34,197,94,0.12);
+  transition: top 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              left 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .ka-tour-step-label {
   font-size: 0.58rem;
@@ -81,168 +105,157 @@
   margin-bottom: 0.35rem;
 }
 .ka-tour-title {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--primary, #e8e8f0);
-  margin-bottom: 0.4rem;
   line-height: 1.3;
+  margin-bottom: 0.4rem;
 }
 .ka-tour-desc {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--secondary, #888);
   line-height: 1.55;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
-.ka-tour-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.ka-tour-progress {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  margin-bottom: 0.65rem;
+  overflow: hidden;
+}
+.ka-tour-progress-bar {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 2px;
+  width: 0%;
+  transition: width linear;
 }
 .ka-tour-skip {
   background: none;
   border: none;
-  color: var(--secondary, #888);
-  font-size: 0.75rem;
+  color: var(--secondary, #666);
+  font-size: 0.7rem;
   cursor: pointer;
   padding: 0;
+  float: right;
 }
 .ka-tour-skip:hover { color: var(--primary, #fff); }
-.ka-tour-next {
-  background: #22c55e;
-  border: none;
-  color: #000;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.38rem 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.ka-tour-next:hover { opacity: 0.85; }
-
-/* Spotlight: highlight rect punched through overlay */
-#ka-tour-spotlight {
-  position: fixed;
-  z-index: 9001;
-  border-radius: 10px;
-  box-shadow: 0 0 0 9999px rgba(0,0,0,0.72),
-              0 0 0 2px rgba(34,197,94,0.5);
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-}
 </style>
 
 <script>
 (function () {
-  // Hide button if tour already done
   if (localStorage.getItem('ka-tour-done')) {
     var w = document.getElementById('ka-tour-btn-wrap');
     if (w) w.style.display = 'none';
   }
 })();
 
-var kaTourStep = 0;
-var kaTourSpotlight = null;
+var kaTourStep  = 0;
+var kaTourTimer = null;
+var STEP_DURATION = 3200; // ms per step
 
 var kaTourSteps = [
   {
     selector: '.home-hero',
-    label: 'Step 1 of 4',
-    title: 'Hero — Who I Am',
-    desc: 'Your identity at a glance: name, role, and social links to GitHub, LinkedIn, HackTheBox and more.',
-    position: 'bottom'
+    label: 'Welcome',
+    title: 'Hey, I\'m Karim Abdelaziz',
+    desc:  'Cybersecurity student, CTF player, SIEM builder. This is my corner of the internet.',
+    position: 'below'
   },
   {
     selector: '.social-icons',
-    label: 'Step 2 of 4',
-    title: 'Social Links',
-    desc: 'Connect with me across platforms — GitHub, LinkedIn, HackTheBox, TryHackMe, HackerOne and more.',
-    position: 'bottom'
+    label: 'Connect',
+    title: 'Find Me Online',
+    desc:  'GitHub, LinkedIn, HackTheBox, TryHackMe, HackerOne — all in one row.',
+    position: 'below'
   },
   {
-    selector: '#searchbox, nav',
-    label: 'Step 3 of 4',
-    title: 'Navigation',
-    desc: 'Browse Notes (eJPT, CTFs), Labs (Wazuh, Suricata, AI), Certs, Archive, or search everything.',
-    position: 'bottom'
+    selector: '.header, header, #top',
+    label: 'Navigate',
+    title: 'Blog Navigation',
+    desc:  'Notes (eJPT, CTF writeups), Labs (Wazuh, AI), Certs, Archive — everything you need.',
+    position: 'below'
   },
   {
-    selector: '.post-entry, article',
-    label: 'Step 4 of 4',
+    selector: '.post-entry, article.post-entry',
+    label: 'Content',
     title: 'Latest Posts',
-    desc: 'My most recent notes and writeups. Click any card to dive into the full content.',
-    position: 'top'
+    desc:  'Technical security notes and lab writeups sorted by recency. Click any to read.',
+    position: 'above'
   }
 ];
 
 function kaTourStart() {
   kaTourStep = 0;
   document.getElementById('ka-tour-btn-wrap').style.display = 'none';
-  document.getElementById('ka-tour-overlay').style.display = 'block';
-  // Create spotlight
-  if (!kaTourSpotlight) {
-    kaTourSpotlight = document.createElement('div');
-    kaTourSpotlight.id = 'ka-tour-spotlight';
-    document.body.appendChild(kaTourSpotlight);
-  }
+  document.getElementById('ka-tour-overlay').style.display  = 'block';
+  document.getElementById('ka-tour-spotlight').style.display = 'block';
+  document.getElementById('ka-tour-tooltip').style.display   = 'block';
   kaTourShow();
 }
 
 function kaTourShow() {
-  var step = kaTourSteps[kaTourStep];
+  clearTimeout(kaTourTimer);
+  var step   = kaTourSteps[kaTourStep];
   var target = document.querySelector(step.selector);
-  var tooltip = document.getElementById('ka-tour-tooltip');
+  var sp     = document.getElementById('ka-tour-spotlight');
+  var tt     = document.getElementById('ka-tour-tooltip');
+  var bar    = document.getElementById('ka-tour-bar');
 
-  document.getElementById('ka-tour-step-label').textContent = step.label;
+  document.getElementById('ka-tour-step-label').textContent = step.label + ' — ' + (kaTourStep+1) + '/' + kaTourSteps.length;
   document.getElementById('ka-tour-title').textContent = step.title;
-  document.getElementById('ka-tour-desc').textContent = step.desc;
+  document.getElementById('ka-tour-desc').textContent  = step.desc;
 
-  var nextBtn = document.getElementById('ka-tour-next');
-  nextBtn.textContent = kaTourStep === kaTourSteps.length - 1 ? 'Finish ✓' : 'Next →';
+  // Progress bar animation
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  void bar.offsetWidth;
+  bar.style.transition = 'width ' + STEP_DURATION + 'ms linear';
+  bar.style.width = '100%';
 
   if (target) {
-    var rect = target.getBoundingClientRect();
-    var pad = 10;
-    kaTourSpotlight.style.cssText =
-      'display:block;top:' + (rect.top - pad + window.scrollY) + 'px;' +
-      'left:' + (rect.left - pad) + 'px;' +
-      'width:' + (rect.width + pad * 2) + 'px;' +
-      'height:' + (rect.height + pad * 2) + 'px;';
-    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () {
+      var rect = target.getBoundingClientRect();
+      var pad  = 10;
+      sp.style.top    = (rect.top  - pad + window.scrollY) + 'px';
+      sp.style.left   = (rect.left - pad) + 'px';
+      sp.style.width  = (rect.width  + pad * 2) + 'px';
+      sp.style.height = (rect.height + pad * 2) + 'px';
 
-    // Position tooltip
-    var ttop, tleft;
-    if (step.position === 'bottom') {
-      ttop  = rect.bottom + pad + 16;
-      tleft = rect.left;
+      // Tooltip position
+      var ttop, tleft;
+      if (step.position === 'below') {
+        ttop  = rect.bottom + 20;
+        tleft = rect.left;
+      } else {
+        ttop  = rect.top - 220;
+        tleft = rect.left;
+      }
+      tleft = Math.max(12, Math.min(tleft, window.innerWidth - 306));
+      ttop  = Math.max(60, Math.min(ttop,  window.innerHeight - 240));
+      tt.style.top  = ttop  + 'px';
+      tt.style.left = tleft + 'px';
+    }, 300);
+  }
+
+  // Auto advance
+  kaTourTimer = setTimeout(function () {
+    kaTourStep++;
+    if (kaTourStep >= kaTourSteps.length) {
+      kaTourEnd();
     } else {
-      ttop  = rect.top - 220;
-      tleft = rect.left;
+      kaTourShow();
     }
-    // Keep on screen
-    tleft = Math.max(12, Math.min(tleft, window.innerWidth - 330));
-    ttop  = Math.max(12, Math.min(ttop,  window.innerHeight - 240));
-
-    tooltip.style.cssText = 'display:block;top:' + ttop + 'px;left:' + tleft + 'px;';
-  } else {
-    kaTourSpotlight.style.display = 'none';
-    tooltip.style.cssText = 'display:block;top:50%;left:50%;transform:translate(-50%,-50%)';
-  }
-}
-
-function kaTourNext() {
-  kaTourStep++;
-  if (kaTourStep >= kaTourSteps.length) {
-    kaTourEnd();
-    return;
-  }
-  kaTourShow();
+  }, STEP_DURATION);
 }
 
 function kaTourEnd() {
-  document.getElementById('ka-tour-overlay').style.display = 'none';
-  document.getElementById('ka-tour-tooltip').style.display = 'none';
-  if (kaTourSpotlight) kaTourSpotlight.style.display = 'none';
+  clearTimeout(kaTourTimer);
+  document.getElementById('ka-tour-overlay').style.display   = 'none';
+  document.getElementById('ka-tour-spotlight').style.display = 'none';
+  document.getElementById('ka-tour-tooltip').style.display   = 'none';
   localStorage.setItem('ka-tour-done', '1');
 }
 </script>

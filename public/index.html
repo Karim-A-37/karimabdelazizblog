@@ -39,17 +39,84 @@
 </script><link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/favicon.png" />
 <meta name="theme-color" content="#1a1a2e" />
+
+<style>
+ 
+.ka-header-katana {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  user-select: none;
+  text-decoration: none !important;
+}
+ 
+.ka-chain-link {
+  display: inline-block;
+  width: 8px;
+  height: 5px;
+  border: 1.5px solid rgba(34,197,94,0.45);
+  border-radius: 3px;
+  animation: ka-chain-wave 1.8s ease-in-out infinite;
+}
+.ka-chain-link:nth-child(1) { animation-delay: 0s; }
+.ka-chain-link:nth-child(2) { animation-delay: 0.15s; }
+.ka-chain-link:nth-child(3) { animation-delay: 0.30s; }
+@keyframes ka-chain-wave {
+  0%,100% { transform: scaleY(1);   border-color: rgba(34,197,94,0.35); }
+  50%      { transform: scaleY(1.7); border-color: rgba(34,197,94,0.75); }
+}
+ 
+.ka-header-sword {
+  display: inline-block;
+  animation: ka-sword-swing 3s ease-in-out infinite;
+  transform-origin: 90% 60%;
+}
+@keyframes ka-sword-swing {
+  0%,100% { transform: rotate(-18deg); }
+  40%     { transform: rotate(12deg);  }
+  60%     { transform: rotate(8deg);   }
+}
+</style>
+
 <script>
 
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('#theme-toggle');
   if (!btn) return;
   btn.classList.remove('ka-pulsing');
-  void btn.offsetWidth; 
+  void btn.offsetWidth;
   btn.classList.add('ka-pulsing');
   btn.addEventListener('animationend', function() {
     btn.classList.remove('ka-pulsing');
   }, { once: true });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var logo = document.querySelector('.logo a, #site-header .logo, header .logo, a.logo');
+  if (!logo) return;
+  var wrap = document.createElement('span');
+  wrap.className = 'ka-header-katana';
+  wrap.innerHTML =
+    '<span class="ka-chain-link"></span>' +
+    '<span class="ka-chain-link"></span>' +
+    '<span class="ka-chain-link"></span>' +
+    '<svg class="ka-header-sword" width="22" height="10" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<polygon points="0,7 90,9 100,10 90,11 0,13" fill="url(#hg)" />' +
+      '<polygon points="90,9 110,10 90,11" fill="#fff" opacity="0.9"/>' +
+      '<ellipse cx="13" cy="10" rx="4" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>' +
+      '<rect x="0" y="6.5" width="12" height="7" rx="2.5" fill="#15803d"/>' +
+      '<polygon points="3,6.5 6,10 3,13.5 0,10"  fill="#4ade80" opacity="0.8"/>' +
+      '<polygon points="9,6.5 12,10 9,13.5 6,10" fill="#4ade80" opacity="0.8"/>' +
+      '<defs><linearGradient id="hg" x1="0" y1="0" x2="110" y2="0">' +
+        '<stop offset="0%" stop-color="#4ade80"/>' +
+        '<stop offset="60%" stop-color="#fff"/>' +
+        '<stop offset="100%" stop-color="transparent"/>' +
+      '</linearGradient></defs>' +
+    '</svg>';
+  logo.appendChild(wrap);
 });
 </script>
 <meta property="og:url" content="https://karimabdelazizblog.tech/">
@@ -504,6 +571,39 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 <div id="intro-slash" aria-hidden="true">
   <div class="slash-half slash-top"></div>
   <div class="slash-half slash-bottom"></div>
+
+  
+  <div class="slash-katana-wrap" id="slash-katana">
+    <svg class="slash-katana-svg" viewBox="0 0 520 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      
+      <polygon points="0,16 480,18 500,20 480,22 0,24" fill="url(#bladeGrad)" />
+      
+      <polygon points="480,18 520,20 480,22" fill="#ffffff" />
+      
+      <polygon points="0,17 480,19 500,20 480,21 0,23" fill="rgba(255,255,255,0.18)" />
+      
+      <ellipse cx="60" cy="20" rx="7" ry="14" fill="#22c55e" stroke="#16a34a" stroke-width="1.5"/>
+      
+      <rect x="0" y="15" width="58" height="10" rx="4" fill="#15803d"/>
+      
+      <polygon points="8,15 14,20 8,25 2,20"  fill="#4ade80" opacity="0.7"/>
+      <polygon points="22,15 28,20 22,25 16,20" fill="#4ade80" opacity="0.7"/>
+      <polygon points="36,15 42,20 36,25 30,20" fill="#4ade80" opacity="0.7"/>
+      <polygon points="50,15 56,20 50,25 44,20" fill="#4ade80" opacity="0.7"/>
+
+      <defs>
+        <linearGradient id="bladeGrad" x1="0" y1="0" x2="520" y2="0">
+          <stop offset="0%"   stop-color="#4ade80"/>
+          <stop offset="50%"  stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    
+    <div class="slash-katana-trail"></div>
+  </div>
+
+  
   <div class="slash-line"></div>
 </div>
 
@@ -515,68 +615,105 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   pointer-events: none;
   overflow: hidden;
 }
+
+ 
 .slash-half {
   position: absolute;
   left: 0; right: 0;
-  background: #080b09;
-  transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+  background: #060a07;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
 }
-.slash-top    { top: 0; height: 50%; transform: translateY(0); }
-.slash-bottom { bottom: 0; height: 50%; transform: translateY(0); }
+.slash-top    { top: 0;    height: 50.2%; transform: translateY(0); }
+.slash-bottom { bottom: 0; height: 50.2%; transform: translateY(0); }
 
+ 
+.slash-katana-wrap {
+  position: absolute;
+  top: 50%;
+  left: -540px;
+  width: 520px;
+  height: 40px;
+  margin-top: -20px;
+  transform: rotate(-3deg);
+  transition: left 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: left;
+}
+.slash-katana-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px #22c55e) drop-shadow(0 0 18px rgba(34,197,94,0.6));
+}
+.slash-katana-trail {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.25), transparent);
+  pointer-events: none;
+}
+
+ 
 .slash-line {
   position: absolute;
-  left: -10%;
-  right: -10%;
+  left: 0; right: 0;
   top: 50%;
-  height: 2px;
+  height: 1px;
+  transform: translateY(-50%) rotate(-3deg);
   background: linear-gradient(90deg,
     transparent 0%,
-    #22c55e 30%,
-    #ffffff 50%,
-    #22c55e 70%,
+    rgba(34,197,94,0.6) 20%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(34,197,94,0.6) 80%,
     transparent 100%);
-  transform: translateY(-50%) scaleX(0) rotate(-2deg);
-  transform-origin: left center;
-  box-shadow: 0 0 18px 4px rgba(34,197,94,0.7),
-              0 0 40px 8px rgba(34,197,94,0.3);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px 2px rgba(34,197,94,0.5);
+  opacity: 0;
+  transition: opacity 0.1s;
 }
 
-#intro-slash.is-slashing .slash-line {
-  transform: translateY(-50%) scaleX(1) rotate(-2deg);
+ 
+#intro-slash.is-sweeping .slash-katana-wrap {
+  left: calc(100% + 60px);
 }
-#intro-slash.is-opening .slash-top  { transform: translateY(-100%); }
+#intro-slash.is-cut .slash-line {
+  opacity: 1;
+}
+#intro-slash.is-opening .slash-top    { transform: translateY(-100%); }
 #intro-slash.is-opening .slash-bottom { transform: translateY(100%); }
+#intro-slash.is-opening .slash-line   { opacity: 0; transition: opacity 0.4s; }
 #intro-slash.is-done { display: none; }
 </style>
 
 <script>
 (function () {
-  if (sessionStorage.getItem('ka-intro-seen')) {
-    var el = document.getElementById('intro-slash');
-    if (el) el.classList.add('is-done');
-    return;
-  }
-  sessionStorage.setItem('ka-intro-seen', '1');
   var el = document.getElementById('intro-slash');
   if (!el) return;
-  setTimeout(function () { el.classList.add('is-slashing'); }, 200);
-  setTimeout(function () { el.classList.add('is-opening'); }, 650);
-  setTimeout(function () { el.classList.add('is-done'); }, 1300);
+
+  
+  setTimeout(function () { el.classList.add('is-sweeping'); }, 80);
+
+  
+  setTimeout(function () { el.classList.add('is-cut'); }, 460);
+
+  
+  setTimeout(function () { el.classList.add('is-opening'); }, 620);
+
+  
+  setTimeout(function () { el.classList.add('is-done'); }, 1350);
 })();
 </script>
 
-<canvas id="ka-particles" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.55;"></canvas>
+<canvas id="ka-particles" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
 
 <script>
 (function () {
   var canvas = document.getElementById('ka-particles');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
-  var chars = ['0','1','>','$','#','{','}','/',':','_'];
-  var particles = [];
-  var MAX = 28;
+
+  var greens = ['#22c55e','#16a34a','#4ade80','#86efac','#15803d','#bbf7d0'];
+  var leaves = [];
+  var MAX = 18;
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -585,42 +722,63 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  function spawn() {
+  function spawnLeaf() {
     return {
-      x:    Math.random() * canvas.width,
-      y:    -20,
-      vy:   0.3 + Math.random() * 0.5,
-      vx:   (Math.random() - 0.5) * 0.15,
-      size: 9 + Math.random() * 6,
-      char: chars[Math.floor(Math.random() * chars.length)],
-      alpha: 0.06 + Math.random() * 0.09,
-      life: 0
+      x:      Math.random() * canvas.width,
+      y:      -30,
+      vy:     0.55 + Math.random() * 0.7,
+      vx:     (Math.random() - 0.5) * 0.6,
+      rot:    Math.random() * Math.PI * 2,
+      rotV:   (Math.random() - 0.5) * 0.025,
+      size:   7 + Math.random() * 9,
+      color:  greens[Math.floor(Math.random() * greens.length)],
+      alpha:  0.18 + Math.random() * 0.22,
+      swing:  Math.random() * Math.PI * 2,
+      swingV: 0.018 + Math.random() * 0.012
     };
   }
 
+  function drawLeaf(ctx, size) {
+     
+    ctx.beginPath();
+    ctx.moveTo(0, -size);
+    ctx.bezierCurveTo( size * 0.6, -size * 0.5,  size * 0.8,  size * 0.3,  0,  size);
+    ctx.bezierCurveTo(-size * 0.8,  size * 0.3, -size * 0.6, -size * 0.5,  0, -size);
+    ctx.closePath();
+     
+    ctx.moveTo(0, -size);
+    ctx.lineTo(0,  size);
+  }
+
   for (var i = 0; i < MAX; i++) {
-    var p = spawn();
-    p.y = Math.random() * canvas.height;
-    particles.push(p);
+    var l = spawnLeaf();
+    l.y = Math.random() * canvas.height;
+    leaves.push(l);
   }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = 'bold 11px JetBrains Mono, monospace';
-    ctx.fillStyle = '#22c55e';
+    for (var i = 0; i < leaves.length; i++) {
+      var l = leaves[i];
+      l.swing += l.swingV;
+      l.x  += l.vx + Math.sin(l.swing) * 0.35;
+      l.y  += l.vy;
+      l.rot += l.rotV;
 
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      ctx.globalAlpha = p.alpha;
-      ctx.fillText(p.char, p.x, p.y);
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life++;
-      
-      if (p.life % 80 === 0) p.char = chars[Math.floor(Math.random() * chars.length)];
-      
-      if (p.y > canvas.height + 20) {
-        particles[i] = spawn();
+      ctx.save();
+      ctx.translate(l.x, l.y);
+      ctx.rotate(l.rot);
+      ctx.globalAlpha = l.alpha;
+      ctx.fillStyle   = l.color;
+      ctx.strokeStyle = l.color;
+      ctx.lineWidth   = 0.5;
+      drawLeaf(ctx, l.size);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      if (l.y > canvas.height + 30) {
+        leaves[i] = spawnLeaf();
       }
     }
     ctx.globalAlpha = 1;
@@ -631,20 +789,21 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 </script>
 
 <div id="ka-tour-btn-wrap">
-  <button id="ka-tour-btn" onclick="kaTourStart()" aria-label="Start guided tour">
-    <span class="ka-tour-icon">⬡</span> Scan My Blog
+  <button id="ka-tour-btn" onclick="kaTourStart()" aria-label="Start auto tour">
+    <span class="ka-tour-sword">⚔</span> Tour the Blog
   </button>
 </div>
 
 <div id="ka-tour-overlay" style="display:none" aria-hidden="true"></div>
+<div id="ka-tour-spotlight" style="display:none" aria-hidden="true"></div>
 <div id="ka-tour-tooltip" style="display:none" aria-live="polite">
   <div class="ka-tour-step-label" id="ka-tour-step-label"></div>
-  <div class="ka-tour-title"   id="ka-tour-title"></div>
-  <div class="ka-tour-desc"    id="ka-tour-desc"></div>
-  <div class="ka-tour-actions">
-    <button class="ka-tour-skip"  onclick="kaTourEnd()">Skip</button>
-    <button class="ka-tour-next"  id="ka-tour-next" onclick="kaTourNext()">Next →</button>
+  <div class="ka-tour-title"      id="ka-tour-title"></div>
+  <div class="ka-tour-desc"       id="ka-tour-desc"></div>
+  <div class="ka-tour-progress">
+    <div class="ka-tour-progress-bar" id="ka-tour-bar"></div>
   </div>
+  <button class="ka-tour-skip" onclick="kaTourEnd()">✕ Skip tour</button>
 </div>
 
 <style>
@@ -658,37 +817,57 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
 #ka-tour-btn {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.48rem 1rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1.05rem;
   background: var(--entry, #1c1c26);
-  border: 1px solid rgba(34,197,94,0.35);
+  border: 1px solid rgba(34,197,94,0.4);
   border-radius: 50px;
   color: #22c55e;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   cursor: pointer;
-  box-shadow: 0 2px 14px rgba(34,197,94,0.12);
-  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 16px rgba(34,197,94,0.14);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 #ka-tour-btn:hover {
-  background: rgba(34,197,94,0.12);
-  box-shadow: 0 2px 20px rgba(34,197,94,0.25);
+  background: rgba(34,197,94,0.1);
+  box-shadow: 0 2px 22px rgba(34,197,94,0.28);
+  transform: translateY(-1px);
 }
-.ka-tour-icon {
-  font-size: 1rem;
-  animation: ka-hex-spin 6s linear infinite;
+.ka-tour-sword {
+  font-size: 1.05rem;
+  animation: ka-sword-bob 2.5s ease-in-out infinite;
   display: inline-block;
+  transform-origin: bottom center;
 }
-@keyframes ka-hex-spin { to { transform: rotate(360deg); } }
+@keyframes ka-sword-bob {
+  0%,100% { transform: rotate(-15deg); }
+  50%      { transform: rotate(15deg); }
+}
 
  
 #ka-tour-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.72);
+  background: rgba(0,0,0,0.68);
   z-index: 9000;
-  pointer-events: all;
+  pointer-events: none;
+}
+
+ 
+#ka-tour-spotlight {
+  position: fixed;
+  z-index: 9001;
+  border-radius: 10px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.68),
+              0 0 0 2px rgba(34,197,94,0.55),
+              0 0 20px 4px rgba(34,197,94,0.2);
+  pointer-events: none;
+  transition: top 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              left 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              width 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              height 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
  
@@ -698,10 +877,12 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   background: var(--entry, #1c1c26);
   border: 1px solid rgba(34,197,94,0.4);
   border-radius: 12px;
-  padding: 1.1rem 1.3rem 0.9rem;
-  max-width: 300px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5),
-              0 0 0 1px rgba(34,197,94,0.15);
+  padding: 1.1rem 1.3rem 0.85rem;
+  max-width: 290px;
+  width: 290px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(34,197,94,0.12);
+  transition: top 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+              left 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .ka-tour-step-label {
   font-size: 0.58rem;
@@ -712,168 +893,157 @@ Concept 1: [Enumeration] What it is: Enumeration is active process of gathering 
   margin-bottom: 0.35rem;
 }
 .ka-tour-title {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--primary, #e8e8f0);
-  margin-bottom: 0.4rem;
   line-height: 1.3;
+  margin-bottom: 0.4rem;
 }
 .ka-tour-desc {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--secondary, #888);
   line-height: 1.55;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
-.ka-tour-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.ka-tour-progress {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  margin-bottom: 0.65rem;
+  overflow: hidden;
+}
+.ka-tour-progress-bar {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 2px;
+  width: 0%;
+  transition: width linear;
 }
 .ka-tour-skip {
   background: none;
   border: none;
-  color: var(--secondary, #888);
-  font-size: 0.75rem;
+  color: var(--secondary, #666);
+  font-size: 0.7rem;
   cursor: pointer;
   padding: 0;
+  float: right;
 }
 .ka-tour-skip:hover { color: var(--primary, #fff); }
-.ka-tour-next {
-  background: #22c55e;
-  border: none;
-  color: #000;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.38rem 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.ka-tour-next:hover { opacity: 0.85; }
-
- 
-#ka-tour-spotlight {
-  position: fixed;
-  z-index: 9001;
-  border-radius: 10px;
-  box-shadow: 0 0 0 9999px rgba(0,0,0,0.72),
-              0 0 0 2px rgba(34,197,94,0.5);
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-}
 </style>
 
 <script>
 (function () {
-  
   if (localStorage.getItem('ka-tour-done')) {
     var w = document.getElementById('ka-tour-btn-wrap');
     if (w) w.style.display = 'none';
   }
 })();
 
-var kaTourStep = 0;
-var kaTourSpotlight = null;
+var kaTourStep  = 0;
+var kaTourTimer = null;
+var STEP_DURATION = 3200; 
 
 var kaTourSteps = [
   {
     selector: '.home-hero',
-    label: 'Step 1 of 4',
-    title: 'Hero — Who I Am',
-    desc: 'Your identity at a glance: name, role, and social links to GitHub, LinkedIn, HackTheBox and more.',
-    position: 'bottom'
+    label: 'Welcome',
+    title: 'Hey, I\'m Karim Abdelaziz',
+    desc:  'Cybersecurity student, CTF player, SIEM builder. This is my corner of the internet.',
+    position: 'below'
   },
   {
     selector: '.social-icons',
-    label: 'Step 2 of 4',
-    title: 'Social Links',
-    desc: 'Connect with me across platforms — GitHub, LinkedIn, HackTheBox, TryHackMe, HackerOne and more.',
-    position: 'bottom'
+    label: 'Connect',
+    title: 'Find Me Online',
+    desc:  'GitHub, LinkedIn, HackTheBox, TryHackMe, HackerOne — all in one row.',
+    position: 'below'
   },
   {
-    selector: '#searchbox, nav',
-    label: 'Step 3 of 4',
-    title: 'Navigation',
-    desc: 'Browse Notes (eJPT, CTFs), Labs (Wazuh, Suricata, AI), Certs, Archive, or search everything.',
-    position: 'bottom'
+    selector: '.header, header, #top',
+    label: 'Navigate',
+    title: 'Blog Navigation',
+    desc:  'Notes (eJPT, CTF writeups), Labs (Wazuh, AI), Certs, Archive — everything you need.',
+    position: 'below'
   },
   {
-    selector: '.post-entry, article',
-    label: 'Step 4 of 4',
+    selector: '.post-entry, article.post-entry',
+    label: 'Content',
     title: 'Latest Posts',
-    desc: 'My most recent notes and writeups. Click any card to dive into the full content.',
-    position: 'top'
+    desc:  'Technical security notes and lab writeups sorted by recency. Click any to read.',
+    position: 'above'
   }
 ];
 
 function kaTourStart() {
   kaTourStep = 0;
   document.getElementById('ka-tour-btn-wrap').style.display = 'none';
-  document.getElementById('ka-tour-overlay').style.display = 'block';
-  
-  if (!kaTourSpotlight) {
-    kaTourSpotlight = document.createElement('div');
-    kaTourSpotlight.id = 'ka-tour-spotlight';
-    document.body.appendChild(kaTourSpotlight);
-  }
+  document.getElementById('ka-tour-overlay').style.display  = 'block';
+  document.getElementById('ka-tour-spotlight').style.display = 'block';
+  document.getElementById('ka-tour-tooltip').style.display   = 'block';
   kaTourShow();
 }
 
 function kaTourShow() {
-  var step = kaTourSteps[kaTourStep];
+  clearTimeout(kaTourTimer);
+  var step   = kaTourSteps[kaTourStep];
   var target = document.querySelector(step.selector);
-  var tooltip = document.getElementById('ka-tour-tooltip');
+  var sp     = document.getElementById('ka-tour-spotlight');
+  var tt     = document.getElementById('ka-tour-tooltip');
+  var bar    = document.getElementById('ka-tour-bar');
 
-  document.getElementById('ka-tour-step-label').textContent = step.label;
+  document.getElementById('ka-tour-step-label').textContent = step.label + ' — ' + (kaTourStep+1) + '/' + kaTourSteps.length;
   document.getElementById('ka-tour-title').textContent = step.title;
-  document.getElementById('ka-tour-desc').textContent = step.desc;
+  document.getElementById('ka-tour-desc').textContent  = step.desc;
 
-  var nextBtn = document.getElementById('ka-tour-next');
-  nextBtn.textContent = kaTourStep === kaTourSteps.length - 1 ? 'Finish ✓' : 'Next →';
+  
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  void bar.offsetWidth;
+  bar.style.transition = 'width ' + STEP_DURATION + 'ms linear';
+  bar.style.width = '100%';
 
   if (target) {
-    var rect = target.getBoundingClientRect();
-    var pad = 10;
-    kaTourSpotlight.style.cssText =
-      'display:block;top:' + (rect.top - pad + window.scrollY) + 'px;' +
-      'left:' + (rect.left - pad) + 'px;' +
-      'width:' + (rect.width + pad * 2) + 'px;' +
-      'height:' + (rect.height + pad * 2) + 'px;';
-    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () {
+      var rect = target.getBoundingClientRect();
+      var pad  = 10;
+      sp.style.top    = (rect.top  - pad + window.scrollY) + 'px';
+      sp.style.left   = (rect.left - pad) + 'px';
+      sp.style.width  = (rect.width  + pad * 2) + 'px';
+      sp.style.height = (rect.height + pad * 2) + 'px';
 
-    
-    var ttop, tleft;
-    if (step.position === 'bottom') {
-      ttop  = rect.bottom + pad + 16;
-      tleft = rect.left;
+      
+      var ttop, tleft;
+      if (step.position === 'below') {
+        ttop  = rect.bottom + 20;
+        tleft = rect.left;
+      } else {
+        ttop  = rect.top - 220;
+        tleft = rect.left;
+      }
+      tleft = Math.max(12, Math.min(tleft, window.innerWidth - 306));
+      ttop  = Math.max(60, Math.min(ttop,  window.innerHeight - 240));
+      tt.style.top  = ttop  + 'px';
+      tt.style.left = tleft + 'px';
+    }, 300);
+  }
+
+  
+  kaTourTimer = setTimeout(function () {
+    kaTourStep++;
+    if (kaTourStep >= kaTourSteps.length) {
+      kaTourEnd();
     } else {
-      ttop  = rect.top - 220;
-      tleft = rect.left;
+      kaTourShow();
     }
-    
-    tleft = Math.max(12, Math.min(tleft, window.innerWidth - 330));
-    ttop  = Math.max(12, Math.min(ttop,  window.innerHeight - 240));
-
-    tooltip.style.cssText = 'display:block;top:' + ttop + 'px;left:' + tleft + 'px;';
-  } else {
-    kaTourSpotlight.style.display = 'none';
-    tooltip.style.cssText = 'display:block;top:50%;left:50%;transform:translate(-50%,-50%)';
-  }
-}
-
-function kaTourNext() {
-  kaTourStep++;
-  if (kaTourStep >= kaTourSteps.length) {
-    kaTourEnd();
-    return;
-  }
-  kaTourShow();
+  }, STEP_DURATION);
 }
 
 function kaTourEnd() {
-  document.getElementById('ka-tour-overlay').style.display = 'none';
-  document.getElementById('ka-tour-tooltip').style.display = 'none';
-  if (kaTourSpotlight) kaTourSpotlight.style.display = 'none';
+  clearTimeout(kaTourTimer);
+  document.getElementById('ka-tour-overlay').style.display   = 'none';
+  document.getElementById('ka-tour-spotlight').style.display = 'none';
+  document.getElementById('ka-tour-tooltip').style.display   = 'none';
   localStorage.setItem('ka-tour-done', '1');
 }
 </script>

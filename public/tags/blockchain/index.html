@@ -37,17 +37,84 @@
 </script><link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/favicon.png" />
 <meta name="theme-color" content="#1a1a2e" />
+
+<style>
+ 
+.ka-header-katana {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  user-select: none;
+  text-decoration: none !important;
+}
+ 
+.ka-chain-link {
+  display: inline-block;
+  width: 8px;
+  height: 5px;
+  border: 1.5px solid rgba(34,197,94,0.45);
+  border-radius: 3px;
+  animation: ka-chain-wave 1.8s ease-in-out infinite;
+}
+.ka-chain-link:nth-child(1) { animation-delay: 0s; }
+.ka-chain-link:nth-child(2) { animation-delay: 0.15s; }
+.ka-chain-link:nth-child(3) { animation-delay: 0.30s; }
+@keyframes ka-chain-wave {
+  0%,100% { transform: scaleY(1);   border-color: rgba(34,197,94,0.35); }
+  50%      { transform: scaleY(1.7); border-color: rgba(34,197,94,0.75); }
+}
+ 
+.ka-header-sword {
+  display: inline-block;
+  animation: ka-sword-swing 3s ease-in-out infinite;
+  transform-origin: 90% 60%;
+}
+@keyframes ka-sword-swing {
+  0%,100% { transform: rotate(-18deg); }
+  40%     { transform: rotate(12deg);  }
+  60%     { transform: rotate(8deg);   }
+}
+</style>
+
 <script>
 
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('#theme-toggle');
   if (!btn) return;
   btn.classList.remove('ka-pulsing');
-  void btn.offsetWidth; 
+  void btn.offsetWidth;
   btn.classList.add('ka-pulsing');
   btn.addEventListener('animationend', function() {
     btn.classList.remove('ka-pulsing');
   }, { once: true });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var logo = document.querySelector('.logo a, #site-header .logo, header .logo, a.logo');
+  if (!logo) return;
+  var wrap = document.createElement('span');
+  wrap.className = 'ka-header-katana';
+  wrap.innerHTML =
+    '<span class="ka-chain-link"></span>' +
+    '<span class="ka-chain-link"></span>' +
+    '<span class="ka-chain-link"></span>' +
+    '<svg class="ka-header-sword" width="22" height="10" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<polygon points="0,7 90,9 100,10 90,11 0,13" fill="url(#hg)" />' +
+      '<polygon points="90,9 110,10 90,11" fill="#fff" opacity="0.9"/>' +
+      '<ellipse cx="13" cy="10" rx="4" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>' +
+      '<rect x="0" y="6.5" width="12" height="7" rx="2.5" fill="#15803d"/>' +
+      '<polygon points="3,6.5 6,10 3,13.5 0,10"  fill="#4ade80" opacity="0.8"/>' +
+      '<polygon points="9,6.5 12,10 9,13.5 6,10" fill="#4ade80" opacity="0.8"/>' +
+      '<defs><linearGradient id="hg" x1="0" y1="0" x2="110" y2="0">' +
+        '<stop offset="0%" stop-color="#4ade80"/>' +
+        '<stop offset="60%" stop-color="#fff"/>' +
+        '<stop offset="100%" stop-color="transparent"/>' +
+      '</linearGradient></defs>' +
+    '</svg>';
+  logo.appendChild(wrap);
 });
 </script>
 <meta property="og:url" content="https://karimabdelazizblog.tech/tags/blockchain/">
