@@ -306,3 +306,74 @@
     color: #fff !important;
     border-color: #22c55e !important;
 }
+
+/* ── Local Graph Box in Single Post ───────────────────────── */
+.local-graph-box {
+  background: var(--entry, #16161d);
+  border: 1px solid var(--border, #2a2a38);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  margin: 2rem 0;
+}
+.local-graph-box__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.local-graph-box__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary, #e8e8f0);
+}
+.local-graph-box__title svg {
+  color: #22c55e;
+}
+.local-graph-box__link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #22c55e;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.local-graph-box__link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+.local-graph-box__nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.local-graph-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--theme, #0f0f13);
+  border: 1px solid var(--border, #2a2a38);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--primary, #e8e8f0);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.local-graph-node__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+.local-graph-node:hover {
+  border-color: #22c55e;
+  color: #22c55e;
+  transform: translateY(-1px);
+}
+

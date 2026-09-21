@@ -97,6 +97,37 @@
       {{- end -}}
     {{- end -}}
   {{- end -}}
+  {{- /* ── Knowledge Graph: Connected Notes ───────────────── */ -}}
+  {{- $related := site.RegularPages.Related . | first 4 -}}
+  {{- if not $related -}}
+    {{- $related = where (where site.RegularPages ".Section" .Section) "File.UniqueID" "ne" .File.UniqueID | first 4 -}}
+  {{- end -}}
+  {{- if $related -}}
+  <div class="local-graph-box">
+    <div class="local-graph-box__header">
+      <div class="local-graph-box__title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6" cy="6" r="3"></circle>
+          <circle cx="18" cy="18" r="3"></circle>
+          <line x1="8.5" y1="8.5" x2="15.5" y2="15.5"></line>
+          <circle cx="18" cy="6" r="3"></circle>
+          <line x1="15.5" y1="8.5" x2="8.5" y2="15.5"></line>
+          <circle cx="6" cy="18" r="3"></circle>
+        </svg>
+        <span>Knowledge Graph · Connected Notes</span>
+      </div>
+      <a href="/graph/" class="local-graph-box__link">Open Full Graph ➔</a>
+    </div>
+    <div class="local-graph-box__nodes">
+      {{- range $related -}}
+      <a href="{{ .RelPermalink }}" class="local-graph-node">
+        <span class="local-graph-node__dot"></span>
+        <span class="local-graph-node__text">{{ .Title }}</span>
+      </a>
+      {{- end -}}
+    </div>
+  </div>
+  {{- end -}}
 
   <footer class="post-footer">
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}

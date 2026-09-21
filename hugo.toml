@@ -78,6 +78,10 @@ paginate = 6
     url    = "/projects/"
     weight = 10
   [[menu.main]]
+    name   = "Graph"
+    url    = "/graph/"
+    weight = 12
+  [[menu.main]]
     name   = "Search"
     url    = "/search/"
     weight = 15

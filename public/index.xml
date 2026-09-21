@@ -254,5 +254,12 @@ Enumeration is active process of gathering detailed information about specific t
       <guid>https://karimabdelazizblog.tech/certs/</guid>
       <description>Professional certifications and credentials.</description>
     </item>
+    <item>
+      <title>Knowledge Graph</title>
+      <link>https://karimabdelazizblog.tech/graph/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://karimabdelazizblog.tech/graph/</guid>
+      <description>Interactive 2D Knowledge Graph of Karim&amp;rsquo;s cybersecurity notes, labs, tools, and research.</description>
+    </item>
   </channel>
 </rss>
