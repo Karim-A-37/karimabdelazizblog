@@ -145,7 +145,7 @@
 
 <script>
 (function () {
-  if (localStorage.getItem('ka-tour-v2')) {
+  if (localStorage.getItem('ka-tour-v3')) {
     var w = document.getElementById('ka-tour-btn-wrap');
     if (w) w.style.display = 'none';
   }
@@ -256,6 +256,6 @@ function kaTourEnd() {
   document.getElementById('ka-tour-overlay').style.display   = 'none';
   document.getElementById('ka-tour-spotlight').style.display = 'none';
   document.getElementById('ka-tour-tooltip').style.display   = 'none';
-  localStorage.setItem('ka-tour-v2', '1');
+  localStorage.setItem('ka-tour-v3', '1');
 }
 </script>
