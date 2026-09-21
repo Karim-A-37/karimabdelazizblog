@@ -741,6 +741,7 @@
   }
 
   
+  
   var width = container.clientWidth || 900;
   var height = container.clientHeight || 680;
 
@@ -750,8 +751,10 @@
   mainHubs.forEach(function (h, idx) {
     var a = idx * hubAngleStep;
     var dist = Math.min(width, height) * 0.32;
-    h.x = (width / 2) + Math.cos(a) * dist;
-    h.y = (height / 2) + Math.sin(a) * dist;
+    h.homeX = (width / 2) + Math.cos(a) * dist;
+    h.homeY = (height / 2) + Math.sin(a) * dist;
+    h.x = h.homeX;
+    h.y = h.homeY;
   });
 
   
@@ -762,15 +765,21 @@
         if (links[k].target === n) { parent = links[k].source; break; }
         if (links[k].source === n) { parent = links[k].target; break; }
       }
+      n.parentHub = parent;
+      var a = Math.random() * Math.PI * 2;
+      var d = (n.type === 'note' ? 45 : 30) + Math.random() * 25;
+      n.offsetAngle = a;
+      n.offsetDist = d;
+
       if (parent) {
-        var a = Math.random() * Math.PI * 2;
-        var d = 30 + Math.random() * 40;
-        n.x = parent.x + Math.cos(a) * d;
-        n.y = parent.y + Math.sin(a) * d;
+        n.homeX = (parent.homeX || parent.x) + Math.cos(a) * d;
+        n.homeY = (parent.homeY || parent.y) + Math.sin(a) * d;
       } else {
-        n.x = (width / 2) + (Math.random() * 100 - 50);
-        n.y = (height / 2) + (Math.random() * 100 - 50);
+        n.homeX = (width / 2) + (Math.random() * 80 - 40);
+        n.homeY = (height / 2) + (Math.random() * 80 - 40);
       }
+      n.x = n.homeX;
+      n.y = n.homeY;
     }
   });
 
@@ -796,11 +805,36 @@
   view.y = (height * (1 - view.scale)) / 2;
 
   
+  var simAlpha = 1.0; 
+
   function tickPhysics() {
-    var kRepel = 750;
-    var kCenter = 0.007;
-    var cx = width / 2;
-    var cy = height / 2;
+    
+    if (simAlpha < 0.002) {
+      for (var z = 0; z < nodes.length; z++) {
+        nodes[z].vx = 0;
+        nodes[z].vy = 0;
+      }
+      return;
+    }
+
+    var kRepel = 420;
+    var kHome = 0.05; 
+
+    
+    for (var h = 0; h < nodes.length; h++) {
+      var node = nodes[h];
+      if (node === draggedNode) continue;
+
+      if (node.type === 'category') {
+        node.vx += (node.homeX - node.x) * kHome * simAlpha;
+        node.vy += (node.homeY - node.y) * kHome * simAlpha;
+      } else if (node.parentHub) {
+        var targetX = node.parentHub.x + Math.cos(node.offsetAngle) * node.offsetDist;
+        var targetY = node.parentHub.y + Math.sin(node.offsetAngle) * node.offsetDist;
+        node.vx += (targetX - node.x) * 0.07 * simAlpha;
+        node.vy += (targetY - node.y) * 0.07 * simAlpha;
+      }
+    }
 
     
     for (var i = 0; i < nodes.length; i++) {
@@ -809,15 +843,29 @@
         var n2 = nodes[j];
         var dx = n2.x - n1.x;
         var dy = n2.y - n1.y;
-        var d2 = dx * dx + dy * dy || 1;
-        var dist = Math.sqrt(d2);
+        var minSafeDist = n1.radius + n2.radius + 6;
+        var d2 = dx * dx + dy * dy;
+        var dist = Math.sqrt(d2) || 1;
+
+        
+        if (dist < minSafeDist) {
+          var push = (minSafeDist - dist) * 0.45 * simAlpha;
+          var nx = dx / dist;
+          var ny = dy / dist;
+          n1.vx -= nx * push;
+          n1.vy -= ny * push;
+          n2.vx += nx * push;
+          n2.vy += ny * push;
+          continue;
+        }
 
         var isBothHubs = (n1.type === 'category' && n2.type === 'category');
-        var maxRange = isBothHubs ? 400 : 160;
+        var maxRange = isBothHubs ? 350 : 130;
 
         if (dist < maxRange) {
-          var repMult = isBothHubs ? 4.5 : 1;
-          var force = (kRepel * repMult) / d2;
+          var repMult = isBothHubs ? 2.5 : 0.8;
+          var effectiveD2 = Math.max(d2, 500); 
+          var force = Math.min((kRepel * repMult) / effectiveD2, 3.2) * simAlpha;
           var fx = (dx / dist) * force;
           var fy = (dy / dist) * force;
           n1.vx -= fx;
@@ -826,37 +874,44 @@
           n2.vy += fy;
         }
       }
-
-      
-      n1.vx += (cx - n1.x) * kCenter;
-      n1.vy += (cy - n1.y) * kCenter;
     }
 
     
     for (var l = 0; l < links.length; l++) {
       var link = links[l];
-      var dx = link.target.x - link.source.x;
-      var dy = link.target.y - link.source.y;
-      var d = Math.sqrt(dx * dx + dy * dy) || 1;
-      var diff = (d - link.length) * link.strength;
+      var ldx = link.target.x - link.source.x;
+      var ldy = link.target.y - link.source.y;
+      var ld = Math.sqrt(ldx * ldx + ldy * ldy) || 1;
+      var diff = (ld - link.length) * link.strength * simAlpha;
+      diff = Math.max(-5, Math.min(5, diff)); 
 
-      var fx = (dx / d) * diff;
-      var fy = (dy / d) * diff;
+      var lfx = (ldx / ld) * diff;
+      var lfy = (ldy / ld) * diff;
 
-      link.source.vx += fx;
-      link.source.vy += fy;
-      link.target.vx -= fx;
-      link.target.vy -= fy;
+      link.source.vx += lfx;
+      link.source.vy += lfy;
+      link.target.vx -= lfx;
+      link.target.vy -= lfy;
     }
 
     
     for (var n = 0; n < nodes.length; n++) {
-      var node = nodes[n];
-      if (node === draggedNode) continue;
-      node.vx *= 0.82;
-      node.vy *= 0.82;
-      node.x += node.vx;
-      node.y += node.vy;
+      var nd = nodes[n];
+      if (nd === draggedNode) continue;
+      nd.vx *= 0.72; 
+      nd.vy *= 0.72;
+
+      
+      nd.vx = Math.max(-8, Math.min(8, nd.vx));
+      nd.vy = Math.max(-8, Math.min(8, nd.vy));
+
+      nd.x += nd.vx;
+      nd.y += nd.vy;
+    }
+
+    
+    if (!draggedNode) {
+      simAlpha *= 0.965;
     }
   }
 
@@ -1000,6 +1055,7 @@
       draggedNode.y = pt.y;
       draggedNode.vx = 0;
       draggedNode.vy = 0;
+      simAlpha = Math.max(simAlpha, 0.35); 
       return;
     }
 
@@ -1029,6 +1085,7 @@
     var target = findNodeAt(e.clientX, e.clientY);
     if (target) {
       draggedNode = target;
+      simAlpha = Math.max(simAlpha, 0.35);
     } else {
       isPanning = true;
       panStart.x = e.clientX - view.x;
@@ -1037,6 +1094,10 @@
   });
 
   window.addEventListener('mouseup', function () {
+    if (draggedNode) {
+      
+      simAlpha = 0.45;
+    }
     draggedNode = null;
     isPanning = false;
   });
@@ -1089,6 +1150,7 @@
   
   searchInput.addEventListener('input', function (e) {
     searchQuery = (e.target.value || '').trim().toLowerCase();
+    simAlpha = Math.max(simAlpha, 0.25);
   });
 
   
@@ -1102,6 +1164,13 @@
     view.scale = 0.95;
     view.x = (width * (1 - view.scale)) / 2;
     view.y = (height * (1 - view.scale)) / 2;
+    nodes.forEach(function (n) {
+      n.x = n.homeX;
+      n.y = n.homeY;
+      n.vx = 0;
+      n.vy = 0;
+    });
+    simAlpha = 0.6;
   });
 
   render();
