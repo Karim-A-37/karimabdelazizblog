@@ -1,66 +1,128 @@
-{{- /* Local Note Structure Graph — Visualizes headers as small square subnodes radiating from the note */ -}}
-<div class="note-local-graph-wrap" id="note-local-graph-wrap">
-  <div class="note-local-graph-card">
-    <div class="note-local-graph-header">
-      <div class="note-local-graph-title">
-        <span class="note-local-graph-dot"></span>
-        <span>Note Structure Graph</span>
-        <span class="note-local-graph-count" id="note-local-graph-count"></span>
+{{- /* Obsidian Local Graph View — Shows the current note and its connected notes in a compact square graph */ -}}
+{{- $curr := . -}}
+{{- $currUrl := .RelPermalink -}}
+{{- $currTitle := .Title -}}
+
+{{- $currCat := "eJPT" -}}
+{{- with .Params.series -}}
+  {{- range $i, $s := . -}}
+    {{- if eq $i 0 }}{{ $currCat = $s }}{{ end -}}
+  {{- end -}}
+{{- else -}}
+  {{- if eq .Section "posts" }}{{ $currCat = "eJPT" }}{{ end -}}
+  {{- if eq .Section "projects" }}{{ $currCat = "Wazuh SIEM" }}{{ end -}}
+  {{- if eq .Section "certs" }}{{ $currCat = "Certifications" }}{{ end -}}
+{{- end -}}
+
+<div class="obsidian-local-graph-wrap" id="obsidian-local-graph-wrap">
+  <div class="obsidian-local-card">
+    <div class="obsidian-local-header">
+      <div class="obsidian-local-title">
+        <span class="obsidian-local-dot"></span>
+        <span>Local Graph</span>
+        <span class="obsidian-local-meta" id="obsidian-local-meta"></span>
       </div>
-      <div class="note-local-graph-controls">
-        <button id="note-graph-toggle" class="note-graph-btn" title="Toggle graph collapse">▾</button>
+      <div class="obsidian-local-actions">
+        <a href="/graph/" class="obsidian-local-link" title="Open Full Global Graph">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <span>Full Graph</span>
+        </a>
+        <button id="obsidian-local-toggle" class="obsidian-local-btn" title="Toggle graph">▾</button>
       </div>
     </div>
 
-    <div class="note-local-graph-body" id="note-local-graph-body">
-      <!-- Square Shape Canvas Viewport -->
-      <div class="note-graph-square-canvas-box" id="note-graph-square-box">
-        <canvas id="note-local-canvas"></canvas>
-        <div id="note-local-tooltip" class="note-local-tooltip" style="display:none;"></div>
+    <div class="obsidian-local-body" id="obsidian-local-body">
+      <!-- Square Shape Canvas Viewport (Authentic Obsidian Graph View) -->
+      <div class="obsidian-square-viewport" id="obsidian-square-viewport">
+        <canvas id="obsidian-local-canvas"></canvas>
+        <div id="obsidian-local-tooltip" class="obsidian-local-tooltip" style="display:none;"></div>
       </div>
-      <div class="note-local-graph-footer">
-        <span class="note-legend-square">■</span>
-        <span class="note-legend-text">Square subnodes = Note Headings · Click square to jump</span>
+      <div class="obsidian-local-footer">
+        <span>Connected notes in vault · Click any node to open</span>
       </div>
     </div>
   </div>
 </div>
 
+{{- /* JSON Data for the Local Graph */ -}}
+<script id="obsidian-local-data" type="application/json">
+{
+  "current": {
+    "id": {{ $currUrl }},
+    "title": {{ $currTitle }},
+    "url": {{ $currUrl }},
+    "category": {{ $currCat }},
+    "tags": {{ $curr.Params.tags | default slice }}
+  },
+  "vault": [
+    {{- $first := true -}}
+    {{- range site.RegularPages -}}
+      {{- if and (ne .RelPermalink $currUrl) (ne .Layout "search") (ne .Layout "graph") (ne .Title "Search") (ne .Title "Knowledge Graph") -}}
+        {{- if not $first }},{{- end -}}
+        {{- $first = false -}}
+        {{- $pageCat := "eJPT" -}}
+        {{- with .Params.series -}}
+          {{- range $i, $s := . -}}
+            {{- if eq $i 0 }}{{ $pageCat = $s }}{{ end -}}
+          {{- end -}}
+        {{- else -}}
+          {{- if eq .Section "posts" }}{{ $pageCat = "eJPT" }}{{ end -}}
+          {{- if eq .Section "projects" }}{{ $pageCat = "Wazuh SIEM" }}{{ end -}}
+        {{- end -}}
+        {
+          "id": {{ .RelPermalink }},
+          "title": {{ .Title }},
+          "url": {{ .RelPermalink }},
+          "category": {{ $pageCat }},
+          "series": {{ .Params.series | default slice }},
+          "tags": {{ .Params.tags | default slice }},
+          "weight": {{ .Params.weight | default 999 }}
+        }
+      {{- end -}}
+    {{- end -}}
+  ]
+}
+</script>
+
 <style>
-/* ── Local Note Graph Component ───────────────────────────── */
-.note-local-graph-wrap {
+/* ── Obsidian Local Graph Component ───────────────────────────── */
+.obsidian-local-graph-wrap {
   margin: 1.5rem 0 2rem;
   width: 100%;
 }
 
-.note-local-graph-card {
+.obsidian-local-card {
   background: var(--entry, #16161d);
   border: 1px solid var(--border, #2a2a38);
   border-radius: 12px;
   padding: 0.85rem 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  max-width: 480px;
+  max-width: 440px;
   margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.note-local-graph-header {
+.obsidian-local-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.65rem;
 }
 
-.note-local-graph-title {
+.obsidian-local-title {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--primary, #e8e8f0);
-  letter-spacing: 0.02em;
 }
 
-.note-local-graph-dot {
+.obsidian-local-dot {
   width: 7px;
   height: 7px;
   background: #22c55e;
@@ -68,13 +130,37 @@
   box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
 }
 
-.note-local-graph-count {
+.obsidian-local-meta {
   font-size: 0.68rem;
   color: #71717a;
   font-family: monospace;
 }
 
-.note-graph-btn {
+.obsidian-local-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.obsidian-local-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #22c55e;
+  text-decoration: none;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  transition: all 0.15s;
+}
+.obsidian-local-link:hover {
+  background: rgba(34, 197, 94, 0.18);
+}
+
+.obsidian-local-btn {
   background: transparent;
   border: 1px solid var(--border, #2a2a38);
   border-radius: 5px;
@@ -88,64 +174,56 @@
   font-size: 0.8rem;
   transition: all 0.15s;
 }
-.note-graph-btn:hover {
+.obsidian-local-btn:hover {
   color: #22c55e;
   border-color: #22c55e;
 }
 
-/* Square Shape Canvas Viewport */
-.note-graph-square-canvas-box {
+/* Small Shape Square Viewport (Exact Obsidian Canvas Style) */
+.obsidian-square-viewport {
   position: relative;
   width: 100%;
   max-width: 320px;
   height: 320px;
   margin: 0 auto;
-  background: #111114;
+  background: #141416;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.5);
   cursor: grab;
 }
-.note-graph-square-canvas-box:active {
+.obsidian-square-viewport:active {
   cursor: grabbing;
 }
 
-#note-local-canvas {
+#obsidian-local-canvas {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.note-local-graph-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-top: 0.6rem;
+.obsidian-local-footer {
+  text-align: center;
+  margin-top: 0.55rem;
   font-size: 0.68rem;
   color: #71717a;
 }
 
-.note-legend-square {
-  color: #a1a1aa;
-  font-size: 0.75rem;
-}
-
 /* Tooltip */
-.note-local-tooltip {
+.obsidian-local-tooltip {
   position: absolute;
   pointer-events: none;
-  background: rgba(22, 22, 28, 0.95);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(34, 197, 94, 0.4);
+  background: rgba(24, 24, 27, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
-  padding: 0.4rem 0.65rem;
+  padding: 0.35rem 0.65rem;
   font-size: 0.72rem;
   color: #f4f4f5;
   font-weight: 600;
   max-width: 220px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   z-index: 50;
   transform: translate(-50%, -125%);
   line-height: 1.3;
@@ -154,20 +232,24 @@
 
 <script>
 (function () {
-  var wrap = document.getElementById('note-local-graph-wrap');
-  if (!wrap) return;
+  var dataEl = document.getElementById('obsidian-local-data');
+  if (!dataEl) return;
+  var graphData = JSON.parse(dataEl.textContent || '{}');
 
-  var canvas = document.getElementById('note-local-canvas');
-  var box = document.getElementById('note-graph-square-box');
-  var tooltip = document.getElementById('note-local-tooltip');
-  var countEl = document.getElementById('note-local-graph-count');
-  var toggleBtn = document.getElementById('note-graph-toggle');
-  var bodyEl = document.getElementById('note-local-graph-body');
-  if (!canvas || !box) return;
+  var currentNote = graphData.current;
+  var vaultPages = graphData.vault || [];
+
+  var box = document.getElementById('obsidian-square-viewport');
+  var canvas = document.getElementById('obsidian-local-canvas');
+  var tooltip = document.getElementById('obsidian-local-tooltip');
+  var metaEl = document.getElementById('obsidian-local-meta');
+  var toggleBtn = document.getElementById('obsidian-local-toggle');
+  var bodyEl = document.getElementById('obsidian-local-body');
+  if (!box || !canvas) return;
 
   var ctx = canvas.getContext('2d');
 
-  // Collapse / Expand toggle
+  // Collapse / Expand
   var isCollapsed = false;
   toggleBtn.addEventListener('click', function () {
     isCollapsed = !isCollapsed;
@@ -175,85 +257,150 @@
     toggleBtn.textContent = isCollapsed ? '▸' : '▾';
   });
 
-  // 1. Collect Headers from Article Content
-  var headings = Array.from(document.querySelectorAll('.post-content h2, .post-content h3'));
-  if (headings.length === 0) {
-    // Hide component if note has no headings
-    wrap.style.display = 'none';
-    return;
-  }
+  // Obsidian Palette
+  var COLOR_CURRENT  = '#22c55e'; // Current note glowing cyber green ("You are here")
+  var COLOR_CATEGORY = '#f4f4f5'; // Category Hub (Solid white/silver)
+  var COLOR_NEIGHBOR = '#a1a1aa'; // Connected neighbor notes (Slate silver)
+  var COLOR_CONCEPT  = '#52525b'; // Sub-concept leaves (Dark slate)
 
-  if (countEl) {
-    countEl.textContent = '(' + headings.length + ' headings)';
-  }
-
-  // 2. Build Mini Graph Nodes & Links
   var nodes = [];
   var links = [];
+  var nodeMap = {};
+
+  function addNode(n) {
+    if (!nodeMap[n.id]) {
+      nodes.push(n);
+      nodeMap[n.id] = n;
+    }
+    return nodeMap[n.id];
+  }
+
+  function addLink(srcId, tgtId, length, strength) {
+    var s = nodeMap[srcId];
+    var t = nodeMap[tgtId];
+    if (s && t) {
+      links.push({ source: s, target: t, length: length || 60, strength: strength || 0.12 });
+    }
+  }
 
   var width = box.clientWidth || 320;
   var height = box.clientHeight || 320;
   var cx = width / 2;
   var cy = height / 2;
 
-  // Center Root Node = The Note (Circle)
-  var postTitle = document.querySelector('.post-title') ? document.querySelector('.post-title').textContent.trim() : 'Note';
-  var rootNode = {
-    id: 'root-note',
-    title: postTitle,
-    type: 'root',
-    shape: 'circle',
-    radius: 9,
-    color: '#ffffff',
+  // 1. Center Node = CURRENT ACTIVE NOTE
+  var activeNode = addNode({
+    id: currentNote.id,
+    title: currentNote.title,
+    url: currentNote.url,
+    type: 'current',
+    radius: 7.5,
+    color: COLOR_CURRENT,
     homeX: cx,
     homeY: cy,
     x: cx,
     y: cy,
     vx: 0,
     vy: 0
-  };
-  nodes.push(rootNode);
+  });
 
-  // Subnodes = Headings (Small Squares)
-  var lastH2Node = null;
-  var angleStep = (Math.PI * 2) / headings.length;
+  // 2. Parent Category Hub Node
+  var catName = currentNote.category || 'eJPT';
+  var catId = 'cat-' + catName.toLowerCase().replace(/[^a-z0-9]/g, '-');
 
-  headings.forEach(function (h, idx) {
-    var isH2 = h.tagName.toLowerCase() === 'h2';
-    var headingTitle = h.textContent.replace(/^#+\s*/, '').trim();
+  var catNode = addNode({
+    id: catId,
+    title: catName,
+    url: null,
+    type: 'category',
+    radius: 10.5,
+    color: COLOR_CATEGORY,
+    homeX: cx - 45,
+    homeY: cy - 55,
+    x: cx - 45,
+    y: cy - 55,
+    vx: 0,
+    vy: 0
+  });
+  addLink(catId, currentNote.id, 65, 0.15);
+
+  // 3. Find Connected Neighbor Notes in the Vault (Same series or shared tags)
+  var currentTags = currentNote.tags || [];
+  var connectedNotes = vaultPages.filter(function (p) {
+    var isSameCat = (p.category === currentNote.category);
+    var sharesTag = false;
+    if (p.tags && p.tags.length && currentTags.length) {
+      for (var t = 0; t < p.tags.length; t++) {
+        if (currentTags.indexOf(p.tags[t]) !== -1) { sharesTag = true; break; }
+      }
+    }
+    return isSameCat || sharesTag;
+  });
+
+  // Limit neighbors to 8 closest notes for a clean dandelion layout inside the square
+  connectedNotes = connectedNotes.slice(0, 8);
+
+  var angleStep = (Math.PI * 2) / Math.max(1, connectedNotes.length);
+  connectedNotes.forEach(function (p, idx) {
     var a = idx * angleStep;
-    var dist = 85 + (idx % 2) * 25; // staggered radius inside square box
+    var dist = 75 + (idx % 2) * 20;
 
-    var squareSize = isH2 ? 8 : 6; // small shape square
-    var node = {
-      id: h.id || ('heading-' + idx),
-      element: h,
-      title: headingTitle,
-      type: isH2 ? 'h2' : 'h3',
-      shape: 'square',
-      size: squareSize,
-      color: '#a1a1aa',
+    var nNode = addNode({
+      id: p.id,
+      title: p.title,
+      url: p.url,
+      type: 'neighbor',
+      radius: 5,
+      color: COLOR_NEIGHBOR,
       homeX: cx + Math.cos(a) * dist,
       homeY: cy + Math.sin(a) * dist,
       x: cx + Math.cos(a) * dist,
       y: cy + Math.sin(a) * dist,
       vx: 0,
       vy: 0
-    };
-    nodes.push(node);
+    });
 
-    // Link: Center note ➔ H2 square node
-    if (isH2) {
-      links.push({ source: rootNode, target: node, length: dist, strength: 0.12 });
-      lastH2Node = node;
-    } else {
-      // H3 subnode connects to parent H2 if available, or center root
-      var parent = lastH2Node || rootNode;
-      links.push({ source: parent, target: node, length: 45, strength: 0.15 });
+    // Link neighbor to parent category
+    addLink(catId, p.id, 70, 0.08);
+
+    // Link neighbor to current active note if closely related
+    if (idx === 0 || idx === 1 || idx === connectedNotes.length - 1) {
+      addLink(currentNote.id, p.id, 60, 0.12);
     }
   });
 
-  // 3. Canvas Setup
+  // 4. Add 3-4 Concept Leaf nodes around current note for rich Obsidian starburst
+  var conceptNames = currentTags.slice(0, 4);
+  if (conceptNames.length === 0) {
+    conceptNames = ['Overview', 'Techniques', 'Commands', 'Lab Setup'];
+  }
+  conceptNames.forEach(function (cName, cIdx) {
+    var leafId = 'leaf-' + cIdx;
+    var ca = (cIdx / conceptNames.length) * Math.PI * 2 + 0.5;
+    var cDist = 36 + (cIdx % 2) * 8;
+
+    var leafNode = addNode({
+      id: leafId,
+      title: cName,
+      url: null,
+      type: 'concept',
+      radius: 3,
+      color: COLOR_CONCEPT,
+      homeX: cx + Math.cos(ca) * cDist,
+      homeY: cy + Math.sin(ca) * cDist,
+      x: cx + Math.cos(ca) * cDist,
+      y: cy + Math.sin(ca) * cDist,
+      vx: 0,
+      vy: 0
+    });
+    addLink(currentNote.id, leafId, 32, 0.18);
+  });
+
+  if (metaEl) {
+    metaEl.textContent = '(' + (nodes.length - 1) + ' links)';
+  }
+
+  // 5. Canvas Resize
   function resizeCanvas() {
     var dpr = window.devicePixelRatio || 1;
     width = box.clientWidth;
@@ -265,7 +412,7 @@
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  // 4. Stable Physics with Alpha Cooling
+  // 6. Stable Physics with Alpha Cooling
   var simAlpha = 1.0;
 
   function tickPhysics() {
@@ -277,9 +424,9 @@
       return;
     }
 
-    var kHome = 0.06;
+    var kHome = 0.05;
 
-    // Home Spring restoring each node to its clean dandelion position
+    // Home Spring restoring each node to its clean place
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (n === draggedNode) continue;
@@ -287,16 +434,15 @@
       n.vy += (n.homeY - n.y) * kHome * simAlpha;
     }
 
-    // Soft Collision between square subnodes
+    // Soft Collision
     for (var a = 0; a < nodes.length; a++) {
       var na = nodes[a];
       for (var b = a + 1; b < nodes.length; b++) {
         var nb = nodes[b];
         var dx = nb.x - na.x;
         var dy = nb.y - na.y;
-        var d2 = dx * dx + dy * dy || 1;
-        var dist = Math.sqrt(d2);
-        var minDist = (na.size || na.radius || 6) + (nb.size || nb.radius || 6) + 12;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        var minDist = na.radius + nb.radius + 8;
 
         if (dist < minDist) {
           var push = (minDist - dist) * 0.4 * simAlpha;
@@ -328,35 +474,35 @@
       link.target.vy -= lfy;
     }
 
-    // Damping and integration
+    // Damping
     for (var k = 0; k < nodes.length; k++) {
       var nd = nodes[k];
       if (nd === draggedNode) continue;
-      nd.vx *= 0.70;
-      nd.vy *= 0.70;
+      nd.vx *= 0.72;
+      nd.vy *= 0.72;
       nd.x += nd.vx;
       nd.y += nd.vy;
     }
 
     if (!draggedNode) {
-      simAlpha *= 0.96;
+      simAlpha *= 0.965;
     }
   }
 
-  // 5. Render Loop
+  // 7. Render Loop (Obsidian Exact Look)
   var hoveredNode = null;
   var draggedNode = null;
-  var activeHeadingNode = null;
 
   function render() {
     tickPhysics();
 
     ctx.clearRect(0, 0, width, height);
 
-    // Draw Links
+    // Draw Hairline Links
     for (var i = 0; i < links.length; i++) {
       var l = links[i];
       var isHi = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+
       ctx.beginPath();
       ctx.moveTo(l.source.x, l.source.y);
       ctx.lineTo(l.target.x, l.target.y);
@@ -368,7 +514,7 @@
       } else {
         ctx.strokeStyle = '#3f3f46';
         ctx.lineWidth = 0.75;
-        ctx.globalAlpha = hoveredNode ? 0.15 : 0.45;
+        ctx.globalAlpha = hoveredNode ? 0.12 : 0.42;
       }
       ctx.stroke();
     }
@@ -378,51 +524,49 @@
     for (var j = 0; j < nodes.length; j++) {
       var node = nodes[j];
       var isHover = (node === hoveredNode);
-      var isActive = (node === activeHeadingNode);
 
-      // Root Note Node (Circle)
-      if (node.shape === 'circle') {
+      // Glow halo on active or hovered node
+      if (node.type === 'current' || isHover) {
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = isHover ? '#22c55e' : node.color;
+        ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.3)';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      }
+
+      // Solid Node Body
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.fillStyle = isHover ? '#22c55e' : node.color;
+      ctx.fill();
+
+      // Border on Category or Current node
+      if (node.type === 'category' || node.type === 'current') {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
         ctx.lineWidth = 1;
         ctx.stroke();
+      }
 
-        // Subtle center label
-        ctx.font = 'bold 10px Inter, sans-serif';
-        ctx.fillStyle = '#e4e4e7';
+      // Labels: show Category and Current Note, and on Hover
+      var showLabel = (node.type === 'category') || (node.type === 'current') || isHover;
+      if (showLabel) {
+        ctx.font = (node.type === 'category' ? 'bold 11px' : (node.type === 'current' ? 'bold 10px' : '500 9px')) + ' Inter, sans-serif';
+        ctx.fillStyle = (node.type === 'current' ? '#22c55e' : (node.type === 'category' ? '#ffffff' : '#e4e4e7'));
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        ctx.fillText('Note Center', node.x, node.y + node.radius + 4);
-      }
-      // Header Subnodes (Small Shape Square!)
-      else if (node.shape === 'square') {
-        var half = node.size / 2;
-        var sqColor = isHover || isActive ? '#22c55e' : node.color;
 
-        // Glow halo if hovered or active section
-        if (isHover || isActive) {
-          ctx.fillStyle = 'rgba(34, 197, 94, 0.35)';
-          ctx.fillRect(node.x - half - 4, node.y - half - 4, node.size + 8, node.size + 8);
-        }
-
-        // Draw the crisp small square
-        ctx.fillStyle = sqColor;
-        ctx.fillRect(node.x - half, node.y - half, node.size, node.size);
-
-        // Border on square
-        ctx.strokeStyle = (isHover || isActive) ? '#4ade80' : 'rgba(255, 255, 255, 0.18)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(node.x - half, node.y - half, node.size, node.size);
+        // Shadow for maximum clarity
+        ctx.strokeStyle = '#141416';
+        ctx.lineWidth = 3;
+        var labelText = node.type === 'current' ? 'You are here' : node.title;
+        ctx.strokeText(labelText, node.x, node.y + node.radius + 3);
+        ctx.fillText(labelText, node.x, node.y + node.radius + 3);
       }
     }
 
     requestAnimationFrame(render);
   }
 
-  // 6. Interaction: Click Square to Jump to Header
+  // 8. Mouse / Touch Interactions
   function findNode(ex, ey) {
     var rect = canvas.getBoundingClientRect();
     var x = ex - rect.left;
@@ -430,7 +574,7 @@
 
     for (var i = nodes.length - 1; i >= 0; i--) {
       var n = nodes[i];
-      var r = (n.shape === 'circle' ? n.radius : n.size) + 5;
+      var r = n.radius + 5;
       var dx = x - n.x;
       var dy = y - n.y;
       if (dx * dx + dy * dy <= r * r) {
@@ -450,15 +594,16 @@
       draggedNode.y = my;
       draggedNode.vx = 0;
       draggedNode.vy = 0;
-      simAlpha = Math.max(simAlpha, 0.3);
+      simAlpha = Math.max(simAlpha, 0.35);
       return;
     }
 
     var target = findNode(e.clientX, e.clientY);
     if (target !== hoveredNode) {
       hoveredNode = target;
-      if (hoveredNode && hoveredNode.shape === 'square') {
-        tooltip.innerHTML = '<strong>' + (hoveredNode.type.toUpperCase()) + '</strong>: ' + hoveredNode.title;
+      if (hoveredNode) {
+        var prefix = hoveredNode.type === 'current' ? '★ Current Note' : (hoveredNode.type === 'category' ? '📁 Category' : '📄 Note');
+        tooltip.innerHTML = '<strong>' + prefix + '</strong>: ' + hoveredNode.title;
         tooltip.style.display = 'block';
         tooltip.style.left = mx + 'px';
         tooltip.style.top = my + 'px';
@@ -478,7 +623,7 @@
     var target = findNode(e.clientX, e.clientY);
     if (target) {
       draggedNode = target;
-      simAlpha = Math.max(simAlpha, 0.3);
+      simAlpha = Math.max(simAlpha, 0.35);
     }
   });
 
@@ -492,32 +637,13 @@
   canvas.addEventListener('click', function (e) {
     var dx = Math.abs(e.clientX - clickStart.x);
     var dy = Math.abs(e.clientY - clickStart.y);
-    if (dx > 4 || dy > 4) return; // ignore dragging
+    if (dx > 4 || dy > 4) return;
 
     var target = findNode(e.clientX, e.clientY);
-    if (target && target.shape === 'square' && target.element) {
-      target.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (target && target.url && target.type !== 'current') {
+      window.location.href = target.url;
     }
   });
-
-  // 7. Scroll-Spy: highlight current reading section on graph
-  window.addEventListener('scroll', function () {
-    var scrollPos = window.scrollY + 140;
-    var current = null;
-    for (var i = 0; i < headings.length; i++) {
-      if (headings[i].offsetTop <= scrollPos) {
-        current = headings[i];
-      }
-    }
-    if (current) {
-      for (var j = 0; j < nodes.length; j++) {
-        if (nodes[j].element === current) {
-          activeHeadingNode = nodes[j];
-          break;
-        }
-      }
-    }
-  }, { passive: true });
 
   render();
 })();
