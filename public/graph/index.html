@@ -185,7 +185,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" id="graph-search" placeholder="Search graph..." autocomplete="off" />
+        <input type="text" id="graph-search" placeholder="Filter notes..." autocomplete="off" />
       </div>
 
       <div class="graph-actions">
@@ -206,8 +206,14 @@
     <div id="graph-tooltip" class="graph-tooltip" style="display:none;"></div>
 
     
+    <div class="graph-legend">
+      <div class="legend-item"><span class="legend-dot legend-dot--hub"></span>Category Main Node</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--note"></span>Note Node</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--leaf"></span>Concept Leaf</div>
+    </div>
+
     <div class="graph-hint">
-      <span>Scroll to zoom · Drag to pan · Click node to open</span>
+      <span>Scroll to zoom · Drag nodes · Click note to open</span>
     </div>
   </div>
 </div><script id="graph-pages-data" type="application/json">
@@ -215,113 +221,141 @@
         "id": "/posts/ejpt/day-0/introduction-to-information-gathering/",
         "title": "Introduction to information gathering",
         "url": "/posts/ejpt/day-0/introduction-to-information-gathering/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  1 ,
         "summary": " Information Gathering (Reconnaissance) Reconnaissance is the first phase in penetration testing operation and …"
       },{
         "id": "/projects/wazuh/wazuh-lab-1-ids-setup/",
         "title": "Lab 1 - Wazuh + Suricata IDS Setup",
         "url": "/projects/wazuh/wazuh-lab-1-ids-setup/",
+        "category": "wazuh",
         "section": "projects",
         "series": ["wazuh"],
         "tags": ["wazuh","suricata","ids","siem","network-security"],
+        "weight":  1 ,
         "summary": "Wazuh Lab-1 Notes The cybersecurity landscape is constantly evolving, so there is need to use SIEM (Security …"
       },{
         "id": "/posts/ejpt/day-1/active-reconnaissance/",
         "title": "Active Reconnaissance",
         "url": "/posts/ejpt/day-1/active-reconnaissance/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": ["ejpt","recon"],
+        "weight":  2 ,
         "summary": "Active Reconnaissance We have already discussed passive reconnaissance, but now we are going to talk about …"
       },{
         "id": "/projects/wazuh/wazuh-lab-2-malware-detection/",
         "title": "Lab 2 - Malware Detection with Wazuh",
         "url": "/projects/wazuh/wazuh-lab-2-malware-detection/",
+        "category": "wazuh",
         "section": "projects",
         "series": ["wazuh"],
         "tags": ["wazuh","malware","fim","virustotal","sysmon"],
+        "weight":  2 ,
         "summary": "Lab2: Malware Detection Using Wazuh Malware is malicious software that is installed on a computer without the …"
       },{
         "id": "/projects/wazuh/wazuh-lab-3-setchain/",
         "title": "Lab 3 - SetChain: AI + Blockchain Threat Detection",
         "url": "/projects/wazuh/wazuh-lab-3-setchain/",
+        "category": "wazuh",
         "section": "projects",
         "series": ["wazuh"],
         "tags": ["wazuh","ai","blockchain","hyperledger","n8n","ipfs","graduation-project"],
+        "weight":  3 ,
         "summary": "SetChain — AI-Powered Cybersecurity Automation Platform Graduation Project | Automated Threat Detection · AI …"
       },{
         "id": "/posts/ejpt/day-1/passive-reconnaissance/",
         "title": "Passive Reconnaissance",
         "url": "/posts/ejpt/day-1/passive-reconnaissance/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": ["ejpt","recon"],
+        "weight":  3 ,
         "summary": "Passive Reconnaissance As we know passive recon is collecting information without direct interacting with …"
       },{
         "id": "/posts/ejpt/day-2/network-primer/",
         "title": "Network Primer",
         "url": "/posts/ejpt/day-2/network-primer/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  4 ,
         "summary": "Session Goals What do you want to be able to DO by the end of this session?\nNetwork Fundamentals ✅ 2026-05-14 …"
       },{
         "id": "/posts/ejpt/day-3/host-discovery/",
         "title": "Host Discovery",
         "url": "/posts/ejpt/day-3/host-discovery/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  5 ,
         "summary": "Session Goals What do you want to be able to DO by the end of this session?\nNetwork Mapping ✅ 2026-05-30 Ping …"
       },{
         "id": "/posts/ejpt/day-4/port-scanning/",
         "title": "Port Scanning",
         "url": "/posts/ejpt/day-4/port-scanning/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  6 ,
         "summary": "Session Goals What do you want to be able to DO by the end of this session?\nPort Scanning ✅ 2026-06-03 …"
       },{
         "id": "/posts/ejpt/day-5/scanning-optmization/",
         "title": "Scanning Optmization",
         "url": "/posts/ejpt/day-5/scanning-optmization/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  7 ,
         "summary": " Session Goals In this session we will discuss how to optimize our scan and also how to use the different …"
       },{
         "id": "/posts/ejpt/day-6/enumeration/",
         "title": "Enumeration",
         "url": "/posts/ejpt/day-6/enumeration/",
+        "category": "eJPT",
         "section": "posts",
         "series": ["eJPT"],
         "tags": [],
+        "weight":  8 ,
         "summary": " Session Goals Inside this session we will practicing Enumeration on different services like FTP, SMB, Web …"
       },{
         "id": "/about/",
         "title": "About Me",
         "url": "/about/",
+        "category": "About",
         "section": "",
         "series": [],
         "tags": [],
+        "weight":  999 ,
         "summary": " Karim Abdelaziz Cybersecurity Student  ·  Penetration Testing  ·  Red Team Aspirant\n"
       },{
         "id": "/archives/",
         "title": "Archive",
         "url": "/archives/",
+        "category": "About",
         "section": "",
         "series": [],
         "tags": [],
+        "weight":  999 ,
         "summary": ""
       },{
         "id": "/certs/",
         "title": "Certifications",
         "url": "/certs/",
+        "category": "About",
         "section": "",
         "series": [],
         "tags": [],
+        "weight":  999 ,
         "summary": " CCNA Security Cisco Certified Network Associate Security Cisco\nMar 2026\nView Credential → Networking CCNAv7: …"
       }]
 </script>
@@ -502,6 +536,42 @@
 }
 
  
+.graph-legend {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  pointer-events: none;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: #a1a1aa;
+}
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.legend-dot--hub {
+  background: #f4f4f5;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+.legend-dot--note {
+  background: #a1a1aa;
+}
+.legend-dot--leaf {
+  background: #52525b;
+}
+
 .graph-hint {
   position: absolute;
   bottom: 0.8rem;
@@ -509,7 +579,6 @@
   font-size: 0.68rem;
   color: #52525b;
   pointer-events: none;
-  letter-spacing: 0.02em;
 }
 </style>
 
@@ -517,7 +586,7 @@
 (function () {
   var pagesEl = document.getElementById('graph-pages-data');
   if (!pagesEl) return;
-  var pages = JSON.parse(pagesEl.textContent || '[]');
+  var rawPages = JSON.parse(pagesEl.textContent || '[]');
 
   var container = document.getElementById('obsidian-graph-wrapper');
   var canvas = document.getElementById('obsidian-canvas');
@@ -527,16 +596,16 @@
   var metaEl = document.getElementById('graph-meta');
 
   
-  var COLOR_HUB = '#e4e4e7';          
-  var COLOR_NOTE = '#a1a1aa';         
-  var COLOR_CONCEPT = '#71717a';      
-  var COLOR_HIGHLIGHT = '#22c55e';    
+  var COLOR_MAIN_HUB = '#f4f4f5';      
+  var COLOR_NOTE     = '#a1a1aa';      
+  var COLOR_LEAF     = '#52525b';      
+  var COLOR_HOVER    = '#22c55e';      
 
   var nodes = [];
   var links = [];
   var nodeMap = {};
 
-  function registerNode(node) {
+  function addNode(node) {
     if (!nodeMap[node.id]) {
       nodes.push(node);
       nodeMap[node.id] = node;
@@ -544,7 +613,7 @@
     return nodeMap[node.id];
   }
 
-  function registerLink(sourceId, targetId, length, strength) {
+  function addLink(sourceId, targetId, length, strength) {
     var s = nodeMap[sourceId];
     var t = nodeMap[targetId];
     if (s && t) {
@@ -552,182 +621,142 @@
         source: s,
         target: t,
         length: length || 50,
-        strength: strength || 0.08
+        strength: strength || 0.1
       });
     }
   }
 
   
-  var clusterDefinitions = [
-    {
-      id: 'cluster-recon',
-      title: 'Reconnaissance',
-      type: 'hub',
-      tags: ['recon', 'osint'],
-      spokes: ['WHOIS & DNS', 'Subdomain Enumeration', 'Google Dorking', 'Certificate Transparency', 'OSINT Framework', 'DNS Zone Transfer']
-    },
-    {
-      id: 'cluster-network',
-      title: 'Networking Fundamentals',
-      type: 'hub',
-      tags: ['networking', 'tcp-ip'],
-      spokes: ['TCP 3-Way Handshake', 'UDP Datagrams', 'OSI 7 Layers', 'Subnetting & CIDR', 'Routing & Gateway', 'ICMP Flags']
-    },
-    {
-      id: 'cluster-scanning',
-      title: 'Port Scanning & Probing',
-      type: 'hub',
-      tags: ['nmap', 'scanning'],
-      spokes: ['SYN Stealth (-sS)', 'Connect Scan (-sT)', 'UDP Scan (-sU)', 'Service Versioning (-sV)', 'OS Fingerprint (-O)', 'NSE Scripting Engine']
-    },
-    {
-      id: 'cluster-evasion',
-      title: 'Firewall & IDS Evasion',
-      type: 'hub',
-      tags: ['firewall', 'evasion'],
-      spokes: ['Packet Fragmentation (-f)', 'Decoy Scanning (-D)', 'Timing Controls (T0-T5)', 'MTU Spoofing', 'ACK Probe Filtering (-sA)', 'Bad Checksums']
-    },
-    {
-      id: 'cluster-enum',
-      title: 'Service Enumeration',
-      type: 'hub',
-      tags: ['enumeration', 'services'],
-      spokes: ['FTP Port 21', 'SMB/Samba (139/445)', 'Apache HTTP 80/443', 'MySQL Database 3306', 'SSH Server 22', 'SMTP Mail 25', 'Smbclient', 'Rpcclient Anonymous']
-    },
-    {
-      id: 'cluster-wazuh',
-      title: 'Wazuh SIEM & Detection',
-      type: 'hub',
-      tags: ['wazuh', 'siem'],
-      spokes: ['Wazuh Manager', 'Endpoint Agents', 'Custom Decoders', 'XML Alert Rules', 'VirusTotal Integration', 'File Integrity (FIM)', 'Sysmon Event Logs']
-    },
-    {
-      id: 'cluster-ids',
-      title: 'Suricata NIDS Engine',
-      type: 'hub',
-      tags: ['suricata', 'ids'],
-      spokes: ['Promiscuous Sniffing', 'Fast.log Alerts', 'Eve.json Stream', 'Emerging Threats Rules', 'Signature Tuning', 'Traffic Mirrors']
-    },
-    {
-      id: 'cluster-setchain',
-      title: 'SetChain Security Architecture',
-      type: 'hub',
-      tags: ['blockchain', 'ai', 'ipfs'],
-      spokes: ['AI Anomaly Classifier', 'Hyperledger Fabric', 'IPFS Distributed Log', 'n8n Webhook Engine', 'Tamper-Proof Audit', 'Smart Contracts']
-    },
-    {
-      id: 'cluster-certs',
-      title: 'Security Certifications',
-      type: 'hub',
-      tags: ['certs', 'career'],
-      spokes: ['Cisco CCNA Security', 'eJPT Junior Pentester', 'MITRE ATT&CK Matrix', 'SANS IR Methodology', 'TryHackMe Top Rank', 'HackTheBox Proving']
+  
+  var categories = {};
+
+  rawPages.forEach(function (p) {
+    var cat = p.category || 'General';
+    
+    if (cat.toLowerCase() === 'ejpt') cat = 'eJPT';
+    if (cat.toLowerCase() === 'wazuh') cat = 'Wazuh SIEM';
+    if (cat.toLowerCase() === 'certs') cat = 'Certifications';
+    if (cat.toLowerCase() === 'about') cat = 'Profile';
+
+    if (!categories[cat]) {
+      categories[cat] = [];
     }
-  ];
+    categories[cat].push(p);
+  });
 
   
-  clusterDefinitions.forEach(function (c) {
-    registerNode({
-      id: c.id,
-      title: c.title,
+  var noteConceptsMap = {
+    'Introduction to information gathering': ['WHOIS Protocol', 'DNS Records', 'Passive Footprinting', 'Domain Registrars'],
+    'Active Reconnaissance': ['Web Spidering', 'DNS Enumeration', 'Banner Grabbing', 'Robots.txt Analysis'],
+    'Passive Reconnaissance': ['Google Dorking', 'TheHarvester', 'Netcraft', 'Social Engineering Vectors'],
+    'Network Primer': ['TCP 3-Way Handshake', 'UDP Headers', 'OSI 7 Layers', 'CIDR Subnetting', 'Routing Gateway'],
+    'Host Discovery': ['ARP Sweeps', 'ICMP Echo', 'TCP SYN Ping', 'UDP Discovery', 'Netdiscover'],
+    'Port Scanning': ['SYN Stealth (-sS)', 'Connect Scan (-sT)', 'UDP Scan (-sU)', 'Service Version (-sV)', 'OS Detection (-O)', 'NSE Scripts'],
+    'Scanning Optmization': ['Timing Templates (T0-T5)', 'Packet Fragment (-f)', 'Decoy Scan (-D)', 'MTU Spoofing', 'ACK Probe (-sA)'],
+    'Enumeration': ['FTP Port 21', 'SMB/Samba (139/445)', 'Apache HTTP (80/443)', 'MySQL DB (3306)', 'SSH (22)', 'SMTP Mail (25)', 'Smbclient', 'Rpcclient Anonymous'],
+    'Lab 1 - Wazuh + Suricata IDS Setup': ['Suricata NIDS Engine', 'Fast.log Alerts', 'Eve.json Stream', 'Promiscuous Mode', 'Ruleset Tuning'],
+    'Lab 2 - Malware Detection with Wazuh': ['File Integrity Monitoring (FIM)', 'Sysmon Process Logs', 'VirusTotal API Integration', 'XML Alert Decoders'],
+    'Lab 3 - SetChain: AI + Blockchain Threat Detection': ['AI Anomaly Classifier', 'Hyperledger Fabric', 'IPFS Distributed Log', 'n8n Automation Engine', 'Tamper-Proof Audit'],
+    'Certifications': ['Cisco CCNA Security', 'eJPT Junior Pentester', 'MITRE ATT&CK Matrix', 'SANS IR Lifecycle']
+  };
+
+  
+  var categoryKeys = Object.keys(categories);
+
+  categoryKeys.forEach(function (catName) {
+    var catId = 'cat-' + catName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+
+    
+    addNode({
+      id: catId,
+      title: catName,
       url: null,
-      type: 'hub',
-      radius: 9.5,
-      color: COLOR_HUB,
+      type: 'category',
+      radius: 12.5,
+      color: COLOR_MAIN_HUB,
       x: 0, y: 0, vx: 0, vy: 0,
-      summary: 'Central knowledge cluster in Karim\'s cybersecurity vault.'
+      summary: 'Main Category: ' + catName + ' (' + categories[catName].length + ' published notes)'
     });
 
     
-    c.spokes.forEach(function (spokeName, idx) {
-      var spokeId = c.id + '-spoke-' + idx;
-      registerNode({
-        id: spokeId,
-        title: spokeName,
-        url: null,
-        type: 'concept',
-        radius: 3.2,
-        color: COLOR_CONCEPT,
+    var catNotes = categories[catName];
+    catNotes.sort(function (a, b) { return (a.weight || 999) - (b.weight || 999); });
+
+    
+    catNotes.forEach(function (p, pIdx) {
+      var noteNode = addNode({
+        id: p.id,
+        title: p.title,
+        url: p.url,
+        type: 'note',
+        category: catName,
+        radius: 5.8,
+        color: COLOR_NOTE,
         x: 0, y: 0, vx: 0, vy: 0,
-        summary: 'Technical concept under ' + c.title
+        summary: p.summary || ''
       });
-      registerLink(c.id, spokeId, 38 + Math.random() * 22, 0.12);
+
+      
+      addLink(catId, p.id, 55, 0.15);
+
+      
+      if (pIdx > 0) {
+        addLink(catNotes[pIdx - 1].id, p.id, 45, 0.08);
+      }
+
+      
+      var concepts = noteConceptsMap[p.title] || [];
+      concepts.forEach(function (cName, cIdx) {
+        var leafId = p.id + '-c-' + cIdx;
+        addNode({
+          id: leafId,
+          title: cName,
+          url: p.url, 
+          type: 'concept',
+          category: catName,
+          radius: 3.2,
+          color: COLOR_LEAF,
+          x: 0, y: 0, vx: 0, vy: 0,
+          summary: 'Core concept in ' + p.title
+        });
+        
+        addLink(p.id, leafId, 28 + (cIdx % 3) * 10, 0.18);
+      });
     });
   });
 
   
-  pages.forEach(function (p) {
-    var pNode = registerNode({
-      id: p.id,
-      title: p.title,
-      url: p.url,
-      type: 'note',
-      radius: 6,
-      color: COLOR_NOTE,
-      x: 0, y: 0, vx: 0, vy: 0,
-      summary: p.summary || ''
-    });
-
-    var titleLow = p.title.toLowerCase();
-
-    
-    if (titleLow.indexOf('information gathering') !== -1 || titleLow.indexOf('reconnaissance') !== -1) {
-      registerLink('cluster-recon', p.id, 55, 0.15);
-    } else if (titleLow.indexOf('network primer') !== -1) {
-      registerLink('cluster-network', p.id, 55, 0.15);
-    } else if (titleLow.indexOf('host discovery') !== -1) {
-      registerLink('cluster-scanning', p.id, 55, 0.15);
-    } else if (titleLow.indexOf('port scanning') !== -1) {
-      registerLink('cluster-scanning', p.id, 55, 0.15);
-    } else if (titleLow.indexOf('optimization') !== -1) {
-      registerLink('cluster-evasion', p.id, 55, 0.15);
-    } else if (titleLow.indexOf('enumeration') !== -1) {
-      registerLink('cluster-enum', p.id, 55, 0.15);
-    } else if (p.url.indexOf('/wazuh-lab-1') !== -1) {
-      registerLink('cluster-ids', p.id, 55, 0.15);
-      registerLink('cluster-wazuh', p.id, 65, 0.1);
-    } else if (p.url.indexOf('/wazuh-lab-2') !== -1) {
-      registerLink('cluster-wazuh', p.id, 55, 0.15);
-    } else if (p.url.indexOf('/wazuh-lab-3') !== -1 || titleLow.indexOf('setchain') !== -1) {
-      registerLink('cluster-setchain', p.id, 55, 0.15);
-      registerLink('cluster-wazuh', p.id, 65, 0.1);
-    } else {
-      registerLink('cluster-certs', p.id, 60, 0.12);
+  if (categoryKeys.length > 1) {
+    for (var i = 0; i < categoryKeys.length; i++) {
+      var catAId = 'cat-' + categoryKeys[i].toLowerCase().replace(/[^a-z0-9]/g, '-');
+      for (var j = i + 1; j < categoryKeys.length; j++) {
+        var catBId = 'cat-' + categoryKeys[j].toLowerCase().replace(/[^a-z0-9]/g, '-');
+        addLink(catAId, catBId, 220, 0.015);
+      }
     }
-  });
-
-  
-  registerLink('cluster-recon', 'cluster-network', 180, 0.02);
-  registerLink('cluster-network', 'cluster-scanning', 160, 0.025);
-  registerLink('cluster-scanning', 'cluster-evasion', 140, 0.03);
-  registerLink('cluster-scanning', 'cluster-enum', 160, 0.025);
-  registerLink('cluster-evasion', 'cluster-ids', 190, 0.018);
-  registerLink('cluster-ids', 'cluster-wazuh', 150, 0.03);
-  registerLink('cluster-wazuh', 'cluster-setchain', 160, 0.025);
-  registerLink('cluster-recon', 'cluster-certs', 200, 0.015);
+  }
 
   if (metaEl) {
-    metaEl.textContent = nodes.length + ' nodes · ' + links.length + ' edges';
+    metaEl.textContent = categoryKeys.length + ' categories · ' + nodes.length + ' nodes';
   }
 
   
   var width = container.clientWidth || 900;
   var height = container.clientHeight || 680;
 
-  
-  var hubList = nodes.filter(function(n) { return n.type === 'hub'; });
-  var clusterAngleStep = (Math.PI * 2) / hubList.length;
+  var mainHubs = nodes.filter(function (n) { return n.type === 'category'; });
+  var hubAngleStep = (Math.PI * 2) / Math.max(1, mainHubs.length);
 
-  hubList.forEach(function (h, i) {
-    var a = i * clusterAngleStep;
-    var dist = Math.min(width, height) * 0.36;
+  mainHubs.forEach(function (h, idx) {
+    var a = idx * hubAngleStep;
+    var dist = Math.min(width, height) * 0.32;
     h.x = (width / 2) + Math.cos(a) * dist;
     h.y = (height / 2) + Math.sin(a) * dist;
   });
 
   
   nodes.forEach(function (n) {
-    if (n.type !== 'hub') {
-      
+    if (n.type !== 'category') {
       var parent = null;
       for (var k = 0; k < links.length; k++) {
         if (links[k].target === n) { parent = links[k].source; break; }
@@ -739,8 +768,8 @@
         n.x = parent.x + Math.cos(a) * d;
         n.y = parent.y + Math.sin(a) * d;
       } else {
-        n.x = (width / 2) + (Math.random() * 200 - 100);
-        n.y = (height / 2) + (Math.random() * 200 - 100);
+        n.x = (width / 2) + (Math.random() * 100 - 50);
+        n.y = (height / 2) + (Math.random() * 100 - 50);
       }
     }
   });
@@ -763,14 +792,13 @@
   window.addEventListener('resize', resize);
   resize();
 
-  
   view.x = (width * (1 - view.scale)) / 2;
   view.y = (height * (1 - view.scale)) / 2;
 
   
   function tickPhysics() {
-    var kRepel = 900;
-    var kCenter = 0.008;
+    var kRepel = 750;
+    var kCenter = 0.007;
     var cx = width / 2;
     var cy = height / 2;
 
@@ -784,9 +812,11 @@
         var d2 = dx * dx + dy * dy || 1;
         var dist = Math.sqrt(d2);
 
-        var maxRange = (n1.type === 'hub' && n2.type === 'hub') ? 350 : 180;
+        var isBothHubs = (n1.type === 'category' && n2.type === 'category');
+        var maxRange = isBothHubs ? 400 : 160;
+
         if (dist < maxRange) {
-          var repMult = (n1.type === 'hub' && n2.type === 'hub') ? 3.5 : 1;
+          var repMult = isBothHubs ? 4.5 : 1;
           var force = (kRepel * repMult) / d2;
           var fx = (dx / dist) * force;
           var fy = (dy / dist) * force;
@@ -852,7 +882,6 @@
     ctx.save();
     ctx.clearRect(0, 0, width, height);
 
-    
     ctx.translate(view.x, view.y);
     ctx.scale(view.scale, view.scale);
 
@@ -866,13 +895,13 @@
       ctx.lineTo(l.target.x, l.target.y);
 
       if (isHighlighted) {
-        ctx.strokeStyle = '#4ade80';
-        ctx.lineWidth = 1.4;
-        ctx.globalAlpha = 0.9;
+        ctx.strokeStyle = '#22c55e';
+        ctx.lineWidth = 1.6;
+        ctx.globalAlpha = 0.95;
       } else {
         ctx.strokeStyle = '#3f3f46';
         ctx.lineWidth = 0.75;
-        ctx.globalAlpha = hoveredNode ? 0.12 : 0.45;
+        ctx.globalAlpha = hoveredNode ? 0.08 : 0.38;
       }
       ctx.stroke();
     }
@@ -887,9 +916,9 @@
 
       var alpha = 1;
       if (hoveredNode) {
-        alpha = (isHovered || isLinked) ? 1 : 0.15;
+        alpha = (isHovered || isLinked) ? 1 : 0.12;
       } else if (!isMatch) {
-        alpha = 0.15;
+        alpha = 0.12;
       }
       ctx.globalAlpha = alpha;
 
@@ -904,21 +933,24 @@
       
       ctx.beginPath();
       ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      ctx.fillStyle = isHovered ? '#4ade80' : node.color;
+      ctx.fillStyle = isHovered ? COLOR_HOVER : node.color;
       ctx.fill();
 
       
-      if (node.type === 'hub') {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-        ctx.lineWidth = 1;
+      if (node.type === 'category') {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = 1.2;
         ctx.stroke();
       }
 
       
-      var showLabel = isHovered || isLinked || (node.type === 'hub') || (searchQuery && isMatch);
+      
+      
+      var showLabel = isHovered || isLinked || (node.type === 'category') || (searchQuery && isMatch);
       if (showLabel) {
-        ctx.font = (node.type === 'hub' ? 'bold 11px' : '500 10px') + ' Inter, sans-serif';
-        ctx.fillStyle = isHovered ? '#4ade80' : (node.type === 'hub' ? '#f4f4f5' : '#d4d4d8');
+        var isCat = (node.type === 'category');
+        ctx.font = (isCat ? 'bold 12px' : '500 10px') + ' Inter, sans-serif';
+        ctx.fillStyle = isHovered ? '#22c55e' : (isCat ? '#ffffff' : '#d4d4d8');
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
 
@@ -1012,7 +1044,7 @@
   canvas.addEventListener('click', function (e) {
     var dx = Math.abs(e.clientX - clickStart.x);
     var dy = Math.abs(e.clientY - clickStart.y);
-    if (dx > 4 || dy > 4) return; 
+    if (dx > 4 || dy > 4) return;
 
     var target = findNodeAt(e.clientX, e.clientY);
     if (target && target.url) {
@@ -1037,12 +1069,12 @@
 
   
   function showTooltip(n, sx, sy) {
-    var typeLabel = n.type === 'hub' ? 'Core Topic' : (n.url ? 'Note' : 'Concept');
+    var typeLabel = n.type === 'category' ? 'Main Category' : (n.type === 'note' ? 'Note' : 'Concept');
     tooltip.innerHTML =
       '<span class="graph-tooltip__tag">' + typeLabel + '</span>' +
       '<div class="graph-tooltip__title">' + n.title + '</div>' +
       (n.summary ? '<div class="graph-tooltip__summary">' + n.summary + '</div>' : '') +
-      (n.url ? '<div class="graph-tooltip__hint">Click to read note ➔</div>' : '');
+      (n.url ? '<div class="graph-tooltip__hint">Click to open note ➔</div>' : '');
 
     tooltip.style.display = 'block';
     updateTooltip(sx, sy);
@@ -1072,7 +1104,6 @@
     view.y = (height * (1 - view.scale)) / 2;
   });
 
-  
   render();
 })();
 </script>
