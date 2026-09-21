@@ -17,7 +17,7 @@ paginate = 6
   ShowCodeCopyButtons = true
   ShowShareButtons    = true
   ShowToc             = true
-  TocOpen             = false
+  TocOpen             = true
   tocHighlight        = true
   images              = ["images/og-default.png"]
 
