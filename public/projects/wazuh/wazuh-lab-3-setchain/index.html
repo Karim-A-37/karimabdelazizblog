@@ -495,6 +495,529 @@
         </ul>
     </div>
 </details>
+<div class="note-local-graph-wrap" id="note-local-graph-wrap">
+  <div class="note-local-graph-card">
+    <div class="note-local-graph-header">
+      <div class="note-local-graph-title">
+        <span class="note-local-graph-dot"></span>
+        <span>Note Structure Graph</span>
+        <span class="note-local-graph-count" id="note-local-graph-count"></span>
+      </div>
+      <div class="note-local-graph-controls">
+        <button id="note-graph-toggle" class="note-graph-btn" title="Toggle graph collapse">▾</button>
+      </div>
+    </div>
+
+    <div class="note-local-graph-body" id="note-local-graph-body">
+      
+      <div class="note-graph-square-canvas-box" id="note-graph-square-box">
+        <canvas id="note-local-canvas"></canvas>
+        <div id="note-local-tooltip" class="note-local-tooltip" style="display:none;"></div>
+      </div>
+      <div class="note-local-graph-footer">
+        <span class="note-legend-square">■</span>
+        <span class="note-legend-text">Square subnodes = Note Headings · Click square to jump</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+ 
+.note-local-graph-wrap {
+  margin: 1.5rem 0 2rem;
+  width: 100%;
+}
+
+.note-local-graph-card {
+  background: var(--entry, #16161d);
+  border: 1px solid var(--border, #2a2a38);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.note-local-graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.note-local-graph-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary, #e8e8f0);
+  letter-spacing: 0.02em;
+}
+
+.note-local-graph-dot {
+  width: 7px;
+  height: 7px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+
+.note-local-graph-count {
+  font-size: 0.68rem;
+  color: #71717a;
+  font-family: monospace;
+}
+
+.note-graph-btn {
+  background: transparent;
+  border: 1px solid var(--border, #2a2a38);
+  border-radius: 5px;
+  color: var(--secondary, #888);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+.note-graph-btn:hover {
+  color: #22c55e;
+  border-color: #22c55e;
+}
+
+ 
+.note-graph-square-canvas-box {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  background: #111114;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+}
+.note-graph-square-canvas-box:active {
+  cursor: grabbing;
+}
+
+#note-local-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.note-local-graph-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.68rem;
+  color: #71717a;
+}
+
+.note-legend-square {
+  color: #a1a1aa;
+  font-size: 0.75rem;
+}
+
+ 
+.note-local-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(22, 22, 28, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 6px;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.72rem;
+  color: #f4f4f5;
+  font-weight: 600;
+  max-width: 220px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  z-index: 50;
+  transform: translate(-50%, -125%);
+  line-height: 1.3;
+}
+</style>
+
+<script>
+(function () {
+  var wrap = document.getElementById('note-local-graph-wrap');
+  if (!wrap) return;
+
+  var canvas = document.getElementById('note-local-canvas');
+  var box = document.getElementById('note-graph-square-box');
+  var tooltip = document.getElementById('note-local-tooltip');
+  var countEl = document.getElementById('note-local-graph-count');
+  var toggleBtn = document.getElementById('note-graph-toggle');
+  var bodyEl = document.getElementById('note-local-graph-body');
+  if (!canvas || !box) return;
+
+  var ctx = canvas.getContext('2d');
+
+  
+  var isCollapsed = false;
+  toggleBtn.addEventListener('click', function () {
+    isCollapsed = !isCollapsed;
+    bodyEl.style.display = isCollapsed ? 'none' : 'block';
+    toggleBtn.textContent = isCollapsed ? '▸' : '▾';
+  });
+
+  
+  var headings = Array.from(document.querySelectorAll('.post-content h2, .post-content h3'));
+  if (headings.length === 0) {
+    
+    wrap.style.display = 'none';
+    return;
+  }
+
+  if (countEl) {
+    countEl.textContent = '(' + headings.length + ' headings)';
+  }
+
+  
+  var nodes = [];
+  var links = [];
+
+  var width = box.clientWidth || 320;
+  var height = box.clientHeight || 320;
+  var cx = width / 2;
+  var cy = height / 2;
+
+  
+  var postTitle = document.querySelector('.post-title') ? document.querySelector('.post-title').textContent.trim() : 'Note';
+  var rootNode = {
+    id: 'root-note',
+    title: postTitle,
+    type: 'root',
+    shape: 'circle',
+    radius: 9,
+    color: '#ffffff',
+    homeX: cx,
+    homeY: cy,
+    x: cx,
+    y: cy,
+    vx: 0,
+    vy: 0
+  };
+  nodes.push(rootNode);
+
+  
+  var lastH2Node = null;
+  var angleStep = (Math.PI * 2) / headings.length;
+
+  headings.forEach(function (h, idx) {
+    var isH2 = h.tagName.toLowerCase() === 'h2';
+    var headingTitle = h.textContent.replace(/^#+\s*/, '').trim();
+    var a = idx * angleStep;
+    var dist = 85 + (idx % 2) * 25; 
+
+    var squareSize = isH2 ? 8 : 6; 
+    var node = {
+      id: h.id || ('heading-' + idx),
+      element: h,
+      title: headingTitle,
+      type: isH2 ? 'h2' : 'h3',
+      shape: 'square',
+      size: squareSize,
+      color: '#a1a1aa',
+      homeX: cx + Math.cos(a) * dist,
+      homeY: cy + Math.sin(a) * dist,
+      x: cx + Math.cos(a) * dist,
+      y: cy + Math.sin(a) * dist,
+      vx: 0,
+      vy: 0
+    };
+    nodes.push(node);
+
+    
+    if (isH2) {
+      links.push({ source: rootNode, target: node, length: dist, strength: 0.12 });
+      lastH2Node = node;
+    } else {
+      
+      var parent = lastH2Node || rootNode;
+      links.push({ source: parent, target: node, length: 45, strength: 0.15 });
+    }
+  });
+
+  
+  function resizeCanvas() {
+    var dpr = window.devicePixelRatio || 1;
+    width = box.clientWidth;
+    height = box.clientHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  
+  var simAlpha = 1.0;
+
+  function tickPhysics() {
+    if (simAlpha < 0.002) {
+      for (var z = 0; z < nodes.length; z++) {
+        nodes[z].vx = 0;
+        nodes[z].vy = 0;
+      }
+      return;
+    }
+
+    var kHome = 0.06;
+
+    
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n === draggedNode) continue;
+      n.vx += (n.homeX - n.x) * kHome * simAlpha;
+      n.vy += (n.homeY - n.y) * kHome * simAlpha;
+    }
+
+    
+    for (var a = 0; a < nodes.length; a++) {
+      var na = nodes[a];
+      for (var b = a + 1; b < nodes.length; b++) {
+        var nb = nodes[b];
+        var dx = nb.x - na.x;
+        var dy = nb.y - na.y;
+        var d2 = dx * dx + dy * dy || 1;
+        var dist = Math.sqrt(d2);
+        var minDist = (na.size || na.radius || 6) + (nb.size || nb.radius || 6) + 12;
+
+        if (dist < minDist) {
+          var push = (minDist - dist) * 0.4 * simAlpha;
+          var nx = dx / dist;
+          var ny = dy / dist;
+          na.vx -= nx * push;
+          na.vy -= ny * push;
+          nb.vx += nx * push;
+          nb.vy += ny * push;
+        }
+      }
+    }
+
+    
+    for (var l = 0; l < links.length; l++) {
+      var link = links[l];
+      var ldx = link.target.x - link.source.x;
+      var ldy = link.target.y - link.source.y;
+      var ld = Math.sqrt(ldx * ldx + ldy * ldy) || 1;
+      var diff = (ld - link.length) * link.strength * simAlpha;
+      diff = Math.max(-4, Math.min(4, diff));
+
+      var lfx = (ldx / ld) * diff;
+      var lfy = (ldy / ld) * diff;
+
+      link.source.vx += lfx;
+      link.source.vy += lfy;
+      link.target.vx -= lfx;
+      link.target.vy -= lfy;
+    }
+
+    
+    for (var k = 0; k < nodes.length; k++) {
+      var nd = nodes[k];
+      if (nd === draggedNode) continue;
+      nd.vx *= 0.70;
+      nd.vy *= 0.70;
+      nd.x += nd.vx;
+      nd.y += nd.vy;
+    }
+
+    if (!draggedNode) {
+      simAlpha *= 0.96;
+    }
+  }
+
+  
+  var hoveredNode = null;
+  var draggedNode = null;
+  var activeHeadingNode = null;
+
+  function render() {
+    tickPhysics();
+
+    ctx.clearRect(0, 0, width, height);
+
+    
+    for (var i = 0; i < links.length; i++) {
+      var l = links[i];
+      var isHi = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+      ctx.beginPath();
+      ctx.moveTo(l.source.x, l.source.y);
+      ctx.lineTo(l.target.x, l.target.y);
+
+      if (isHi) {
+        ctx.strokeStyle = '#22c55e';
+        ctx.lineWidth = 1.4;
+        ctx.globalAlpha = 0.9;
+      } else {
+        ctx.strokeStyle = '#3f3f46';
+        ctx.lineWidth = 0.75;
+        ctx.globalAlpha = hoveredNode ? 0.15 : 0.45;
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    
+    for (var j = 0; j < nodes.length; j++) {
+      var node = nodes[j];
+      var isHover = (node === hoveredNode);
+      var isActive = (node === activeHeadingNode);
+
+      
+      if (node.shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = isHover ? '#22c55e' : node.color;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        
+        ctx.font = 'bold 10px Inter, sans-serif';
+        ctx.fillStyle = '#e4e4e7';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText('Note Center', node.x, node.y + node.radius + 4);
+      }
+      
+      else if (node.shape === 'square') {
+        var half = node.size / 2;
+        var sqColor = isHover || isActive ? '#22c55e' : node.color;
+
+        
+        if (isHover || isActive) {
+          ctx.fillStyle = 'rgba(34, 197, 94, 0.35)';
+          ctx.fillRect(node.x - half - 4, node.y - half - 4, node.size + 8, node.size + 8);
+        }
+
+        
+        ctx.fillStyle = sqColor;
+        ctx.fillRect(node.x - half, node.y - half, node.size, node.size);
+
+        
+        ctx.strokeStyle = (isHover || isActive) ? '#4ade80' : 'rgba(255, 255, 255, 0.18)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(node.x - half, node.y - half, node.size, node.size);
+      }
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  
+  function findNode(ex, ey) {
+    var rect = canvas.getBoundingClientRect();
+    var x = ex - rect.left;
+    var y = ey - rect.top;
+
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var n = nodes[i];
+      var r = (n.shape === 'circle' ? n.radius : n.size) + 5;
+      var dx = x - n.x;
+      var dy = y - n.y;
+      if (dx * dx + dy * dy <= r * r) {
+        return n;
+      }
+    }
+    return null;
+  }
+
+  canvas.addEventListener('mousemove', function (e) {
+    var rect = canvas.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    if (draggedNode) {
+      draggedNode.x = mx;
+      draggedNode.y = my;
+      draggedNode.vx = 0;
+      draggedNode.vy = 0;
+      simAlpha = Math.max(simAlpha, 0.3);
+      return;
+    }
+
+    var target = findNode(e.clientX, e.clientY);
+    if (target !== hoveredNode) {
+      hoveredNode = target;
+      if (hoveredNode && hoveredNode.shape === 'square') {
+        tooltip.innerHTML = '<strong>' + (hoveredNode.type.toUpperCase()) + '</strong>: ' + hoveredNode.title;
+        tooltip.style.display = 'block';
+        tooltip.style.left = mx + 'px';
+        tooltip.style.top = my + 'px';
+      } else {
+        tooltip.style.display = 'none';
+      }
+    } else if (hoveredNode) {
+      tooltip.style.left = mx + 'px';
+      tooltip.style.top = my + 'px';
+    }
+  });
+
+  var clickStart = { x: 0, y: 0 };
+  canvas.addEventListener('mousedown', function (e) {
+    clickStart.x = e.clientX;
+    clickStart.y = e.clientY;
+    var target = findNode(e.clientX, e.clientY);
+    if (target) {
+      draggedNode = target;
+      simAlpha = Math.max(simAlpha, 0.3);
+    }
+  });
+
+  window.addEventListener('mouseup', function () {
+    if (draggedNode) {
+      simAlpha = 0.45; 
+    }
+    draggedNode = null;
+  });
+
+  canvas.addEventListener('click', function (e) {
+    var dx = Math.abs(e.clientX - clickStart.x);
+    var dy = Math.abs(e.clientY - clickStart.y);
+    if (dx > 4 || dy > 4) return; 
+
+    var target = findNode(e.clientX, e.clientY);
+    if (target && target.shape === 'square' && target.element) {
+      target.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  
+  window.addEventListener('scroll', function () {
+    var scrollPos = window.scrollY + 140;
+    var current = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].offsetTop <= scrollPos) {
+        current = headings[i];
+      }
+    }
+    if (current) {
+      for (var j = 0; j < nodes.length; j++) {
+        if (nodes[j].element === current) {
+          activeHeadingNode = nodes[j];
+          break;
+        }
+      }
+    }
+  }, { passive: true });
+
+  render();
+})();
+</script>
 
   <div class="post-content md-content"><h1 id="setchain--ai-powered-cybersecurity-automation-platform">SetChain — AI-Powered Cybersecurity Automation Platform<a hidden class="anchor" aria-hidden="true" href="#setchain--ai-powered-cybersecurity-automation-platform">#</a></h1>
 <blockquote>
