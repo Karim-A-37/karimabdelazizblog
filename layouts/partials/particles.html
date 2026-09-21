@@ -1,0 +1,63 @@
+{{- /* Matrix-style falling data particles — homepage only */ -}}
+<canvas id="ka-particles" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.55;"></canvas>
+
+<script>
+(function () {
+  var canvas = document.getElementById('ka-particles');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var chars = ['0','1','>','$','#','{','}','/',':','_'];
+  var particles = [];
+  var MAX = 28;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function spawn() {
+    return {
+      x:    Math.random() * canvas.width,
+      y:    -20,
+      vy:   0.3 + Math.random() * 0.5,
+      vx:   (Math.random() - 0.5) * 0.15,
+      size: 9 + Math.random() * 6,
+      char: chars[Math.floor(Math.random() * chars.length)],
+      alpha: 0.06 + Math.random() * 0.09,
+      life: 0
+    };
+  }
+
+  for (var i = 0; i < MAX; i++) {
+    var p = spawn();
+    p.y = Math.random() * canvas.height;
+    particles.push(p);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold 11px JetBrains Mono, monospace';
+    ctx.fillStyle = '#22c55e';
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      ctx.globalAlpha = p.alpha;
+      ctx.fillText(p.char, p.x, p.y);
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life++;
+      // Occasionally swap char for flicker
+      if (p.life % 80 === 0) p.char = chars[Math.floor(Math.random() * chars.length)];
+      // Reset when off-screen
+      if (p.y > canvas.height + 20) {
+        particles[i] = spawn();
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>

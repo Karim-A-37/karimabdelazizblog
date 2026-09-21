@@ -1,0 +1,66 @@
+{{- /* Intro Slash Animation — homepage only, plays once per session */ -}}
+<div id="intro-slash" aria-hidden="true">
+  <div class="slash-half slash-top"></div>
+  <div class="slash-half slash-bottom"></div>
+  <div class="slash-line"></div>
+</div>
+
+<style>
+#intro-slash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+.slash-half {
+  position: absolute;
+  left: 0; right: 0;
+  background: #080b09;
+  transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.slash-top    { top: 0; height: 50%; transform: translateY(0); }
+.slash-bottom { bottom: 0; height: 50%; transform: translateY(0); }
+
+.slash-line {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #22c55e 30%,
+    #ffffff 50%,
+    #22c55e 70%,
+    transparent 100%);
+  transform: translateY(-50%) scaleX(0) rotate(-2deg);
+  transform-origin: left center;
+  box-shadow: 0 0 18px 4px rgba(34,197,94,0.7),
+              0 0 40px 8px rgba(34,197,94,0.3);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#intro-slash.is-slashing .slash-line {
+  transform: translateY(-50%) scaleX(1) rotate(-2deg);
+}
+#intro-slash.is-opening .slash-top  { transform: translateY(-100%); }
+#intro-slash.is-opening .slash-bottom { transform: translateY(100%); }
+#intro-slash.is-done { display: none; }
+</style>
+
+<script>
+(function () {
+  if (sessionStorage.getItem('ka-intro-seen')) {
+    var el = document.getElementById('intro-slash');
+    if (el) el.classList.add('is-done');
+    return;
+  }
+  sessionStorage.setItem('ka-intro-seen', '1');
+  var el = document.getElementById('intro-slash');
+  if (!el) return;
+  setTimeout(function () { el.classList.add('is-slashing'); }, 200);
+  setTimeout(function () { el.classList.add('is-opening'); }, 650);
+  setTimeout(function () { el.classList.add('is-done'); }, 1300);
+})();
+</script>

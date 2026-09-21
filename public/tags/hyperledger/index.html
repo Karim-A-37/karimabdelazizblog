@@ -10,7 +10,7 @@
 <meta name="description" content="Security notes, CTF writeups, and projects by Karim Abdelaziz">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/tags/hyperledger/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.cd542239371c89b9b26447e55ef7b258372d18cb9b5612dce0760afc2b7be272.css" integrity="sha256-zVQiOTccibmyZEflXveyWDctGMubVhLc4HYK/Ct74nI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.ec29332710de8205b95092a2a3a7a652fcfa4013d590c94f49a5d8abaa4a903f.css" integrity="sha256-7CkzJxDeggW5UJKio6emUvz6QBPVkMlPSaXYq6pKkD8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -37,6 +37,19 @@
 </script><link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/favicon.png" />
 <meta name="theme-color" content="#1a1a2e" />
+<script>
+
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('#theme-toggle');
+  if (!btn) return;
+  btn.classList.remove('ka-pulsing');
+  void btn.offsetWidth; 
+  btn.classList.add('ka-pulsing');
+  btn.addEventListener('animationend', function() {
+    btn.classList.remove('ka-pulsing');
+  }, { once: true });
+});
+</script>
 <meta property="og:url" content="https://karimabdelazizblog.tech/tags/hyperledger/">
   <meta property="og:site_name" content="Karim&#39;s Blog">
   <meta property="og:title" content="Hyperledger">

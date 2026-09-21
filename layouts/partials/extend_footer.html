@@ -161,3 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
 .medium-zoom-image--opened { z-index: 1001; }
 </style>
 {{ end }}
+
+{{- /* ── 4. Homepage-only: intro slash + particles + tour ──── */ -}}
+{{ if .IsHome }}
+{{ partial "intro_slash.html" . }}
+{{ partial "particles.html"  . }}
+{{ partial "tour.html"       . }}
+{{ end }}

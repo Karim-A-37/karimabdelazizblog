@@ -1,0 +1,248 @@
+{{- /* "Scan My Blog" guided tour — homepage only */ -}}
+<div id="ka-tour-btn-wrap">
+  <button id="ka-tour-btn" onclick="kaTourStart()" aria-label="Start guided tour">
+    <span class="ka-tour-icon">⬡</span> Scan My Blog
+  </button>
+</div>
+
+<div id="ka-tour-overlay" style="display:none" aria-hidden="true"></div>
+<div id="ka-tour-tooltip" style="display:none" aria-live="polite">
+  <div class="ka-tour-step-label" id="ka-tour-step-label"></div>
+  <div class="ka-tour-title"   id="ka-tour-title"></div>
+  <div class="ka-tour-desc"    id="ka-tour-desc"></div>
+  <div class="ka-tour-actions">
+    <button class="ka-tour-skip"  onclick="kaTourEnd()">Skip</button>
+    <button class="ka-tour-next"  id="ka-tour-next" onclick="kaTourNext()">Next →</button>
+  </div>
+</div>
+
+<style>
+/* ── Tour trigger button ── */
+#ka-tour-btn-wrap {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.3rem;
+  z-index: 300;
+}
+#ka-tour-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 1rem;
+  background: var(--entry, #1c1c26);
+  border: 1px solid rgba(34,197,94,0.35);
+  border-radius: 50px;
+  color: #22c55e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 2px 14px rgba(34,197,94,0.12);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+#ka-tour-btn:hover {
+  background: rgba(34,197,94,0.12);
+  box-shadow: 0 2px 20px rgba(34,197,94,0.25);
+}
+.ka-tour-icon {
+  font-size: 1rem;
+  animation: ka-hex-spin 6s linear infinite;
+  display: inline-block;
+}
+@keyframes ka-hex-spin { to { transform: rotate(360deg); } }
+
+/* ── Overlay ── */
+#ka-tour-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 9000;
+  pointer-events: all;
+}
+
+/* ── Tooltip card ── */
+#ka-tour-tooltip {
+  position: fixed;
+  z-index: 9100;
+  background: var(--entry, #1c1c26);
+  border: 1px solid rgba(34,197,94,0.4);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem 0.9rem;
+  max-width: 300px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5),
+              0 0 0 1px rgba(34,197,94,0.15);
+}
+.ka-tour-step-label {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #22c55e;
+  margin-bottom: 0.35rem;
+}
+.ka-tour-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary, #e8e8f0);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.ka-tour-desc {
+  font-size: 0.8rem;
+  color: var(--secondary, #888);
+  line-height: 1.55;
+  margin-bottom: 0.9rem;
+}
+.ka-tour-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ka-tour-skip {
+  background: none;
+  border: none;
+  color: var(--secondary, #888);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+}
+.ka-tour-skip:hover { color: var(--primary, #fff); }
+.ka-tour-next {
+  background: #22c55e;
+  border: none;
+  color: #000;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.38rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ka-tour-next:hover { opacity: 0.85; }
+
+/* Spotlight: highlight rect punched through overlay */
+#ka-tour-spotlight {
+  position: fixed;
+  z-index: 9001;
+  border-radius: 10px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.72),
+              0 0 0 2px rgba(34,197,94,0.5);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+</style>
+
+<script>
+(function () {
+  // Hide button if tour already done
+  if (localStorage.getItem('ka-tour-done')) {
+    var w = document.getElementById('ka-tour-btn-wrap');
+    if (w) w.style.display = 'none';
+  }
+})();
+
+var kaTourStep = 0;
+var kaTourSpotlight = null;
+
+var kaTourSteps = [
+  {
+    selector: '.home-hero',
+    label: 'Step 1 of 4',
+    title: 'Hero — Who I Am',
+    desc: 'Your identity at a glance: name, role, and social links to GitHub, LinkedIn, HackTheBox and more.',
+    position: 'bottom'
+  },
+  {
+    selector: '.social-icons',
+    label: 'Step 2 of 4',
+    title: 'Social Links',
+    desc: 'Connect with me across platforms — GitHub, LinkedIn, HackTheBox, TryHackMe, HackerOne and more.',
+    position: 'bottom'
+  },
+  {
+    selector: '#searchbox, nav',
+    label: 'Step 3 of 4',
+    title: 'Navigation',
+    desc: 'Browse Notes (eJPT, CTFs), Labs (Wazuh, Suricata, AI), Certs, Archive, or search everything.',
+    position: 'bottom'
+  },
+  {
+    selector: '.post-entry, article',
+    label: 'Step 4 of 4',
+    title: 'Latest Posts',
+    desc: 'My most recent notes and writeups. Click any card to dive into the full content.',
+    position: 'top'
+  }
+];
+
+function kaTourStart() {
+  kaTourStep = 0;
+  document.getElementById('ka-tour-btn-wrap').style.display = 'none';
+  document.getElementById('ka-tour-overlay').style.display = 'block';
+  // Create spotlight
+  if (!kaTourSpotlight) {
+    kaTourSpotlight = document.createElement('div');
+    kaTourSpotlight.id = 'ka-tour-spotlight';
+    document.body.appendChild(kaTourSpotlight);
+  }
+  kaTourShow();
+}
+
+function kaTourShow() {
+  var step = kaTourSteps[kaTourStep];
+  var target = document.querySelector(step.selector);
+  var tooltip = document.getElementById('ka-tour-tooltip');
+
+  document.getElementById('ka-tour-step-label').textContent = step.label;
+  document.getElementById('ka-tour-title').textContent = step.title;
+  document.getElementById('ka-tour-desc').textContent = step.desc;
+
+  var nextBtn = document.getElementById('ka-tour-next');
+  nextBtn.textContent = kaTourStep === kaTourSteps.length - 1 ? 'Finish ✓' : 'Next →';
+
+  if (target) {
+    var rect = target.getBoundingClientRect();
+    var pad = 10;
+    kaTourSpotlight.style.cssText =
+      'display:block;top:' + (rect.top - pad + window.scrollY) + 'px;' +
+      'left:' + (rect.left - pad) + 'px;' +
+      'width:' + (rect.width + pad * 2) + 'px;' +
+      'height:' + (rect.height + pad * 2) + 'px;';
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Position tooltip
+    var ttop, tleft;
+    if (step.position === 'bottom') {
+      ttop  = rect.bottom + pad + 16;
+      tleft = rect.left;
+    } else {
+      ttop  = rect.top - 220;
+      tleft = rect.left;
+    }
+    // Keep on screen
+    tleft = Math.max(12, Math.min(tleft, window.innerWidth - 330));
+    ttop  = Math.max(12, Math.min(ttop,  window.innerHeight - 240));
+
+    tooltip.style.cssText = 'display:block;top:' + ttop + 'px;left:' + tleft + 'px;';
+  } else {
+    kaTourSpotlight.style.display = 'none';
+    tooltip.style.cssText = 'display:block;top:50%;left:50%;transform:translate(-50%,-50%)';
+  }
+}
+
+function kaTourNext() {
+  kaTourStep++;
+  if (kaTourStep >= kaTourSteps.length) {
+    kaTourEnd();
+    return;
+  }
+  kaTourShow();
+}
+
+function kaTourEnd() {
+  document.getElementById('ka-tour-overlay').style.display = 'none';
+  document.getElementById('ka-tour-tooltip').style.display = 'none';
+  if (kaTourSpotlight) kaTourSpotlight.style.display = 'none';
+  localStorage.setItem('ka-tour-done', '1');
+}
+</script>
