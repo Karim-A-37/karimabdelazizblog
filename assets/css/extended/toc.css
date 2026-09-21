@@ -85,18 +85,40 @@ details.toc[open] > summary::after,
 /* ── Nav container (.inner in PaperMod, or #TableOfContents) ─── */
 details.toc .inner,
 #TableOfContents {
-  padding: 0.4rem 0 0.5rem !important;
+  padding: 0.5rem 0.6rem 0.7rem !important;
   margin: 0 !important;
 }
 
-/* ── Lists ───────────────────────────────────────────────────── */
-details.toc .inner ul,
-#TableOfContents ul {
+/* ── Root list ───────────────────────────────────────────────── */
+details.toc .inner > ul,
+#TableOfContents > ul {
   list-style: none !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
+/* ── Nested sub-lists: indent and vertical tree guide ────────── */
+details.toc .inner li > ul,
+#TableOfContents li > ul {
+  list-style: none !important;
+  position: relative !important;
+  margin-left: 0.85rem !important;
+  padding-left: 0.45rem !important;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/* Deeply nested sub-sub-lists (e.g. 1. Passive Reconnaissance under Passive vs Active) */
+details.toc .inner li > ul li > ul,
+#TableOfContents li > ul li > ul {
+  margin-left: 0.85rem !important;
+  border-left: 1.5px solid rgba(34, 197, 94, 0.25) !important;
+  margin-top: 0.15rem !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/* ── All list items ──────────────────────────────────────────── */
 details.toc .inner li,
 #TableOfContents li {
   margin: 0 !important;
@@ -111,34 +133,75 @@ details.toc .inner li::before,
   display: none !important;
 }
 
-/* ── All links ───────────────────────────────────────────────── */
+/* ── All TOC links ───────────────────────────────────────────── */
 details.toc .inner a,
 #TableOfContents a {
   display: block !important;
-  padding: 0.35rem 1rem !important;
-  font-size: 0.84rem !important;
+  font-size: 0.82rem !important;
   line-height: 1.4 !important;
-  color: var(--secondary) !important;
+  color: var(--secondary, #a1a1aa) !important;
   text-decoration: none !important;
-  border-left: 3px solid transparent !important;
-  transition: color 0.14s, background 0.14s, border-color 0.14s;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  border-left: 2.5px solid transparent !important;
+  transition: all 0.15s ease;
+  padding: 0.28rem 0.55rem !important;
+  border-radius: 4px;
+  word-break: break-word;
+  white-space: normal;
 }
 
 details.toc .inner a:hover,
 #TableOfContents a:hover {
-  color: var(--primary) !important;
-  background: rgba(128, 128, 128, 0.07) !important;
+  color: var(--primary, #ffffff) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
-/* Sub-items — slightly smaller + indented */
-details.toc .inner ul ul a,
-#TableOfContents ul ul a {
-  padding-left: 1.6rem !important;
-  font-size: 0.78rem !important;
-  color: color-mix(in srgb, var(--secondary) 85%, transparent) !important;
+/* ── Level 1 Links (Top Header / H1) ─────────────────────────── */
+details.toc .inner > ul > li > a,
+#TableOfContents > ul > li > a {
+  font-size: 0.84rem !important;
+  font-weight: 700 !important;
+  color: var(--primary, #ffffff) !important;
+  padding: 0.32rem 0.6rem !important;
+}
+
+/* ── Level 2 Links (Main Sections / H2) ──────────────────────── */
+/* e.g. Passive vs Active Reconnaissance, Recon Strategy */
+details.toc .inner > ul > li > ul > li > a,
+#TableOfContents > ul > li > ul > li > a {
+  font-size: 0.80rem !important;
+  font-weight: 600 !important;
+  color: #e4e4e7 !important;
+  padding: 0.3rem 0.55rem !important;
+  margin-top: 0.25rem !important; /* Space above each main section */
+}
+
+/* ── Level 3 Links (Sub-items / H3) ──────────────────────────── */
+/* e.g. 1. Passive Reconnaissance, 2. Active Reconnaissance */
+details.toc .inner > ul > li > ul > li > ul > li > a,
+#TableOfContents > ul > li > ul > li > ul > li > a {
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  color: #a1a1aa !important;
+  padding: 0.22rem 0.5rem !important;
+  margin-top: 0.08rem !important;
+  margin-bottom: 0.08rem !important;
+}
+
+/* ↳ sub-item indicator icon */
+details.toc .inner > ul > li > ul > li > ul > li > a::before,
+#TableOfContents > ul > li > ul > li > ul > li > a::before {
+  content: "↳ ";
+  font-size: 0.7rem;
+  color: #71717a;
+  margin-right: 0.2rem;
+  transition: color 0.15s;
+}
+
+details.toc .inner > ul > li > ul > li > ul > li > a:hover::before,
+#TableOfContents > ul > li > ul > li > ul > li > a:hover::before,
+details.toc .inner > ul > li > ul > li > ul > li > a.toc-active::before,
+#TableOfContents > ul > li > ul > li > ul > li > a.toc-active::before {
+  color: #22c55e;
 }
 
 /* ── Active link (scroll-spy) ────────────────────────────────── */
@@ -146,7 +209,7 @@ details.toc .inner a.toc-active,
 #TableOfContents a.toc-active {
   color: #22c55e !important;
   border-left-color: #22c55e !important;
-  background: rgba(34, 197, 94, 0.09) !important;
+  background: rgba(34, 197, 94, 0.1) !important;
   font-weight: 600 !important;
 }
 

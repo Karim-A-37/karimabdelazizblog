@@ -26,7 +26,7 @@ What it is:
 in port scanning we try to discover which ports are open, closed or filtered TCP or UDP in the target system, and each one is going to give us information about what target are doing:">
 <meta name="author" content="Karim Abdelaziz">
 <link rel="canonical" href="https://karimabdelazizblog.tech/posts/ejpt/day-4/port-scanning/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f63d454fd575b7453be6205d4761d5f92a5b84b6fcb790af5b9da0f6bb6f2fa9.css" integrity="sha256-9j1FT9V1t0U75iBdR2HV&#43;SpbhLb8t5CvW52g9rtvL6k=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3bca3365f397894de4c28fe640fa0529afc45267ad07fcd793aeb174836751e3.css" integrity="sha256-O8ozZfOXiU3kwo/mQPoFKa/EUmetB/zXk66xdINnUeM=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://karimabdelazizblog.tech/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://karimabdelazizblog.tech/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://karimabdelazizblog.tech/favicon-32x32.png">
@@ -1267,28 +1267,14 @@ option (-sC) which is performing default and safe categories of Nmap scripting e
 </script>
 <script>
 (function () {
-  var toc = document.getElementById('TableOfContents');
+  var toc = document.querySelector('.toc .inner, #TableOfContents');
   if (!toc) return;
 
-  var mainDetails = document.querySelector('.toc > details');
+  var mainDetails = document.querySelector('details.toc, .toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
    
-  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
-    var parentLi = ul.parentElement;
-    if (!parentLi || parentLi.tagName !== 'LI') return;
-    var directLink = parentLi.querySelector(':scope > a');
-    if (!directLink) return;
-    var det = document.createElement('details');
-    var sum = document.createElement('summary');
-    sum.appendChild(directLink.cloneNode(true));
-    det.appendChild(sum);
-    det.appendChild(ul);
-    directLink.replaceWith(det);
-  });
-
-   
-  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
+  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
   if (!headings.length) return;
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
   var cur = { link: null, heading: null };
@@ -1306,12 +1292,6 @@ option (-sC) which is performing default and safe categories of Nmap scripting e
     }
     if (cur.link) {
       cur.link.classList.add('toc-active');
-      var parentDet = cur.link.closest('#TableOfContents details');
-      if (parentDet) parentDet.open = true;
-      var panel = document.querySelector('.toc');
-      if (panel && window.innerWidth >= 1280) {
-        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
-      }
     }
   }
 

@@ -73,31 +73,17 @@
 </script>
 {{ end }}
 
-{{- /* ── 2. TOC scroll-spy + collapsible sub-sections ─────────────────── */ -}}
+{{- /* ── 2. TOC scroll-spy ───────────────────────────────────────────────── */ -}}
 <script>
 (function () {
-  var toc = document.getElementById('TableOfContents');
+  var toc = document.querySelector('.toc .inner, #TableOfContents');
   if (!toc) return;
 
-  var mainDetails = document.querySelector('.toc > details');
+  var mainDetails = document.querySelector('details.toc, .toc > details');
   if (mainDetails && window.innerWidth >= 1280) mainDetails.open = true;
 
-  /* Wrap nested <ul> in collapsible <details> */
-  Array.from(toc.querySelectorAll('ul ul')).forEach(function (ul) {
-    var parentLi = ul.parentElement;
-    if (!parentLi || parentLi.tagName !== 'LI') return;
-    var directLink = parentLi.querySelector(':scope > a');
-    if (!directLink) return;
-    var det = document.createElement('details');
-    var sum = document.createElement('summary');
-    sum.appendChild(directLink.cloneNode(true));
-    det.appendChild(sum);
-    det.appendChild(ul);
-    directLink.replaceWith(det);
-  });
-
-  /* Scroll-spy (h2 and h3 only) */
-  var headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
+  /* Scroll-spy (h1, h2, h3) */
+  var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
   if (!headings.length) return;
   var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
   var cur = { link: null, heading: null };
@@ -115,12 +101,6 @@
     }
     if (cur.link) {
       cur.link.classList.add('toc-active');
-      var parentDet = cur.link.closest('#TableOfContents details');
-      if (parentDet) parentDet.open = true;
-      var panel = document.querySelector('.toc');
-      if (panel && window.innerWidth >= 1280) {
-        panel.scrollTop = Math.max(0, cur.link.offsetTop - panel.clientHeight / 2);
-      }
     }
   }
 
