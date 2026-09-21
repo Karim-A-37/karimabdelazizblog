@@ -260,26 +260,10 @@ GPA **3.8 / 4.0** · Courses: Network Security · InfoSec Management · Blockcha
 </div>
 
 <div class="cv-iframe-container" style="width:100%;height:880px;border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative">
-  <iframe src="https://docs.google.com/gview?url=https://karimabdelazizblog.tech/files/karim-cv.pdf&embedded=true" style="width:100%;height:100%;border:none" title="Karim Abdelaziz CV"></iframe>
+  <iframe src="/files/karim-cv.pdf?v=2" style="width:100%;height:100%;border:none" title="Karim Abdelaziz CV"></iframe>
   <noscript>
     <p style="text-align:center;padding:2rem">Your browser cannot display PDFs inline. <a href="/files/karim-cv.pdf?v=2">Click here to download</a>.</p>
   </noscript>
-</div>
-
----
-
-## 🎯 CTF & Lab Profiles
-
-<div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; justify-content: center;">
-  
-  <a href="https://profile.hackthebox.com/profile/019daf59-087e-71ba-9ae1-58ab43a8a4c8" target="_blank" style="text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-    <img src="https://www.hackthebox.com/badge/image/019daf59-087e-71ba-9ae1-58ab43a8a4c8" alt="HackTheBox Badge" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);" />
-  </a>
-
-  <a href="https://tryhackme.com/p/JaGuar" target="_blank" style="text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-    <img src="https://tryhackme-badges.s3.amazonaws.com/JaGuar.png" alt="TryHackMe Badge" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);" />
-  </a>
-
 </div>
 
 <p style="font-size:0.8rem;color:var(--secondary);margin-top:0.5rem;text-align:center">
